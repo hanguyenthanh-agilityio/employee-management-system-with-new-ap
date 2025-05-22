@@ -19,7 +19,7 @@ const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <Breadcrumbs paths={['Dashboard', 'Apply for Leave', 'Edit']} />
+      <Breadcrumbs paths={['Leave Applications', 'Edit']} />
       <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
         <div className="flex flex-col items-center">
           <h2 className="text-[40px] font-semibold text-[#1D1D1D] flex items-center justify-center gap-4">

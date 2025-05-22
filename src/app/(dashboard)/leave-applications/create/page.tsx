@@ -1,19 +1,71 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // APIs
-import { createLeaveApplication } from '@/api/leaveApplications';
 
 // Components
 import { Breadcrumbs, Form } from '@/components';
+import { useForm } from 'react-hook-form';
+import {
+  LeaveApplicationInput,
+  leaveApplicationSchema,
+} from '@/utils/schemas/leaveApplicationSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { addDays, differenceInCalendarDays } from 'date-fns';
+import { ROUTER } from '@/constants';
+import { createLeaveApplication } from '@/api/leaveApplications';
 
 const CreateLeavePage = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const leaveTypeFromQuery = searchParams.get('type') || undefined;
+
+  const form = useForm<LeaveApplicationInput>({
+    resolver: zodResolver(leaveApplicationSchema),
+    defaultValues: {
+      leaveType: leaveTypeFromQuery,
+    },
+  });
+
+  const { watch, setValue, handleSubmit, reset } = form;
+
+  const startDate = watch('startDate');
+  const endDate = watch('endDate');
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const duration =
+        differenceInCalendarDays(new Date(endDate), new Date(startDate)) + 1;
+      if (duration >= 1) {
+        setValue('durations', duration);
+        setValue(
+          'resumptionDate',
+          addDays(new Date(endDate), 1).toISOString().split('T')[0],
+        );
+      }
+    }
+  }, [startDate, endDate, setValue]);
+
+  const onSubmit = async (data: LeaveApplicationInput) => {
+    try {
+      await createLeaveApplication(data);
+
+      setTimeout(() => {
+        router.push(ROUTER.LEAVE_APPLICATION);
+      }, 1000);
+      reset();
+      // eslint-disable-next-line no-empty
+    } catch (err) {}
+  };
+
+  const handleReset = () => {
+    reset();
+  };
 
   return (
     <>
@@ -29,8 +81,12 @@ const CreateLeavePage = () => {
           </p>
         </div>
 
-        <form action={createLeaveApplication} className="space-y-6">
-          <Form defaultLeaveType={leaveTypeFromQuery} />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <Form
+            form={form}
+            onReset={handleReset}
+            isSubmitting={form.formState.isSubmitting}
+          />
         </form>
       </div>
     </>

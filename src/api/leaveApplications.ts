@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 // Constants
 import { ENDPOINT_LEAVE } from '@/constants/api-endpoint';
@@ -37,50 +36,70 @@ export const fetchLeaveApplicationById = async (id: string) => {
 };
 
 // Create Leave Application
-export const createLeaveApplication = async (formDataInput: FormData) => {
-  const rawData = {
-    leaveType: formDataInput.get('leaveType')?.toString(),
-    startDate: formDataInput.get('startDate')?.toString(),
-    endDate: formDataInput.get('endDate')?.toString(),
-    durations: formDataInput.get('durations')?.toString() || '0',
-    resumptionDate: formDataInput.get('resumptionDate')?.toString(),
-    reason: formDataInput.get('reason')?.toString(),
-  };
-
-  const parsed = leaveApplicationSchema.safeParse(rawData);
+export const createLeaveApplication = async (data: {
+  leaveType: string;
+  startDate: string;
+  endDate: string;
+  durations: number;
+  resumptionDate: string;
+  reason: string;
+}) => {
+  const parsed = leaveApplicationSchema.safeParse(data);
   if (!parsed.success) {
     throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
   }
 
-  await postLeaveApplication(formDataInput);
+  const formData = new FormData();
+  Object.entries(parsed.data).forEach(([key, value]) => {
+    formData.append(key, value.toString());
+  });
 
-  revalidatePath(ENDPOINT_LEAVE);
-  redirect(ENDPOINT_LEAVE);
+  // Step 3: Gửi API
+  try {
+    await postLeaveApplication(formData);
+    revalidatePath(ENDPOINT_LEAVE);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Failed to create leave application.',
+    };
+  }
 };
 
 // Update Leave Application
 export const updateLeaveApplication = async (
   id: string,
-  formDataInput: FormData,
+  data: {
+    leaveType: string;
+    startDate: string;
+    endDate: string;
+    durations: number;
+    resumptionDate: string;
+    reason: string;
+  },
 ) => {
-  const rawData = {
-    leaveType: formDataInput.get('leaveType')?.toString(),
-    startDate: formDataInput.get('startDate')?.toString(),
-    endDate: formDataInput.get('endDate')?.toString(),
-    durations: formDataInput.get('durations')?.toString() || '0',
-    resumptionDate: formDataInput.get('resumptionDate')?.toString(),
-    reason: formDataInput.get('reason')?.toString(),
-  };
-
-  const parsed = leaveApplicationSchema.safeParse(rawData);
+  const parsed = leaveApplicationSchema.safeParse(data);
   if (!parsed.success) {
     throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
   }
 
-  await patchLeaveApplication(id, formDataInput);
+  const formData = new FormData();
+  Object.entries(parsed.data).forEach(([key, value]) => {
+    formData.append(key, value.toString());
+  });
 
-  revalidatePath(ENDPOINT_LEAVE);
-  redirect(ENDPOINT_LEAVE);
+  try {
+    await patchLeaveApplication(id, formData);
+    revalidatePath(ENDPOINT_LEAVE);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Failed to update leave application.',
+    };
+  }
 };
 
 // Delete Leave Application
