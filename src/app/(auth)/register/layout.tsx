@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
-import ToastProvider from '@/components/ToastProvider';
+
+// Components
+import { ToastProvider, TransitionLoader } from '@/components';
 
 const RegisterLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -41,6 +43,7 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => {
       <div className="flex flex-col justify-center px-6 sm:px-10 py-10 md:py-16">
         {children}
         <ToastProvider />
+        <TransitionLoader />
       </div>
     </main>
   );

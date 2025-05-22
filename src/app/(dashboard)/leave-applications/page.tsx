@@ -6,11 +6,13 @@ import { fetchLeaveApplications } from '@/api/leaveApplications';
 
 // Types
 import { LeaveItem } from '@/types/components';
+import {
+  Breadcrumbs,
+  LeaveApplicationSection,
+  LeaveHistorySection,
+} from '@/components';
 
 // Components
-import Breadcrumbs from '@/components/Common/Breadcrumb';
-import LeaveApplicationSection from '@/components/LeaveApplicationSection';
-import LeaveHistorySection from '@/components/LeaveHistorySection';
 
 const ApplyForLeavePage = async () => {
   const data = await fetchLeaveApplications();

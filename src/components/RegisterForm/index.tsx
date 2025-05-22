@@ -1,19 +1,25 @@
 'use client';
-
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+
+// Toast message
+import { toast } from 'react-toastify';
+
+// Actions
+import { registerAction } from '@/actions/auth-action';
+
+// Utils
+import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
+
+// Hooks
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { registerAction } from '@/actions/auth-action';
-import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
-import { ROUTER } from '@/constants/router';
+// Constants
+import { ROUTER, ERROR_MESSAGE } from '@/constants';
 
-import Input from '@/components/Common/Input';
-import Checkbox from '@/components/Common/Checkbox';
-import { Button } from '@/components/Common/Button';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import { ERROR_MESSAGE } from '@/constants/error';
+// Components
+import { Input, Checkbox, Button } from '@/components';
 
 const inputFields = [
   { label: 'First Name', name: 'firstName' },

@@ -1,5 +1,7 @@
-import { Button } from '@/components/Common/Button';
 import { CalendarDateRangeIcon } from '@heroicons/react/24/outline';
+
+// Components
+import { Button } from '@/components';
 
 interface BirthdayItemProps {
   name: string;

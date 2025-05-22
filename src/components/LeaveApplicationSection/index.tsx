@@ -3,20 +3,13 @@
 import { useRouter } from 'next/navigation';
 
 // Constants
-import { ENDPOINT_LEAVE } from '@/constants/api-endpoint';
+import { ENDPOINT_LEAVE, leaves } from '@/constants';
 
 // Utils
 import { formatTitleToPath } from '@/utils/format';
 
 // Components
-import LeaveCard from '../LeaveApplicationCard';
-
-const leaves = [
-  { title: 'Annual Leave', days: 60 },
-  { title: 'Sick Leave', days: 20 },
-  { title: 'Maternity Leave', days: 60 },
-  { title: 'Compassionate Leave', days: 30 },
-];
+import { LeaveCard } from '@/components';
 
 const LeaveApplicationSection = () => {
   const router = useRouter();

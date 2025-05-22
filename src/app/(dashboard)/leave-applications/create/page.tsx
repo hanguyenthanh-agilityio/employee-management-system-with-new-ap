@@ -1,10 +1,15 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { createLeaveApplication } from '@/api/leaveApplications';
-import Breadcrumbs from '@/components/Common/Breadcrumb';
-import Form from '@/components/Common/Form';
+
+// Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
+
+// APIs
+import { createLeaveApplication } from '@/api/leaveApplications';
+
+// Components
+import { Breadcrumbs, Form } from '@/components';
 
 const CreateLeavePage = () => {
   const searchParams = useSearchParams();

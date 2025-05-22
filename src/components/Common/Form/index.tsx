@@ -1,8 +1,8 @@
 'use client';
+// Components
+import { Button, Input } from '@/components';
 
-import Input from '../Input';
-// import Select from '../Select';
-import { Button } from '../Button';
+// Types
 import { LeaveItem } from '@/types/components';
 
 const Form = ({

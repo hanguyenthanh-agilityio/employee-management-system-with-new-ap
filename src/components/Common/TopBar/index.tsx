@@ -18,9 +18,10 @@ import {
 import { logoutAction } from '@/actions/auth-action';
 
 // Components
-import { ROUTER } from '@/constants/router';
-import TopBarNav from '../TopBarNav';
-import ProfileDropdown from '@/components/ProfileDropdown';
+import { ROUTER } from '@/constants';
+
+// Components
+import { TopBarNav, ProfileDropdown } from '@/components';
 
 const TopBar = () => {
   const router = useRouter();

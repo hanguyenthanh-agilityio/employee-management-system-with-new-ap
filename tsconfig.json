@@ -24,7 +24,8 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@components": ["./src/components/index.ts"]
     },
     "target": "ES2017"
   },

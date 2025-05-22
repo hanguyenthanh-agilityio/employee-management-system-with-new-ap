@@ -3,8 +3,10 @@
 import Link from 'next/link';
 
 // Constants
-import { ROUTER } from '@/constants/router';
-import RegisterForm from '@/components/RegisterForm';
+import { ROUTER } from '@/constants';
+
+// Component
+import { RegisterForm } from '@/components';
 
 const RegisterPage = () => {
   return (

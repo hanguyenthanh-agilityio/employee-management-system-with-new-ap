@@ -5,8 +5,7 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 
 // Components
-import Breadcrumbs from '@/components/Common/Breadcrumb';
-import EditForm from '@/components/EditForm/editForm';
+import { Breadcrumbs, EditForm } from '@/components';
 
 const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params;

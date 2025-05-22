@@ -4,10 +4,12 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 
 // Components
-import GenericTable from '../LeaveHistoryTable';
-import Select from '@/components/Common/Select';
-import ExportDropdown from '@/components/ExportDropdown';
-import ActionsDropdown from '@/components/ActionDropdown';
+import {
+  GenericTable,
+  Select,
+  ExportDropdown,
+  ActionsDropdown,
+} from '@/components';
 
 // APIs
 import {
@@ -22,8 +24,7 @@ import { triggerDownload } from '@/utils/download';
 import { LeaveItem } from '@/types/components';
 
 // Constants
-import { ROUTER } from '@/constants/router';
-import { ERROR_MESSAGE } from '@/constants/error';
+import { ROUTER, ERROR_MESSAGE } from '@/constants';
 
 const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
   /**

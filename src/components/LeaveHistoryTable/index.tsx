@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 
 // Components
-import Pagination from '@/components/Common/Pagination';
+import { Pagination } from '@/components';
 
 interface Column<T> {
   title: string;

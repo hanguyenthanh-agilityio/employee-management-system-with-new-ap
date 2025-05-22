@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
 // Components
-import { Button } from '../index';
+import Button from '..';
 
 describe('Button component', () => {
   test('renders the Button with children', () => {

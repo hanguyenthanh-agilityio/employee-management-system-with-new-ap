@@ -4,10 +4,10 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 // Components
-import TopBar from '@/components/Common/TopBar';
+import { TopBar, TransitionLoader } from '@/components';
 
 // Constants
-import { ROUTER } from '@/constants/router';
+import { ROUTER } from '@/constants';
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const token = (await cookies()).get('token')?.value;
@@ -22,6 +22,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
       <main className="flex-grow">
         <div className="flex-grow container mx-auto px-4 sm:px-8 py-8">
           {children}
+          <TransitionLoader />
         </div>
       </main>
     </div>

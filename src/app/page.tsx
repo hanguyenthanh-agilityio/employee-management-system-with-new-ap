@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 // Constants
-import { ROUTER } from '@/constants/router';
+import { ROUTER } from '@/constants';
 
 export default function Home() {
   const router = useRouter();

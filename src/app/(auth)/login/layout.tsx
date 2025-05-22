@@ -1,5 +1,7 @@
-import ToastProvider from '@/components/ToastProvider';
 import { ReactNode } from 'react';
+
+// Components
+import { ToastProvider, TransitionLoader } from '@/components';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -34,6 +36,7 @@ const LoginLayout = ({ children }: AuthLayoutProps) => {
       <div className="flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 md:py-16 order-2 md:order-1">
         {children}
         <ToastProvider />
+        <TransitionLoader />
       </div>
     </main>
   );

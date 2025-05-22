@@ -2,7 +2,7 @@
 import { ArrowDownCircleIcon } from '@heroicons/react/16/solid';
 
 // Components
-import Dropdown from '../Common/Dropdown';
+import { Dropdown } from '@/components';
 
 type Format = 'pdf' | 'csv' | 'excel';
 

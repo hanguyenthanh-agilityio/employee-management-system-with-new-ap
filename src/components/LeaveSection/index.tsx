@@ -1,12 +1,11 @@
-import Card from '@/components/Common/Card';
-import ProgressBar from '@/components/Common/ProgressBar';
+// Icons
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 
-const leaveData = [
-  { label: 'Annual Leave', current: 10, total: 60 },
-  { label: 'Sick Leave', current: 0, total: 10 },
-  { label: 'Compassionate Leave', current: 8, total: 15 },
-];
+// Components
+import { Card, ProgressBar } from '@/components';
+
+// Constants
+import { leaveData } from '@/constants';
 
 const LeaveSection = () => (
   <Card className="p-8">

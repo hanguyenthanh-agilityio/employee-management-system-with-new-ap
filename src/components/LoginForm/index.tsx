@@ -16,16 +16,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Button } from '@/components/Common/Button';
-import Input from '../Common/Input';
-import Checkbox from '../Common/Checkbox';
+import { Button, Input, Checkbox } from '@/components';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 
 // Constants
-import { ROUTER } from '@/constants/router';
-import { ERROR_MESSAGE } from '@/constants/error';
+import { ROUTER, ERROR_MESSAGE } from '@/constants';
 
 const LoginForm = () => {
   const router = useRouter();

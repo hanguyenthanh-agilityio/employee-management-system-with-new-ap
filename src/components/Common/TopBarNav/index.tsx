@@ -5,15 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { ROUTER } from '@/constants/router';
-
-const listItem = [
-  { name: 'Dashboard', href: ROUTER.DASHBOARD },
-  { name: 'Requests', href: ROUTER.REQUESTS },
-  { name: 'Payroll', href: ROUTER.PAYROLL },
-  { name: 'Company', href: ROUTER.COMPANY },
-  { name: 'Extras', href: ROUTER.EXTRAS },
-];
+import { listItem } from '@/constants';
 
 const TopBarNav = () => {
   const pathname = usePathname();

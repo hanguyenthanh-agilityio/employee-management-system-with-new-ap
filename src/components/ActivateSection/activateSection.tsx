@@ -7,13 +7,13 @@ import { useState } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 // Components
-import { Button } from '@/components/Common/Button';
+import { Button } from '@/components';
 
 // Actions
 import { activateAction } from '@/actions/auth-action';
 
 // Constants
-import { ROUTER } from '@/constants/router';
+import { ROUTER } from '@/constants';
 
 const ActivateSection = () => {
   const router = useRouter();

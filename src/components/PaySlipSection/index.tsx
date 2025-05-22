@@ -1,7 +1,11 @@
-import Card from '@/components/Common/Card';
-import Table from '@/components/Common/Table';
-import { payRows } from '@/constants/table';
+// Icons
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
+
+// constants
+import { payRows } from '@/constants';
+
+// Components
+import { Card, Table } from '@/components';
 
 const PaySlipSection = () => (
   <Card className="py-8 px-4">

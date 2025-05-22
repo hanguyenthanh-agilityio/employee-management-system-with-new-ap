@@ -1,7 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/Common/Button';
+
+// Components
+import { Button } from '@/components';
 
 const actions = [
   'Leave Applications',

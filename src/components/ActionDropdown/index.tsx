@@ -1,4 +1,4 @@
-import Dropdown from '@/components/Common/Dropdown';
+import { Dropdown } from '@/components';
 
 type LeaveActionsDropdownProps = {
   onEdit: () => void;

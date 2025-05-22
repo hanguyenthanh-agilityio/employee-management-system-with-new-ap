@@ -1,10 +1,13 @@
 // Components
-import BirthdaySection from '@/components/BirthdaySection';
-import Header from '@/components/Common/Header';
-import LeaveSection from '@/components/LeaveSection';
-import PaySlipSection from '@/components/PaySlipSection';
-import ProfileSection from '@/components/ProfileSection';
-import QuickActions from '@/components/QuickActions';
+
+import {
+  BirthdaySection,
+  Header,
+  LeaveSection,
+  PaySlipSection,
+  ProfileSection,
+  QuickActions,
+} from '@/components';
 
 const DashboardPage = () => (
   <section className="flex flex-col gap-12">

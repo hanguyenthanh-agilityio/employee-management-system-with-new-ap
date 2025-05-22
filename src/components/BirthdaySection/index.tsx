@@ -1,16 +1,12 @@
 'use client';
 
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
-import BirthdayItem from '../BirthdayItem';
-import Card from '@/components/Common/Card';
 
-const birthdays = [
-  { name: 'biruk kidan', date: 'April 25th' },
-  { name: 'biruk kidan', date: 'April 25th' },
-  { name: 'biruk kidan', date: 'April 25th' },
-  { name: 'biruk kidan', date: 'April 25th' },
-  { name: 'biruk kidan', date: 'April 25th' },
-];
+// Components
+import { Card, BirthdayItem } from '@/components';
+
+// Constants
+import { birthdays } from '@/constants';
 
 const BirthdaySection = () => (
   <Card className="py-8 px-4">
