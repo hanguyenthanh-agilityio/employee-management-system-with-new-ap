@@ -1,43 +1,65 @@
-import type { Meta, StoryObj } from '@storybook/react';
+'use client';
 
-// Components
+import type { Meta, StoryObj } from '@storybook/react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+// Component
 import Form from '.';
 
-const meta = {
+// Types & Schemas
+import {
+  LeaveApplicationInput,
+  leaveApplicationSchema,
+} from '@/utils/schemas/leaveApplicationSchema';
+
+const meta: Meta<typeof Form> = {
   title: 'Components/Form',
   component: Form,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    defaultLeaveType: { control: 'text' },
-    leave: { control: 'object' },
-  },
-  args: {
-    defaultLeaveType: 'Annual Leave',
-  },
-} satisfies Meta<typeof Form>;
-
+};
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
+const Wrapper = (args: Partial<LeaveApplicationInput>) => {
+  const form = useForm<LeaveApplicationInput>({
+    resolver: zodResolver(leaveApplicationSchema),
+    defaultValues: {
+      leaveType: args.leaveType ?? '',
+      startDate: args.startDate ?? '',
+      endDate: args.endDate ?? '',
+      durations: args.durations ?? 0,
+      resumptionDate: args.resumptionDate ?? '',
+      reason: args.reason ?? '',
+    },
+  });
+
+  return (
+    <Form
+      form={form}
+      isSubmitting={false}
+      isDirty={false}
+      onReset={() => form.reset()}
+    />
+  );
+};
+
 export const Default: Story = {
-  args: {},
+  render: () => Wrapper({}),
 };
 
 export const WithLeaveData: Story = {
-  args: {
-    leave: {
-      type: 'Sick Leave',
+  render: () =>
+    Wrapper({
+      leaveType: 'Sick Leave',
       startDate: '2024-06-10',
       endDate: '2024-06-14',
       durations: 5,
       resumptionDate: '2024-06-15',
       reason: 'Medical reasons',
-      id: '',
-      employeeName: 'Ha Nguyen',
-      status: 'Pending',
-    },
-  },
+    }),
 };
