@@ -18,6 +18,18 @@ export const leaveApplicationSchema = z
         'Resumption date must be in yyyy-mm-dd format',
       ),
     reason: z.string().min(1, 'Reason is required'),
+    documentPath: z
+      .any()
+      .optional()
+      .refine(
+        (file) => {
+          const actualFile = file instanceof File ? file : file?.[0];
+          return actualFile instanceof File;
+        },
+        {
+          message: 'Attached file must be valid',
+        },
+      ),
   })
   .refine(
     (data) => {

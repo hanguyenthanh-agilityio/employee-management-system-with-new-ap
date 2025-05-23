@@ -86,6 +86,7 @@ const CreateLeavePage = () => {
             form={form}
             onReset={handleReset}
             isSubmitting={form.formState.isSubmitting}
+            isDirty={true}
           />
         </form>
       </div>
