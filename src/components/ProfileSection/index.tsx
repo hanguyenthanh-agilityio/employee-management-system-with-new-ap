@@ -11,7 +11,14 @@ interface ProfileSectionProps {
 const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
   <div className="flex flex-col justify-between bg-primary rounded-lg text-white py-4 pl-4 sm:pl-8 sm:py-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div className="flex items-center">
-      <Image src="/profile.png" alt="profile" width={130} height={130} />
+      <Image
+        src="/profile.png"
+        alt="profile"
+        width={130}
+        height={130}
+        className="rounded-full object-cover"
+        priority
+      />
       <div className="pl-6">
         <h2 className="md:text-3xl text-xl font-bold pb-4">{name}</h2>
         <p className="md:text-3xl text-xl">{jobTitle}</p>
@@ -27,7 +34,13 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
         </Button>
       </div>
 
-      <Image src="/plan.svg" alt="plan" width={250} height={190} />
+      <Image
+        src="/plan.svg"
+        alt="plan"
+        width={250}
+        height={190}
+        className="object-contain"
+      />
     </div>
   </div>
 );

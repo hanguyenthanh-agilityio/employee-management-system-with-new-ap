@@ -18,6 +18,7 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => {
             width={250}
             height={68}
             className="md:absolute md:top-[30px] md:left-[5px]"
+            priority
           />
           <div>
             <h2 className="text-2xl md:text-6xl font-bold leading-tight">
