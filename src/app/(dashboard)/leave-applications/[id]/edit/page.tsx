@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 // icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
@@ -7,15 +9,19 @@ import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 // Components
 import { Breadcrumbs, EditForm } from '@/components';
 
-const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
-  const id = params.id;
-  console.log('Leave ID:', id);
-
+const UpdateLeaveContent = async ({ id }: { id: string }) => {
   const leave = await fetchLeaveApplicationById(id);
   console.log('Fetched leave:', leave);
 
   if (!leave) return <div>Leave application not found!</div>;
+
+  return <EditForm leave={leave} />;
+};
+
+const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
+  const id = params.id;
+  console.log('Leave ID:', id);
 
   return (
     <>
@@ -31,7 +37,9 @@ const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
           </span>
         </div>
 
-        <EditForm leave={leave} />
+        <Suspense>
+          <UpdateLeaveContent id={id} />
+        </Suspense>
       </div>
     </>
   );
