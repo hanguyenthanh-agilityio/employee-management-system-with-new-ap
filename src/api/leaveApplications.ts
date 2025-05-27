@@ -54,7 +54,6 @@ export const createLeaveApplication = async (data: {
     formData.append(key, value.toString());
   });
 
-  // Step 3: Gửi API
   try {
     await postLeaveApplication(formData);
     revalidatePath(ENDPOINT_LEAVE);
