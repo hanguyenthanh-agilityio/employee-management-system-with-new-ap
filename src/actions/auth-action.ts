@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 
 // Services
-import { activateAccount, login, register } from '@/services/apiService';
+import { login, register } from '@/services/apiService';
 
 // Utils
 import {
@@ -23,10 +23,57 @@ import { SUCCESS_MESSAGES } from '@/constants/success';
  * Call API /account/login/
  * Save access token in Cookie
  */
-export const loginAction = async (_: unknown, formData: LoginInput) => {
-  const fields = formData;
+// export const loginAction = async (_: unknown, formData: LoginInput) => {
+//   const fields = formData;
 
-  const parsed = loginSchema.safeParse(fields);
+//   const parsed = loginSchema.safeParse(fields);
+
+//   if (!parsed.success) {
+//     return {
+//       success: false,
+//       message: parsed.error.errors.map((e) => e.message).join(', '),
+//     };
+//   }
+
+//   try {
+//     const data = await login(parsed.data);
+
+//     if (!data.access) {
+//       return {
+//         success: false,
+//         message: data.message || ERROR_MESSAGE.INVALID_CREDENTIALS,
+//       };
+//     }
+
+//     const cookieStore = await cookies();
+
+//     cookieStore.set('token', data.access, {
+//       // Secure - not readable by java
+//       httpOnly: true,
+//       // Works only over HTTPS
+//       secure: true,
+//       // Applies to entire site
+//       path: '/',
+//       // Lasts for 12 hours
+//       maxAge: 60 * 60 * 12,
+//     });
+
+//     return { success: true };
+//   } catch (err) {
+//     console.error('Login error:', err);
+
+//     return {
+//       success: false,
+//       message:
+//         err instanceof Error ? err.message : ERROR_MESSAGE.INVALID_CREDENTIALS,
+//     };
+//   }
+// };
+
+// Logout action
+
+export const loginAction = async (_: unknown, formData: LoginInput) => {
+  const parsed = loginSchema.safeParse(formData);
 
   if (!parsed.success) {
     return {
@@ -36,41 +83,29 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
   }
 
   try {
-    const data = await login(parsed.data);
+    const payload = {
+      identifier: parsed.data.email,
+      password: parsed.data.password,
+    };
 
-    if (!data.access) {
+    const data = await login(payload);
+
+    if (!data.jwt) {
       return {
         success: false,
         message: data.message || ERROR_MESSAGE.INVALID_CREDENTIALS,
       };
     }
 
-    const cookieStore = await cookies();
-
-    cookieStore.set('token', data.access, {
-      // Secure - not readable by java
-      httpOnly: true,
-      // Works only over HTTPS
-      secure: true,
-      // Applies to entire site
-      path: '/',
-      // Lasts for 12 hours
-      maxAge: 60 * 60 * 12,
-    });
-
     return { success: true };
   } catch (err) {
-    console.error('Login error:', err);
-
     return {
       success: false,
-      message:
-        err instanceof Error ? err.message : ERROR_MESSAGE.INVALID_CREDENTIALS,
+      message: err instanceof Error ? err.message : ERROR_MESSAGE.LOGIN_FAILED,
     };
   }
 };
 
-// Logout action
 export const logoutAction = async () => {
   const cookieStore = await cookies();
 
@@ -105,6 +140,6 @@ export const registerAction = async (data: RegisterInput) => {
 };
 
 // Activate Account
-export const activateAction = async (data: { uid: string; token: string }) => {
-  return await activateAccount(data.uid, data.token);
-};
+// export const activateAction = async (data: { uid: string; token: string }) => {
+//   return await activateAccount(data.uid, data.token);
+// };

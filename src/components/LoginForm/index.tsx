@@ -37,19 +37,41 @@ const LoginForm = () => {
     mode: 'onTouched',
   });
 
+  // const onSubmit = async (data: LoginInput) => {
+  //   setServerError('');
+
+  //   const result = await loginAction(undefined, data);
+
+  //   if (result.success) {
+  //     toast.success('Account login successfully!');
+  //     router.push(ROUTER.LEAVE_APPLICATION);
+  //   } else {
+  //     setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+  //     toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+  //   }
+  // };
+
   const onSubmit = async (data: LoginInput) => {
     setServerError('');
+    try {
+      const result = await loginAction(undefined, data);
+      console.log('loginAction result:', result);
 
-    const result = await loginAction(undefined, data);
-
-    if (result.success) {
-      toast.success('Account login successfully!');
-      router.push(ROUTER.LEAVE_APPLICATION);
-    } else {
-      setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
-      toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+      if (result.success) {
+        toast.success('Account login successfully!');
+        console.log('Redirecting to leave application page...');
+        router.push(ROUTER.LEAVE_APPLICATION);
+      } else {
+        setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+        toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+      }
+    } catch (error) {
+      console.error('Unexpected error in login:', error);
+      setServerError('Unexpected error occurred');
+      toast.error('Unexpected error occurred');
     }
   };
+
   return (
     <>
       <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">

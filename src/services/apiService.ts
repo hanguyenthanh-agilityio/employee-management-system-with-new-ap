@@ -1,25 +1,52 @@
 // Constants
-import { API, API_URL, NEXT_PUBLIC_API_URL } from '@/constants/api_url';
+import { API, API_URL } from '@/constants/api_url';
 import { ERROR_MESSAGE } from '@/constants/error';
 
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
-import { LoginInput, RegisterInput } from '@/utils/schemas/authSchema';
+import { RegisterInput } from '@/utils/schemas/authSchema';
 
 // Fetch API Login
-export const login = async (data: LoginInput) => {
-  const res = await fetch(`${API_URL}${API.LOGIN}`, {
+// export const login = async (data: LoginInput) => {
+//   const res = await fetch(`${API_URL}${API.LOGIN}`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     credentials: 'include',
+//     // body: JSON.stringify(data),
+//     body: JSON.stringify({
+//       identifier: data.email,
+//       password: data.password,
+//     }),
+//   });
+
+//   if (!res.ok) {
+//     const errorData = await res.json();
+//     throw new Error(errorData.message || ERROR_MESSAGE.LOGIN_FAILED);
+//   }
+
+//   return res.json();
+// };
+
+type LoginPayload = {
+  identifier: string;
+  password: string;
+};
+
+export const login = async (data: LoginPayload) => {
+  const res = await fetch('http://localhost:1337/api/auth/local', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
     body: JSON.stringify(data),
   });
 
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || ERROR_MESSAGE.LOGIN_FAILED);
+    const errorText = await res.text();
+    console.error('Login error response:', res.status, errorText);
+    throw new Error('Login failed');
   }
 
   return res.json();
@@ -45,37 +72,37 @@ export const register = async (data: RegisterInput) => {
 };
 
 // Fetch API Activate Account
-export const activateAccount = async (uid: string, token: string) => {
-  const res = await fetch(
-    `${NEXT_PUBLIC_API_URL}${API.ACTIVATE}${uid}/${token}/`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    },
-  );
+// export const activateAccount = async (uid: string, token: string) => {
+//   const res = await fetch(
+//     `${NEXT_PUBLIC_API_URL}${API.ACTIVATE}${uid}/${token}/`,
+//     {
+//       method: 'GET',
+//       headers: {
+//         Accept: 'application/json',
+//       },
+//     },
+//   );
 
-  const contentType = res.headers.get('content-type');
+//   const contentType = res.headers.get('content-type');
 
-  if (!res.ok) {
-    if (contentType?.includes('application/json')) {
-      const errorData = await res.json();
-      throw new Error(errorData.message || ERROR_MESSAGE.ACTIVATION_FAILED);
-    } else {
-      const errorText = await res.text();
-      throw new Error(
-        'Activation failed. Response: ' + errorText.slice(0, 100),
-      );
-    }
-  }
+//   if (!res.ok) {
+//     if (contentType?.includes('application/json')) {
+//       const errorData = await res.json();
+//       throw new Error(errorData.message || ERROR_MESSAGE.ACTIVATION_FAILED);
+//     } else {
+//       const errorText = await res.text();
+//       throw new Error(
+//         'Activation failed. Response: ' + errorText.slice(0, 100),
+//       );
+//     }
+//   }
 
-  if (contentType?.includes('application/json')) {
-    return res.json();
-  }
+//   if (contentType?.includes('application/json')) {
+//     return res.json();
+//   }
 
-  return { message: 'Activation response received, but not in JSON format.' };
-};
+//   return { message: 'Activation response received, but not in JSON format.' };
+// };
 
 // Get Leave Applications
 export const getLeaveApplications = async () => {
