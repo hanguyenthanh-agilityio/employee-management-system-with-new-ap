@@ -45,6 +45,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
    * memo: avoid re-calculating every render
    */
   const filteredData = useMemo(() => {
+    if (!Array.isArray(data)) return [];
     if (selectedType === 'All') return data;
     return data.filter((item) => item.type === selectedType);
   }, [data, selectedType]);
@@ -62,10 +63,10 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
    * set: remove duplicate value
    */
   const leaveTypes = useMemo(() => {
+    if (!Array.isArray(data)) return ['All'];
     const uniqueTypes = Array.from(new Set(data.map((item) => item.type)));
     return ['All', ...uniqueTypes];
   }, [data]);
-
   /**
    * Handle when select new filter
    */

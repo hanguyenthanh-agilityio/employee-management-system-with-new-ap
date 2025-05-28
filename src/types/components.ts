@@ -20,12 +20,12 @@ export type LeaveItem = {
 };
 
 export type LeaveApplication = {
-  metaData: {
+  data: LeaveItem[];
+  meta: {
     limit: number;
     page: number;
     totalCount: number;
   };
-  results: LeaveItem[];
 };
 
 export type CreateLeavePayload = {

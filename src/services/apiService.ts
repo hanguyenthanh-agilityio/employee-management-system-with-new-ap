@@ -108,6 +108,8 @@ export const register = async (data: RegisterInput) => {
 export const getLeaveApplications = async () => {
   const token = await getTokenFromCookies();
 
+  console.log('TOKEN:', token);
+
   const res = await fetch(`${API_URL}${API.BASE}`, {
     method: 'GET',
     next: { revalidate: 60 },

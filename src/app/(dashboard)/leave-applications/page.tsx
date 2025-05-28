@@ -18,8 +18,11 @@ import {
 
 const ApplyForLeavePage = async () => {
   const data = await fetchLeaveApplications();
+  console.log('data', data);
 
-  const leaveData: LeaveItem[] = data.results;
+  const leaveData: LeaveItem[] = data.data;
+
+  console.log('Fetched leave applications:', leaveData);
 
   return (
     <>
@@ -35,7 +38,6 @@ const ApplyForLeavePage = async () => {
           <Suspense fallback={<div>Loading...</div>}>
             <LeaveHistorySection data={leaveData} />
           </Suspense>
-          <LeaveHistorySection data={leaveData} />
         </div>
       </div>
     </>

@@ -10,6 +10,6 @@ export const API = {
   // DOWNLOAD: '/leave-applications/download/',
   LOGIN: '/auth/local',
   REGISTER: '/auth/local/register',
-  BASE: '/leave-applications/',
+  BASE: '/leave-applications',
   DOWNLOAD: '/leave-applications/export',
 };
