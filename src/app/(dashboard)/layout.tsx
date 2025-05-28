@@ -10,7 +10,7 @@ import { TopBar, TransitionLoader } from '@/components';
 import { ROUTER } from '@/constants';
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
-  const token = (await cookies()).get('token')?.value;
+  const token = (await cookies()).get('jwtToken')?.value;
 
   if (!token) {
     redirect(ROUTER.LOGIN);

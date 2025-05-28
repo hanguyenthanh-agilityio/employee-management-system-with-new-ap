@@ -1,7 +1,7 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+// import { useRouter, useSearchParams } from 'next/navigation';
+// import { useState } from 'react';
 
 // Icons
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -10,52 +10,51 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components';
 
 // Actions
-import { activateAction } from '@/actions/auth-action';
 
 // Constants
-import { ROUTER } from '@/constants';
+// import { ROUTER } from '@/constants';
 
 const ActivateSection = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
 
-  // Get UID and token from URL
-  const uid = searchParams.get('uidb64') || '';
-  const token = searchParams.get('token') || '';
+  // // Get UID and token from URL
+  // const uid = searchParams.get('uidb64') || '';
+  // const token = searchParams.get('jwtToken') || '';
 
-  // Loading state when call api
-  const [loading, setLoading] = useState(false);
+  // // Loading state when call api
+  // const [loading, setLoading] = useState(false);
 
-  // Successful or not
-  const [success, setSuccess] = useState(false);
+  // // Successful or not
+  // const [success, setSuccess] = useState(false);
 
-  // Message for error or success
-  const [message, setMessage] = useState('');
+  // // Message for error or success
+  // const [message, setMessage] = useState('');
 
-  // Handle click activate button
-  const handleActivate = async () => {
-    if (!uid || !token) {
-      setMessage('Missing activation credentials.');
-      return;
-    }
+  // // Handle click activate button
+  // const handleActivate = async () => {
+  //   if (!uid || !token) {
+  //     setMessage('Missing activation credentials.');
+  //     return;
+  //   }
 
-    setLoading(true);
-    try {
-      const result = await activateAction({ uid, token });
-      setSuccess(result.success);
-      setMessage(result.message);
+  //   setLoading(true);
+  //   try {
+  //     const result = await activateAction({ uid, token });
+  //     setSuccess(result.success);
+  //     setMessage(result.message);
 
-      if (result.success) {
-        setTimeout(() => router.push(ROUTER.LOGIN), 3000);
-      }
-    } catch (err) {
-      setMessage(
-        err instanceof Error ? err.message : 'Unknown activation error',
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (result.success) {
+  //       setTimeout(() => router.push(ROUTER.LOGIN), 3000);
+  //     }
+  //   } catch (err) {
+  //     setMessage(
+  //       err instanceof Error ? err.message : 'Unknown activation error',
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col items-center text-center bg-white p-8 rounded-lg shadow-lg">
@@ -65,13 +64,13 @@ const ActivateSection = () => {
       </div>
       <p className="text-xl mt-8">Click the button below to confirm</p>
       <Button
-        onClick={handleActivate}
-        disabled={loading || success}
+        // onClick={handleActivate}
+        // disabled={loading || success}
         customClass="flex justify-center items-center w-[150px] h-[54px] text-xl mt-4 py-3 rounded-xl"
       >
-        {loading ? 'ACTIVATING...' : 'ACTIVATE'}
+        {/* {loading ? 'ACTIVATING...' : 'ACTIVATE'} */}ACTIVATE
       </Button>
-      {message && (
+      {/* {message && (
         <p
           className={`mt-4 text-xl ${
             success ? 'text-green-600' : 'text-red-500'
@@ -79,7 +78,7 @@ const ActivateSection = () => {
         >
           {message}
         </p>
-      )}
+      )} */}
     </div>
   );
 };

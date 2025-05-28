@@ -109,7 +109,7 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
 export const logoutAction = async () => {
   const cookieStore = await cookies();
 
-  cookieStore.set('token', '', {
+  cookieStore.set('jwtToken', '', {
     httpOnly: true,
     secure: true,
     path: '/',
