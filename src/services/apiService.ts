@@ -105,6 +105,7 @@ export const register = async (data: RegisterInput) => {
 // };
 
 // Get Leave Applications
+
 export const getLeaveApplications = async () => {
   const token = await getTokenFromCookies();
 
