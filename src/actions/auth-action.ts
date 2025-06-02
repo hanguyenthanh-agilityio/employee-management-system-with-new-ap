@@ -97,6 +97,15 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
       };
     }
 
+    // Set token to cookie
+    (await cookies()).set('jwtToken', data.jwt, {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: 'lax',
+    });
+
     return { success: true };
   } catch (err) {
     return {

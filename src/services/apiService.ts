@@ -35,7 +35,7 @@ type LoginPayload = {
 };
 
 export const login = async (data: LoginPayload) => {
-  const res = await fetch('http://localhost:1337/api/auth/local', {
+  const res = await fetch(`${API_URL}${API.LOGIN}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -105,8 +105,11 @@ export const register = async (data: RegisterInput) => {
 // };
 
 // Get Leave Applications
+
 export const getLeaveApplications = async () => {
   const token = await getTokenFromCookies();
+
+  console.log('TOKEN:', token);
 
   const res = await fetch(`${API_URL}${API.BASE}`, {
     method: 'GET',
