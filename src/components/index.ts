@@ -40,3 +40,4 @@ export { default as ProfileSection } from './ProfileSection';
 export { default as QuickActions } from './QuickActions';
 export { default as LeaveApplicationSection } from './LeaveApplicationSection';
 export { default as LeaveHistorySection } from './LeaveHistorySection';
+export { default as LeaveHistoryHeader } from './LeaveHistoryHeader';
