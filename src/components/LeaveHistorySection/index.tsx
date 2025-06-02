@@ -19,6 +19,9 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     totalPages,
     leaveTypes,
     selectedType,
+    sortBy,
+    sortOrder,
+    handleSort,
     handleFilterChange,
     handlePageChange,
     handleEdit,
@@ -40,6 +43,9 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
       <GenericTable
         data={paginatedData}
         columns={columns({
+          sortBy,
+          sortOrder,
+          onSort: handleSort,
           onEdit: handleEdit,
           onDelete: handleDelete,
         })}
