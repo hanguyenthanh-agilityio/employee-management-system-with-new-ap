@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 import { Pagination } from '@/components';
 
 interface Column<T> {
-  title: string;
+  title: string | ReactNode;
   render: (item: T) => ReactNode;
   className?: string;
 }
