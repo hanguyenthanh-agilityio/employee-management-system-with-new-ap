@@ -10,12 +10,14 @@ import { UserIcon } from '@heroicons/react/24/outline';
 
 // Hooks
 import { useClickOutside } from '@/hooks/useClickOutside';
+import { Loading, Logout } from '@/icons';
 
 interface ProfileDropdownProps {
+  isLoading: boolean;
   onClick: () => void;
 }
 
-const ProfileDropdown = ({ onClick }: ProfileDropdownProps) => {
+const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -28,8 +30,8 @@ const ProfileDropdown = ({ onClick }: ProfileDropdownProps) => {
   return (
     <div className="relative" ref={ref}>
       <button
-        onClick={handleClick}
         className="w-9 h-9 rounded-full bg-yellow flex items-center justify-center shadow-lg"
+        onClick={handleClick}
       >
         <UserCircleIcon className="w-6 h-6 text-white" />
       </button>
@@ -46,13 +48,17 @@ const ProfileDropdown = ({ onClick }: ProfileDropdownProps) => {
                 Account
               </Link>
             </li>
-            <li>
-              <button
-                className="w-full text-left block px-4 py-2 hover:bg-gray-100"
-                onClick={onClick}
-              >
-                Logout
-              </button>
+            <li className={`flex justify-center ${isLoading && 'py-2'}`}>
+              {isLoading ? (
+                <Loading width={8} height={8} />
+              ) : (
+                <button
+                  className="flex items-center w-full block px-4 py-2 hover:bg-gray-100"
+                  onClick={onClick}
+                >
+                  <Logout /> Logout
+                </button>
+              )}
             </li>
           </ul>
         </div>

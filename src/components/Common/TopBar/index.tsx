@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { startTransition } from 'react';
+import { useState, useTransition } from 'react';
 
 // Constants
 import { useRouter } from 'next/navigation';
@@ -26,6 +25,7 @@ import { TopBarNav, ProfileDropdown } from '@/components';
 const TopBar = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
     startTransition(async () => {
@@ -62,7 +62,7 @@ const TopBar = () => {
         </div>
 
         {/* Profile Dropdown */}
-        <ProfileDropdown onClick={handleLogout} />
+        <ProfileDropdown isLoading={isPending} onClick={handleLogout} />
       </div>
 
       {/* Hamburger for small screens */}
