@@ -3,13 +3,23 @@ import { ActionsDropdown } from '@/components';
 
 // Types
 import { LeaveItem } from '@/types/components';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 type ColumnType = {
+  sortBy: string;
+  sortOrder: 'asc' | 'desc';
+  onSort: (field: string) => void;
   onEdit: (id: string) => () => void;
   onDelete: (id: string) => () => void;
 };
 
-export const columns = ({ onEdit, onDelete }: ColumnType) => [
+export const columns = ({
+  sortBy,
+  sortOrder,
+  onSort,
+  onEdit,
+  onDelete,
+}: ColumnType) => [
   {
     title: 'Name(s)',
     render: (row: LeaveItem) => row.employeeName,
@@ -19,15 +29,63 @@ export const columns = ({ onEdit, onDelete }: ColumnType) => [
     render: (row: LeaveItem) => row.durations,
   },
   {
-    title: 'Start Date',
+    title: (
+      <span
+        className="cursor-pointer flex justify-center items-center gap-2"
+        onClick={() => onSort('startDate')}
+      >
+        Start Date
+        {sortBy === 'startDate' ? (
+          sortOrder === 'asc' ? (
+            <ChevronDownIcon width={12} height={12} />
+          ) : (
+            <ChevronUpIcon width={12} height={12} />
+          )
+        ) : (
+          ''
+        )}
+      </span>
+    ),
     render: (row: LeaveItem) => row.startDate,
   },
   {
-    title: 'End Date',
+    title: (
+      <span
+        className="cursor-pointer flex justify-center items-center gap-2"
+        onClick={() => onSort('endDate')}
+      >
+        End Date
+        {sortBy === 'endDate' ? (
+          sortOrder === 'asc' ? (
+            <ChevronDownIcon width={12} height={12} />
+          ) : (
+            <ChevronUpIcon width={12} height={12} />
+          )
+        ) : (
+          ''
+        )}
+      </span>
+    ),
     render: (row: LeaveItem) => row.endDate,
   },
   {
-    title: 'Type',
+    title: (
+      <span
+        className="cursor-pointer flex justify-center items-center gap-2"
+        onClick={() => onSort('type')}
+      >
+        Type
+        {sortBy === 'type' ? (
+          sortOrder === 'asc' ? (
+            <ChevronDownIcon width={12} height={12} />
+          ) : (
+            <ChevronUpIcon width={12} height={12} />
+          )
+        ) : (
+          ''
+        )}
+      </span>
+    ),
     render: (row: LeaveItem) => row.type,
   },
   {

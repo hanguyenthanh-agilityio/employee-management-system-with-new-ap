@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -31,6 +31,11 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const ITEMS_PER_PAGE = 5;
 
+  const [sortBy, setSortBy] = useState<
+    'employeeName' | 'startDate' | 'endDate' | 'type' | ''
+  >('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
   /**
    * Render data when filter by type
    * memo: avoid re-calculating every render
@@ -41,12 +46,24 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     return data.filter((item) => item.type === selectedType);
   }, [data, selectedType]);
 
-  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+  const sortedData = useMemo(() => {
+    const dataToSort = [...filteredData];
+    if (!sortBy) return dataToSort;
+    return dataToSort.sort((a, b) => {
+      const valA = a[sortBy];
+      const valB = b[sortBy];
+      if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+      if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [filteredData, sortBy, sortOrder]);
+
+  const totalPages = Math.ceil(sortedData.length / ITEMS_PER_PAGE);
 
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredData.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredData, currentPage]);
+    return sortedData.slice(start, start + ITEMS_PER_PAGE);
+  }, [sortedData, currentPage]);
 
   /**
    * Generate a list of leave type form data
@@ -81,6 +98,22 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
 
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) =>
     handleChange(e.target.value);
+
+  const handleSort = (field: string) => {
+    if (
+      field === 'employeeName' ||
+      field === 'startDate' ||
+      field === 'endDate' ||
+      field === 'type'
+    ) {
+      if (sortBy === field) {
+        setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      } else {
+        setSortBy(field);
+        setSortOrder('asc');
+      }
+    }
+  };
 
   // Handle edit Leave Application
   const handleEdit = (id: string): (() => void) => {
@@ -123,10 +156,13 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     totalPages,
     leaveTypes,
     selectedType,
+    sortBy,
+    sortOrder,
     handleFilterChange,
     handlePageChange,
     handleEdit,
     handleDelete,
     handleExport,
+    handleSort,
   };
 };
