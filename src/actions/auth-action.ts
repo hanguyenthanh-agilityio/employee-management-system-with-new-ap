@@ -13,65 +13,9 @@ import {
 } from '@/utils/schemas/authSchema';
 
 // Constants
-import { ERROR_MESSAGE } from '@/constants/error';
-import { SUCCESS_MESSAGES } from '@/constants/success';
-
-/**
- * LOGIN ACTION
- * Get data from FormData
- * Validate by Zod. safeParse: return object
- * Call API /account/login/
- * Save access token in Cookie
- */
-// export const loginAction = async (_: unknown, formData: LoginInput) => {
-//   const fields = formData;
-
-//   const parsed = loginSchema.safeParse(fields);
-
-//   if (!parsed.success) {
-//     return {
-//       success: false,
-//       message: parsed.error.errors.map((e) => e.message).join(', '),
-//     };
-//   }
-
-//   try {
-//     const data = await login(parsed.data);
-
-//     if (!data.access) {
-//       return {
-//         success: false,
-//         message: data.message || ERROR_MESSAGE.INVALID_CREDENTIALS,
-//       };
-//     }
-
-//     const cookieStore = await cookies();
-
-//     cookieStore.set('token', data.access, {
-//       // Secure - not readable by java
-//       httpOnly: true,
-//       // Works only over HTTPS
-//       secure: true,
-//       // Applies to entire site
-//       path: '/',
-//       // Lasts for 12 hours
-//       maxAge: 60 * 60 * 12,
-//     });
-
-//     return { success: true };
-//   } catch (err) {
-//     console.error('Login error:', err);
-
-//     return {
-//       success: false,
-//       message:
-//         err instanceof Error ? err.message : ERROR_MESSAGE.INVALID_CREDENTIALS,
-//     };
-//   }
-// };
+import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
 
 // Logout action
-
 export const loginAction = async (_: unknown, formData: LoginInput) => {
   const parsed = loginSchema.safeParse(formData);
 

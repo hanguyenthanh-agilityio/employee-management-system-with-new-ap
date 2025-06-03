@@ -37,20 +37,6 @@ const LoginForm = () => {
     mode: 'onTouched',
   });
 
-  // const onSubmit = async (data: LoginInput) => {
-  //   setServerError('');
-
-  //   const result = await loginAction(undefined, data);
-
-  //   if (result.success) {
-  //     toast.success('Account login successfully!');
-  //     router.push(ROUTER.LEAVE_APPLICATION);
-  //   } else {
-  //     setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
-  //     toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
-  //   }
-  // };
-
   const onSubmit = async (data: LoginInput) => {
     setServerError('');
     try {
