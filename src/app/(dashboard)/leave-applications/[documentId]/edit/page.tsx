@@ -9,8 +9,8 @@ import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 // Components
 import { Breadcrumbs, EditForm } from '@/components';
 
-const UpdateLeaveContent = async ({ id }: { id: string }) => {
-  const leave = await fetchLeaveApplicationById(id);
+const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
+  const leave = await fetchLeaveApplicationById(documentId);
   console.log('Fetched leave:', leave);
 
   if (!leave) return <div>Leave application not found!</div>;
@@ -18,10 +18,12 @@ const UpdateLeaveContent = async ({ id }: { id: string }) => {
   return <EditForm leave={leave} />;
 };
 
-const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
+const UpdateLeavePage = async (props: {
+  params: Promise<{ documentId: string }>;
+}) => {
   const params = await props.params;
-  const id = params.id;
-  console.log('Leave ID:', id);
+  const documentId = params.documentId;
+  console.log('Leave documentId:', documentId);
 
   return (
     <>
@@ -38,7 +40,7 @@ const UpdateLeavePage = async (props: { params: Promise<{ id: string }> }) => {
         </div>
 
         <Suspense>
-          <UpdateLeaveContent id={id} />
+          <UpdateLeaveContent documentId={documentId} />
         </Suspense>
       </div>
     </>

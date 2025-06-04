@@ -128,20 +128,25 @@ export const getLeaveApplications = async () => {
 };
 
 // Get leave application ID
-export const getLeaveApplicationById = async (id: string) => {
+export const getLeaveApplicationById = async (documentId: string) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}${API.BASE}${id}`, {
-    method: 'GET',
-    next: { revalidate: 60 },
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${API_URL}/leave-applications/zl7vjxc3ud3j4b489j1ecrsx`,
+    {
+      method: 'GET',
+      next: { revalidate: 60 },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch leave application with ID ${id}`);
+    throw new Error(
+      `Failed to fetch leave application with documentId ${documentId}`,
+    );
   }
 
   return res.json();
@@ -173,7 +178,7 @@ export const patchLeaveApplication = async (id: string, formData: FormData) => {
   const token = await getTokenFromCookies();
 
   const res = await fetch(`${API_URL}${API.BASE}${id}/`, {
-    method: 'PATCH',
+    method: 'PUTPUT',
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -24,7 +24,7 @@ const EditForm = ({ leave }: EditFormProps) => {
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      leaveType: leave.type,
+      type: leave.type,
       startDate: leave.startDate,
       endDate: leave.endDate,
       durations: leave.durations,
@@ -53,7 +53,7 @@ const EditForm = ({ leave }: EditFormProps) => {
   }, [startDate, endDate, setValue]);
 
   const onSubmit = async (data: LeaveApplicationInput) => {
-    await updateLeaveApplication(leave.id, data);
+    await updateLeaveApplication(leave.documentId, data);
 
     setTimeout(() => {
       router.push(ROUTER.LEAVE_APPLICATION);

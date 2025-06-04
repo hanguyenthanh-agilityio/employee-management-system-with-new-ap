@@ -23,12 +23,12 @@ import { createLeaveApplication } from '@/api/leaveApplications';
 const CreateLeavePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const leaveTypeFromQuery = searchParams.get('type') || undefined;
+  const typeFromQuery = searchParams.get('type') || undefined;
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      leaveType: leaveTypeFromQuery,
+      type: typeFromQuery,
     },
   });
 

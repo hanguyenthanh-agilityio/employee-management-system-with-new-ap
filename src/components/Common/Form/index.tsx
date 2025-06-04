@@ -28,8 +28,8 @@ const Form = ({ form, onReset, isSubmitting, isDirty }: FormProps) => {
         labelClassName="text-xl md:text-2xl text-[#1D1D1D]"
         inputClassName="my-5 bg-[#E3EDF9] text-xl border-none p-3 rounded-[9px]"
         readOnly
-        {...register('leaveType')}
-        error={errors.leaveType?.message}
+        {...register('type')}
+        error={errors.type?.message}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

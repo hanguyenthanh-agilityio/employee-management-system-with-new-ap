@@ -8,7 +8,7 @@ export type PageErrorProps = {
 };
 
 export type LeaveItem = {
-  id: string;
+  documentId: string;
   startDate: string;
   endDate: string;
   employeeName: string;
@@ -29,7 +29,7 @@ export type LeaveApplication = {
 };
 
 export type CreateLeavePayload = {
-  id?: string;
+  documentId: string;
   startDate: string;
   endDate: string;
   resumptionDate: string;

@@ -29,15 +29,15 @@ export const fetchLeaveApplications = async () => {
 };
 
 // Get Leave Application by ID
-export const fetchLeaveApplicationById = async (id: string) => {
-  const data = await getLeaveApplicationById(id);
+export const fetchLeaveApplicationById = async (documentId: string) => {
+  const data = await getLeaveApplicationById(documentId);
 
   return data;
 };
 
 // Create Leave Application
 export const createLeaveApplication = async (data: {
-  leaveType: string;
+  type: string;
   startDate: string;
   endDate: string;
   durations: number;
@@ -70,7 +70,7 @@ export const createLeaveApplication = async (data: {
 export const updateLeaveApplication = async (
   id: string,
   data: {
-    leaveType: string;
+    type: string;
     startDate: string;
     endDate: string;
     durations: number;

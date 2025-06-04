@@ -116,9 +116,9 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   };
 
   // Handle edit Leave Application
-  const handleEdit = (id: string): (() => void) => {
+  const handleEdit = (documentId: string): (() => void) => {
     return () => {
-      router.push(`${ROUTER.LEAVE_APPLICATION}/${id}${ROUTER.EDIT}`);
+      router.push(`${ROUTER.LEAVE_APPLICATION}/${documentId}${ROUTER.EDIT}`);
     };
   };
 

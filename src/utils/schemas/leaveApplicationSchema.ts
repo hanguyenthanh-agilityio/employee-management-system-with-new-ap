@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const leaveApplicationSchema = z
   .object({
-    leaveType: z.string().min(1, 'Leave type is required'),
+    type: z.string().min(1, 'Leave type is required'),
     startDate: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'Start date must be in yyyy-mm-dd format'),
