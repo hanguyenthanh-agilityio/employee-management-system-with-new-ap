@@ -15,7 +15,7 @@ const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
 
   if (!leave) return <div>Leave application not found!</div>;
 
-  return <EditForm leave={leave} />;
+  return <EditForm leave={leave.data} />;
 };
 
 const UpdateLeavePage = async (props: {
