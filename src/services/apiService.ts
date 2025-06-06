@@ -5,29 +5,7 @@ import { ERROR_MESSAGE } from '@/constants/error';
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
 import { RegisterInput } from '@/utils/schemas/authSchema';
-
-// Fetch API Login
-// export const login = async (data: LoginInput) => {
-//   const res = await fetch(`${API_URL}${API.LOGIN}`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     credentials: 'include',
-//     // body: JSON.stringify(data),
-//     body: JSON.stringify({
-//       identifier: data.email,
-//       password: data.password,
-//     }),
-//   });
-
-//   if (!res.ok) {
-//     const errorData = await res.json();
-//     throw new Error(errorData.message || ERROR_MESSAGE.LOGIN_FAILED);
-//   }
-
-//   return res.json();
-// };
+import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 
 type LoginPayload = {
   identifier: string;
@@ -47,6 +25,22 @@ export const login = async (data: LoginPayload) => {
     const errorText = await res.text();
     console.error('Login error response:', res.status, errorText);
     throw new Error('Login failed');
+  }
+
+  return res.json();
+};
+
+export const getCurrentUser = async () => {
+  const token = await getTokenFromCookies();
+
+  const res = await fetch(`${API_URL}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch current user info');
   }
 
   return res.json();
@@ -131,17 +125,14 @@ export const getLeaveApplications = async () => {
 export const getLeaveApplicationById = async (documentId: string) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(
-    `${API_URL}/leave-applications/zl7vjxc3ud3j4b489j1ecrsx`,
-    {
-      method: 'GET',
-      next: { revalidate: 60 },
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+  const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
+    method: 'GET',
+    next: { revalidate: 60 },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
 
   if (!res.ok) {
     throw new Error(
@@ -153,16 +144,19 @@ export const getLeaveApplicationById = async (documentId: string) => {
 };
 
 // Create Leave Application
-export const postLeaveApplication = async (formData: FormData) => {
+export const postLeaveApplication = async (body: {
+  data: LeaveApplicationInput;
+}) => {
   const token = await getTokenFromCookies();
 
   const res = await fetch(`${API_URL}${API.BASE}`, {
     method: 'POST',
     next: { revalidate: 60 },
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: formData,
+    body: JSON.stringify(body),
   });
 
   if (!res.ok) {
@@ -170,15 +164,18 @@ export const postLeaveApplication = async (formData: FormData) => {
     throw new Error(`API Error: ${res.status} - ${errorText}`);
   }
 
-  return res;
+  return res.json();
 };
 
 // Update Leave Applications
-export const patchLeaveApplication = async (id: string, formData: FormData) => {
+export const patchLeaveApplication = async (
+  documentId: string,
+  formData: FormData,
+) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}${API.BASE}${id}/`, {
-    method: 'PUTPUT',
+  const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
+    method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -194,13 +191,12 @@ export const patchLeaveApplication = async (id: string, formData: FormData) => {
 };
 
 // Delete Leave Application
-export const deleteLeave = async (id: string) => {
+export const deleteLeave = async (documentId: string) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}${API.BASE}${id}/`, {
+  const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });

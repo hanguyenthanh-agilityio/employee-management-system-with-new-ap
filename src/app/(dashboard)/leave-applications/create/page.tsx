@@ -53,14 +53,15 @@ const CreateLeavePage = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      await createLeaveApplication(data);
+      const result = await createLeaveApplication(data);
 
-      setTimeout(() => {
+      if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
-      }, 1000);
-      reset();
-      // eslint-disable-next-line no-empty
-    } catch (err) {}
+        reset();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleReset = () => {

@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const leaveApplicationSchema = z
   .object({
+    employeeName: z.string().optional(),
     type: z.string().min(1, 'Leave type is required'),
     startDate: z
       .string()
@@ -18,18 +19,6 @@ export const leaveApplicationSchema = z
         'Resumption date must be in yyyy-mm-dd format',
       ),
     reason: z.string().min(1, 'Reason is required'),
-    documentPath: z
-      .any()
-      .optional()
-      .refine(
-        (file) => {
-          const actualFile = file instanceof File ? file : file?.[0];
-          return actualFile instanceof File;
-        },
-        {
-          message: 'Attached file must be valid',
-        },
-      ),
   })
   .refine(
     (data) => {

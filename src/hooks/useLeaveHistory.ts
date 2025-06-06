@@ -123,10 +123,10 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   };
 
   // Handle delete Leave Application
-  const handleDelete = (id: string): (() => void) => {
+  const handleDelete = (documentId: string): (() => void) => {
     return async () => {
       try {
-        await deleteLeaveApplication(id);
+        await deleteLeaveApplication(documentId);
 
         router.refresh();
       } catch (error) {
