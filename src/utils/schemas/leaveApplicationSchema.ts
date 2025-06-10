@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const leaveApplicationSchema = z
   .object({
+    users_permissions_user: z.number().optional(),
     employeeName: z.string().optional(),
     type: z.string().min(1, 'Leave type is required'),
     startDate: z

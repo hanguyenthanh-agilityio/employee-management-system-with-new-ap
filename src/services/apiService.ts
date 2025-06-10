@@ -34,7 +34,9 @@ export const getCurrentUser = async () => {
   const token = await getTokenFromCookies();
 
   const res = await fetch(`${API_URL}/users/me`, {
+    method: 'GET',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
@@ -65,54 +67,24 @@ export const register = async (data: RegisterInput) => {
   return res.json();
 };
 
-// Fetch API Activate Account
-// export const activateAccount = async (uid: string, token: string) => {
-//   const res = await fetch(
-//     `${NEXT_PUBLIC_API_URL}${API.ACTIVATE}${uid}/${token}/`,
-//     {
-//       method: 'GET',
-//       headers: {
-//         Accept: 'application/json',
-//       },
-//     },
-//   );
-
-//   const contentType = res.headers.get('content-type');
-
-//   if (!res.ok) {
-//     if (contentType?.includes('application/json')) {
-//       const errorData = await res.json();
-//       throw new Error(errorData.message || ERROR_MESSAGE.ACTIVATION_FAILED);
-//     } else {
-//       const errorText = await res.text();
-//       throw new Error(
-//         'Activation failed. Response: ' + errorText.slice(0, 100),
-//       );
-//     }
-//   }
-
-//   if (contentType?.includes('application/json')) {
-//     return res.json();
-//   }
-
-//   return { message: 'Activation response received, but not in JSON format.' };
-// };
-
 // Get Leave Applications
 
-export const getLeaveApplications = async () => {
+export const getLeaveApplications = async (id: number) => {
   const token = await getTokenFromCookies();
 
   console.log('TOKEN:', token);
 
-  const res = await fetch(`${API_URL}${API.BASE}`, {
-    method: 'GET',
-    next: { revalidate: 60 },
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${API_URL}${API.BASE}?filters[users_permissions_user][id][$eq]=${id}`,
+    {
+      method: 'GET',
+      next: { revalidate: 60 },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     throw new Error('Failed to fetch leave history');

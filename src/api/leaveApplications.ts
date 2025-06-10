@@ -26,9 +26,15 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 
+export const getAuthenticatedUserId = async () => {
+  const userData = await getCurrentUser();
+  console.log('userData', userData.id);
+  return userData.id;
+};
+
 // Get Leave Applications
-export const fetchLeaveApplications = async () => {
-  const data: LeaveApplication = await getLeaveApplications();
+export const fetchLeaveApplications = async (id: number) => {
+  const data: LeaveApplication = await getLeaveApplications(id);
   return data;
 };
 
@@ -46,7 +52,8 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
 
   const fullData: LeaveApplicationInput = {
     ...data,
-    employeeName: user.employeeName ?? 'unknown',
+    users_permissions_user: user.id,
+    employeeName: user.username ?? 'unknown',
   };
 
   const parsed = leaveApplicationSchema.safeParse(fullData);
