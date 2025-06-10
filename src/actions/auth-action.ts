@@ -75,7 +75,17 @@ export const logoutAction = async () => {
 // Register action
 export const registerAction = async (data: RegisterInput) => {
   try {
-    const response = await register(data);
+    const username = `${data.firstName || ''} ${data.lastName || ''}`.trim();
+
+    const fullUsername = username === '' ? data.email : username;
+
+    const strapiRegisterPayload = {
+      username: fullUsername,
+      email: data.email,
+      password: data.password,
+    };
+
+    const response = await register(strapiRegisterPayload);
 
     return {
       success: true,
@@ -91,8 +101,3 @@ export const registerAction = async (data: RegisterInput) => {
     };
   }
 };
-
-// Activate Account
-// export const activateAction = async (data: { uid: string; token: string }) => {
-//   return await activateAccount(data.uid, data.token);
-// };

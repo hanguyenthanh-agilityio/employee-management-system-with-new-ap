@@ -4,7 +4,6 @@ import { ERROR_MESSAGE } from '@/constants/error';
 
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
-import { RegisterInput } from '@/utils/schemas/authSchema';
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 
 type LoginPayload = {
@@ -49,7 +48,11 @@ export const getCurrentUser = async () => {
 };
 
 // Fetch API Register
-export const register = async (data: RegisterInput) => {
+export const register = async (data: {
+  username: string;
+  email: string;
+  password: string;
+}) => {
   const res = await fetch(`${API_URL}${API.REGISTER}`, {
     method: 'POST',
     headers: {
@@ -61,14 +64,18 @@ export const register = async (data: RegisterInput) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || ERROR_MESSAGE.REGISTER_FAILED);
+
+    throw new Error(
+      errorData?.error?.message ||
+        errorData.message ||
+        ERROR_MESSAGE.REGISTER_FAILED,
+    );
   }
 
   return res.json();
 };
 
 // Get Leave Applications
-
 export const getLeaveApplications = async (id: number) => {
   const token = await getTokenFromCookies();
 
