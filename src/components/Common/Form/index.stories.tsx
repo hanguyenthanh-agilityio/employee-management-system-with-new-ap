@@ -29,7 +29,7 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      leaveType: args.leaveType ?? '',
+      type: args.type ?? '',
       startDate: args.startDate ?? '',
       endDate: args.endDate ?? '',
       durations: args.durations ?? 0,
@@ -55,7 +55,7 @@ export const Default: Story = {
 export const WithLeaveData: Story = {
   render: () =>
     Wrapper({
-      leaveType: 'Sick Leave',
+      type: 'Sick Leave',
       startDate: '2024-06-10',
       endDate: '2024-06-14',
       durations: 5,

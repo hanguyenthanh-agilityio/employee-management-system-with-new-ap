@@ -14,13 +14,17 @@ import {
   patchLeaveApplication,
   deleteLeave,
   exportLeave,
+  getCurrentUser,
 } from '@/services/apiService';
 
 // Types
 import { LeaveApplication } from '@/types/components';
 
 // Utils
-import { leaveApplicationSchema } from '@/utils/schemas/leaveApplicationSchema';
+import {
+  LeaveApplicationInput,
+  leaveApplicationSchema,
+} from '@/utils/schemas/leaveApplicationSchema';
 
 // Get Leave Applications
 export const fetchLeaveApplications = async () => {
@@ -29,34 +33,29 @@ export const fetchLeaveApplications = async () => {
 };
 
 // Get Leave Application by ID
-export const fetchLeaveApplicationById = async (id: string) => {
-  const data = await getLeaveApplicationById(id);
+export const fetchLeaveApplicationById = async (documentId: string) => {
+  const data = await getLeaveApplicationById(documentId);
 
   return data;
 };
 
 // Create Leave Application
-export const createLeaveApplication = async (data: {
-  leaveType: string;
-  startDate: string;
-  endDate: string;
-  durations: number;
-  resumptionDate: string;
-  reason: string;
-}) => {
-  const parsed = leaveApplicationSchema.safeParse(data);
+export const createLeaveApplication = async (data: LeaveApplicationInput) => {
+  const user = await getCurrentUser();
+  console.log('Current user from API:', user);
+
+  const fullData: LeaveApplicationInput = {
+    ...data,
+    employeeName: user.employeeName ?? 'unknown',
+  };
+
+  const parsed = leaveApplicationSchema.safeParse(fullData);
   if (!parsed.success) {
     throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
   }
 
-  const formData = new FormData();
-  Object.entries(parsed.data).forEach(([key, value]) => {
-    formData.append(key, value.toString());
-  });
-
   try {
-    await postLeaveApplication(formData);
-    revalidatePath(ENDPOINT_LEAVE);
+    await postLeaveApplication({ data: parsed.data });
     return { success: true };
   } catch (error) {
     return {
@@ -68,9 +67,9 @@ export const createLeaveApplication = async (data: {
 
 // Update Leave Application
 export const updateLeaveApplication = async (
-  id: string,
+  documentId: string,
   data: {
-    leaveType: string;
+    type: string;
     startDate: string;
     endDate: string;
     durations: number;
@@ -83,13 +82,8 @@ export const updateLeaveApplication = async (
     throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
   }
 
-  const formData = new FormData();
-  Object.entries(parsed.data).forEach(([key, value]) => {
-    formData.append(key, value.toString());
-  });
-
   try {
-    await patchLeaveApplication(id, formData);
+    await patchLeaveApplication(documentId, parsed.data);
     revalidatePath(ENDPOINT_LEAVE);
 
     return { success: true };

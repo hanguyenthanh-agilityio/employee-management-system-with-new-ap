@@ -9,14 +9,14 @@ export const birthdays = [
 ];
 
 export const leaves = [
-  { title: 'Annual Leave', days: 60 },
+  { title: 'Annual', days: 60 },
   { title: 'Sick Leave', days: 20 },
   { title: 'Maternity Leave', days: 60 },
   { title: 'Compassionate Leave', days: 30 },
 ];
 
 export const leaveData = [
-  { label: 'Annual Leave', current: 10, total: 60 },
+  { label: 'Annual', current: 10, total: 60 },
   { label: 'Sick Leave', current: 0, total: 10 },
   { label: 'Compassionate Leave', current: 8, total: 15 },
 ];

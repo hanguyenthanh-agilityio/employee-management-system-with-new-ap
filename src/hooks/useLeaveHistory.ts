@@ -116,17 +116,17 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   };
 
   // Handle edit Leave Application
-  const handleEdit = (id: string): (() => void) => {
+  const handleEdit = (documentId: string): (() => void) => {
     return () => {
-      router.push(`${ROUTER.LEAVE_APPLICATION}/${id}${ROUTER.EDIT}`);
+      router.push(`${ROUTER.LEAVE_APPLICATION}/${documentId}${ROUTER.EDIT}`);
     };
   };
 
   // Handle delete Leave Application
-  const handleDelete = (id: string): (() => void) => {
+  const handleDelete = (documentId: string): (() => void) => {
     return async () => {
       try {
-        await deleteLeaveApplication(id);
+        await deleteLeaveApplication(documentId);
 
         router.refresh();
       } catch (error) {

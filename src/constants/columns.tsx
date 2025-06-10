@@ -9,8 +9,8 @@ type ColumnType = {
   sortBy: string;
   sortOrder: 'asc' | 'desc';
   onSort: (field: string) => void;
-  onEdit: (id: string) => () => void;
-  onDelete: (id: string) => () => void;
+  onEdit: (documentId: string) => () => void;
+  onDelete: (documentId: string) => () => void;
 };
 
 export const columns = ({
@@ -96,7 +96,10 @@ export const columns = ({
   {
     title: 'Actions',
     render: (row: LeaveItem) => (
-      <ActionsDropdown onEdit={onEdit(row.id)} onDelete={onDelete(row.id)} />
+      <ActionsDropdown
+        onEdit={onEdit(row.documentId)}
+        onDelete={onDelete(row.documentId)}
+      />
     ),
     className: 'flex justify-center',
   },

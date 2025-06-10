@@ -28,8 +28,8 @@ const Form = ({ form, onReset, isSubmitting, isDirty }: FormProps) => {
         labelClassName="text-xl md:text-2xl text-[#1D1D1D]"
         inputClassName="my-5 bg-[#E3EDF9] text-xl border-none p-3 rounded-[9px]"
         readOnly
-        {...register('leaveType')}
-        error={errors.leaveType?.message}
+        {...register('type')}
+        error={errors.type?.message}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -84,16 +84,6 @@ const Form = ({ form, onReset, isSubmitting, isDirty }: FormProps) => {
         {errors.reason && <p className="text-red">{errors.reason.message}</p>}
       </div>
 
-      <div className="py-5">
-        <label className="text-xl md:text-2xl text-[#1D1D1D]">
-          Attach handover document (pdf, jpg, docx or any other format)
-        </label>
-        <input
-          type="file"
-          name="handover"
-          className="bg-[#E3EDF9] mt-2 block w-full text-sm file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-100"
-        />
-      </div>
       <div className="flex gap-5 py-4">
         <Button
           type="submit"
