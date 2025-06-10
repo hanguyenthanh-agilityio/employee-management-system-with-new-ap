@@ -46,7 +46,7 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
       httpOnly: true,
       secure: true,
       path: '/',
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 12,
       sameSite: 'lax',
     });
 
