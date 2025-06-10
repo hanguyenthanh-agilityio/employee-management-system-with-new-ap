@@ -82,13 +82,8 @@ export const updateLeaveApplication = async (
     throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
   }
 
-  const formData = new FormData();
-  Object.entries(parsed.data).forEach(([key, value]) => {
-    formData.append(key, value.toString());
-  });
-
   try {
-    await patchLeaveApplication(documentId, formData);
+    await patchLeaveApplication(documentId, parsed.data);
     revalidatePath(ENDPOINT_LEAVE);
 
     return { success: true };

@@ -55,9 +55,7 @@ const EditForm = ({ leave }: EditFormProps) => {
   const onSubmit = async (data: LeaveApplicationInput) => {
     await updateLeaveApplication(leave.documentId, data);
 
-    setTimeout(() => {
-      router.push(ROUTER.LEAVE_APPLICATION);
-    }, 1000);
+    router.push(ROUTER.LEAVE_APPLICATION);
 
     reset(data);
   };

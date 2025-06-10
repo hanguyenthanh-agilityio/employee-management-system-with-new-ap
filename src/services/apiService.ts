@@ -170,7 +170,7 @@ export const postLeaveApplication = async (body: {
 // Update Leave Applications
 export const patchLeaveApplication = async (
   documentId: string,
-  formData: FormData,
+  data: LeaveApplicationInput,
 ) => {
   const token = await getTokenFromCookies();
 
@@ -178,8 +178,10 @@ export const patchLeaveApplication = async (
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-    body: formData,
+    body: JSON.stringify({ data }),
+    cache: 'no-store',
   });
 
   if (!res.ok) {
@@ -187,7 +189,7 @@ export const patchLeaveApplication = async (
     throw new Error(`API Error: ${res.status} - ${errorText}`);
   }
 
-  return res;
+  return res.json();
 };
 
 // Delete Leave Application
