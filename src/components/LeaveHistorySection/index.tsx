@@ -29,6 +29,8 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     handleExport,
   } = useLeaveHistory(data);
 
+  const hasData = paginatedData && paginatedData.length > 0;
+
   return (
     <>
       {/* Leave History header */}
@@ -40,21 +42,25 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
       />
 
       {/* Leave History table */}
-      <GenericTable
-        data={paginatedData}
-        columns={columns({
-          sortBy,
-          sortOrder,
-          onSort: handleSort,
-          onEdit: handleEdit,
-          onDelete: handleDelete,
-        })}
-        pagination={{
-          currentPage,
-          totalPages,
-          onPageChange: handlePageChange,
-        }}
-      />
+      {hasData ? (
+        <GenericTable
+          data={paginatedData}
+          columns={columns({
+            sortBy,
+            sortOrder,
+            onSort: handleSort,
+            onEdit: handleEdit,
+            onDelete: handleDelete,
+          })}
+          pagination={{
+            currentPage,
+            totalPages,
+            onPageChange: handlePageChange,
+          }}
+        />
+      ) : (
+        <div className="text-center py-7 text-red">No leave requests yet.</div>
+      )}
     </>
   );
 };

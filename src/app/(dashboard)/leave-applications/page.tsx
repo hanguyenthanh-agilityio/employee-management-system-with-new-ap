@@ -4,7 +4,10 @@ import { Suspense } from 'react';
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // APIs
-import { fetchLeaveApplications } from '@/api/leaveApplications';
+import {
+  fetchLeaveApplications,
+  getAuthenticatedUserId,
+} from '@/api/leaveApplications';
 
 // Types
 import { LeaveItem } from '@/types/components';
@@ -17,7 +20,9 @@ import {
 // Components
 
 const ApplyForLeavePage = async () => {
-  const data = await fetchLeaveApplications();
+  const userId = await getAuthenticatedUserId();
+
+  const data = await fetchLeaveApplications(userId);
   console.log('data', data);
 
   const leaveData: LeaveItem[] = data.data;

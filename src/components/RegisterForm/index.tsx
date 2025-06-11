@@ -49,7 +49,7 @@ const RegisterForm = () => {
   const [serverError, setServerError] = useState('');
 
   const {
-    register,
+    register: registerForm,
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
@@ -57,6 +57,7 @@ const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       newsletter: false,
+      terms: false,
     },
   });
 
@@ -87,7 +88,7 @@ const RegisterForm = () => {
             <Input
               label={field.label}
               type={field.type}
-              {...register(field.name as keyof RegisterInput)}
+              {...registerForm(field.name as keyof RegisterInput)}
               inputClassName={`rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
                 errors[field.name as keyof RegisterInput]
                   ? 'border border-red focus:ring-red'
@@ -110,7 +111,7 @@ const RegisterForm = () => {
                 id={cb.id}
                 label={cb.label}
                 subLabel={cb.subLabel}
-                {...register(cb.name as keyof RegisterInput)}
+                {...registerForm(cb.name as keyof RegisterInput)}
               />
               {errors[cb.name as keyof RegisterInput] && (
                 <p className="text-red text-sm mt-1">
