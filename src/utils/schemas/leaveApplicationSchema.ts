@@ -1,4 +1,10 @@
-import { addDays, differenceInDays, isBefore, parseISO } from 'date-fns';
+import {
+  addDays,
+  differenceInDays,
+  isBefore,
+  parseISO,
+  startOfDay,
+} from 'date-fns';
 import { z } from 'zod';
 
 export const leaveApplicationSchema = z
@@ -21,6 +27,19 @@ export const leaveApplicationSchema = z
       ),
     reason: z.string().min(1, 'Reason is required'),
   })
+  .refine(
+    (data) => {
+      const today = startOfDay(new Date());
+      const start = startOfDay(parseISO(data.startDate));
+      const end = startOfDay(parseISO(data.endDate));
+
+      return !isBefore(start, today) && !isBefore(end, today);
+    },
+    {
+      message: 'Start and end dates must be today or in the future',
+      path: ['startDate'],
+    },
+  )
   .refine(
     (data) => {
       const start = parseISO(data.startDate);

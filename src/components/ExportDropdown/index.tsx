@@ -13,8 +13,9 @@ interface ExportDropdownProps {
 const ExportDropdown = ({ onExport }: ExportDropdownProps) => {
   return (
     <Dropdown
+      disabled={true}
       buttonLabel="Export"
-      buttonClassName="flex items-center gap-2 rounded-md px-4 py-2 bg-green-700 text-white hover:bg-green-800 text-base shadow-md"
+      buttonClassName="gap-2 rounded-md px-4 py-2 cursor-no-drop bg-green-700 text-white hover:bg-green-800 text-base shadow-md"
       icon={<ArrowDownCircleIcon width={19} height={19} />}
       actions={[
         {

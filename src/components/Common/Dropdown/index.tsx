@@ -19,6 +19,7 @@ interface Props {
   buttonLabel?: string;
   buttonClassName?: string;
   icon?: ReactNode;
+  disabled?: boolean;
 }
 
 const Dropdown = ({
@@ -26,6 +27,7 @@ const Dropdown = ({
   buttonLabel = 'Actions',
   buttonClassName = '',
   icon,
+  disabled,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,6 +39,7 @@ const Dropdown = ({
   return (
     <div className="relative inline-block text-left" ref={ref}>
       <button
+        disabled={disabled}
         onClick={toggleDropdown}
         className={`flex items-center ${buttonClassName}`}
       >
