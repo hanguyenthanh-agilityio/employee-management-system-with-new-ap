@@ -23,14 +23,12 @@ const Form = ({ form, onReset, isSubmitting, isDirty }: FormProps) => {
 
   return (
     <>
-      <Input
-        label="Leave Type"
-        labelClassName="text-xl md:text-2xl text-[#1D1D1D]"
-        inputClassName="my-5 bg-[#E3EDF9] text-xl border-none p-3 rounded-[9px]"
-        readOnly
-        {...register('type')}
-        error={errors.type?.message}
-      />
+      <div>
+        <label className="text-xl md:text-2xl text-[#1D1D1D]">Leave Type</label>
+        <p className="my-5 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
+          {form.getValues('type')}
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input

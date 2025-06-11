@@ -60,13 +60,17 @@ const EditForm = ({ leave }: EditFormProps) => {
     reset(data);
   };
 
+  const handleReset = () => {
+    reset();
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="pt-5">
       <Form
         form={form}
         isSubmitting={form.formState.isSubmitting}
         isDirty={form.formState.isDirty}
-        onReset={() => reset()}
+        onReset={handleReset}
       />
     </form>
   );

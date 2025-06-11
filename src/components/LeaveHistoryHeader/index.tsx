@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import { Select, ExportDropdown } from '@/components';
 
 interface LeaveHistoryHeaderProps {
-  leaveTypes: string[];
+  leaveTypes: { label: string; value: string }[];
   selectedType: string;
   onFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   onExport: (format: 'pdf' | 'csv' | 'excel') => void;
@@ -29,10 +29,7 @@ const LeaveHistoryHeader = ({
           value={selectedType}
           onChange={onFilterChange}
           className="flex items-center justify-center text-lg min-w-[180px]"
-          options={leaveTypes.map((type) => ({
-            value: type,
-            label: type,
-          }))}
+          options={leaveTypes}
         />
 
         {/* Dropdown Export file */}

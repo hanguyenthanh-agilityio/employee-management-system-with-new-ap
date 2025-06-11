@@ -70,11 +70,24 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
    * memo: avoid re-calculating the leave types list
    * set: remove duplicate value
    */
+  const TYPE_LABELS: Record<string, string> = {
+    annual: 'Annual Leave',
+    sick: 'Sick Leave',
+    casual: 'Casual Leave',
+  };
+
   const leaveTypes = useMemo(() => {
-    if (!Array.isArray(data)) return ['All'];
+    if (!Array.isArray(data)) return [{ label: 'All', value: 'All' }];
     const uniqueTypes = Array.from(new Set(data.map((item) => item.type)));
-    return ['All', ...uniqueTypes];
+    return [
+      { label: 'All', value: 'All' },
+      ...uniqueTypes.map((type) => ({
+        value: type,
+        label: TYPE_LABELS[type] || type,
+      })),
+    ];
   }, [data]);
+
   /**
    * Handle when select new filter
    */

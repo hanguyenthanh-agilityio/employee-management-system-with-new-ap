@@ -130,12 +130,12 @@ export const postLeaveApplication = async (body: {
 
   const res = await fetch(`${API_URL}${API.BASE}`, {
     method: 'POST',
-    next: { revalidate: 60 },
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
+    cache: 'no-store',
   });
 
   if (!res.ok) {
