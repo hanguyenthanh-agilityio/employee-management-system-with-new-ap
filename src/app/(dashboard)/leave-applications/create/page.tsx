@@ -57,6 +57,7 @@ const CreateLeavePage = () => {
 
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
+        router.refresh();
         reset();
       }
     } catch (err) {

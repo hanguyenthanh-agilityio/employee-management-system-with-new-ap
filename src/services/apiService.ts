@@ -85,7 +85,7 @@ export const getLeaveApplications = async (id: number) => {
     `${API_URL}${API.BASE}?filters[users_permissions_user][id][$eq]=${id}`,
     {
       method: 'GET',
-      next: { revalidate: 60 },
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -106,7 +106,7 @@ export const getLeaveApplicationById = async (documentId: string) => {
 
   const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
     method: 'GET',
-    next: { revalidate: 60 },
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
