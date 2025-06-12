@@ -153,6 +153,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
         await deleteLeaveApplication(deletingId);
         setModalOpen(false);
         setDeletingId(null);
+        toast.success('Leave application deleted successfully.');
         router.refresh();
       } catch (error) {
         toast.error(ERROR_MESSAGE.DELETE_FAILED);
