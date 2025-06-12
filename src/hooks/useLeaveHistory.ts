@@ -105,13 +105,13 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     }
 
     params.set('page', '1');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) =>
