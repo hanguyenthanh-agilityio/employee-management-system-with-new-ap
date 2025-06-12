@@ -1,4 +1,5 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState, useTransition } from 'react';
+import { toast } from 'react-toastify';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -35,6 +36,10 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     'employeeName' | 'startDate' | 'endDate' | 'type' | ''
   >('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   /**
    * Render data when filter by type
@@ -100,13 +105,13 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     }
 
     params.set('page', '1');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) =>
@@ -136,16 +141,29 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   };
 
   // Handle delete Leave Application
-  const handleDelete = (documentId: string): (() => void) => {
-    return async () => {
-      try {
-        await deleteLeaveApplication(documentId);
+  const handleDelete = (documentId: string) => () => {
+    setDeletingId(documentId);
+    setModalOpen(true);
+  };
 
+  const confirmDelete = async () => {
+    if (!deletingId) return;
+    startTransition(async () => {
+      try {
+        await deleteLeaveApplication(deletingId);
+        setModalOpen(false);
+        setDeletingId(null);
+        toast.success('Leave application deleted successfully.');
         router.refresh();
       } catch (error) {
-        console.error(ERROR_MESSAGE.DELETE_FAILED, error);
+        toast.error(ERROR_MESSAGE.DELETE_FAILED);
       }
-    };
+    });
+  };
+
+  const cancelDelete = () => {
+    setDeletingId(null);
+    setModalOpen(false);
   };
 
   /**
@@ -171,10 +189,14 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     selectedType,
     sortBy,
     sortOrder,
+    isModalOpen,
+    isPending,
     handleFilterChange,
     handlePageChange,
     handleEdit,
     handleDelete,
+    confirmDelete,
+    cancelDelete,
     handleExport,
     handleSort,
   };

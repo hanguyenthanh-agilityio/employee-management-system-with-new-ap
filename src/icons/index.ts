@@ -5,3 +5,5 @@ export * from './ChevronRightIcon';
 export * from './UserIcon';
 export * from './loading';
 export * from './Logout';
+export * from './TrashIcon';
+export * from './CloseIcon';

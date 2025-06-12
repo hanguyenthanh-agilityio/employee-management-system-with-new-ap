@@ -1,7 +1,11 @@
 'use client';
 
 // Components
-import { GenericTable, LeaveHistoryHeader } from '@/components';
+import {
+  DeleteConfirmModal,
+  GenericTable,
+  LeaveHistoryHeader,
+} from '@/components';
 
 // Types
 import { LeaveItem } from '@/types/components';
@@ -21,11 +25,15 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     selectedType,
     sortBy,
     sortOrder,
+    isModalOpen,
+    isPending,
     handleSort,
     handleFilterChange,
     handlePageChange,
     handleEdit,
     handleDelete,
+    confirmDelete,
+    cancelDelete,
     handleExport,
   } = useLeaveHistory(data);
 
@@ -61,6 +69,13 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
       ) : (
         <div className="text-center py-7 text-red">No leave requests yet.</div>
       )}
+
+      <DeleteConfirmModal
+        isOpen={isModalOpen}
+        isLoading={isPending}
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
+      />
     </>
   );
 };
