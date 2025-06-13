@@ -1,24 +1,28 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { useRouter, useSearchParams } from 'next/navigation';
+
+// Libs
+import { zodResolver } from '@hookform/resolvers/zod';
+import { addDays, differenceInCalendarDays } from 'date-fns';
 
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // APIs
+import { createLeaveApplication } from '@/api/leaveApplications';
 
 // Components
 import { Breadcrumbs, Form } from '@/components';
-import { useForm } from 'react-hook-form';
-import {
-  LeaveApplicationInput,
-  leaveApplicationSchema,
-} from '@/utils/schemas/leaveApplicationSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { addDays, differenceInCalendarDays } from 'date-fns';
+
+// Utils
+import { LeaveApplicationInput, leaveApplicationSchema } from '@/utils';
+
+// Constants
 import { ROUTER } from '@/constants';
-import { createLeaveApplication } from '@/api/leaveApplications';
 
 const CreateLeavePage = () => {
   const router = useRouter();
@@ -72,6 +76,8 @@ const CreateLeavePage = () => {
   return (
     <>
       <Breadcrumbs paths={['Leave Applications', 'Annual Leave']} />
+
+      {/* Main content */}
       <div className="w-full max-w-screen-lg mx-auto bg-white px-4 sm:px-6 md:px-10 lg:px-14 py-8 sm:py-10 lg:py-14 shadow-md">
         <div className="flex flex-col items-center text-center space-y-4 mb-10">
           <h2 className="text-3xl lg:text-4xl font-semibold text-gray-900 flex items-center justify-center gap-3">
@@ -83,6 +89,7 @@ const CreateLeavePage = () => {
           </p>
         </div>
 
+        {/* Create form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <Form
             form={form}

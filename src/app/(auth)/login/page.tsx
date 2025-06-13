@@ -4,11 +4,14 @@ import { redirect } from 'next/navigation';
 // Components
 import { LoginForm } from '@/components';
 
+// Constants
+import { API } from '@/constants';
+
 const LoginPage = async () => {
   const token = (await cookies()).get('jwtToken')?.value;
 
   if (token) {
-    redirect('/leave-applications');
+    redirect(API.BASE);
   }
 
   return <LoginForm />;

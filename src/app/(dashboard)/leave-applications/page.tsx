@@ -23,15 +23,14 @@ const ApplyForLeavePage = async () => {
   const userId = await getAuthenticatedUserId();
 
   const data = await fetchLeaveApplications(userId);
-  console.log('data', data);
 
   const leaveData: LeaveItem[] = data.data;
-
-  console.log('Fetched leave applications:', leaveData);
 
   return (
     <>
       <Breadcrumbs paths={['Dashboard', 'Leave Applications']} />
+
+      {/* Main content */}
       <div className="bg-white">
         <div className="p-6 md:p-8">
           <h2 className="flex item-center gap-4 text-3xl text-[#1D1D1D] px-0 md:px-5 py-8">
@@ -40,6 +39,7 @@ const ApplyForLeavePage = async () => {
           </h2>
           <LeaveApplicationSection />
 
+          {/* Table Leave History */}
           <Suspense fallback={<div>Loading...</div>}>
             <LeaveHistorySection data={leaveData} />
           </Suspense>

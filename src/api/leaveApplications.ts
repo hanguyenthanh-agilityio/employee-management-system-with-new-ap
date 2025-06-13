@@ -3,8 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 // Constants
-import { ENDPOINT_LEAVE } from '@/constants/api-endpoint';
-import { ERROR_MESSAGE } from '@/constants/error';
+import { ENDPOINT_LEAVE, ERROR_MESSAGE } from '@/constants';
 
 // Services
 import {

@@ -11,6 +11,7 @@ import { RegisterForm } from '@/components';
 const RegisterPage = () => {
   return (
     <>
+      {/* Header */}
       <h1 className="text-5xl sm:text-7xl font-semibold text-primary mb-2 leading-[normal]">
         Welcome to XCELTECH
       </h1>
@@ -18,8 +19,10 @@ const RegisterPage = () => {
         Register your account
       </p>
 
+      {/* Register Form */}
       <RegisterForm />
 
+      {/* Footer */}
       <p className="text-lg sm:text-xl text-Gray56 mt-6 sm:mt-8">
         Already have an account?{' '}
         <Link href={ROUTER.LOGIN} className="text-primary font-bold">

@@ -6,11 +6,7 @@ import { cookies } from 'next/headers';
 import { login, register } from '@/services/apiService';
 
 // Utils
-import {
-  LoginInput,
-  loginSchema,
-  RegisterInput,
-} from '@/utils/schemas/authSchema';
+import { LoginInput, loginSchema, RegisterInput } from '@/utils';
 
 // Constants
 import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
