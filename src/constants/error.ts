@@ -6,6 +6,7 @@ export const ERROR_MESSAGE = {
   VALIDATION_FAILED: 'Validation failed',
   ACTIVATION_FAILED: 'Activation failed',
   UNKNOWN: 'Unknown error occurred.',
+  UNEXPECTED: 'Unexpected error occurred',
   INVALID_CREDENTIALS: 'Invalid credentials',
   UNKNOWN_REGISTER: 'Unknown error during registration',
 };

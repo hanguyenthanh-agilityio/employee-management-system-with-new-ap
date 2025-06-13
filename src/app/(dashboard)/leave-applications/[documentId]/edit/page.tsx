@@ -11,7 +11,6 @@ import { Breadcrumbs, EditForm } from '@/components';
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
   const leave = await fetchLeaveApplicationById(documentId);
-  console.log('Fetched leave:', leave);
 
   if (!leave) return <div>Leave application not found!</div>;
 
@@ -23,11 +22,12 @@ const UpdateLeavePage = async (props: {
 }) => {
   const params = await props.params;
   const documentId = params.documentId;
-  console.log('Leave documentId:', documentId);
 
   return (
     <>
       <Breadcrumbs paths={['Leave Applications', 'Edit']} />
+
+      {/* Main content */}
       <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
         <div className="flex flex-col items-center">
           <h2 className="text-[40px] font-semibold text-[#1D1D1D] flex items-center justify-center gap-4">
@@ -39,6 +39,7 @@ const UpdateLeavePage = async (props: {
           </span>
         </div>
 
+        {/* Update form */}
         <Suspense>
           <UpdateLeaveContent documentId={documentId} />
         </Suspense>

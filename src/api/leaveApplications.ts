@@ -3,8 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 // Constants
-import { ENDPOINT_LEAVE } from '@/constants/api-endpoint';
-import { ERROR_MESSAGE } from '@/constants/error';
+import { ENDPOINT_LEAVE, ERROR_MESSAGE } from '@/constants';
 
 // Services
 import {
@@ -28,7 +27,7 @@ import {
 
 export const getAuthenticatedUserId = async () => {
   const userData = await getCurrentUser();
-  console.log('userData', userData.id);
+
   return userData.id;
 };
 
@@ -48,7 +47,6 @@ export const fetchLeaveApplicationById = async (documentId: string) => {
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
   const user = await getCurrentUser();
-  console.log('Current user from API:', user);
 
   const fullData: LeaveApplicationInput = {
     ...data,
@@ -112,11 +110,7 @@ export const deleteLeaveApplication = async (id: string) => {
 export const exportLeaveApplications = async (
   format: 'pdf' | 'csv' | 'excel',
 ) => {
-  console.log('Export started:', format);
-
   const blob = await exportLeave(format);
-
-  console.log(`Exported ${format}`, blob);
 
   return blob;
 };

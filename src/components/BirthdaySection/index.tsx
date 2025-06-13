@@ -16,12 +16,7 @@ const BirthdaySection = () => (
     </div>
     <div className="flex flex-col gap-4 py-10">
       {birthdays.map((item, index) => (
-        <BirthdayItem
-          key={index}
-          name={item.name}
-          date={item.date}
-          onClick={() => alert(`Wished ${item.name}!`)}
-        />
+        <BirthdayItem key={index} name={item.name} date={item.date} />
       ))}
     </div>
   </Card>
