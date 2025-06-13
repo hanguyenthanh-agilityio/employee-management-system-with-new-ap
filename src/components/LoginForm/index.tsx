@@ -22,7 +22,7 @@ import { Button, Input, Checkbox } from '@/components';
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -41,20 +41,18 @@ const LoginForm = () => {
     setServerError('');
     try {
       const result = await loginAction(undefined, data);
-      console.log('loginAction result:', result);
 
       if (result.success) {
-        toast.success('Account login successfully!');
-        console.log('Redirecting to leave application page...');
+        toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS);
+
         router.push(ROUTER.LEAVE_APPLICATION);
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
         toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
       }
     } catch (error) {
-      console.error('Unexpected error in login:', error);
-      setServerError('Unexpected error occurred');
-      toast.error('Unexpected error occurred');
+      setServerError(ERROR_MESSAGE.UNEXPECTED);
+      toast.error(ERROR_MESSAGE.UNEXPECTED);
     }
   };
 

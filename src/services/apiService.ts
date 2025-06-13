@@ -22,8 +22,8 @@ export const login = async (data: LoginPayload) => {
 
   if (!res.ok) {
     const errorText = await res.text();
-    console.error('Login error response:', res.status, errorText);
-    throw new Error('Login failed');
+
+    throw new Error(errorText || 'Login failed');
   }
 
   return res.json();
@@ -78,8 +78,6 @@ export const register = async (data: {
 // Get Leave Applications
 export const getLeaveApplications = async (id: number) => {
   const token = await getTokenFromCookies();
-
-  console.log('TOKEN:', token);
 
   const res = await fetch(
     `${API_URL}${API.BASE}?filters[users_permissions_user][id][$eq]=${id}`,
@@ -184,8 +182,7 @@ export const deleteLeave = async (documentId: string) => {
 
   if (!res.ok) {
     const errorText = await res.text();
-    console.error('API Delete error:', res.status, errorText);
-    throw new Error('Failed to delete leave application');
+    throw new Error(errorText || 'Failed to delete leave application');
   }
 
   return res;
@@ -202,8 +199,6 @@ export const exportLeave = async (
   format: 'pdf' | 'csv' | 'excel',
 ): Promise<Blob> => {
   const token = await getTokenFromCookies();
-
-  console.log('Calling export API:', format);
 
   const res = await fetch(`${API_URL}${API.DOWNLOAD}${format}/`, {
     method: 'GET',

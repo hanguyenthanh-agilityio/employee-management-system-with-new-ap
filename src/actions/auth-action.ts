@@ -92,8 +92,6 @@ export const registerAction = async (data: RegisterInput) => {
       message: response.message || SUCCESS_MESSAGES.REGISTRATION_SUCCESS,
     };
   } catch (err: unknown) {
-    console.error('Register error:', err);
-
     return {
       success: false,
       message:
