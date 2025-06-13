@@ -19,7 +19,10 @@ import { createLeaveApplication } from '@/api/leaveApplications';
 import { Breadcrumbs, Form } from '@/components';
 
 // Utils
-import { LeaveApplicationInput, leaveApplicationSchema } from '@/utils';
+import {
+  LeaveApplicationInput,
+  leaveApplicationSchema,
+} from '@/utils/schemas/leaveApplicationSchema';
 
 // Constants
 import { ROUTER } from '@/constants';
