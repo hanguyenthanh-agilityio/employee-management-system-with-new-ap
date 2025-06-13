@@ -96,9 +96,8 @@
 | Command                                                                    | Action                                                           |
 | :------------------------------------------------------------------------- | :--------------------------------------------------------------- |
 | `git clone git@gitlab.asoft-python.com:ha.nguyenthanh/nextjs-training.git` | Create a copy of the target repository                           |
-| `cd employee-management-system-with-new-api`                               | Change directory to shady-rhymes                                 |
+| `cd employee-management-system-with-new-api`                               | Change directory to Employee Management System                   |
 | `pnpm install`                                                             | Installs dependencies                                            |
 | `pnpm run dev`                                                             | Start local dev server at localhost:3000                         |
 | `pnpm lint`                                                                | Check warning & error following ESLint                           |
 | `pnpm storybook`                                                           | Run the storybook to review all the components at localhost:6006 |
-| `pnpm test`                                                                | Run unit test                                                    |
