@@ -1,6 +1,9 @@
 import { CloseIcon, TrashIcon } from '@/icons';
 import clsx from 'clsx';
 
+// Components
+import { Button } from '@/components';
+
 interface DeleteConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -36,17 +39,18 @@ const DeleteConfirmModal = ({
           Are you sure you want to delete this item?
         </p>
         <div className="flex justify-center items-center space-x-4">
-          <button
+          <Button
             data-modal-toggle="deleteModal"
             type="button"
-            className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10"
+            variant="cancel"
+            customClass="py-2 px-3 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10"
             onClick={onClose}
           >
             No, cancel
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
-            className={clsx(
+            customClass={clsx(
               'py-2 px-3 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none',
               {
                 'bg-red hover:bg-[#b91c1c] focus:ring-red': !isLoading,
@@ -57,7 +61,7 @@ const DeleteConfirmModal = ({
             disabled={isLoading}
           >
             {isLoading ? 'Deleting...' : "Yes, I'm sure"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

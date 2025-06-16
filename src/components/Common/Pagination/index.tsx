@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import { useMemo } from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -13,9 +14,9 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  if (totalPages <= 1) return null;
+  const getPages = useMemo(() => {
+    if (totalPages <= 1) return [];
 
-  const getPages = () => {
     const pages = [];
     const delta = 2;
     const left = Math.max(2, currentPage - delta);
@@ -32,9 +33,9 @@ const Pagination: React.FC<PaginationProps> = ({
     if (totalPages > 1) pages.push(totalPages);
 
     return pages;
-  };
+  }, [currentPage, totalPages]);
 
-  const pages = getPages();
+  if (getPages.length === 0) return null;
 
   const handleClick = (page: number | string) => {
     if (typeof page === 'number' && page !== currentPage) {
@@ -58,7 +59,7 @@ const Pagination: React.FC<PaginationProps> = ({
           </button>
         </li>
 
-        {pages.map((page, index) => (
+        {getPages.map((page, index) => (
           <li key={index}>
             {typeof page === 'number' ? (
               <button
