@@ -11,14 +11,12 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
   onReset: () => void;
-  isSubmitting: boolean;
-  isDirty?: boolean;
 }
 
-const Form = ({ form, onReset, isSubmitting, isDirty }: FormProps) => {
+const Form = ({ form, onReset }: FormProps) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting, isDirty },
   } = form;
 
   return (

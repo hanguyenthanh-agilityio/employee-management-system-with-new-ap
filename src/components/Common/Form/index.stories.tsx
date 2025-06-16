@@ -38,14 +38,7 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
     },
   });
 
-  return (
-    <Form
-      form={form}
-      isSubmitting={false}
-      isDirty={false}
-      onReset={() => form.reset()}
-    />
-  );
+  return <Form form={form} onReset={() => form.reset()} />;
 };
 
 export const Default: Story = {

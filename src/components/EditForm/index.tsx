@@ -66,12 +66,7 @@ const EditForm = ({ leave }: EditFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="pt-5">
-      <Form
-        form={form}
-        isSubmitting={form.formState.isSubmitting}
-        isDirty={form.formState.isDirty}
-        onReset={handleReset}
-      />
+      <Form form={form} onReset={handleReset} />
     </form>
   );
 };

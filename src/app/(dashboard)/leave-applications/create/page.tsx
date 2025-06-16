@@ -94,12 +94,7 @@ const CreateLeavePage = () => {
 
         {/* Create form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <Form
-            form={form}
-            onReset={handleReset}
-            isSubmitting={form.formState.isSubmitting}
-            isDirty={true}
-          />
+          <Form form={form} onReset={handleReset} />
         </form>
       </div>
     </>
