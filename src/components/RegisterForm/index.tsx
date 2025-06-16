@@ -16,33 +16,10 @@ import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, CHECKBOX, INPUT_FIELD } from '@/constants';
 
 // Components
 import { Input, Checkbox, Button } from '@/components';
-
-const inputFields = [
-  { label: 'First Name', name: 'firstName' },
-  { label: 'Last Name', name: 'lastName' },
-  { label: 'E-mail Address', type: 'email', name: 'email' },
-  { label: 'Phone Number', name: 'phone' },
-  { label: 'Password', type: 'password', name: 'password' },
-  { label: 'Confirm Password', type: 'password', name: 'confirmPassword' },
-];
-
-const checkboxes = [
-  {
-    id: 'newsletter',
-    label: 'Yes, I want to receive KRIS newsletters',
-    name: 'newsletter',
-  },
-  {
-    id: 'terms',
-    label: 'I agree to all the ',
-    subLabel: 'Terms, Privacy Policy',
-    name: 'terms',
-  },
-];
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -83,7 +60,7 @@ const RegisterForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
       >
-        {inputFields.map((field) => (
+        {INPUT_FIELD.map((field) => (
           <div key={field.name}>
             <Input
               label={field.label}
@@ -105,7 +82,7 @@ const RegisterForm = () => {
         ))}
 
         <div className="col-span-1 md:col-span-2 space-y-2 pt-4">
-          {checkboxes.map((cb) => (
+          {CHECKBOX.map((cb) => (
             <div key={cb.id}>
               <Checkbox
                 id={cb.id}

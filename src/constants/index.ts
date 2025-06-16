@@ -7,3 +7,4 @@ export * from './router';
 export * from './success';
 export * from './table';
 export * from './images';
+export * from './common';
