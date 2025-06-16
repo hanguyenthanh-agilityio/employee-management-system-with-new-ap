@@ -16,7 +16,7 @@ import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE, INPUT_FIELD, CHECKBOX } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, CHECKBOX, INPUT_FIELD } from '@/constants';
 
 // Components
 import { Input, Checkbox, Button } from '@/components';
