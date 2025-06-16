@@ -14,7 +14,7 @@ export { default as ProgressBar } from './Common/ProgressBar';
 export { default as Input } from './Common/Input';
 export { default as Checkbox } from './Common/Checkbox';
 export { default as Table } from './Common/Table';
-
+export { default as LoadingFormLeave } from './Common/LoadingFormLeave';
 export { default as ToastProvider } from './ToastProvider';
 export { default as BirthdayItem } from './BirthdayItem';
 export { default as LeaveCard } from './LeaveApplicationCard';
@@ -26,6 +26,7 @@ export { default as GenericTable } from './LeaveHistoryTable';
 export { default as LoginForm } from './LoginForm';
 export { default as RegisterForm } from './RegisterForm';
 export { default as EditForm } from './EditForm';
+export { default as CreateLeaveContent } from './CreateForm';
 
 // Dropdown
 export { default as ExportDropdown } from './ExportDropdown';

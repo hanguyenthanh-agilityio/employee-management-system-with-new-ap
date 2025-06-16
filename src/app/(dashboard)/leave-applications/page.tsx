@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
@@ -40,9 +38,8 @@ const ApplyForLeavePage = async () => {
           <LeaveApplicationSection />
 
           {/* Table Leave History */}
-          <Suspense fallback={<div>Loading...</div>}>
-            <LeaveHistorySection data={leaveData} />
-          </Suspense>
+
+          <LeaveHistorySection data={leaveData} />
         </div>
       </div>
     </>
