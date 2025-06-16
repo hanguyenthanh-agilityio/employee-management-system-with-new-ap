@@ -56,7 +56,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
           columns={columns({
             sortBy,
             sortOrder,
-            onSort: handleSort,
+            onSort: handleSort as (field: string) => void,
             onEdit: handleEdit,
             onDelete: handleDelete,
           })}
