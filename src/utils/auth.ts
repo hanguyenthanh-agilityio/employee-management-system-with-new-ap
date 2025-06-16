@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use server';
+
 import { cookies } from 'next/headers';
 
 export const getTokenFromCookies = async (): Promise<string> => {
