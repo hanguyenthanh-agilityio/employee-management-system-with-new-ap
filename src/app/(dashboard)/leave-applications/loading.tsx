@@ -1,27 +1,25 @@
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
-const LoadingApplyForLeave = () => {
-  return (
-    <div className="p-6 md:p-8">
-      <div className="flex items-center gap-4 text-3xl text-[#1D1D1D] px-5 py-8">
-        <BookOpenIcon width={34} height={34} />
-        <SectionTitleSkeleton />
-      </div>
-
-      {/* Leave Application Cards */}
-      <div className="flex gap-4 overflow-x-auto p-4">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <LeaveCardSkeleton key={index} />
-        ))}
-      </div>
-
-      {/* Leave History Table */}
-      <div className="mt-10 p-4">
-        <LeaveHistorySkeleton />
-      </div>
+const LoadingApplyForLeave = () => (
+  <div className="p-6 md:p-8">
+    <div className="flex items-center gap-4 text-3xl text-[#1D1D1D] px-5 py-8">
+      <BookOpenIcon width={34} height={34} />
+      <SectionTitleSkeleton />
     </div>
-  );
-};
+
+    {/* Leave Application Cards */}
+    <div className="flex gap-4 overflow-x-auto p-4">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <LeaveCardSkeleton key={index} />
+      ))}
+    </div>
+
+    {/* Leave History Table */}
+    <div className="mt-10 p-4">
+      <LeaveHistorySkeleton />
+    </div>
+  </div>
+);
 
 export default LoadingApplyForLeave;
 
