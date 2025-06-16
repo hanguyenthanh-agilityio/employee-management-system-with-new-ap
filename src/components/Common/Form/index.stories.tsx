@@ -41,8 +41,8 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
   return (
     <Form
       form={form}
-      isSubmitting={false}
-      isDirty={false}
+      // isSubmitting={false}
+      // isDirty={false}
       onReset={() => form.reset()}
     />
   );
