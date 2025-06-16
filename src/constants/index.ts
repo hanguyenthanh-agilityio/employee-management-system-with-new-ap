@@ -6,3 +6,4 @@ export * from './error';
 export * from './router';
 export * from './success';
 export * from './table';
+export * from './images';

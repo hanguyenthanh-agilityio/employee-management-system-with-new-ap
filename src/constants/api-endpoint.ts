@@ -1,1 +1,1 @@
-export const ENDPOINT_LEAVE = '/leave-applications';
+export const LEAVE_APPLICATION = '/leave-applications';

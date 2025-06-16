@@ -3,6 +3,9 @@ import Image from 'next/image';
 // Components
 import { Button } from '@/components';
 
+// Constants
+import { IMAGE } from '@/constants';
+
 interface ProfileSectionProps {
   name: string;
   jobTitle: string;
@@ -12,7 +15,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
   <div className="flex flex-col justify-between bg-primary rounded-lg text-white py-4 pl-4 sm:pl-8 sm:py-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div className="flex items-center">
       <Image
-        src="/profile.png"
+        src={IMAGE.PROFILE}
         alt="profile"
         width={130}
         height={130}
@@ -35,7 +38,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
       </div>
 
       <Image
-        src="/plan.svg"
+        src={IMAGE.PLAN}
         alt="plan"
         width={250}
         height={190}

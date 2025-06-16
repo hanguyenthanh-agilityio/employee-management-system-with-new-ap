@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 // Constants
-import { ENDPOINT_LEAVE, ERROR_MESSAGE } from '@/constants';
+import { LEAVE_APPLICATION } from '@/constants';
 
 // Services
 import {
@@ -20,10 +20,8 @@ import {
 import { LeaveApplication } from '@/types/components';
 
 // Utils
-import {
-  LeaveApplicationInput,
-  leaveApplicationSchema,
-} from '@/utils/schemas/leaveApplicationSchema';
+import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
+import { validateLeaveApplication } from '@/utils/validate';
 
 export const getAuthenticatedUserId = async () => {
   const userData = await getCurrentUser();
@@ -54,13 +52,10 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
     employeeName: user.username ?? 'unknown',
   };
 
-  const parsed = leaveApplicationSchema.safeParse(fullData);
-  if (!parsed.success) {
-    throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
-  }
+  const validateData = validateLeaveApplication(fullData);
 
   try {
-    await postLeaveApplication({ data: parsed.data });
+    await postLeaveApplication({ data: validateData });
     return { success: true };
   } catch (error) {
     return {
@@ -82,14 +77,11 @@ export const updateLeaveApplication = async (
     reason: string;
   },
 ) => {
-  const parsed = leaveApplicationSchema.safeParse(data);
-  if (!parsed.success) {
-    throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
-  }
+  const validateData = validateLeaveApplication(data);
 
   try {
-    await patchLeaveApplication(documentId, parsed.data);
-    revalidatePath(ENDPOINT_LEAVE);
+    await patchLeaveApplication(documentId, validateData);
+    revalidatePath(LEAVE_APPLICATION);
 
     return { success: true };
   } catch (error) {
@@ -103,7 +95,7 @@ export const updateLeaveApplication = async (
 // Delete Leave Application
 export const deleteLeaveApplication = async (id: string) => {
   await deleteLeave(id);
-  revalidatePath(ENDPOINT_LEAVE);
+  revalidatePath(LEAVE_APPLICATION);
 };
 
 // Export Leave Applications

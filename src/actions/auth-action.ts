@@ -1,7 +1,5 @@
 'use server';
 
-import { cookies } from 'next/headers';
-
 // Services
 import { login, register } from '@/services/apiService';
 
@@ -11,6 +9,7 @@ import {
   loginSchema,
   RegisterInput,
 } from '@/utils/schemas/authSchema';
+import { removeCookie, setCookie } from '@/utils/auth';
 
 // Constants
 import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
@@ -42,12 +41,8 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
     }
 
     // Set token to cookie
-    (await cookies()).set('jwtToken', data.jwt, {
-      httpOnly: true,
-      secure: true,
-      path: '/',
+    await setCookie('jwtToken', data.jwt, {
       maxAge: 60 * 60 * 12,
-      sameSite: 'lax',
     });
 
     return { success: true };
@@ -60,24 +55,15 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
 };
 
 export const logoutAction = async () => {
-  const cookieStore = await cookies();
-
-  cookieStore.set('jwtToken', '', {
-    httpOnly: true,
-    secure: true,
-    path: '/',
-    maxAge: 0,
-  });
-
+  await removeCookie('jwtToken');
   return { success: true };
 };
 
 // Register action
 export const registerAction = async (data: RegisterInput) => {
   try {
-    const username = `${data.firstName || ''} ${data.lastName || ''}`.trim();
-
-    const fullUsername = username === '' ? data.email : username;
+    const { firstName = '', lastName = '', email } = data;
+    const fullUsername = `${firstName}${lastName}`.trim() || email;
 
     const strapiRegisterPayload = {
       username: fullUsername,

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 // Constants
-import { ENDPOINT_LEAVE, leaves } from '@/constants';
+import { LEAVE_APPLICATION, leaves } from '@/constants';
 
 // Utils
 import { formatTitleToPath } from '@/utils/format';
@@ -16,7 +16,7 @@ const LeaveApplicationSection = () => {
 
   const handleClick = (title: string): (() => void) => {
     return () => {
-      const path = `${ENDPOINT_LEAVE}/create?type=${formatTitleToPath(title)}`;
+      const path = `${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`;
       router.push(path);
     };
   };
