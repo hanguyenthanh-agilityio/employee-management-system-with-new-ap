@@ -13,7 +13,7 @@ import {
 import { triggerDownload } from '@/utils/download';
 
 // Types
-import { LeaveItem, SortField } from '@/types';
+import { LeaveItem } from '@/types/components';
 
 // Constants
 import { ROUTER, ERROR_MESSAGE, TYPE_LABELS } from '@/constants';
@@ -32,7 +32,9 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const ITEMS_PER_PAGE = 5;
 
-  const [sortBy, setSortBy] = useState<SortField>('');
+  const [sortBy, setSortBy] = useState<
+    'employeeName' | 'startDate' | 'endDate' | 'type' | ''
+  >('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -109,12 +111,19 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) =>
     handleChange(e.target.value);
 
-  const handleSort = (field: SortField) => {
-    if (field === sortBy) {
-      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-    } else {
-      setSortBy(field);
-      setSortOrder('asc');
+  const handleSort = (field: string) => {
+    if (
+      field === 'employeeName' ||
+      field === 'startDate' ||
+      field === 'endDate' ||
+      field === 'type'
+    ) {
+      if (sortBy === field) {
+        setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      } else {
+        setSortBy(field);
+        setSortOrder('asc');
+      }
     }
   };
 
