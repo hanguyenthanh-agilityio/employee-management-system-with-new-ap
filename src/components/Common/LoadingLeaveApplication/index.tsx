@@ -1,6 +1,6 @@
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
-const LoadingApplyForLeave = () => (
+const LoadingLeaveApplication = () => (
   <div className="p-6 md:p-8">
     <div className="flex items-center gap-4 text-3xl text-[#1D1D1D] px-5 py-8">
       <BookOpenIcon width={34} height={34} />
@@ -21,7 +21,7 @@ const LoadingApplyForLeave = () => (
   </div>
 );
 
-export default LoadingApplyForLeave;
+export default LoadingLeaveApplication;
 
 export const SectionTitleSkeleton = () => (
   <div className="h-8 w-48 bg-gray-200 rounded-md animate-pulse" />

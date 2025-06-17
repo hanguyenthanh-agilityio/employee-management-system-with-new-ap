@@ -1,29 +1,19 @@
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
-// APIs
-import {
-  fetchLeaveApplications,
-  getAuthenticatedUserId,
-} from '@/api/leaveApplications';
-
 // Types
-import { LeaveItem } from '@/types/components';
+
 import {
   Breadcrumbs,
   LeaveApplicationSection,
-  LeaveHistorySection,
+  LoadingLeaveApplication,
 } from '@/components';
+import { Suspense } from 'react';
+import LeaveHistoryWrapper from '@/components/LeaveHistoryWrapper';
 
 // Components
 
 const ApplyForLeavePage = async () => {
-  const userId = await getAuthenticatedUserId();
-
-  const data = await fetchLeaveApplications(userId);
-
-  const leaveData: LeaveItem[] = data.data;
-
   return (
     <>
       <Breadcrumbs paths={['Dashboard', 'Leave Applications']} />
@@ -38,8 +28,9 @@ const ApplyForLeavePage = async () => {
           <LeaveApplicationSection />
 
           {/* Table Leave History */}
-
-          <LeaveHistorySection data={leaveData} />
+          <Suspense fallback={<LoadingLeaveApplication />}>
+            <LeaveHistoryWrapper />
+          </Suspense>
         </div>
       </div>
     </>
