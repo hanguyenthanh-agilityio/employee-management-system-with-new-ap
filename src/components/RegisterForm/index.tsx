@@ -26,7 +26,7 @@ const RegisterForm = () => {
   const [serverError, setServerError] = useState('');
 
   const {
-    register: registerForm,
+    register,
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
@@ -65,7 +65,7 @@ const RegisterForm = () => {
             <Input
               label={field.label}
               type={field.type}
-              {...registerForm(field.name as keyof RegisterInput)}
+              {...register(field.name as keyof RegisterInput)}
               inputClassName={`rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
                 errors[field.name as keyof RegisterInput]
                   ? 'border border-red focus:ring-red'
@@ -88,7 +88,7 @@ const RegisterForm = () => {
                 id={cb.id}
                 label={cb.label}
                 subLabel={cb.subLabel}
-                {...registerForm(cb.name as keyof RegisterInput)}
+                {...register(cb.name as keyof RegisterInput)}
               />
               {errors[cb.name as keyof RegisterInput] && (
                 <p className="text-red text-sm mt-1">
