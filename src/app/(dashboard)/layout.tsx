@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 // Components
-import { TopBar } from '@/components';
+import { ToastProvider, TopBar } from '@/components';
 
 // Constants
 import { ROUTER } from '@/constants';
@@ -21,7 +21,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
       <TopBar />
       <main className="flex-grow">
         <div className="flex-grow container mx-auto px-4 sm:px-8 py-8">
-          {children}
+          {children} <ToastProvider />
         </div>
       </main>
     </div>
