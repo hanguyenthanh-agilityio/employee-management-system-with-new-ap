@@ -15,6 +15,7 @@ export { default as Input } from './Common/Input';
 export { default as Checkbox } from './Common/Checkbox';
 export { default as Table } from './Common/Table';
 export { default as LoadingFormLeave } from './Common/LoadingFormLeave';
+export { default as LoadingLeaveApplication } from './Common/LoadingLeaveApplication';
 export { default as ToastProvider } from './ToastProvider';
 export { default as BirthdayItem } from './BirthdayItem';
 export { default as LeaveCard } from './LeaveApplicationCard';
@@ -42,6 +43,7 @@ export { default as QuickActions } from './QuickActions';
 export { default as LeaveApplicationSection } from './LeaveApplicationSection';
 export { default as LeaveHistorySection } from './LeaveHistorySection';
 export { default as LeaveHistoryHeader } from './LeaveHistoryHeader';
+export { default as LeaveHistoryWrapper } from './LeaveHistoryWrapper';
 
 // Modal Components
 export { default as DeleteConfirmModal } from './DeleteConfirmModal';

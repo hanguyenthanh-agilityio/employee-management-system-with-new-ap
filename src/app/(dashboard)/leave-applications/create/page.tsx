@@ -1,14 +1,12 @@
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // Components
-import {
-  Breadcrumbs,
-  LoadingFormLeave,
-  CreateLeaveContent,
-} from '@/components';
+import { Breadcrumbs, LoadingFormLeave } from '@/components';
+
+const CreateLeaveContent = lazy(() => import('@/components/CreateForm'));
 
 const CreateLeavePage = () => {
   return (

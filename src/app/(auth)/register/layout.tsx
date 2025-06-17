@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 
 // Components
-import { ToastProvider, TransitionLoader } from '@/components';
+import { ToastProvider } from '@/components';
 
 // Constants
 import { IMAGE } from '@/constants';
@@ -52,7 +52,6 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
     >
       {children}
       <ToastProvider />
-      <TransitionLoader />
     </section>
   </main>
 );

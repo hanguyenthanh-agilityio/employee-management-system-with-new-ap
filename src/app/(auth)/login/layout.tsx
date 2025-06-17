@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 // Components
-import { ToastProvider, TransitionLoader } from '@/components';
+import { ToastProvider } from '@/components';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -41,7 +41,6 @@ const LoginLayout = ({ children }: AuthLayoutProps) => (
     >
       {children}
       <ToastProvider />
-      <TransitionLoader />
     </section>
   </main>
 );
