@@ -1,17 +1,15 @@
+import { Suspense } from 'react';
+
 // Icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
-// Types
-
+// Components
 import {
   Breadcrumbs,
   LeaveApplicationSection,
   LoadingLeaveApplication,
+  LeaveHistoryWrapper,
 } from '@/components';
-import { Suspense } from 'react';
-import LeaveHistoryWrapper from '@/components/LeaveHistoryWrapper';
-
-// Components
 
 const ApplyForLeavePage = async () => {
   return (

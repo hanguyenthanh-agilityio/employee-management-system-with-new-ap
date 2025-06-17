@@ -43,6 +43,7 @@ export { default as QuickActions } from './QuickActions';
 export { default as LeaveApplicationSection } from './LeaveApplicationSection';
 export { default as LeaveHistorySection } from './LeaveHistorySection';
 export { default as LeaveHistoryHeader } from './LeaveHistoryHeader';
+export { default as LeaveHistoryWrapper } from './LeaveHistoryWrapper';
 
 // Modal Components
 export { default as DeleteConfirmModal } from './DeleteConfirmModal';

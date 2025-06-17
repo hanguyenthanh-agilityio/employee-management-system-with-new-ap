@@ -1,17 +1,7 @@
 import { Skeleton } from '@/components/Common/Skeleton';
-import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 const LoadingFormLeave = () => (
   <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
-    {/* Header */}
-    <div className="flex flex-col items-center mb-8">
-      <h2 className="text-[40px] font-semibold text-[#1D1D1D] flex items-center justify-center gap-4">
-        <BookOpenIcon width={45} height={45} />
-        <Skeleton customClass="h-10 w-64" />
-      </h2>
-      <Skeleton customClass="h-4 w-96 mt-4" />
-    </div>
-
     {/* Form Fields */}
     <div className="space-y-6">
       {/* Leave Type */}
