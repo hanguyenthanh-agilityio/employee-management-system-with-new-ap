@@ -16,40 +16,17 @@ import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
 import { Input, Checkbox, Button } from '@/components';
-
-const inputFields = [
-  { label: 'First Name', name: 'firstName' },
-  { label: 'Last Name', name: 'lastName' },
-  { label: 'E-mail Address', type: 'email', name: 'email' },
-  { label: 'Phone Number', name: 'phone' },
-  { label: 'Password', type: 'password', name: 'password' },
-  { label: 'Confirm Password', type: 'password', name: 'confirmPassword' },
-];
-
-const checkboxes = [
-  {
-    id: 'newsletter',
-    label: 'Yes, I want to receive KRIS newsletters',
-    name: 'newsletter',
-  },
-  {
-    id: 'terms',
-    label: 'I agree to all the ',
-    subLabel: 'Terms, Privacy Policy',
-    name: 'terms',
-  },
-];
 
 const RegisterForm = () => {
   const router = useRouter();
   const [serverError, setServerError] = useState('');
 
   const {
-    register: registerForm,
+    register,
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
@@ -83,12 +60,12 @@ const RegisterForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
       >
-        {inputFields.map((field) => (
+        {INPUT_FIELDS.map((field) => (
           <div key={field.name}>
             <Input
               label={field.label}
               type={field.type}
-              {...registerForm(field.name as keyof RegisterInput)}
+              {...register(field.name as keyof RegisterInput)}
               inputClassName={`rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
                 errors[field.name as keyof RegisterInput]
                   ? 'border border-red focus:ring-red'
@@ -105,13 +82,13 @@ const RegisterForm = () => {
         ))}
 
         <div className="col-span-1 md:col-span-2 space-y-2 pt-4">
-          {checkboxes.map((cb) => (
+          {CHECKBOXES.map((cb) => (
             <div key={cb.id}>
               <Checkbox
                 id={cb.id}
                 label={cb.label}
                 subLabel={cb.subLabel}
-                {...registerForm(cb.name as keyof RegisterInput)}
+                {...register(cb.name as keyof RegisterInput)}
               />
               {errors[cb.name as keyof RegisterInput] && (
                 <p className="text-red text-sm mt-1">

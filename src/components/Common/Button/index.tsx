@@ -14,7 +14,8 @@ type ButtonProps = {
     | 'info'
     | 'warning'
     | 'danger'
-    | 'export';
+    | 'export'
+    | 'cancel';
   customClass?: string;
   name?: string;
   value?: string;
@@ -67,6 +68,9 @@ const Button = ({
       break;
     case 'export':
       stateClass = 'bg-[#3F861E] text-white hover:bg-green';
+      break;
+    case 'cancel':
+      stateClass = 'text-gray-900 bg-white';
       break;
 
     default:

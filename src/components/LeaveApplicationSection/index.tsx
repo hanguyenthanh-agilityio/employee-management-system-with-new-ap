@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 // Constants
-import { ENDPOINT_LEAVE, leaves } from '@/constants';
+import { LEAVE_APPLICATION, leaves } from '@/constants';
 
 // Utils
 import { formatTitleToPath } from '@/utils/format';
@@ -16,14 +16,14 @@ const LeaveApplicationSection = () => {
 
   const handleClick = (title: string): (() => void) => {
     return () => {
-      const path = `${ENDPOINT_LEAVE}/create?type=${formatTitleToPath(title)}`;
+      const path = `${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`;
       router.push(path);
     };
   };
 
   return (
-    <div className="w-full px-0 overflow-x-auto">
-      <div className="flex gap-4 w-max sm:w-full">
+    <div className="w-full overflow-x-auto overflow-y-visible p-2">
+      <div className="flex gap-4 min-w-max items-stretch">
         {leaves.map((leave, index) => (
           <LeaveCard
             key={index}

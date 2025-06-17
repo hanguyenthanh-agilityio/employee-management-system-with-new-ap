@@ -13,10 +13,10 @@ import {
 import { triggerDownload } from '@/utils/download';
 
 // Types
-import { LeaveItem } from '@/types/components';
+import { LeaveItem, SortField } from '@/types';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, TYPE_LABELS } from '@/constants';
 
 export const useLeaveHistory = (data: LeaveItem[]) => {
   /**
@@ -32,9 +32,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const ITEMS_PER_PAGE = 5;
 
-  const [sortBy, setSortBy] = useState<
-    'employeeName' | 'startDate' | 'endDate' | 'type' | ''
-  >('');
+  const [sortBy, setSortBy] = useState<SortField>('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -75,12 +73,6 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
    * memo: avoid re-calculating the leave types list
    * set: remove duplicate value
    */
-  const TYPE_LABELS: Record<string, string> = {
-    annual: 'Annual Leave',
-    sick: 'Sick Leave',
-    casual: 'Casual Leave',
-  };
-
   const leaveTypes = useMemo(() => {
     if (!Array.isArray(data)) return [{ label: 'All', value: 'All' }];
     const uniqueTypes = Array.from(new Set(data.map((item) => item.type)));
@@ -117,19 +109,12 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) =>
     handleChange(e.target.value);
 
-  const handleSort = (field: string) => {
-    if (
-      field === 'employeeName' ||
-      field === 'startDate' ||
-      field === 'endDate' ||
-      field === 'type'
-    ) {
-      if (sortBy === field) {
-        setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-      } else {
-        setSortBy(field);
-        setSortOrder('asc');
-      }
+  const handleSort = (field: SortField) => {
+    if (sortBy === field) {
+      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortBy(field);
+      setSortOrder('asc');
     }
   };
 
