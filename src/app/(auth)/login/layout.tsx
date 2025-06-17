@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 // Components
-import { ToastProvider, TransitionLoader } from '@/components';
+import { ToastProvider } from '@/components';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -10,7 +10,10 @@ interface AuthLayoutProps {
 const LoginLayout = ({ children }: AuthLayoutProps) => (
   <main className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
     {/* Banner First on Mobile, Second on Desktop */}
-    <div className="relative w-full h-96 md:h-full order-1 md:order-2">
+    <section
+      className="relative w-full h-96 md:h-full order-1 md:order-2"
+      aria-label="Login banner"
+    >
       {/* Overlay */}
       <div className="absolute inset-0 bg-primary bg-[url(/login-banner.png)] bg-blend-multiply bg-cover bg-center bg-no-repeat z-10" />
 
@@ -29,14 +32,16 @@ const LoginLayout = ({ children }: AuthLayoutProps) => (
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     {/* Form Second on Mobile, First on Desktop */}
-    <div className="flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 md:py-16 order-2 md:order-1">
+    <section
+      className="flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 md:py-16 order-2 md:order-1"
+      aria-label="Login form"
+    >
       {children}
       <ToastProvider />
-      <TransitionLoader />
-    </div>
+    </section>
   </main>
 );
 

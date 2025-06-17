@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+// Utils
+import { generateBreadcrumbUrl } from '@/utils/breadcrumbs';
+
 interface BreadcrumbsProps {
   paths: string[];
 }
@@ -12,11 +15,7 @@ const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
           {index !== paths.length - 1 ? (
             <>
               <Link
-                href={`/${paths
-                  .slice(0, index + 1)
-                  .join('/')
-                  .toLowerCase()
-                  .replace(/ /g, '-')}`}
+                href={generateBreadcrumbUrl(paths, index)}
                 className="hover:underline"
               >
                 {path}

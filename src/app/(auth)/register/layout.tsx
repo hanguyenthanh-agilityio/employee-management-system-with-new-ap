@@ -2,15 +2,18 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 
 // Components
-import { ToastProvider, TransitionLoader } from '@/components';
+import { ToastProvider } from '@/components';
 
 // Constants
 import { IMAGE } from '@/constants';
 
 const RegisterLayout = ({ children }: { children: ReactNode }) => (
   <main className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-    {/* Banner First */}
-    <div className="relative w-full h-[60vh] md:h-full">
+    {/* Banner Section */}
+    <section
+      className="relative w-full h-[60vh] md:h-full"
+      aria-label="Register banner"
+    >
       <div className="absolute inset-0 bg-primary bg-[url(/register-banner.png)] bg-blend-multiply bg-cover bg-center bg-no-repeat z-10" />
 
       <div className="relative z-20 py-6 px-6 sm:px-10 text-white h-full flex flex-col justify-center">
@@ -40,14 +43,16 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    {/* Form Second */}
-    <div className="flex flex-col justify-center px-6 sm:px-10 py-10 md:py-16">
+    {/* Form Section */}
+    <section
+      className="flex flex-col justify-center px-6 sm:px-10 py-10 md:py-16"
+      aria-label="Register form"
+    >
       {children}
       <ToastProvider />
-      <TransitionLoader />
-    </div>
+    </section>
   </main>
 );
 

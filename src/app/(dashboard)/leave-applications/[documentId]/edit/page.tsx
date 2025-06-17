@@ -7,7 +7,7 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 
 // Components
-import { Breadcrumbs, EditForm } from '@/components';
+import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
   const leave = await fetchLeaveApplicationById(documentId);
@@ -40,7 +40,7 @@ const UpdateLeavePage = async (props: {
         </div>
 
         {/* Update form */}
-        <Suspense>
+        <Suspense fallback={<LoadingFormLeave />}>
           <UpdateLeaveContent documentId={documentId} />
         </Suspense>
       </div>
