@@ -1,4 +1,4 @@
-export const INPUT_FIELD = [
+export const INPUT_FIELDS = [
   { label: 'First Name', name: 'firstName' },
   { label: 'Last Name', name: 'lastName' },
   { label: 'E-mail Address', type: 'email', name: 'email' },
@@ -7,7 +7,7 @@ export const INPUT_FIELD = [
   { label: 'Confirm Password', type: 'password', name: 'confirmPassword' },
 ];
 
-export const CHECKBOX = [
+export const CHECKBOXES = [
   {
     id: 'newsletter',
     label: 'Yes, I want to receive KRIS newsletters',

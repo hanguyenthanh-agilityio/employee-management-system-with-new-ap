@@ -16,7 +16,7 @@ import { registerSchema, RegisterInput } from '@/utils/schemas/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE, CHECKBOX, INPUT_FIELD } from '@/constants';
+import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
 import { Input, Checkbox, Button } from '@/components';
@@ -60,7 +60,7 @@ const RegisterForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
       >
-        {INPUT_FIELD.map((field) => (
+        {INPUT_FIELDS.map((field) => (
           <div key={field.name}>
             <Input
               label={field.label}
@@ -82,7 +82,7 @@ const RegisterForm = () => {
         ))}
 
         <div className="col-span-1 md:col-span-2 space-y-2 pt-4">
-          {CHECKBOX.map((cb) => (
+          {CHECKBOXES.map((cb) => (
             <div key={cb.id}>
               <Checkbox
                 id={cb.id}
