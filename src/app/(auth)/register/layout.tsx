@@ -22,7 +22,7 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
           alt="Logo"
           width={250}
           height={68}
-          className="md:absolute md:top-[30px] md:left-[5px]"
+          className="md:absolute md:top-[30px] md:left-[5px] object-contain width-[250px] h-auto w-auto"
           priority
         />
         <div>
