@@ -6,6 +6,7 @@ type ButtonProps = {
   endIcon?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
   variant?:
+    | 'none'
     | 'outline'
     | 'primary'
     | 'secondary'
@@ -41,6 +42,9 @@ const Button = ({
   let stateClass = '';
 
   switch (variant) {
+    case 'none':
+      stateClass = '';
+      break;
     case 'primary':
       stateClass =
         'bg-[#0A278F] text-white hover:bg-[#0c2f9e] disabled:cursor-not-allowed disabled:bg-gray-400';
