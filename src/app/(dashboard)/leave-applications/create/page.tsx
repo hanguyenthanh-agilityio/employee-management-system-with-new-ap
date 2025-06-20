@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { lazy, Suspense } from 'react';
 
 // Icons
@@ -7,6 +9,10 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 import { Breadcrumbs, LoadingFormLeave } from '@/components';
 
 const CreateLeaveContent = lazy(() => import('@/components/CreateForm'));
+
+export const metadata: Metadata = {
+  title: 'Create Leave',
+};
 
 const CreateLeavePage = () => {
   return (

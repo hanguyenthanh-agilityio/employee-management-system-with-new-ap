@@ -8,8 +8,12 @@ import ToastProvider from '@/components/ToastProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Next.js Boilerplate',
-  description: 'Next.js 14+ boilerplate app',
+  title: {
+    template: '%s | Employee Management System',
+    default: 'Employee Management System',
+  },
+  description:
+    'A centralized system to manage employee information, leave applications, and HR tasks efficiently.',
   icons: [
     {
       rel: 'icon',

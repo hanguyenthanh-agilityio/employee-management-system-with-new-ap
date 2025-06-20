@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { Suspense } from 'react';
 
 // icons
@@ -8,6 +10,10 @@ import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Update Leave',
+};
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
   const leave = await fetchLeaveApplicationById(documentId);

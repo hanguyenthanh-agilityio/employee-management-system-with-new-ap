@@ -1,5 +1,6 @@
 'use client';
 
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 // Constants
@@ -7,6 +8,10 @@ import { ROUTER } from '@/constants';
 
 // Component
 import { RegisterForm } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Register',
+};
 
 const RegisterPage = () => (
   <>
