@@ -14,6 +14,7 @@ type LoginPayload = {
 export const login = async (data: LoginPayload) => {
   const res = await fetch(`${API_URL}${API.LOGIN}`, {
     method: 'POST',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -34,6 +35,7 @@ export const getCurrentUser = async () => {
 
   const res = await fetch(`${API_URL}/users/me`, {
     method: 'GET',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -55,6 +57,7 @@ export const register = async (data: {
 }) => {
   const res = await fetch(`${API_URL}${API.REGISTER}`, {
     method: 'POST',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -83,11 +86,11 @@ export const getLeaveApplications = async (id: number) => {
     `${API_URL}${API.BASE}?filters[users_permissions_user][id][$eq]=${id}`,
     {
       method: 'GET',
-      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      next: { tags: ['leave-apps'] },
     },
   );
 
@@ -104,11 +107,13 @@ export const getLeaveApplicationById = async (documentId: string) => {
 
   const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
     method: 'GET',
+    // Caching data
     cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    next: { tags: ['leave-apps'] },
   });
 
   if (!res.ok) {
@@ -158,6 +163,7 @@ export const patchLeaveApplication = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ data }),
+    // Caching data
     cache: 'no-store',
   });
 
