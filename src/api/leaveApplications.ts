@@ -53,7 +53,11 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
 
   try {
     await postLeaveApplication({ data: validateData });
-    console.log('revalidateTag leave-apps at', new Date().toISOString());
+
+    console.log(
+      '🔁 Calling revalidateTag("leave-apps") at',
+      new Date().toISOString(),
+    );
     revalidateTag('leave-apps');
     return { success: true };
   } catch (error) {

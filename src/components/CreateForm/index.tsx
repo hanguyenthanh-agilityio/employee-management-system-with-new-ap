@@ -59,7 +59,7 @@ const CreateLeaveContent = () => {
       const result = await createLeaveApplication(data);
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
-        router.refresh();
+        router.refresh(); //re-search
         reset();
       }
     } catch (err) {

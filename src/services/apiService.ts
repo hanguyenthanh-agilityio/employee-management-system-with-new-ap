@@ -80,6 +80,8 @@ export const register = async (data: {
 
 // Get Leave Applications
 export const getLeaveApplications = async (id: number) => {
+  console.log('🟢 [SERVER] Fetching leave apps at', new Date().toISOString());
+
   const token = await getTokenFromCookies();
 
   const res = await fetch(
@@ -90,7 +92,7 @@ export const getLeaveApplications = async (id: number) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      next: { tags: ['leave-apps'] },
+      next: { tags: ['leave-apps'], revalidate: 3600 },
     },
   );
 
@@ -103,11 +105,14 @@ export const getLeaveApplications = async (id: number) => {
 
 // Get leave application ID
 export const getLeaveApplicationById = async (documentId: string) => {
+  console.log(
+    '🟢 [SERVER] Fetching leave apps from API at',
+    new Date().toISOString(),
+  );
   const token = await getTokenFromCookies();
 
   const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
     method: 'GET',
-    // Caching data
     cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
