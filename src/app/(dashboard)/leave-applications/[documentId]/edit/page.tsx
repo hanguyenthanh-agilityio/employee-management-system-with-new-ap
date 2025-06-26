@@ -11,9 +11,19 @@ import { fetchLeaveApplicationById } from '@/api/leaveApplications';
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
 
-export const metadata: Metadata = {
-  title: 'Update Leave',
+type Props = {
+  params: { documentId: string };
 };
+
+// generateMetadata: dynamic metadata from API
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const leave = await fetchLeaveApplicationById(params.documentId);
+
+  return {
+    title: `Update Leave - ${leave.data.type}`,
+    description: `Edit leave request from ${leave.data.startDate} to ${leave.data.endDate}.`,
+  };
+}
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
   const leave = await fetchLeaveApplicationById(documentId);
