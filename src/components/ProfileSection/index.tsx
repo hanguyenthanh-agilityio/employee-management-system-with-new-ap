@@ -16,7 +16,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
     <div className="flex items-center">
       <Image
         src={IMAGE.PROFILE}
-        alt="profile"
+        alt={`Profile picture of ${name}`}
         width={130}
         height={130}
         className="rounded-full object-cover"
@@ -39,7 +39,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
 
       <Image
         src={IMAGE.PLAN}
-        alt="plan"
+        alt="User plan"
         width={250}
         height={190}
         className="object-contain"
