@@ -2,7 +2,7 @@
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 
 // constants
-import { payRows } from '@/constants';
+import { PAY_ROWS } from '@/constants';
 
 // Components
 import { Card, Table } from '@/components';
@@ -17,7 +17,7 @@ const PaySlipSection = () => (
     </div>
     <Table
       headers={['Earnings', 'Amount', 'Deductions', 'Total']}
-      rows={payRows}
+      rows={PAY_ROWS}
     />
   </Card>
 );

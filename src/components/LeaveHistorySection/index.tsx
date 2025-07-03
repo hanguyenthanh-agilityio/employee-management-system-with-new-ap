@@ -11,7 +11,7 @@ import {
 import { LeaveItem } from '@/types/components';
 
 // Constants
-import { columns } from '@/constants';
+import { COLUMNS } from '@/constants';
 
 // Hooks
 import { useLeaveHistory } from '@/hooks/useLeaveHistory';
@@ -61,7 +61,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
       {hasData ? (
         <GenericTable
           data={paginatedData}
-          columns={columns({
+          columns={COLUMNS({
             sortBy,
             sortOrder,
             onSort: handleSort as (field: string) => void,

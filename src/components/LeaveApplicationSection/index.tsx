@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 // Constants
-import { LEAVE_APPLICATION, leaves } from '@/constants';
+import { LEAVE_APPLICATION, LEAVES } from '@/constants';
 
 // Utils
 import { formatTitleToPath } from '@/utils/format';
@@ -24,7 +24,7 @@ const LeaveApplicationSection = () => {
   return (
     <div className="w-full overflow-x-auto overflow-y-visible p-2">
       <div className="flex gap-4 min-w-max items-stretch">
-        {leaves.map((leave, index) => (
+        {LEAVES.map((leave, index) => (
           <LeaveCard
             key={index}
             title={leave.title}

@@ -1,4 +1,4 @@
-export const payRows = [
+export const PAY_ROWS = [
   ['Basic Wage', '150,000', '-30,000', '120,000'],
   ['Tax', '15,000', '-3,000', '12,000'],
   ['Pension', '15,000', '-3,000', '12,000'],
