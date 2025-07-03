@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 
 // Constants
-import { payRows } from '@/constants/table';
+import { PAY_ROWS } from '@/constants/table';
 
 // Component
 import Card from '.';
@@ -80,7 +80,7 @@ export const WithPayContent: Story = {
         </div>
         <Table
           headers={['Earnings', 'Amount', 'Deductions', 'Total']}
-          rows={payRows}
+          rows={PAY_ROWS}
         />
       </>
     ),
