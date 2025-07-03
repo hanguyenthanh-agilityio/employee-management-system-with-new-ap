@@ -2,9 +2,9 @@
 
 // Components
 import {
-  DeleteConfirmModal,
   GenericTable,
   LeaveHistoryHeader,
+  TransitionLoader,
 } from '@/components';
 
 // Types
@@ -15,6 +15,16 @@ import { columns } from '@/constants';
 
 // Hooks
 import { useLeaveHistory } from '@/hooks/useLeaveHistory';
+import dynamic from 'next/dynamic';
+
+// Import with lazy load
+const DeleteConfirmModal = dynamic(
+  () => import('@/components/DeleteConfirmModal'),
+  {
+    loading: () => <TransitionLoader />,
+    ssr: false,
+  },
+);
 
 const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
   const {
