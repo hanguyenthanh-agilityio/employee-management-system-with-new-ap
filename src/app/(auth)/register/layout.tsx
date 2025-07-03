@@ -19,10 +19,11 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
       <div className="relative z-20 py-6 px-6 sm:px-10 text-white h-full flex flex-col justify-center">
         <Image
           src={IMAGE.LOGO}
-          alt="Logo"
+          alt="Management System Logo"
           width={250}
           height={68}
-          className="md:absolute md:top-[30px] md:left-[5px]"
+          className="md:absolute md:top-[30px] md:left-[5px] object-contain width-[250px] h-auto w-auto"
+          // LOGO is one of the LCPs if it is in the header
           priority
         />
         <div>

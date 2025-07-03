@@ -10,6 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: themeExtend.colors,
+      fontFamily: {
+        sans: ['var(--font-product-sans)'],
+      },
       fontSize: themeExtend.fontSize,
       spacing: themeExtend.spacing,
       borderRadius: themeExtend.borderRadius,

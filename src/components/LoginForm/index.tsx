@@ -71,6 +71,8 @@ const LoginForm = () => {
             label="E-mail Address"
             type="email"
             placeholder="Enter your email"
+            // If the error has text, the screen reader will read the error when the user focuses on the input.
+            aria-describedby={errors.email ? 'email-error' : undefined}
             {...register('email')}
             labelClassName="block text-lg md:text-xl font-bold mb-3 text-primary"
             inputClassName={`w-full rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
@@ -80,7 +82,13 @@ const LoginForm = () => {
             }`}
           />
           {errors.email && (
-            <p className="text-red text-sm mt-1">{errors.email.message}</p>
+            <p
+              id="email-error"
+              aria-live="polite"
+              className="text-red text-sm mt-1"
+            >
+              {errors.email.message}
+            </p>
           )}
         </div>
 
@@ -89,6 +97,7 @@ const LoginForm = () => {
             label="Password"
             type="password"
             placeholder="Enter your password"
+            aria-describedby={errors.password ? 'password-error' : undefined}
             {...register('password')}
             labelClassName="block text-lg md:text-xl font-bold mb-3 text-primary"
             inputClassName={`w-full rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
@@ -98,7 +107,13 @@ const LoginForm = () => {
             }`}
           />
           {errors.password && (
-            <p className="text-red text-sm mt-1">{errors.password.message}</p>
+            <p
+              id="password-error"
+              aria-live="polite"
+              className="text-red text-sm mt-1"
+            >
+              {errors.password.message}
+            </p>
           )}
         </div>
 
@@ -107,13 +122,17 @@ const LoginForm = () => {
           <Link
             href="/reset-password"
             className="text-primary font-bold hover:underline"
+            aria-label="Reset your password"
           >
             Reset Password?
           </Link>
         </div>
 
         {serverError && (
-          <div className="text-red text-center text-lg font-medium">
+          <div
+            className="text-red text-center text-lg font-medium"
+            aria-live="polite"
+          >
             {serverError}
           </div>
         )}
@@ -122,6 +141,7 @@ const LoginForm = () => {
           type="submit"
           customClass="justify-center w-full"
           disabled={isSubmitting}
+          aria-label="Submit login form"
         >
           {isSubmitting ? 'Signing In...' : 'Sign In'}
         </Button>
@@ -131,6 +151,7 @@ const LoginForm = () => {
           <Link
             href="/register"
             className="text-primary font-bold hover:underline"
+            aria-label="Register a new account"
           >
             Join KRIS today
           </Link>

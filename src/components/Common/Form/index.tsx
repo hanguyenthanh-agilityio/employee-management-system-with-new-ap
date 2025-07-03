@@ -22,7 +22,7 @@ const Form = ({ form, onReset }: FormProps) => {
   return (
     <>
       <div>
-        <label className="text-xl md:text-2xl text-[#1D1D1D]">Leave Type</label>
+        <p className="text-xl md:text-2xl text-[#1D1D1D]">Leave Type</p>
         <p className="my-5 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
           {form.getValues('type')}
         </p>
@@ -69,9 +69,7 @@ const Form = ({ form, onReset }: FormProps) => {
       </div>
 
       <div>
-        <label className="text-xl md:text-2xl text-[#1D1D1D]">
-          Reason for Leave
-        </label>
+        <p className="text-xl md:text-2xl text-[#1D1D1D]">Reason for Leave</p>
         <textarea
           className="bg-[#E3EDF9] mt-1 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
           rows={2}

@@ -32,6 +32,7 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
       <button
         className="w-9 h-9 rounded-full bg-yellow flex items-center justify-center shadow-lg"
         onClick={handleClick}
+        aria-label="profile"
       >
         <UserCircleIcon className="w-6 h-6 text-white" />
       </button>

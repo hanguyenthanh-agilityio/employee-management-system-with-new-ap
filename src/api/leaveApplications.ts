@@ -1,9 +1,6 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
-// Constants
-import { LEAVE_APPLICATION } from '@/constants';
+import { revalidateTag } from 'next/cache';
 
 // Services
 import {
@@ -56,6 +53,12 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
 
   try {
     await postLeaveApplication({ data: validateData });
+
+    console.log(
+      '🔁 Calling revalidateTag("leave-apps") at',
+      new Date().toISOString(),
+    );
+    revalidateTag('leave-apps');
     return { success: true };
   } catch (error) {
     return {
@@ -81,7 +84,8 @@ export const updateLeaveApplication = async (
 
   try {
     await patchLeaveApplication(documentId, validateData);
-    revalidatePath(LEAVE_APPLICATION);
+    // Apply revalidateTag
+    revalidateTag('leave-apps');
 
     return { success: true };
   } catch (error) {
@@ -95,7 +99,7 @@ export const updateLeaveApplication = async (
 // Delete Leave Application
 export const deleteLeaveApplication = async (id: string) => {
   await deleteLeave(id);
-  revalidatePath(LEAVE_APPLICATION);
+  revalidateTag('leave-apps');
 };
 
 // Export Leave Applications

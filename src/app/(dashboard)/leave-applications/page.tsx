@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { Suspense } from 'react';
 
 // Icons
@@ -10,6 +12,10 @@ import {
   LoadingLeaveApplication,
   LeaveHistoryWrapper,
 } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Leave Application',
+};
 
 const ApplyForLeavePage = async () => {
   return (
