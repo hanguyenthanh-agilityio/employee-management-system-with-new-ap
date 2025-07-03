@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+
+// Fonts
+import { productSans } from './fonts';
 
 // Components
 import './globals.css';
 import ToastProvider from '@/components/ToastProvider';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +28,7 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => (
   <html lang="en">
-    <body className={inter.className}>
+    <body className={productSans.className}>
       {children} <ToastProvider />
     </body>
   </html>
