@@ -44,7 +44,6 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     handleDelete,
     confirmDelete,
     cancelDelete,
-    handleExport,
   } = useLeaveHistory(data);
 
   const hasData = paginatedData && paginatedData.length > 0;
@@ -56,7 +55,6 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
         leaveTypes={leaveTypes}
         selectedType={selectedType}
         onFilterChange={handleFilterChange}
-        onExport={handleExport}
       />
 
       {/* Leave History table */}
