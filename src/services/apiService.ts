@@ -21,13 +21,15 @@ export const login = async (data: LoginPayload) => {
     body: JSON.stringify(data),
   });
 
-  if (!res.ok) {
-    const errorText = await res.text();
+  const dataRes = await res.json().catch(() => null);
 
-    throw new Error(errorText || 'Login failed');
+  if (!res.ok) {
+    const message =
+      dataRes?.error?.message || dataRes?.message || 'Login failed';
+    throw new Error(message);
   }
 
-  return res.json();
+  return dataRes;
 };
 
 export const getCurrentUser = async () => {
