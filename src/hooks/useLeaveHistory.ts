@@ -10,7 +10,12 @@ import { deleteLeaveApplication } from '@/api/leaveApplications';
 import { LeaveItem, SortField } from '@/types';
 
 // Constants
-import { ROUTER, ERROR_MESSAGE, TYPE_LABELS } from '@/constants';
+import {
+  ROUTER,
+  ERROR_MESSAGE,
+  TYPE_LABELS,
+  SUCCESS_MESSAGES,
+} from '@/constants';
 
 export const useLeaveHistory = (data: LeaveItem[]) => {
   /**
@@ -127,20 +132,33 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
 
   const confirmDelete = async () => {
     if (!deletingId) return;
-    startTransition(async () => {
-      try {
-        await deleteLeaveApplication(deletingId);
-        setModalOpen(false);
-        setDeletingId(null);
-        toast.success('Deleted!', {
-          onClose: () => {
-            router.refresh();
-          },
-        });
-      } catch (error) {
-        toast.error(ERROR_MESSAGE.DELETE_FAILED);
+
+    try {
+      await deleteLeaveApplication(deletingId);
+
+      setModalOpen(false);
+      setDeletingId(null);
+
+      //check condition: is this the last page and the page has only 1 item left
+      const isLastItemOnPage = paginatedData.length === 1;
+      const isNotFirstPage = currentPage > 1;
+
+      // Prepare new searchParam to change Url
+      const params = new URLSearchParams(searchParams.toString());
+      if (isLastItemOnPage && isNotFirstPage) {
+        params.set('page', String(currentPage - 1));
       }
-    });
+
+      // Navigate and refresh after deleting
+      startTransition(() => {
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+        router.refresh();
+
+        toast.success(SUCCESS_MESSAGES.DELETE_SUCCESS);
+      });
+    } catch (error) {
+      toast.error(ERROR_MESSAGE.DELETE_FAILED);
+    }
   };
 
   const cancelDelete = () => {
