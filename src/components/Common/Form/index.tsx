@@ -30,6 +30,7 @@ const Form = ({ form, onReset }: FormProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
+          id="startDate"
           label="Start Date"
           type="date"
           labelClassName="text-xl md:text-2xl text-[#1D1D1D]"
@@ -38,6 +39,7 @@ const Form = ({ form, onReset }: FormProps) => {
           error={errors.startDate?.message}
         />
         <Input
+          id="endDate"
           label="End Date"
           type="date"
           labelClassName="text-xl md:text-2xl text-[#1D1D1D]"
@@ -69,8 +71,14 @@ const Form = ({ form, onReset }: FormProps) => {
       </div>
 
       <div>
-        <p className="text-xl md:text-2xl text-[#1D1D1D]">Reason for Leave</p>
+        <label
+          htmlFor="reasonLeave"
+          className="text-xl md:text-2xl text-[#1D1D1D]"
+        >
+          Reason for Leave
+        </label>
         <textarea
+          id="reasonLeave"
           className="bg-[#E3EDF9] mt-1 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
           rows={2}
           {...register('reason')}
