@@ -1,15 +1,12 @@
-// APIs
-import {
-  fetchLeaveApplications,
-  getAuthenticatedUserId,
-} from '@/api/leaveApplications';
-
 // Components
-
 import { LeaveHistorySection } from '@/components';
+
+// Services
+import { getCurrentUser, getLeaveApplications } from '@/services/apiService';
+
 const LeaveHistoryWrapper = async () => {
-  const userId = await getAuthenticatedUserId();
-  const data = await fetchLeaveApplications(userId);
+  const userId = await getCurrentUser();
+  const data = await getLeaveApplications(userId.id);
 
   return <LeaveHistorySection data={data.data} />;
 };
