@@ -13,7 +13,10 @@ const TopBarNav = () => {
   return (
     <>
       {LIST_ITEM.map((item) => {
-        const isActive = pathname.startsWith(item.href);
+        const isActive =
+          item.href === '/dashboard'
+            ? pathname.startsWith('/dashboard')
+            : pathname.startsWith(item.href);
 
         return (
           <Link

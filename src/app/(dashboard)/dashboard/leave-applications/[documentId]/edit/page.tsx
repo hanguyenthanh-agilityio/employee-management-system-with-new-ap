@@ -41,7 +41,7 @@ const UpdateLeavePage = async (props: {
 
   return (
     <>
-      <Breadcrumbs paths={['Leave Applications', 'Edit']} />
+      <Breadcrumbs paths={['Dashboard', 'Leave Applications', 'Edit']} />
 
       {/* Main content */}
       <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
