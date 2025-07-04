@@ -11,7 +11,7 @@ import {
 import { LeaveItem } from '@/types/components';
 
 // Constants
-import { columns } from '@/constants';
+import { COLUMNS } from '@/constants';
 
 // Hooks
 import { useLeaveHistory } from '@/hooks/useLeaveHistory';
@@ -44,7 +44,6 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     handleDelete,
     confirmDelete,
     cancelDelete,
-    handleExport,
   } = useLeaveHistory(data);
 
   const hasData = paginatedData && paginatedData.length > 0;
@@ -56,14 +55,13 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
         leaveTypes={leaveTypes}
         selectedType={selectedType}
         onFilterChange={handleFilterChange}
-        onExport={handleExport}
       />
 
       {/* Leave History table */}
       {hasData ? (
         <GenericTable
           data={paginatedData}
-          columns={columns({
+          columns={COLUMNS({
             sortBy,
             sortOrder,
             onSort: handleSort as (field: string) => void,

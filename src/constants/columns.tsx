@@ -13,7 +13,7 @@ type ColumnType = {
   onDelete: (documentId: string) => () => void;
 };
 
-export const columns = ({
+export const COLUMNS = ({
   sortBy,
   sortOrder,
   onSort,

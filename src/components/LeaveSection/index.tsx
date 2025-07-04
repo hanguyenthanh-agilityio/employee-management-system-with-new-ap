@@ -5,7 +5,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 import { Card, ProgressBar } from '@/components';
 
 // Constants
-import { leaveData } from '@/constants';
+import { LEAVE_DATA } from '@/constants';
 
 const LeaveSection = () => (
   <Card className="p-8">
@@ -14,7 +14,7 @@ const LeaveSection = () => (
       <EllipsisVerticalIcon className="text-[#000] w-7 h-7" />
     </div>
     <div className="flex flex-col gap-6 py-10">
-      {leaveData.map((item, index) => (
+      {LEAVE_DATA.map((item, index) => (
         <ProgressBar
           key={index}
           label={item.label}

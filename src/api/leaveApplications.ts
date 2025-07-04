@@ -9,7 +9,6 @@ import {
   postLeaveApplication,
   patchLeaveApplication,
   deleteLeave,
-  exportLeave,
   getCurrentUser,
 } from '@/services/apiService';
 
@@ -100,13 +99,4 @@ export const updateLeaveApplication = async (
 export const deleteLeaveApplication = async (id: string) => {
   await deleteLeave(id);
   revalidateTag('leave-apps');
-};
-
-// Export Leave Applications
-export const exportLeaveApplications = async (
-  format: 'pdf' | 'csv' | 'excel',
-) => {
-  const blob = await exportLeave(format);
-
-  return blob;
 };

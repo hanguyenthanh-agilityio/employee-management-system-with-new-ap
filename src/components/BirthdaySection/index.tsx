@@ -6,7 +6,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 import { Card, BirthdayItem } from '@/components';
 
 // Constants
-import { birthdays } from '@/constants';
+import { BIRTHDAYS } from '@/constants';
 
 const BirthdaySection = () => (
   <Card className="py-8 px-4">
@@ -15,7 +15,7 @@ const BirthdaySection = () => (
       <EllipsisVerticalIcon className="text-[#000] w-7 h-7" />
     </div>
     <div className="flex flex-col gap-4 py-10">
-      {birthdays.map((item, index) => (
+      {BIRTHDAYS.map((item, index) => (
         <BirthdayItem key={index} name={item.name} date={item.date} />
       ))}
     </div>
