@@ -14,7 +14,7 @@ const nameField = (label: string) =>
 const emailField = z
   .string()
   .trim()
-  .min(5, { message: 'Email is required' })
+  .nonempty({ message: 'Email is required' })
   .max(100, { message: 'Email is too long' })
   .email({
     message: 'Please enter a valid email address',

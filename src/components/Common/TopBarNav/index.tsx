@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { listItem } from '@/constants';
+import { LIST_ITEM } from '@/constants';
 
 const TopBarNav = () => {
   const pathname = usePathname();
 
   return (
     <>
-      {listItem.map((item) => {
+      {LIST_ITEM.map((item) => {
         const isActive = pathname.startsWith(item.href);
 
         return (

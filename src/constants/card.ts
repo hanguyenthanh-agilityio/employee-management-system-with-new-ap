@@ -1,6 +1,6 @@
 import { ROUTER } from './router';
 
-export const birthdays = [
+export const BIRTHDAYS = [
   { name: 'biruk kidan', date: 'April 25th' },
   { name: 'biruk kidan', date: 'April 25th' },
   { name: 'biruk kidan', date: 'April 25th' },
@@ -8,20 +8,20 @@ export const birthdays = [
   { name: 'biruk kidan', date: 'April 25th' },
 ];
 
-export const leaves = [
+export const LEAVES = [
   { title: 'Annual', days: 60 },
   { title: 'Sick Leave', days: 20 },
   { title: 'Maternity Leave', days: 60 },
   { title: 'Compassionate Leave', days: 30 },
 ];
 
-export const leaveData = [
+export const LEAVE_DATA = [
   { label: 'Annual', current: 10, total: 60 },
   { label: 'Sick Leave', current: 0, total: 10 },
   { label: 'Compassionate Leave', current: 8, total: 15 },
 ];
 
-export const listItem = [
+export const LIST_ITEM = [
   { name: 'Dashboard', href: ROUTER.DASHBOARD },
   { name: 'Requests', href: ROUTER.REQUESTS },
   { name: 'Payroll', href: ROUTER.PAYROLL },

@@ -4,13 +4,7 @@ import { toast } from 'react-toastify';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 // APIs
-import {
-  deleteLeaveApplication,
-  exportLeaveApplications,
-} from '@/api/leaveApplications';
-
-// Utils
-import { triggerDownload } from '@/utils/download';
+import { deleteLeaveApplication } from '@/api/leaveApplications';
 
 // Types
 import { LeaveItem, SortField } from '@/types';
@@ -154,21 +148,6 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     setModalOpen(false);
   };
 
-  /**
-   * HANDLE EXPORT LEAVE APPLICATIONS
-   * Get data blob from server
-   * File download trigger
-   * Handle error if export fails
-   */
-  const handleExport = async (format: 'pdf' | 'csv' | 'excel') => {
-    try {
-      const blob = await exportLeaveApplications(format);
-      triggerDownload(blob, `leave_applications.${format}`);
-    } catch (error) {
-      console.error(ERROR_MESSAGE.EXPORT_FAILED, error);
-    }
-  };
-
   return {
     paginatedData,
     currentPage,
@@ -185,7 +164,6 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     handleDelete,
     confirmDelete,
     cancelDelete,
-    handleExport,
     handleSort,
   };
 };
