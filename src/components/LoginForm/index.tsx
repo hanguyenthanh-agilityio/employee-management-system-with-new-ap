@@ -45,7 +45,7 @@ const LoginForm = () => {
       if (result.success) {
         toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS);
 
-        router.push(ROUTER.LEAVE_APPLICATION);
+        router.push(ROUTER.DASHBOARD);
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
         toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);

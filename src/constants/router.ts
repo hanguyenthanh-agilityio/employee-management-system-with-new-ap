@@ -6,6 +6,6 @@ export const ROUTER = {
   PAYROLL: '/payroll',
   COMPANY: '/company',
   EXTRAS: '/extras',
-  LEAVE_APPLICATION: '/leave-applications',
+  LEAVE_APPLICATION: '/dashboard/leave-applications',
   EDIT: '/edit',
 };

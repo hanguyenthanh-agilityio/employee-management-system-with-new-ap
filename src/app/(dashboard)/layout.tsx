@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 // Components
-import { ToastProvider, TopBar } from '@/components';
+import { TopBar } from '@/components';
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   return (
@@ -9,7 +9,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
       <TopBar />
       <main className="flex-grow">
         <div className="flex-grow container mx-auto px-4 sm:px-8 py-8">
-          {children} <ToastProvider />
+          {children}
         </div>
       </main>
     </div>

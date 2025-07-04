@@ -65,7 +65,11 @@ const EditForm = ({ leave }: EditFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="pt-5">
+    <form
+      data-testid="edit-form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="pt-5"
+    >
       <Form form={form} onReset={handleReset} />
     </form>
   );

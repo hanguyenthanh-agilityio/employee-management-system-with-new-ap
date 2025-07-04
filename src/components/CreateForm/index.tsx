@@ -63,7 +63,10 @@ const CreateLeaveContent = () => {
         reset();
       }
     } catch (err) {
-      console.error(err);
+      return {
+        success: false,
+        message: err instanceof Error ? err.message : 'Unknown error',
+      };
     }
   };
 
@@ -72,7 +75,11 @@ const CreateLeaveContent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      data-testid="leave-form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6"
+    >
       <Form form={form} onReset={handleReset} />
     </form>
   );

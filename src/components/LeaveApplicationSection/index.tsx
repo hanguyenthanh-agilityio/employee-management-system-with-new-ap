@@ -16,7 +16,7 @@ const LeaveApplicationSection = () => {
 
   const handleClick = (title: string): (() => void) => {
     return () => {
-      const path = `${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`;
+      const path = `/dashboard/${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`;
       router.push(path);
     };
   };

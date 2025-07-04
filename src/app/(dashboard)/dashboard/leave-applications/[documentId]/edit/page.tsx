@@ -5,8 +5,8 @@ import { Suspense } from 'react';
 // icons
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
-// APIs
-import { fetchLeaveApplicationById } from '@/api/leaveApplications';
+// Services
+import { getLeaveApplicationById } from '@/services/apiService';
 
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
@@ -17,7 +17,7 @@ type Props = {
 
 // generateMetadata: dynamic metadata from API
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const leave = await fetchLeaveApplicationById(params.documentId);
+  const leave = await getLeaveApplicationById(params.documentId);
 
   return {
     title: `Update Leave - ${leave.data.type}`,
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
-  const leave = await fetchLeaveApplicationById(documentId);
+  const leave = await getLeaveApplicationById(documentId);
 
   if (!leave) return <div>Leave application not found!</div>;
 
@@ -41,7 +41,7 @@ const UpdateLeavePage = async (props: {
 
   return (
     <>
-      <Breadcrumbs paths={['Leave Applications', 'Edit']} />
+      <Breadcrumbs paths={['Dashboard', 'Leave Applications', 'Edit']} />
 
       {/* Main content */}
       <div className="w-full max-w-[1151px] mx-auto bg-white p-14">

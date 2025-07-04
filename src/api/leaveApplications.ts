@@ -4,39 +4,15 @@ import { revalidateTag } from 'next/cache';
 
 // Services
 import {
-  getLeaveApplicationById,
-  getLeaveApplications,
   postLeaveApplication,
   patchLeaveApplication,
   deleteLeave,
   getCurrentUser,
 } from '@/services/apiService';
 
-// Types
-import { LeaveApplication } from '@/types/components';
-
 // Utils
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import { validateLeaveApplication } from '@/utils/validate';
-
-export const getAuthenticatedUserId = async () => {
-  const userData = await getCurrentUser();
-
-  return userData.id;
-};
-
-// Get Leave Applications
-export const fetchLeaveApplications = async (id: number) => {
-  const data: LeaveApplication = await getLeaveApplications(id);
-  return data;
-};
-
-// Get Leave Application by ID
-export const fetchLeaveApplicationById = async (documentId: string) => {
-  const data = await getLeaveApplicationById(documentId);
-
-  return data;
-};
 
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {

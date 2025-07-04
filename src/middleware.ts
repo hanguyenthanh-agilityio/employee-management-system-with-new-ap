@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
 
   // If logged in and access /login, it will redirect to /leave-applications
   if (pathname === ROUTER.LOGIN && token) {
-    const leaveApplicationsUrl = new URL(ROUTER.LEAVE_APPLICATION, request.url);
+    const leaveApplicationsUrl = new URL(ROUTER.DASHBOARD, request.url);
     return NextResponse.redirect(leaveApplicationsUrl);
   }
 
