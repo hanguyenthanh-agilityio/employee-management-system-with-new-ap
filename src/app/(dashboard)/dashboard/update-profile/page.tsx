@@ -1,4 +1,5 @@
-import { Breadcrumbs } from '@/components';
+import { Avatar, Breadcrumbs } from '@/components';
+import { AVATAR_URL } from '@/constants';
 
 const UpdateProfilePage = () => (
   <>
@@ -8,6 +9,7 @@ const UpdateProfilePage = () => (
       <p className="text-2xl text-gray-600 text-center">
         This section is currently under construction.
       </p>
+      <Avatar src={AVATAR_URL} name={''} />
     </div>
   </>
 );
