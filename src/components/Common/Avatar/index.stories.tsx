@@ -39,6 +39,6 @@ export const WithImage: Story = {
 
 export const WithoutImage: Story = {
   args: {
-    src: null,
+    src: undefined,
   },
 };
