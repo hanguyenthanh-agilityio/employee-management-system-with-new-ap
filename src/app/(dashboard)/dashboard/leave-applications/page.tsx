@@ -12,6 +12,7 @@ import {
   LoadingLeaveApplication,
   LeaveHistoryWrapper,
 } from '@/components';
+import { BREADCRUMBS } from '@/constants';
 
 export const metadata: Metadata = {
   title: 'Leave Application',
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 const ApplyForLeavePage = async () => {
   return (
     <>
-      <Breadcrumbs paths={['Dashboard', 'Leave Applications']} />
+      <Breadcrumbs paths={BREADCRUMBS.LEAVE_APPLICATION} />
 
       {/* Main content */}
       <div className="bg-white">

@@ -12,13 +12,13 @@ const ProfileSidebar = ({
   onSelect: (tab: string) => void;
 }) => {
   return (
-    <div className="lg:w-[400px] flex flex-col gap-6 p-4 bg-white rounded-lg shadow-sm">
+    <div className="w-full lg:w-[400px] flex flex-col gap-4 md:gap-6 p-4 bg-white rounded-lg shadow-sm">
       {TABS_SIDEBAR.map((tab) => (
         <Button
           variant="none"
           key={tab}
           onClick={() => onSelect(tab)}
-          customClass={`flex justify-center px-10 py-6 rounded-lg text-xl ${
+          customClass={`flex justify-center px-10 py-4 md:py-6 rounded-lg text-lg md:text-xl ${
             selected === tab
               ? 'bg-yellow text-black'
               : 'bg-lightBlue hover:bg-blue-200'

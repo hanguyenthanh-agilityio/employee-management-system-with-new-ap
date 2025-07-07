@@ -14,12 +14,10 @@ import { LeaveCard } from '@/components';
 const LeaveApplicationSection = () => {
   const router = useRouter();
 
-  const handleClick = (title: string): (() => void) => {
-    return () => {
-      const path = `/dashboard/${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`;
-      router.push(path);
-    };
-  };
+  const handleClick = (title: string) => () =>
+    router.push(
+      `/dashboard/${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`,
+    );
 
   return (
     <div className="w-full overflow-x-auto overflow-y-visible p-2">
