@@ -1,31 +1,25 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 // Components
 import { ProfileDisplay } from '@/components';
 
+// Constants
+import { AVATAR_URL } from '@/constants';
+
 describe('ProfileDisplay component', () => {
   const props = {
-    name: 'Biruk Dawit',
-    avatarName: 'Biruk Dawit',
-    avatarUrl: '',
-    department: 'Design & Marketing',
-    jobTitle: 'UI / UX Designer',
-    jobCategory: 'Full-time',
-    onEdit: jest.fn(),
+    avatarName: 'Jane Doe',
+    avatarUrl: AVATAR_URL,
   };
 
-  test('renders all info blocks and avatar fallback', () => {
+  test('renders Avatar with fallback text', () => {
     render(<ProfileDisplay {...props} />);
-    expect(screen.getByText('Biruk Dawit')).toBeInTheDocument();
-    expect(screen.getByText('Design & Marketing')).toBeInTheDocument();
-    expect(screen.getByText('UI / UX Designer')).toBeInTheDocument();
-    expect(screen.getByText('Full-time')).toBeInTheDocument();
-    expect(screen.getByText('B')).toBeInTheDocument();
+    expect(screen.getByText('J')).toBeInTheDocument();
   });
 
-  test('calls onEdit when edit button is clicked', () => {
-    render(<ProfileDisplay {...props} />);
-    fireEvent.click(screen.getByText(/edit/i));
-    expect(props.onEdit).toHaveBeenCalled();
+  test('renders ProfileEditForm inside a form element', () => {
+    const { container } = render(<ProfileDisplay {...props} />);
+    const form = container.querySelector('form');
+    expect(form).toBeInTheDocument();
   });
 });
