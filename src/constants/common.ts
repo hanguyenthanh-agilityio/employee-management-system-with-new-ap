@@ -26,3 +26,5 @@ export const TYPE_LABELS: Record<string, string> = {
   sick: 'Sick Leave',
   casual: 'Casual Leave',
 };
+
+export const TABS_SIDEBAR = ['Personal Details', 'Contact Details'];

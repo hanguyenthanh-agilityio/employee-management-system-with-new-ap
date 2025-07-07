@@ -12,6 +12,7 @@ const colors = {
   success: '#22C55E',
   yellow: '#FFC20E',
   cyanBlue: '#545559',
+  lightBlue: '#E3EDF9',
   darkGreen: '#3F861E',
   red: '#F50707',
   lavender: '#E6EEF9',

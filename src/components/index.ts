@@ -48,3 +48,6 @@ export { default as LeaveHistoryWrapper } from './LeaveHistoryWrapper';
 
 // Modal Components
 export { default as DeleteConfirmModal } from './DeleteConfirmModal';
+
+// Profile
+export { default as ProfileSidebar } from './Profile/ProfileSidebar';
