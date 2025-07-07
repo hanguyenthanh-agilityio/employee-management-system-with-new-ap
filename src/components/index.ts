@@ -16,6 +16,8 @@ export { default as Checkbox } from './Common/Checkbox';
 export { default as Table } from './Common/Table';
 export { default as LoadingFormLeave } from './Common/LoadingFormLeave';
 export { default as LoadingLeaveApplication } from './Common/LoadingLeaveApplication';
+export { default as Avatar } from './Common/Avatar';
+
 export { default as ToastProvider } from './ToastProvider';
 export { default as BirthdayItem } from './BirthdayItem';
 export { default as LeaveCard } from './LeaveApplicationCard';
