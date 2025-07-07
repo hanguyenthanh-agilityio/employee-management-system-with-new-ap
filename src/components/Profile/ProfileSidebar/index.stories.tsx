@@ -1,5 +1,10 @@
-import { ProfileSidebar } from '@/components';
 import type { Meta, StoryObj } from '@storybook/react';
+
+// Components
+import { ProfileSidebar } from '@/components';
+
+// Constants
+import { TABS_SIDEBAR } from '@/constants';
 
 const meta: Meta<typeof ProfileSidebar> = {
   title: 'Components/ProfileSidebar',
@@ -10,7 +15,7 @@ const meta: Meta<typeof ProfileSidebar> = {
   tags: ['autodocs'],
   argTypes: {
     selected: {
-      options: ['Personal Details', 'Contact Details'],
+      options: TABS_SIDEBAR,
     },
     onSelect: { action: 'tab selected' },
   },

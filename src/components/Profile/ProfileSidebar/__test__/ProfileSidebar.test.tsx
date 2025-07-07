@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // Components
-import ProfileSidebar from '..';
+import { ProfileSidebar } from '@/components';
 
 // Constants
 import { TABS_SIDEBAR } from '@/constants';
