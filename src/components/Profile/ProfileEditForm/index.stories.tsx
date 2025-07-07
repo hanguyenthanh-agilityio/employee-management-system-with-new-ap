@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-// Components
+import { mockProfile } from '@/mocks/profile';
 import { ProfileEditForm } from '@/components';
 
-const meta = {
+const meta: Meta<typeof ProfileEditForm> = {
   title: 'Components/Profile/ProfileEditForm',
   component: ProfileEditForm,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
+  args: {
+    profile: mockProfile,
   },
-} satisfies Meta<typeof ProfileEditForm>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
