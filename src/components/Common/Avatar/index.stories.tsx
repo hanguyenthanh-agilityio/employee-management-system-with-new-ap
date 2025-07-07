@@ -1,5 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Avatar from '.';
+
+// Components
+import { Avatar } from '@/components';
+
+// Constants
+import { AVATAR_URL } from '@/constants';
 
 const meta = {
   title: 'Components/Avatar',
@@ -28,7 +33,7 @@ type Story = StoryObj<typeof meta>;
 
 export const WithImage: Story = {
   args: {
-    src: 'https://images.icon-icons.com/3708/PNG/512/girl_female_woman_person_people_avatar_icon_230016.png',
+    src: AVATAR_URL,
   },
 };
 

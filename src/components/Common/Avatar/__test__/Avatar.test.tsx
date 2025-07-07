@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 
 // Components
 import Avatar from '..';
+import { AVATAR_URL } from '@/constants';
 
 describe('Avatar component', () => {
   test('renders fallback letter when no src is provided', () => {
@@ -16,12 +17,7 @@ describe('Avatar component', () => {
   });
 
   test('renders image when src is provided', () => {
-    render(
-      <Avatar
-        name="Diana"
-        src="https://images.icon-icons.com/3708/PNG/512/girl_female_woman_person_people_avatar_icon_230016.png"
-      />,
-    );
+    render(<Avatar name="Diana" src={AVATAR_URL} />);
     const image = screen.getByRole('img');
     const src = image.getAttribute('src');
 

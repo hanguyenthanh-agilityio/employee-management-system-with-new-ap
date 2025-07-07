@@ -26,3 +26,6 @@ export const TYPE_LABELS: Record<string, string> = {
   sick: 'Sick Leave',
   casual: 'Casual Leave',
 };
+
+export const AVATAR_URL =
+  'https://images.icon-icons.com/3708/PNG/512/girl_female_woman_person_people_avatar_icon_230016.png';
