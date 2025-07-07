@@ -1,27 +1,26 @@
 // Components
-import { Button } from '@/components';
+import { Button } from '@/components/ui/button';
 
 // Constants
 import { TABS_SIDEBAR } from '@/constants';
 
-const ProfileSidebar = ({
-  selected,
-  onSelect,
-}: {
+interface ProfileSidebarProps {
   selected: string;
   onSelect: (tab: string) => void;
-}) => {
+}
+
+const ProfileSidebar = ({ selected, onSelect }: ProfileSidebarProps) => {
   return (
     <div className="lg:w-[400px] flex flex-col gap-6 p-4 bg-white rounded-lg shadow-sm">
       {TABS_SIDEBAR.map((tab) => (
         <Button
-          variant="none"
           key={tab}
+          variant={selected === tab ? 'secondary' : 'outline'}
           onClick={() => onSelect(tab)}
-          customClass={`flex justify-center px-10 py-6 rounded-lg text-xl ${
+          className={`justify-center px-10 py-6 text-xl rounded-lg transition ${
             selected === tab
-              ? 'bg-yellow text-black'
-              : 'bg-lightBlue hover:bg-blue-200'
+              ? 'bg-yellow text-black font-bold hover:bg-yellow/90'
+              : 'bg-lightBlue hover:bg-blue-200 text-black'
           }`}
         >
           {tab}

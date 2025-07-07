@@ -1,4 +1,7 @@
-import { Breadcrumbs } from '@/components';
+'use client';
+
+import { Avatar, Breadcrumbs, ProfileSidebar } from '@/components';
+import { AVATAR_URL } from '@/constants';
 
 const UpdateProfilePage = () => (
   <>
@@ -8,6 +11,8 @@ const UpdateProfilePage = () => (
       <p className="text-2xl text-gray-600 text-center">
         This section is currently under construction.
       </p>
+      <Avatar src={AVATAR_URL} name={''} />
+      <ProfileSidebar selected={'Personal Details'} onSelect={() => {}} />
     </div>
   </>
 );
