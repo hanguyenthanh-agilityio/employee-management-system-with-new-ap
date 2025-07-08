@@ -1,6 +1,7 @@
 // Components
-import { Avatar } from '@/components';
-import ProfileEditForm from '../ProfileEditForm';
+import { Avatar, ProfileEditForm } from '@/components';
+
+// Mocks
 import { mockProfile } from '@/mocks/profile';
 
 interface ProfileDisplayProps {
@@ -13,9 +14,7 @@ const ProfileDisplay = ({ avatarName, avatarUrl }: ProfileDisplayProps) => {
     <div className="flex flex-col items-center gap-10 p-6 w-full">
       <Avatar src={avatarUrl} name={avatarName} />
 
-      <form>
-        <ProfileEditForm profile={mockProfile} />
-      </form>
+      <ProfileEditForm profile={mockProfile} />
     </div>
   );
 };

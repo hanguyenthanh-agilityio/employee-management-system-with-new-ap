@@ -8,6 +8,9 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 // Components
 import { Breadcrumbs, LoadingFormLeave } from '@/components';
 
+// Constants
+import { BREADCRUMBS } from '@/constants';
+
 const CreateLeaveContent = lazy(() => import('@/components/CreateForm'));
 
 export const metadata: Metadata = {
@@ -17,9 +20,7 @@ export const metadata: Metadata = {
 const CreateLeavePage = () => {
   return (
     <>
-      <Breadcrumbs
-        paths={['Dashboard', 'Leave Applications', 'Annual Leave']}
-      />
+      <Breadcrumbs paths={BREADCRUMBS.CREATE_LEAVE} />
 
       <div className="w-full max-w-screen-lg mx-auto bg-white px-4 sm:px-6 md:px-10 lg:px-14 py-8 sm:py-10 lg:py-14 shadow-md">
         <div className="flex flex-col items-center text-center space-y-4 mb-10">

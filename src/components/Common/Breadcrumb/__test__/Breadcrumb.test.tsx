@@ -1,11 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import Breadcrumbs from '..';
+
+// Constants
+import { BREADCRUMBS } from '@/constants';
+
+// Components
+import { Breadcrumbs } from '@/components';
 
 describe('Breadcrumbs component', () => {
   test('renders all breadcrumb paths', () => {
-    const paths = ['Home', 'Products', 'Shoes'];
-    render(<Breadcrumbs paths={paths} />);
-    paths.forEach((path) => {
+    render(<Breadcrumbs paths={BREADCRUMBS.LEAVE_APPLICATION} />);
+    BREADCRUMBS.LEAVE_APPLICATION.forEach((path) => {
       expect(screen.getByText(path)).toBeInTheDocument();
     });
   });

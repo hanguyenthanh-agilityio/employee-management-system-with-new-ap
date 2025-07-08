@@ -16,6 +16,8 @@ interface ProfileFormProps {
 const ProfileEditForm = ({ profile }: ProfileFormProps) => {
   const [formData] = useState(profile);
 
+  const handleChange = () => {};
+
   return (
     <form
       data-testid="profile-edit-form"
@@ -26,6 +28,7 @@ const ProfileEditForm = ({ profile }: ProfileFormProps) => {
         <Input
           className="text-center !text-3xl font-bold py-6"
           value={formData.name}
+          onChange={handleChange}
         />
       </div>
 
@@ -34,6 +37,7 @@ const ProfileEditForm = ({ profile }: ProfileFormProps) => {
         <Input
           className="text-center !text-3xl font-bold py-6"
           value={formData.department}
+          onChange={handleChange}
         />
       </div>
 
@@ -43,6 +47,7 @@ const ProfileEditForm = ({ profile }: ProfileFormProps) => {
           <Input
             className="text-center !text-3xl font-bold py-6"
             value={formData.jobTitle}
+            onChange={handleChange}
           />
         </div>
 
@@ -51,6 +56,7 @@ const ProfileEditForm = ({ profile }: ProfileFormProps) => {
           <Input
             className="text-center !text-3xl font-bold py-6"
             value={formData.jobCategory}
+            onChange={handleChange}
           />
         </div>
       </div>
