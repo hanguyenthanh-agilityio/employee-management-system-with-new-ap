@@ -1,7 +1,10 @@
 import { redirect } from 'next/navigation';
 
+// Constants
+import { ROUTER } from '@/constants';
+
 const UpdateProfilePage = () => {
-  redirect('/dashboard/update-profile/personal-details');
+  redirect(ROUTER.PROFILE_EDIT);
 };
 
 export default UpdateProfilePage;

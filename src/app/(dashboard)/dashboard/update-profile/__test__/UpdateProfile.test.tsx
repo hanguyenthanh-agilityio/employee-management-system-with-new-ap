@@ -4,6 +4,9 @@ import { redirect } from 'next/navigation';
 // Pages
 import UpdateProfilePage from '../page';
 
+// Constants
+import { ROUTER } from '@/constants';
+
 jest.mock('next/navigation', () => ({
   redirect: jest.fn(),
 }));
@@ -11,8 +14,6 @@ jest.mock('next/navigation', () => ({
 describe('UpdateProfilePage', () => {
   it('redirects to personal-details page', () => {
     render(<UpdateProfilePage />);
-    expect(redirect).toHaveBeenCalledWith(
-      '/dashboard/update-profile/personal-details',
-    );
+    expect(redirect).toHaveBeenCalledWith(ROUTER.PROFILE_EDIT);
   });
 });
