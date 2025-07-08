@@ -9,25 +9,23 @@ interface ProfileSidebarProps {
   onSelect: (tab: string) => void;
 }
 
-const ProfileSidebar = ({ selected, onSelect }: ProfileSidebarProps) => {
-  return (
-    <div className="lg:w-[400px] flex flex-col gap-6 p-4 bg-white rounded-lg shadow-sm">
-      {TABS_SIDEBAR.map((tab) => (
-        <Button
-          key={tab}
-          variant={selected === tab ? 'secondary' : 'outline'}
-          onClick={() => onSelect(tab)}
-          className={`justify-center px-10 py-6 text-xl rounded-lg transition ${
-            selected === tab
-              ? 'bg-yellow text-black font-bold hover:bg-yellow/90'
-              : 'bg-lightBlue hover:bg-blue-200 text-black'
-          }`}
-        >
-          {tab}
-        </Button>
-      ))}
-    </div>
-  );
-};
+const ProfileSidebar = ({ selected, onSelect }: ProfileSidebarProps) => (
+  <div className="lg:w-[400px] flex flex-col gap-6 p-4 bg-white rounded-lg shadow-sm">
+    {TABS_SIDEBAR.map((tab) => (
+      <Button
+        key={tab}
+        variant={selected === tab ? 'secondary' : 'outline'}
+        onClick={() => onSelect(tab)}
+        className={`justify-center px-10 py-6 text-xl rounded-lg transition ${
+          selected === tab
+            ? 'bg-yellow text-black font-bold hover:bg-yellow/90'
+            : 'bg-lightBlue hover:bg-blue-200 text-black'
+        }`}
+      >
+        {tab}
+      </Button>
+    ))}
+  </div>
+);
 
 export default ProfileSidebar;
