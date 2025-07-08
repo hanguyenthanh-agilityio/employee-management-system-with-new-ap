@@ -1,40 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { redirect } from 'next/navigation';
 
-// Page
+// Pages
 import UpdateProfilePage from '../page';
 
-jest.mock('@/components', () => ({
-  __esModule: true,
-  Breadcrumbs: ({ paths }: { paths: string[] }) => (
-    <div data-testid="breadcrumbs">{paths.join(' > ')}</div>
-  ),
-  ProfileSidebar: ({ selected }: { selected: string[] }) => (
-    <div data-testid="sidebar">Sidebar: {selected}</div>
-  ),
-  ProfileDisplay: ({ avatarName }: { avatarName: string }) => (
-    <div data-testid="profile-display">Name: {avatarName}</div>
-  ),
+jest.mock('next/navigation', () => ({
+  redirect: jest.fn(),
 }));
 
 describe('UpdateProfilePage', () => {
-  it('renders breadcrumbs', () => {
+  it('redirects to personal-details page', () => {
     render(<UpdateProfilePage />);
-    expect(screen.getByTestId('breadcrumbs')).toHaveTextContent(
-      'Dashboard > Update Profile',
-    );
-  });
-
-  it('renders sidebar with selected section', () => {
-    render(<UpdateProfilePage />);
-    expect(screen.getByTestId('sidebar')).toHaveTextContent(
-      'Sidebar: Personal Details',
-    );
-  });
-
-  it('renders profile display with user name', () => {
-    render(<UpdateProfilePage />);
-    expect(screen.getByTestId('profile-display')).toHaveTextContent(
-      'Name: Biruk Dawit',
+    expect(redirect).toHaveBeenCalledWith(
+      '/dashboard/update-profile/personal-details',
     );
   });
 });

@@ -1,35 +1,50 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { usePathname } from 'next/navigation';
 import '@testing-library/jest-dom';
 
-// Components
-import { ProfileSidebar } from '@/components';
+// Component
+import ProfileSidebar from '..';
 
 // Constants
 import { TABS_SIDEBAR } from '@/constants';
 
+jest.mock('next/navigation', () => ({
+  usePathname: jest.fn(),
+}));
+
 describe('ProfileSidebar component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('renders all tabs', () => {
-    render(<ProfileSidebar selected="Personal Details" onSelect={() => {}} />);
-    TABS_SIDEBAR.forEach((tab) => {
-      expect(screen.getByText(tab)).toBeInTheDocument();
+    (usePathname as jest.Mock).mockReturnValue(
+      '/dashboard/update-profile/personal-details',
+    );
+
+    render(<ProfileSidebar />);
+    TABS_SIDEBAR.forEach(({ label }) => {
+      expect(screen.getByText(label)).toBeInTheDocument();
     });
   });
 
-  test('highlights selected tab', () => {
-    render(<ProfileSidebar selected="Contact Details" onSelect={() => {}} />);
-    const selectedButton = screen.getByText('Contact Details');
-    expect(selectedButton).toHaveClass('bg-yellow');
-  });
-
-  test('calls onSelect when a tab is clicked', () => {
-    const handleSelect = jest.fn();
-    render(
-      <ProfileSidebar selected="Personal Details" onSelect={handleSelect} />,
+  test('highlights active tab', () => {
+    (usePathname as jest.Mock).mockReturnValue(
+      '/dashboard/update-profile/contact-details',
     );
 
-    const tabToClick = screen.getByText('Contact Details');
-    fireEvent.click(tabToClick);
+    render(<ProfileSidebar />);
+    const activeTab = screen.getByText('Contact Details');
+    expect(activeTab).toHaveClass('bg-yellow');
+  });
 
-    expect(handleSelect).toHaveBeenCalledWith('Contact Details');
+  test('non-active tabs have light background', () => {
+    (usePathname as jest.Mock).mockReturnValue(
+      '/dashboard/update-profile/personal-details',
+    );
+
+    render(<ProfileSidebar />);
+    const inactiveTab = screen.getByText('Contact Details');
+    expect(inactiveTab).toHaveClass('bg-lightBlue');
   });
 });
