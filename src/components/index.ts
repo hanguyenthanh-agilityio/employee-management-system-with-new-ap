@@ -51,3 +51,5 @@ export { default as DeleteConfirmModal } from './DeleteConfirmModal';
 
 // Profile
 export { default as ProfileSidebar } from './Profile/ProfileSidebar';
+export { default as ProfileDisplay } from './Profile/ProfileDisplay';
+export { default as ProfileEditForm } from './Profile/ProfileEditForm';
