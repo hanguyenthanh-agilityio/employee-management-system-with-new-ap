@@ -11,26 +11,29 @@ import { getLeaveApplicationById } from '@/services/apiService';
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
 
+// Constants
+import { BREADCRUMBS } from '@/constants';
+
 type Props = {
   params: { documentId: string };
 };
 
 // generateMetadata: dynamic metadata from API
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const leave = await getLeaveApplicationById(params.documentId);
+  const leaveApplication = await getLeaveApplicationById(params.documentId);
 
   return {
-    title: `Update Leave - ${leave.data.type}`,
-    description: `Edit leave request from ${leave.data.startDate} to ${leave.data.endDate}.`,
+    title: `Update Leave - ${leaveApplication.data.type}`,
+    description: `Edit leave request from ${leaveApplication.data.startDate} to ${leaveApplication.data.endDate}.`,
   };
 }
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
-  const leave = await getLeaveApplicationById(documentId);
+  const leaveApplication = await getLeaveApplicationById(documentId);
 
-  if (!leave) return <div>Leave application not found!</div>;
+  if (!leaveApplication) return <div>Leave application not found!</div>;
 
-  return <EditForm leave={leave.data} />;
+  return <EditForm leave={leaveApplication.data} />;
 };
 
 const UpdateLeavePage = async (props: {
@@ -41,7 +44,7 @@ const UpdateLeavePage = async (props: {
 
   return (
     <>
-      <Breadcrumbs paths={['Dashboard', 'Leave Applications', 'Edit']} />
+      <Breadcrumbs paths={BREADCRUMBS.UPDATE_LEAVE} />
 
       {/* Main content */}
       <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
