@@ -11,8 +11,8 @@ jest.mock('@/components', () => ({
   ProfileSidebar: ({ selected }: { selected: string[] }) => (
     <div data-testid="sidebar">Sidebar: {selected}</div>
   ),
-  ProfileDisplay: ({ name }: { name: string }) => (
-    <div data-testid="profile-display">Name: {name}</div>
+  ProfileDisplay: ({ avatarName }: { avatarName: string }) => (
+    <div data-testid="profile-display">Name: {avatarName}</div>
   ),
 }));
 
