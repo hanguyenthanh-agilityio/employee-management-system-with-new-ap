@@ -35,4 +35,9 @@ export const TABS_SIDEBAR = [
   { label: 'Contact Details', tab: 'contact-details' },
 ];
 
-export const ACTION = ['Leave Applications', 'Update Profile'];
+export const ACTIONS = ['Leave Applications', 'Update Profile'];
+
+export const TAB_ITEM = {
+  PERSONAL_DETAILS: 'personal-details',
+  CONTACT_DETAILS: 'contact-details',
+};

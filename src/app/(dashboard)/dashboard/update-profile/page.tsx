@@ -3,8 +3,6 @@ import { redirect } from 'next/navigation';
 // Constants
 import { ROUTER } from '@/constants';
 
-const UpdateProfilePage = () => {
-  redirect(ROUTER.PROFILE_EDIT);
-};
-
-export default UpdateProfilePage;
+export default function UpdateProfilePage() {
+  redirect(ROUTER.EDIT_PERSONAL_DETAILS);
+}
