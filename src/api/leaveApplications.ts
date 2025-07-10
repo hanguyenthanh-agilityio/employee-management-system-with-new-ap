@@ -8,6 +8,7 @@ import {
   patchLeaveApplication,
   deleteLeave,
   getCurrentUser,
+  getSummaryLeaves,
 } from '@/services/apiService';
 
 // Utils
@@ -75,4 +76,19 @@ export const updateLeaveApplication = async (
 export const deleteLeaveApplication = async (id: string) => {
   await deleteLeave(id);
   revalidateTag('leave-apps');
+};
+
+// Get Summary Leaves
+export const fetchSummaryLeaves = async () => {
+  try {
+    const userId = await getCurrentUser();
+    const summaryData = await getSummaryLeaves(userId.id);
+
+    return { success: true, data: summaryData };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Unable to load summary leaves',
+    };
+  }
 };

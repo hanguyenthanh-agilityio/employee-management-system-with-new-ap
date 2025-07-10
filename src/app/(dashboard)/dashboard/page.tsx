@@ -12,11 +12,14 @@ import {
 import { TYPE_LABELS } from '@/constants';
 
 // Services
-import { getCurrentUser, getSummaryLeaves } from '@/services/apiService';
+import { getCurrentUser } from '@/services/apiService';
+
+// APIs
+import { fetchSummaryLeaves } from '@/api/leaveApplications';
 
 const DashboardPage = async () => {
   const userId = await getCurrentUser();
-  const summaryData = await getSummaryLeaves(userId.id);
+  const summaryData = await fetchSummaryLeaves();
 
   // Convert object to array
   const summaryDataArray = Object.entries(summaryData).map(([type, total]) => ({
