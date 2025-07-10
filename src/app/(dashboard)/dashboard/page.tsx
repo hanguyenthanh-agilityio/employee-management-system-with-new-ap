@@ -1,5 +1,4 @@
 // Components
-
 import {
   BirthdaySection,
   Header,
@@ -8,28 +7,32 @@ import {
   ProfileSection,
   QuickActions,
 } from '@/components';
+
+// Constants
 import { TYPE_LABELS } from '@/constants';
+
+// Services
 import { getCurrentUser, getSummaryLeaves } from '@/services/apiService';
 
 const DashboardPage = async () => {
   const userId = await getCurrentUser();
   const summaryData = await getSummaryLeaves(userId.id);
+
+  // Convert object to array
   const summaryDataArray = Object.entries(summaryData).map(([type, total]) => ({
     type: TYPE_LABELS[type] || type,
     total: Number(total),
   }));
 
-  console.log('Summary Leave: ', summaryData);
+  // Show user detail
+  const { username, jobTitle } = userId;
 
   return (
     <section className="flex flex-col gap-12">
       <Header title="Dashboard" />
 
       {/* Profile Section */}
-      <ProfileSection
-        name="Redwan husein"
-        jobTitle="UI / UX Designer & UX Writer"
-      />
+      <ProfileSection name={username} jobTitle={jobTitle} />
 
       {/* Quickly Action */}
       <div>
