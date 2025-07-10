@@ -132,6 +132,24 @@ export const getLeaveApplicationById = async (documentId: string) => {
   return res.json();
 };
 
+export const getSummaryLeaves = async (id: number) => {
+  const token = await getTokenFromCookies();
+
+  const res = await fetch(
+    `${API_URL}${API.SUMMARY_LEAVES}?filters[users_permissions_user][id][$eq]=${id}`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch summary leaves');
+  }
+
+  return res.json();
+};
+
 // Create Leave Application
 export const postLeaveApplication = async (body: {
   data: LeaveApplicationInput;

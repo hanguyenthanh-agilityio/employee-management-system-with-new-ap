@@ -16,9 +16,9 @@ export const LEAVES = [
 ];
 
 export const LEAVE_DATA = [
-  { label: 'Annual', current: 10, total: 60 },
-  { label: 'Sick Leave', current: 0, total: 10 },
-  { label: 'Compassionate Leave', current: 8, total: 15 },
+  { label: 'Annual', total: 10 },
+  { label: 'Sick Leave', total: 10 },
+  { label: 'Compassionate Leave', total: 15 },
 ];
 
 export const LIST_ITEM = [
