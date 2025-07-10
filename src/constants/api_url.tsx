@@ -8,3 +8,5 @@ export const API = {
   SUMMARY_LEAVES: '/summary-leaves',
   DOWNLOAD: '/leave-applications/export',
 };
+
+export const USER_FILTER_PREFIX = 'filters[users_permissions_user][id][$eq]';
