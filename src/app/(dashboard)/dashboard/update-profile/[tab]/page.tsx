@@ -1,28 +1,46 @@
-'use client';
-
-import { useParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 // Components
 import {
+  LoadingFormLeave,
   ContactDetailsForm,
   NotFoundMessage,
   ProfileDisplay,
 } from '@/components';
 
 // Constants
-import { AVATAR_URL, TAB_ITEM } from '@/constants';
+import { TAB_ITEM } from '@/constants';
 
-const TabPage = () => {
-  const { tab } = useParams();
+// Services
+import { getCurrentUser } from '@/services/apiService';
+
+interface Props {
+  params: { tab: string };
+}
+
+const PersonalDetailsContent = async () => {
+  const userData = await getCurrentUser();
+
+  return <ProfileDisplay profile={userData} avatarName={userData.username} />;
+};
+
+const TabPage = async ({ params }: Props) => {
+  const { tab } = params;
 
   switch (tab) {
     case TAB_ITEM.PERSONAL_DETAILS:
-      return <ProfileDisplay avatarName="" avatarUrl={AVATAR_URL} />;
+      return (
+        <Suspense fallback={<LoadingFormLeave />}>
+          <PersonalDetailsContent />
+        </Suspense>
+      );
+
     case TAB_ITEM.CONTACT_DETAILS:
       return <ContactDetailsForm />;
-  }
 
-  return <NotFoundMessage title="Tabs not found" />;
+    default:
+      <NotFoundMessage title="Tabs not found" />;
+  }
 };
 
 export default TabPage;
