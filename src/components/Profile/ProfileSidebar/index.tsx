@@ -1,30 +1,28 @@
-// Components
-import { Button } from '@/components/ui/button';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // Constants
 import { TABS_SIDEBAR } from '@/constants';
 
-interface ProfileSidebarProps {
-  selected: string;
-  onSelect: (tab: string) => void;
-}
+const ProfileSidebar = () => {
+  const pathname = usePathname();
 
-const ProfileSidebar = ({ selected, onSelect }: ProfileSidebarProps) => {
   return (
     <div className="w-full lg:w-[400px] flex flex-col gap-4 md:gap-6 p-4 bg-white rounded-lg shadow-sm">
-      {TABS_SIDEBAR.map((tab) => (
-        <Button
+      {TABS_SIDEBAR.map(({ label, tab }) => (
+        <Link
           key={tab}
-          variant={selected === tab ? 'secondary' : 'outline'}
-          onClick={() => onSelect(tab)}
-          className={`justify-center px-10 py-6 text-xl rounded-lg transition ${
-            selected === tab
-              ? 'bg-yellow text-black font-bold hover:bg-yellow/90'
-              : 'bg-lightBlue hover:bg-blue-200 text-black'
+          href={`/dashboard/update-profile/${tab}`}
+          className={`text-center px-10 py-4 md:py-6 rounded-lg text-lg md:text-xl ${
+            pathname.endsWith(tab)
+              ? 'bg-yellow text-black font-bold'
+              : 'bg-lightBlue hover:bg-blue-200'
           }`}
         >
-          {tab}
-        </Button>
+          {label}
+        </Link>
       ))}
     </div>
   );

@@ -21,6 +21,7 @@ export { default as Avatar } from './Common/Avatar';
 export { default as ToastProvider } from './ToastProvider';
 export { default as BirthdayItem } from './BirthdayItem';
 export { default as LeaveCard } from './LeaveApplicationCard';
+export { default as NotFoundMessage } from './NotFoundMessage';
 
 // Table components
 export { default as GenericTable } from './LeaveHistoryTable';

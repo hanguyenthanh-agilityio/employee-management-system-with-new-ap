@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components';
 
 // Constants
-import { ACTION } from '@/constants';
+import { ACTIONS } from '@/constants';
 
 const format = (text: string) => text.toLowerCase().replace(/\s+/g, '-');
 
@@ -20,7 +20,7 @@ const QuickActions = () => {
 
   return (
     <div className="grid grid-cols-2 gap-3">
-      {ACTION.map((action, index) => (
+      {ACTIONS.map((action, index) => (
         <Button
           key={index}
           onClick={() => handleClick(action)}
