@@ -82,9 +82,9 @@ export const deleteLeaveApplication = async (id: string) => {
 export const fetchSummaryLeaves = async () => {
   try {
     const userId = await getCurrentUser();
-    const summaryData = await getSummaryLeaves(userId.id);
+    const summary = await getSummaryLeaves(userId.id);
 
-    return { success: true, data: summaryData };
+    return { success: true, data: summary };
   } catch (error) {
     return {
       success: false,
