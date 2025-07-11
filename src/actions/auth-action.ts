@@ -1,7 +1,7 @@
 'use server';
 
 // Services
-import { login, register } from '@/services/apiService';
+import { getCurrentUser, login, register } from '@/services/apiService';
 
 // Utils
 import {
@@ -14,7 +14,7 @@ import { removeCookie, setCookie } from '@/utils/auth';
 // Constants
 import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
 
-// Logout action
+// Login action
 export const loginAction = async (_: unknown, formData: LoginInput) => {
   const parsed = loginSchema.safeParse(formData);
 
@@ -45,7 +45,14 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
       maxAge: 60 * 60 * 12,
     });
 
-    return { success: true };
+    const user = await getCurrentUser();
+
+    //  Set user to cookie
+    await setCookie('user', JSON.stringify(user), {
+      maxAge: 60 * 60 * 12,
+    });
+
+    return { success: true, data: user };
   } catch (err) {
     return {
       success: false,

@@ -9,4 +9,6 @@ export const ERROR_MESSAGE = {
   UNEXPECTED: 'Unexpected error occurred',
   INVALID_CREDENTIALS: 'Invalid credentials',
   UNKNOWN_REGISTER: 'Unknown error during registration',
+  USER_CACHE_NOT_FOUND: 'User cache not found',
+  INVALID_CACHE: 'Invalid cache data',
 };

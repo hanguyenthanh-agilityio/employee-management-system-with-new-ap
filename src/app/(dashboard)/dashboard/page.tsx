@@ -8,27 +8,18 @@ import {
   QuickActions,
 } from '@/components';
 
-// Constants
-import { TYPE_LABELS } from '@/constants';
-
 // Services
-import { getCurrentUser } from '@/services/apiService';
+import { getCachedUser } from '@/services/apiService';
 
 // APIs
 import { fetchSummaryLeaves } from '@/api/leaveApplications';
 
 const DashboardPage = async () => {
-  const userId = await getCurrentUser();
+  const user = await getCachedUser();
   const summaryData = await fetchSummaryLeaves();
 
-  // Convert object to array
-  const summaryDataArray = Object.entries(summaryData).map(([type, total]) => ({
-    type: TYPE_LABELS[type] || type,
-    total: Number(total),
-  }));
-
   // Show user detail
-  const { username, jobTitle } = userId;
+  const { username, jobTitle } = user;
 
   return (
     <section className="flex flex-col gap-12">
@@ -44,7 +35,7 @@ const DashboardPage = async () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LeaveSection data={summaryDataArray} />
+        <LeaveSection data={summaryData.data} />
         <BirthdaySection />
         <PaySlipSection />
       </div>

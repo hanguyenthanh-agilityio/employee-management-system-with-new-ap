@@ -1,4 +1,4 @@
-export type PersonalDetails = {
+export type PersonalDetailsType = {
   username: string;
   department: string;
   jobTitle: string;

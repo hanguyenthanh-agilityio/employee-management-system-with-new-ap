@@ -11,12 +11,12 @@ import {
   personalDetails,
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
-import { PersonalDetails } from '@/types';
+import { PersonalDetailsType } from '@/types';
 
 interface ProfileDisplayProps {
   avatarName: string;
   avatarUrl?: string;
-  profile: PersonalDetails;
+  profile: PersonalDetailsType;
 }
 
 const ProfileDisplay = ({
@@ -34,6 +34,8 @@ const ProfileDisplay = ({
     },
   });
 
+  const handleSubmitForm = () => {};
+
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
       <Avatar src={avatarUrl} name={avatarName} />
@@ -41,7 +43,7 @@ const ProfileDisplay = ({
       <form
         data-testid="profile-edit-form"
         className="flex flex-col gap-14 text-center"
-        onSubmit={form.handleSubmit(console.log)}
+        onSubmit={form.handleSubmit(handleSubmitForm)}
       >
         <ProfileEditForm form={form} />
       </form>

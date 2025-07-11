@@ -7,8 +7,8 @@ import {
   postLeaveApplication,
   patchLeaveApplication,
   deleteLeave,
-  getCurrentUser,
   getSummaryLeaves,
+  getCachedUser,
 } from '@/services/apiService';
 
 // Utils
@@ -17,7 +17,7 @@ import { validateLeaveApplication } from '@/utils/validate';
 
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
-  const user = await getCurrentUser();
+  const user = await getCachedUser();
 
   const fullData: LeaveApplicationInput = {
     ...data,
@@ -81,7 +81,7 @@ export const deleteLeaveApplication = async (id: string) => {
 // Get Summary Leaves
 export const fetchSummaryLeaves = async () => {
   try {
-    const userId = await getCurrentUser();
+    const userId = await getCachedUser();
     const summary = await getSummaryLeaves(userId.id);
 
     return { success: true, data: summary };
