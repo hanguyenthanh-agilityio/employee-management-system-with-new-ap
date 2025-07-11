@@ -219,12 +219,12 @@ export const getCachedUser = async () => {
   const getUserCookie = cookies().get('user')?.value;
 
   if (!getUserCookie) {
-    throw new Error('User cache not found');
+    throw new Error(ERROR_MESSAGE.USER_CACHE_NOT_FOUND);
   }
 
   try {
     return JSON.parse(getUserCookie);
   } catch (error) {
-    throw new Error('invalid cache data');
+    throw new Error(ERROR_MESSAGE.INVALID_CACHE);
   }
 };
