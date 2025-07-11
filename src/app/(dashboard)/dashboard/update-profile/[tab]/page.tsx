@@ -12,7 +12,7 @@ import {
 import { TAB_ITEM } from '@/constants';
 
 // Services
-import { getCurrentUser } from '@/services/apiService';
+import { getCachedUser } from '@/services/apiService';
 
 interface Props {
   params: { tab: string };
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 const PersonalDetailsContent = async () => {
-  const userData = await getCurrentUser();
+  const userData = await getCachedUser();
 
   return <ProfileDisplay profile={userData} avatarName={userData.username} />;
 };
