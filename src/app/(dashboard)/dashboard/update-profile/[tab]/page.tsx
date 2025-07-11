@@ -48,7 +48,6 @@ const PersonalDetailsContent = async () => {
 
 const ContactDetailsContent = async () => {
   const userData = await getCachedUser();
-  console.log(userData);
 
   return <ContactDetailsSection contact={userData} />;
 };
