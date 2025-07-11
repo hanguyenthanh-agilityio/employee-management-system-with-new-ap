@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   // If the user is on a page that requires login but does not have a token → redirect to /login
   const isProtectedPath =
     pathname.startsWith('/leave-applications') ||
-    pathname.startsWith('dashboard');
+    pathname.startsWith('/dashboard');
   if (isProtectedPath && !token) {
     const loginUrl = new URL(ROUTER.LOGIN, request.url);
     return NextResponse.redirect(loginUrl);
