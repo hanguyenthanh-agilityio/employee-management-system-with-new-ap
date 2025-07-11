@@ -1,3 +1,7 @@
+'use server';
+
+import { cookies } from 'next/headers';
+
 // Constants
 import { API, API_URL, USER_FILTER_PREFIX } from '@/constants/api_url';
 import { ERROR_MESSAGE } from '@/constants/error';
@@ -208,4 +212,19 @@ export const deleteLeave = async (documentId: string) => {
   }
 
   return res;
+};
+
+// Get user to reuse
+export const getCachedUser = async () => {
+  const getUserCookie = cookies().get('user')?.value;
+
+  if (!getUserCookie) {
+    throw new Error('User cache not found');
+  }
+
+  try {
+    return JSON.parse(getUserCookie);
+  } catch (error) {
+    throw new Error('invalid cache data');
+  }
 };

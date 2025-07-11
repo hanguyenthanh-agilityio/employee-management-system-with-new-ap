@@ -9,13 +9,13 @@ import {
 } from '@/components';
 
 // Services
-import { getCurrentUser } from '@/services/apiService';
+import { getCachedUser } from '@/services/apiService';
 
 // APIs
 import { fetchSummaryLeaves } from '@/api/leaveApplications';
 
 const DashboardPage = async () => {
-  const user = await getCurrentUser();
+  const user = await getCachedUser();
   const summaryData = await fetchSummaryLeaves();
 
   // Show user detail
