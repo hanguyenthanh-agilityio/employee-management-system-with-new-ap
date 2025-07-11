@@ -1,10 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
+import { UseFormReturn } from 'react-hook-form';
 
-const ContactDetailsForm = () => {
+interface ContactDetailsFormProps {
+  form: UseFormReturn<ContactDetailsInput>;
+}
+
+const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
+  const {
+    register,
+    formState: { errors, isDirty, isSubmitting },
+  } = form;
+
   return (
-    <form className="flex flex-col gap-4 md:gap-8 py-8 md:py-10 px-0 md:px-5">
+    <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-20 w-full">
         <div className="">
           <label htmlFor="phoneNumber1" className="text-xl md:text-2xl">
@@ -13,6 +24,8 @@ const ContactDetailsForm = () => {
           <Input
             id="phoneNumber1"
             className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+            {...register('phoneNumber1')}
+            error={errors.phoneNumber1?.message}
           />
         </div>
         <div className="">
@@ -22,6 +35,8 @@ const ContactDetailsForm = () => {
           <Input
             id="phoneNumber2"
             className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+            {...register('phoneNumber2')}
+            error={errors.phoneNumber2?.message}
           />
         </div>
       </div>
@@ -32,6 +47,8 @@ const ContactDetailsForm = () => {
         <Input
           id="email"
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+          {...register('email')}
+          error={errors.email?.message}
         />
       </div>
       <div className="flex flex-col w-full md:w-[50%] pr-0 md:pr-10">
@@ -41,6 +58,8 @@ const ContactDetailsForm = () => {
         <Input
           id="city"
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+          {...register('city')}
+          error={errors.city?.message}
         />
       </div>
       <div>
@@ -51,13 +70,18 @@ const ContactDetailsForm = () => {
           id="residential"
           rows={4}
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[15px]"
+          {...register('residential')}
+          error={errors.residential?.message}
         />
       </div>
 
-      <Button className="bg-darkGreen text-white hover:bg-green-700 font-bold py-6 md:py-8 text-lg md:text-2xl">
-        Update
+      <Button
+        className="bg-darkGreen text-white hover:bg-green-700 font-bold py-6 md:py-8 text-lg md:text-2xl"
+        disabled={isSubmitting || !isDirty}
+      >
+        {isSubmitting ? 'Updating...' : 'Update'}
       </Button>
-    </form>
+    </>
   );
 };
 

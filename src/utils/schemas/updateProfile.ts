@@ -26,11 +26,11 @@ export type PersonalDetailsInput = z.infer<typeof personalDetails>;
 
 export const contactDetails = z.object({
   phoneNumber1: z
-    .number()
+    .string()
     .min(9, 'Phone Number 1 is too short')
     .max(15, 'Phone Number 1 is too long'),
   phoneNumber2: z
-    .number()
+    .string()
     .min(9, 'Phone Number 1 is too short')
     .max(15, 'Phone Number 1 is too long'),
   email: emailField,
