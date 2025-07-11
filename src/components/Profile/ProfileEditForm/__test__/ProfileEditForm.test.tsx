@@ -1,38 +1,47 @@
 import { render, screen } from '@testing-library/react';
+import { useForm } from 'react-hook-form';
 
 // Components
 import { ProfileEditForm } from '@/components';
 
-// Constants
-import { AVATAR_URL } from '@/constants';
+// Utils
+import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
 
-describe('ProfileEditForm component', () => {
-  const mockProfile = {
-    name: 'Biruk Dawit',
-    department: 'Design & Marketing',
-    jobTitle: 'UI / UX Designer',
-    jobCategory: 'Full time',
-    avatarUrl: AVATAR_URL,
-  };
+// Mocks
+import { mockProfile } from '@/mocks/profile';
 
-  test('renders form with all fields', () => {
-    render(<ProfileEditForm profile={mockProfile} />);
+const defaultValues = mockProfile;
 
-    expect(screen.getByText('Employee Name')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Biruk Dawit')).toBeInTheDocument();
-
-    expect(screen.getByText('Department')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Design & Marketing')).toBeInTheDocument();
-
-    expect(screen.getByText('Job Title')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('UI / UX Designer')).toBeInTheDocument();
-
-    expect(screen.getByText('Job Category')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Full time')).toBeInTheDocument();
+const Form = () => {
+  const form = useForm<PersonalDetailsInput>({
+    defaultValues,
   });
 
-  test('renders Save button', () => {
-    render(<ProfileEditForm profile={mockProfile} />);
-    expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
+  return <ProfileEditForm form={form} />;
+};
+
+describe('ProfileEditForm component', () => {
+  test('Renders form with all fields', () => {
+    render(<Form />);
+
+    expect(screen.getByText('Employee Name')).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(defaultValues.username),
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('Department')).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(defaultValues.department),
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('Job Title')).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(defaultValues.jobTitle),
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('Job Category')).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(defaultValues.jobCategory),
+    ).toBeInTheDocument();
   });
 });
