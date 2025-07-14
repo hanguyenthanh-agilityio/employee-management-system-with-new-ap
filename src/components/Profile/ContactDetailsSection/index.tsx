@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // types
-import { ContactsDetailsType } from '@/types';
+import { ContactsDetailsType } from '@/types/profile';
 
 // Components
 import { ContactDetailsForm } from '@/components';
