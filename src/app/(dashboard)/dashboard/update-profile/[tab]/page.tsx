@@ -3,9 +3,9 @@ import { Suspense } from 'react';
 // Components
 import {
   LoadingFormLeave,
-  ContactDetailsForm,
   NotFoundMessage,
   ProfileDisplay,
+  ContactDetailsSection,
 } from '@/components';
 
 // Constants
@@ -46,6 +46,12 @@ const PersonalDetailsContent = async () => {
   return <ProfileDisplay profile={userData} />;
 };
 
+const ContactDetailsContent = async () => {
+  const userData = await getCachedUser();
+
+  return <ContactDetailsSection contact={userData} />;
+};
+
 export default async function TabPage({ params }: Props) {
   const { tab } = params;
 
@@ -58,7 +64,11 @@ export default async function TabPage({ params }: Props) {
       );
 
     case TAB_ITEM.CONTACT_DETAILS:
-      return <ContactDetailsForm />;
+      return (
+        <Suspense fallback={<LoadingFormLeave />}>
+          <ContactDetailsContent />
+        </Suspense>
+      );
 
     default:
       return <NotFoundMessage title="Tabs not found" />;

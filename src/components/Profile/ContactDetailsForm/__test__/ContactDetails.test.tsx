@@ -1,15 +1,32 @@
-import { ContactDetailsForm } from '@/components';
 import { render, screen } from '@testing-library/react';
+import { useForm } from 'react-hook-form';
 
-describe('ContactDetailsForm', () => {
-  test('renders all input fields and button', () => {
-    render(<ContactDetailsForm />);
+// Components
+import { ContactDetailsForm } from '@/components';
 
-    expect(screen.getByLabelText(/phone number 1/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/phone number 2/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/e-mail address/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/city of residence/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/residential address/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /update/i })).toBeInTheDocument();
+// Mocks
+import { mockContact } from '@/mocks/profile';
+
+// Utils
+import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
+
+const defaultValues = mockContact;
+
+const Form = () => {
+  const form = useForm<ContactDetailsInput>({
+    defaultValues,
+  });
+
+  return <ContactDetailsForm form={form} />;
+};
+describe('ContactDetailsForm component', () => {
+  test('Renders form with all fields', () => {
+    render(<Form />);
+
+    expect(screen.getByLabelText('Phone Number 1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Phone Number 2')).toBeInTheDocument();
+    expect(screen.getByLabelText('E-mail Address')).toBeInTheDocument();
+    expect(screen.getByLabelText('City of residence')).toBeInTheDocument();
+    expect(screen.getByLabelText('Residential Address')).toBeInTheDocument();
   });
 });
