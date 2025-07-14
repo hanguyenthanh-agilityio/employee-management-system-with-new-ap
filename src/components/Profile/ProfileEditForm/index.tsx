@@ -1,73 +1,88 @@
 'use client';
 
-import { useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-interface ProfileFormProps {
-  profile: {
-    name: string;
-    department: string;
-    jobTitle: string;
-    jobCategory: string;
-  };
+// Utils
+import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import { Label } from '@/components/ui/label';
+
+interface ProfileEditFormProps {
+  form: UseFormReturn<PersonalDetailsInput>;
 }
 
-const ProfileEditForm = ({ profile }: ProfileFormProps) => {
-  const [formData] = useState(profile);
-
-  const handleChange = () => {};
+const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
+  const {
+    register,
+    formState: { errors, isSubmitting, isDirty },
+  } = form;
 
   return (
-    <form
-      data-testid="profile-edit-form"
-      className="flex flex-col gap-14 text-center"
-    >
+    <>
       <div className="flex flex-col gap-4">
-        <p className="text-xl">Employee Name</p>
+        <Label htmlFor="username" className="text-xl">
+          Employee Name
+        </Label>
         <Input
+          id="username"
           className="text-center !text-3xl font-bold py-6"
-          value={formData.name}
-          onChange={handleChange}
+          type="text"
+          {...register('username')}
+          error={errors.username?.message}
         />
       </div>
 
       <div className="flex flex-col gap-4">
-        <p className="text-xl">Department</p>
+        <Label htmlFor="department" className="text-xl">
+          Department
+        </Label>
         <Input
+          id="department"
           className="text-center !text-3xl font-bold py-6"
-          value={formData.department}
-          onChange={handleChange}
+          type="text"
+          {...register('department')}
+          error={errors.department?.message}
         />
       </div>
 
       <div className="mt-4 flex gap-10 lg:gap-24">
         <div className="flex flex-col gap-4">
-          <p className="text-xl">Job Title</p>
+          <Label htmlFor="jobTitle" className="text-xl">
+            Job Title
+          </Label>
           <Input
+            id="jobTitle"
             className="text-center !text-3xl font-bold py-6"
-            value={formData.jobTitle}
-            onChange={handleChange}
+            type="text"
+            {...register('jobTitle')}
+            error={errors.jobTitle?.message}
           />
         </div>
 
         <div className="flex flex-col gap-4">
-          <p className="text-xl">Job Category</p>
+          <Label htmlFor="jobCategory" className="text-xl">
+            Job Category
+          </Label>
           <Input
+            id="jobCategory"
             className="text-center !text-3xl font-bold py-6"
-            value={formData.jobCategory}
-            onChange={handleChange}
+            type="text"
+            {...register('jobCategory')}
+            error={errors.jobCategory?.message}
           />
         </div>
       </div>
 
       <Button
         type="submit"
-        className="bg-darkGreen hover:bg-green-700 px-10 py-7 text-2xl font-bold"
+        className="bg-darkGreen hover:bg-green-700 px-10 py-7 text-white text-2xl font-bold"
+        disabled={isSubmitting || !isDirty}
       >
-        Save
+        {isSubmitting ? 'Saving...' : 'Save'}
       </Button>
-    </form>
+    </>
   );
 };
 

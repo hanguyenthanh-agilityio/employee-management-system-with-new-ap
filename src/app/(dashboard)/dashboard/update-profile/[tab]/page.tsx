@@ -1,28 +1,76 @@
-'use client';
-
-import { useParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 // Components
 import {
-  ContactDetailsForm,
+  LoadingFormLeave,
   NotFoundMessage,
   ProfileDisplay,
+  ContactDetailsSection,
 } from '@/components';
 
 // Constants
-import { AVATAR_URL, TAB_ITEM } from '@/constants';
+import { TAB_ITEM } from '@/constants';
 
-const TabPage = () => {
-  const { tab } = useParams();
+// Services
+import { getCachedUser } from '@/services/apiService';
+
+interface Props {
+  params: { tab: string };
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { tab } = params;
 
   switch (tab) {
     case TAB_ITEM.PERSONAL_DETAILS:
-      return <ProfileDisplay avatarName="" avatarUrl={AVATAR_URL} />;
+      return {
+        title: 'Profile - Personal Details',
+        describe: 'View and edit personal details',
+      };
     case TAB_ITEM.CONTACT_DETAILS:
-      return <ContactDetailsForm />;
+      return {
+        title: 'Profile - Contact Details',
+        describe: 'View and edit contact details',
+      };
+    default:
+      return {
+        title: 'Profile - Not found',
+        describe: 'The tab was not found',
+      };
   }
+}
 
-  return <NotFoundMessage title="Tabs not found" />;
+const PersonalDetailsContent = async () => {
+  const userData = await getCachedUser();
+
+  return <ProfileDisplay profile={userData} />;
 };
 
-export default TabPage;
+const ContactDetailsContent = async () => {
+  const userData = await getCachedUser();
+
+  return <ContactDetailsSection contact={userData} />;
+};
+
+export default async function TabPage({ params }: Props) {
+  const { tab } = params;
+
+  switch (tab) {
+    case TAB_ITEM.PERSONAL_DETAILS:
+      return (
+        <Suspense fallback={<LoadingFormLeave />}>
+          <PersonalDetailsContent />
+        </Suspense>
+      );
+
+    case TAB_ITEM.CONTACT_DETAILS:
+      return (
+        <Suspense fallback={<LoadingFormLeave />}>
+          <ContactDetailsContent />
+        </Suspense>
+      );
+
+    default:
+      return <NotFoundMessage title="Tabs not found" />;
+  }
+}
