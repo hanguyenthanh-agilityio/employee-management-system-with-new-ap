@@ -5,9 +5,6 @@ import { useRouter } from 'next/navigation';
 // Constants
 import { LEAVE_APPLICATION, LEAVES } from '@/constants';
 
-// Utils
-import { formatTitleToPath } from '@/utils/format';
-
 // Components
 import { LeaveCard } from '@/components';
 
@@ -16,7 +13,7 @@ const LeaveApplicationSection = () => {
 
   const handleClick = (title: string) => () =>
     router.push(
-      `/dashboard/${LEAVE_APPLICATION}/create?type=${formatTitleToPath(title)}`,
+      `/dashboard/${LEAVE_APPLICATION}/create?type=${encodeURIComponent(title)}`,
     );
 
   return (

@@ -1,1 +1,1 @@
-export const LEAVE_APPLICATION = '/leave-applications';
+export const LEAVE_APPLICATION = 'leave-applications';

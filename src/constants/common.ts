@@ -24,8 +24,8 @@ export const CHECKBOXES = [
 export const TYPE_LABELS: Record<string, string> = {
   annual: 'Annual Leave',
   sick: 'Sick Leave',
-  casual: 'Casual Leave',
-  compassionate: 'Compassionate Leave',
+  maternity: 'Maternity Leave',
+  exam: 'Exam Leave',
 };
 
 export const AVATAR_URL =
