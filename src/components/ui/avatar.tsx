@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { forwardRef } from 'react';
 
 import {
   Root as AvatarRoot,
@@ -10,7 +10,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-const Avatar = React.forwardRef<
+const Avatar = forwardRef<
   React.ElementRef<typeof AvatarRoot>,
   React.ComponentPropsWithoutRef<typeof AvatarRoot>
 >(({ className, ...props }, ref) => (
@@ -25,7 +25,7 @@ const Avatar = React.forwardRef<
 ));
 Avatar.displayName = AvatarRoot.displayName;
 
-const AvatarImage = React.forwardRef<
+const AvatarImage = forwardRef<
   React.ElementRef<typeof RadixAvatarImage>,
   React.ComponentPropsWithoutRef<typeof RadixAvatarImage>
 >(({ className, ...props }, ref) => (
@@ -37,7 +37,7 @@ const AvatarImage = React.forwardRef<
 ));
 AvatarImage.displayName = RadixAvatarImage.displayName;
 
-const AvatarFallback = React.forwardRef<
+const AvatarFallback = forwardRef<
   React.ElementRef<typeof RadixAvatarFallback>,
   React.ComponentPropsWithoutRef<typeof RadixAvatarFallback>
 >(({ className, ...props }, ref) => (
