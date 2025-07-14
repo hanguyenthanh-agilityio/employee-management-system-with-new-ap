@@ -61,7 +61,7 @@ export const WithLeaveContent: Story = {
           <EllipsisVerticalIcon className="text-[#000] w-7 h-7" />
         </div>
         <div className="flex flex-col gap-6 py-10">
-          <ProgressBar label={'Annual Leave'} current={10} total={60} />
+          <ProgressBar type={'Annual Leave'} total={60} />
         </div>
       </>
     ),

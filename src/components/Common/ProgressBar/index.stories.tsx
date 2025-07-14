@@ -11,14 +11,12 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    label: { control: 'text' },
-    current: { control: 'number' },
+    type: { control: 'text' },
     total: { control: 'number' },
     color: { control: 'color' },
   },
   args: {
-    label: 'Annual Leave',
-    current: 10,
+    type: 'Annual Leave',
     total: 60,
   },
 } satisfies Meta<typeof ProgressBar>;

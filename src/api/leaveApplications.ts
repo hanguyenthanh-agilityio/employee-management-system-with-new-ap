@@ -7,7 +7,8 @@ import {
   postLeaveApplication,
   patchLeaveApplication,
   deleteLeave,
-  getCurrentUser,
+  getSummaryLeaves,
+  getCachedUser,
 } from '@/services/apiService';
 
 // Utils
@@ -16,7 +17,7 @@ import { validateLeaveApplication } from '@/utils/validate';
 
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
-  const user = await getCurrentUser();
+  const user = await getCachedUser();
 
   const fullData: LeaveApplicationInput = {
     ...data,
@@ -75,4 +76,19 @@ export const updateLeaveApplication = async (
 export const deleteLeaveApplication = async (id: string) => {
   await deleteLeave(id);
   revalidateTag('leave-apps');
+};
+
+// Get Summary Leaves
+export const fetchSummaryLeaves = async () => {
+  try {
+    const userId = await getCachedUser();
+    const summary = await getSummaryLeaves(userId.id);
+
+    return { success: true, data: summary };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Unable to load summary leaves',
+    };
+  }
 };

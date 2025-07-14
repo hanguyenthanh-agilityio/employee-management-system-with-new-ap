@@ -1,5 +1,9 @@
+'use server';
+
+import { cookies } from 'next/headers';
+
 // Constants
-import { API, API_URL } from '@/constants/api_url';
+import { API, API_URL, USER_FILTER_PREFIX } from '@/constants/api_url';
 import { ERROR_MESSAGE } from '@/constants/error';
 
 // Utils
@@ -82,21 +86,16 @@ export const register = async (data: {
 
 // Get Leave Applications
 export const getLeaveApplications = async (id: number) => {
-  console.log('🟢 [SERVER] Fetching leave apps at', new Date().toISOString());
-
   const token = await getTokenFromCookies();
 
-  const res = await fetch(
-    `${API_URL}${API.BASE}?filters[users_permissions_user][id][$eq]=${id}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      next: { tags: ['leave-apps'], revalidate: 3600 },
+  const res = await fetch(`${API_URL}${API.BASE}?${USER_FILTER_PREFIX}=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
-  );
+    next: { tags: ['leave-apps'], revalidate: 3600 },
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch leave history');
@@ -107,10 +106,6 @@ export const getLeaveApplications = async (id: number) => {
 
 // Get leave application ID
 export const getLeaveApplicationById = async (documentId: string) => {
-  console.log(
-    '🟢 [SERVER] Fetching leave apps from API at',
-    new Date().toISOString(),
-  );
   const token = await getTokenFromCookies();
 
   const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
@@ -127,6 +122,24 @@ export const getLeaveApplicationById = async (documentId: string) => {
     throw new Error(
       `Failed to fetch leave application with documentId ${documentId}`,
     );
+  }
+
+  return res.json();
+};
+
+export const getSummaryLeaves = async (id: number) => {
+  const token = await getTokenFromCookies();
+
+  const res = await fetch(
+    `${API_URL}${API.SUMMARY_LEAVES}?${USER_FILTER_PREFIX}=${id}`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch summary leaves');
   }
 
   return res.json();
@@ -199,4 +212,19 @@ export const deleteLeave = async (documentId: string) => {
   }
 
   return res;
+};
+
+// Get user to reuse
+export const getCachedUser = async () => {
+  const getUserCookie = cookies().get('user')?.value;
+
+  if (!getUserCookie) {
+    throw new Error(ERROR_MESSAGE.USER_CACHE_NOT_FOUND);
+  }
+
+  try {
+    return JSON.parse(getUserCookie);
+  } catch (error) {
+    throw new Error(ERROR_MESSAGE.INVALID_CACHE);
+  }
 };

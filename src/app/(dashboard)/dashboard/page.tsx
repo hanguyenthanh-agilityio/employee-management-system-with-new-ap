@@ -1,5 +1,4 @@
 // Components
-
 import {
   BirthdaySection,
   Header,
@@ -9,28 +8,39 @@ import {
   QuickActions,
 } from '@/components';
 
-const DashboardPage = () => (
-  <section className="flex flex-col gap-12">
-    <Header title="Dashboard" />
+// Services
+import { getCachedUser } from '@/services/apiService';
 
-    {/* Profile Section */}
-    <ProfileSection
-      name="Redwan husein"
-      jobTitle="UI / UX Designer & UX Writer"
-    />
+// APIs
+import { fetchSummaryLeaves } from '@/api/leaveApplications';
 
-    {/* Quickly Action */}
-    <div>
-      <h2 className="mb-6 text-3xl">Quick Actions</h2>
-      <QuickActions />
-    </div>
+const DashboardPage = async () => {
+  const user = await getCachedUser();
+  const summaryData = await fetchSummaryLeaves();
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <LeaveSection />
-      <BirthdaySection />
-      <PaySlipSection />
-    </div>
-  </section>
-);
+  // Show user detail
+  const { username, jobTitle } = user;
+
+  return (
+    <section className="flex flex-col gap-12">
+      <Header title="Dashboard" />
+
+      {/* Profile Section */}
+      <ProfileSection name={username} jobTitle={jobTitle} />
+
+      {/* Quickly Action */}
+      <div>
+        <h2 className="mb-6 text-3xl">Quick Actions</h2>
+        <QuickActions />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <LeaveSection data={summaryData.data} />
+        <BirthdaySection />
+        <PaySlipSection />
+      </div>
+    </section>
+  );
+};
 
 export default DashboardPage;

@@ -15,12 +15,6 @@ export const LEAVES = [
   { title: 'Compassionate Leave', days: 30 },
 ];
 
-export const LEAVE_DATA = [
-  { label: 'Annual', current: 10, total: 60 },
-  { label: 'Sick Leave', current: 0, total: 10 },
-  { label: 'Compassionate Leave', current: 8, total: 15 },
-];
-
 export const LIST_ITEM = [
   { name: 'Dashboard', href: ROUTER.DASHBOARD },
   { name: 'Requests', href: ROUTER.REQUESTS },

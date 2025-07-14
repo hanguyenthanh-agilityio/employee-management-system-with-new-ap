@@ -25,6 +25,7 @@ export const TYPE_LABELS: Record<string, string> = {
   annual: 'Annual Leave',
   sick: 'Sick Leave',
   casual: 'Casual Leave',
+  compassionate: 'Compassionate Leave',
 };
 
 export const AVATAR_URL =

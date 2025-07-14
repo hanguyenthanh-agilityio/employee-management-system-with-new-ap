@@ -11,7 +11,7 @@ const nameField = (label: string) =>
       `${label} can only contain letters, spaces, apostrophes, and hyphens`,
     );
 
-const emailField = z
+export const emailField = z
   .string()
   .trim()
   .nonempty({ message: 'Email is required' })

@@ -6,13 +6,16 @@ import { ProfileDisplay } from '@/components';
 // Constants
 import { AVATAR_URL } from '@/constants';
 
+// Mocks
+import { mockProfile } from '@/mocks/profile';
+
 const meta: Meta<typeof ProfileDisplay> = {
   title: 'Components/Profile/ProfileDisplay',
   component: ProfileDisplay,
   tags: ['autodocs'],
   args: {
-    avatarName: 'Jane Doe',
     avatarUrl: AVATAR_URL,
+    profile: mockProfile,
   },
 };
 
