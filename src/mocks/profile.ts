@@ -1,4 +1,4 @@
-import { ContactsDetailsType, PersonalDetailsType } from '@/types';
+import { ContactsDetailsType, PersonalDetailsType } from '@/types/profile';
 
 export const mockProfile: PersonalDetailsType = {
   username: 'Biruk Dawit',

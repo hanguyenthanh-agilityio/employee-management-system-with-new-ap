@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props) {
 const PersonalDetailsContent = async () => {
   const userData = await getCachedUser();
 
-  return <ProfileDisplay profile={userData} avatarName={userData.username} />;
+  return <ProfileDisplay profile={userData} />;
 };
 
 const ContactDetailsContent = async () => {

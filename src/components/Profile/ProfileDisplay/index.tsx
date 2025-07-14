@@ -11,19 +11,16 @@ import {
   personalDetails,
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
-import { PersonalDetailsType } from '@/types';
+
+// Types
+import { PersonalDetailsType } from '@/types/profile';
 
 interface ProfileDisplayProps {
-  avatarName: string;
   avatarUrl?: string;
   profile: PersonalDetailsType;
 }
 
-const ProfileDisplay = ({
-  avatarName,
-  avatarUrl,
-  profile,
-}: ProfileDisplayProps) => {
+const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
@@ -38,7 +35,7 @@ const ProfileDisplay = ({
 
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
-      <Avatar src={avatarUrl} name={avatarName} />
+      <Avatar src={avatarUrl} name={profile.username} />
 
       <form
         data-testid="profile-edit-form"

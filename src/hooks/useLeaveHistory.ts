@@ -7,7 +7,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { deleteLeaveApplication } from '@/api/leaveApplications';
 
 // Types
-import { LeaveItem, SortField } from '@/types';
+import { SortField } from '@/types/field';
+import { LeaveItem } from '@/types/components';
 
 // Constants
 import {

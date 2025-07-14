@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 
 // Utils
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import { Label } from '@/components/ui/label';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
@@ -21,8 +22,11 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <p className="text-xl">Employee Name</p>
+        <Label htmlFor="username" className="text-xl">
+          Employee Name
+        </Label>
         <Input
+          id="username"
           className="text-center !text-3xl font-bold py-6"
           type="text"
           {...register('username')}
@@ -31,8 +35,11 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <p className="text-xl">Department</p>
+        <Label htmlFor="department" className="text-xl">
+          Department
+        </Label>
         <Input
+          id="department"
           className="text-center !text-3xl font-bold py-6"
           type="text"
           {...register('department')}
@@ -42,8 +49,11 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
 
       <div className="mt-4 flex gap-10 lg:gap-24">
         <div className="flex flex-col gap-4">
-          <p className="text-xl">Job Title</p>
+          <Label htmlFor="jobTitle" className="text-xl">
+            Job Title
+          </Label>
           <Input
+            id="jobTitle"
             className="text-center !text-3xl font-bold py-6"
             type="text"
             {...register('jobTitle')}
@@ -52,8 +62,11 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <p className="text-xl">Job Category</p>
+          <Label htmlFor="jobCategory" className="text-xl">
+            Job Category
+          </Label>
           <Input
+            id="jobCategory"
             className="text-center !text-3xl font-bold py-6"
             type="text"
             {...register('jobCategory')}
