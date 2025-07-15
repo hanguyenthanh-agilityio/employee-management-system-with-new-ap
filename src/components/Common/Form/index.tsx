@@ -1,6 +1,6 @@
 'use client';
 
-import { UseFormReturn } from 'react-hook-form';
+import { FieldError, UseFormReturn } from 'react-hook-form';
 
 // Components
 import { Input } from '@/components/ui/input';
@@ -10,23 +10,30 @@ import { Button } from '@/components/ui/button';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
+import { useEffect } from 'react';
+import Link from 'next/link';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
   onReset: () => void;
+  defaultDocument?: { name: string; url?: string };
 }
 
-const Form = ({ form, onReset }: FormProps) => {
+const Form = ({ form, onReset, defaultDocument }: FormProps) => {
   const {
     register,
     formState: { errors, isSubmitting },
   } = form;
 
+  useEffect(() => {
+    console.log('Form errors:', errors);
+  }, [errors]);
+
   return (
     <>
       <div>
         <Label className="text-xl md:text-2xl text-[#1D1D1D]">Leave Type</Label>
-        <p className="my-5 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
+        <p className="mt-5 mb-11 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
           {form.getValues('type')}
         </p>
       </div>
@@ -103,7 +110,7 @@ const Form = ({ form, onReset }: FormProps) => {
         </Label>
         <Textarea
           id="reasonLeave"
-          className="bg-[#E3EDF9] !text-xl mt-1 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
+          className="bg-[#E3EDF9] !text-xl mt-5 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
           rows={3}
           {...register('reason')}
         />
@@ -121,9 +128,23 @@ const Form = ({ form, onReset }: FormProps) => {
           id="document"
           type="file"
           accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-          className="h-auto bg-[#E3EDF9] mt-2 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700"
+          className="h-auto bg-[#E3EDF9] mt-5 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700"
           {...register('document')}
+          error={(errors.document as FieldError)?.message}
         />
+        {defaultDocument?.url && (
+          <div className="mt-4 flex items-center gap-3 text-base text-[#1D1D1D]">
+            <Link
+              href={defaultDocument.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600 hover:text-blue-400"
+            >
+              📎 {defaultDocument.name}
+            </Link>
+            <span className="text-sm text-gray-500">(Uploaded)</span>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-5 py-4">

@@ -37,6 +37,8 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
     revalidateTag('leave-apps');
     return { success: true };
   } catch (error) {
+    console.error('Error in createLeaveApplication:', error);
+
     return {
       success: false,
       message: 'Failed to create leave application.',

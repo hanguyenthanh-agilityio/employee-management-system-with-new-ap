@@ -70,7 +70,17 @@ const EditForm = ({ leave }: EditFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
       className="pt-5"
     >
-      <Form form={form} onReset={handleReset} />
+      <Form
+        form={form}
+        onReset={handleReset}
+        defaultDocument={
+          leave?.document
+            ? {
+                name: leave.document.name,
+              }
+            : undefined
+        }
+      />
     </form>
   );
 };

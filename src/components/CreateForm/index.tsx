@@ -67,7 +67,7 @@ const CreateLeaveContent = () => {
 
       if (file) {
         const uploaded = await uploadFile(file);
-        uploadedDocId = uploaded.id;
+        uploadedDocId = uploaded.documentId;
       }
 
       const result = await createLeaveApplication({
