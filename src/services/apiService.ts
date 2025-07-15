@@ -214,6 +214,23 @@ export const deleteLeave = async (documentId: string) => {
   return res;
 };
 
+// Upload file
+export const uploadFile = async (file: File) => {
+  const formData = new FormData();
+  formData.append('document', file);
+
+  const res = await fetch(`${API_URL}/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error('Upload document fail');
+  }
+
+  return res.json();
+};
+
 // Get user to reuse
 export const getCachedUser = async () => {
   const getUserCookie = cookies().get('user')?.value;

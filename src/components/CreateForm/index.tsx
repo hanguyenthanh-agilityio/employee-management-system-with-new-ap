@@ -24,6 +24,9 @@ import {
 // Constants
 import { ROUTER } from '@/constants';
 
+// Services
+import { uploadFile } from '@/services/apiService';
+
 const CreateLeaveContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -56,7 +59,21 @@ const CreateLeaveContent = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      const result = await createLeaveApplication(data);
+      console.log('onSubmit', data);
+
+      const file = form.getValues('document')?.[0];
+
+      let uploadedDocId: string | undefined = undefined;
+
+      if (file) {
+        const uploaded = await uploadFile(file);
+        uploadedDocId = uploaded.id;
+      }
+
+      const result = await createLeaveApplication({
+        ...data,
+        document: uploadedDocId,
+      });
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
         router.refresh(); //re-search
