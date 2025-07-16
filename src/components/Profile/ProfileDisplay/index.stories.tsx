@@ -16,6 +16,7 @@ const meta: Meta<typeof ProfileDisplay> = {
   args: {
     avatarUrl: AVATAR_URL,
     profile: mockProfile,
+    userId: 2,
   },
 };
 

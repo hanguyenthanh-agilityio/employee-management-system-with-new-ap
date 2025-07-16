@@ -12,6 +12,7 @@ const meta: Meta<typeof ContactDetailsSection> = {
   tags: ['autodocs'],
   args: {
     contact: mockContact,
+    userId: 2,
   },
 };
 
