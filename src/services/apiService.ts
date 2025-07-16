@@ -226,29 +226,31 @@ export const deleteLeave = async (documentId: string) => {
 
 // Upload file
 export const uploadFile = async (file: File) => {
+  const token = await getTokenFromCookies();
+
   const formData = new FormData();
-  formData.append('document', file);
+  formData.append('files', file);
 
   const res = await fetch(`${API_URL}/upload`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: formData,
   });
 
   if (!res.ok) {
     const text = await res.text();
-
     console.error('Upload failed:', text);
-
     throw new Error('Upload document fail');
   }
 
   const json = await res.json();
-
   if (!Array.isArray(json) || !json[0]?.id) {
     throw new Error('Invalid upload response: missing document ID.');
   }
 
-  return res.json();
+  return json[0];
 };
 
 // Get user to reuse

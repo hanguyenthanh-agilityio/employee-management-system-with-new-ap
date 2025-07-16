@@ -16,7 +16,10 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import { validateLeaveApplication } from '@/utils/validate';
 
 // Create Leave Application
-export const createLeaveApplication = async (data: LeaveApplicationInput) => {
+export const createLeaveApplication = async (
+  data: LeaveApplicationInput,
+  uploadedFileId?: number,
+) => {
   try {
     const user = await getCachedUser();
 
@@ -30,16 +33,13 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
       ...data,
       users_permissions_user: user.id,
       employeeName: user.username ?? 'unknown',
+      ...(uploadedFileId ? { document: uploadedFileId } : {}),
     };
 
     const validateData = validateLeaveApplication(fullData);
 
     await postLeaveApplication({ data: validateData });
 
-    // console.log(
-    //   'Calling revalidateTag("leave-apps") at',
-    //   new Date().toISOString(),
-    // );
     revalidateTag('leave-apps');
 
     return { success: true };

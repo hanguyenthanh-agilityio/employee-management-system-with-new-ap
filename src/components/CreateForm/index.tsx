@@ -36,6 +36,12 @@ const CreateLeaveContent = () => {
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
       type: typeFromQuery,
+      startDate: '',
+      endDate: '',
+      durations: 0,
+      resumptionDate: '',
+      reason: '',
+      document: undefined,
     },
   });
 
@@ -59,31 +65,27 @@ const CreateLeaveContent = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      console.log('onSubmit', data);
+      console.log('🧾 data before upload:', data);
+      const file = data.document as File;
 
-      const file = form.getValues('document')?.[0];
-
-      let uploadedDocId: string | undefined = undefined;
-
+      let uploadedFileId: number | undefined;
       if (file) {
         const uploaded = await uploadFile(file);
-        uploadedDocId = uploaded.documentId;
+        uploadedFileId = uploaded.id;
       }
 
       const result = await createLeaveApplication({
         ...data,
-        document: uploadedDocId,
+        document: uploadedFileId,
       });
+
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
-        router.refresh(); //re-search
+        router.refresh();
         reset();
       }
     } catch (err) {
-      return {
-        success: false,
-        message: err instanceof Error ? err.message : 'Unknown error',
-      };
+      console.error('onSubmit error:', err);
     }
   };
 
