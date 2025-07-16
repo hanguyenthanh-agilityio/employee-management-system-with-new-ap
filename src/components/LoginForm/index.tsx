@@ -38,6 +38,10 @@ const LoginForm = () => {
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     mode: 'onTouched',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const onSubmit = async (data: LoginInput) => {

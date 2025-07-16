@@ -194,8 +194,12 @@ export const patchLeaveApplication = async (
   });
 
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`API Error: ${res.status} - ${errorText}`);
+    const contentType = res.headers.get('Content-Type');
+    const errorText = contentType?.includes('application/json')
+      ? JSON.stringify(await res.json())
+      : await res.text();
+
+    throw new Error(`API Error ${res.status}: ${errorText}`);
   }
 
   return res.json();
@@ -233,9 +237,15 @@ export const uploadFile = async (file: File) => {
   if (!res.ok) {
     const text = await res.text();
 
-    console.error('❌ Upload failed:', text);
+    console.error('Upload failed:', text);
 
     throw new Error('Upload document fail');
+  }
+
+  const json = await res.json();
+
+  if (!Array.isArray(json) || !json[0]?.id) {
+    throw new Error('Invalid upload response: missing document ID.');
   }
 
   return res.json();

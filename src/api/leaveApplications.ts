@@ -17,31 +17,41 @@ import { validateLeaveApplication } from '@/utils/validate';
 
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
-  const user = await getCachedUser();
-
-  const fullData: LeaveApplicationInput = {
-    ...data,
-    users_permissions_user: user.id,
-    employeeName: user.username ?? 'unknown',
-  };
-
-  const validateData = validateLeaveApplication(fullData);
-
   try {
+    const user = await getCachedUser();
+
+    if (!user || !user.id) {
+      throw new Error(
+        'User information is missing. Cannot submit application.',
+      );
+    }
+
+    const fullData: LeaveApplicationInput = {
+      ...data,
+      users_permissions_user: user.id,
+      employeeName: user.username ?? 'unknown',
+    };
+
+    const validateData = validateLeaveApplication(fullData);
+
     await postLeaveApplication({ data: validateData });
 
-    console.log(
-      '🔁 Calling revalidateTag("leave-apps") at',
-      new Date().toISOString(),
-    );
+    // console.log(
+    //   'Calling revalidateTag("leave-apps") at',
+    //   new Date().toISOString(),
+    // );
     revalidateTag('leave-apps');
+
     return { success: true };
   } catch (error) {
     console.error('Error in createLeaveApplication:', error);
 
     return {
       success: false,
-      message: 'Failed to create leave application.',
+      message:
+        error instanceof Error
+          ? error.message
+          : 'Unknown error while creating leave application.',
     };
   }
 };
