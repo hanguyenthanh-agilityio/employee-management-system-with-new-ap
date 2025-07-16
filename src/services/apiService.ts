@@ -9,7 +9,10 @@ import { ERROR_MESSAGE } from '@/constants/error';
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
-import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import {
+  ContactDetailsInput,
+  PersonalDetailsInput,
+} from '@/utils/schemas/updateProfile';
 
 type LoginPayload = {
   identifier: string;
@@ -232,7 +235,7 @@ export const getCachedUser = async () => {
 
 export const updateProfile = async (
   userId: number,
-  data: PersonalDetailsInput,
+  data: PersonalDetailsInput | ContactDetailsInput,
 ) => {
   const token = await getTokenFromCookies();
   console.log('token:', token);

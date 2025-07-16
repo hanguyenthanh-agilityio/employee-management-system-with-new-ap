@@ -12,7 +12,7 @@ import {
 import { TAB_ITEM } from '@/constants';
 
 // Services
-import { getCachedUser, getCurrentUser } from '@/services/apiService';
+import { getCurrentUser } from '@/services/apiService';
 
 interface Props {
   params: { tab: string };
@@ -48,9 +48,9 @@ const PersonalDetailsContent = async () => {
 };
 
 const ContactDetailsContent = async () => {
-  const userData = await getCachedUser();
+  const userData = await getCurrentUser();
 
-  return <ContactDetailsSection contact={userData} />;
+  return <ContactDetailsSection userId={userData.id} contact={userData} />;
 };
 
 export default async function TabPage({ params }: Props) {
