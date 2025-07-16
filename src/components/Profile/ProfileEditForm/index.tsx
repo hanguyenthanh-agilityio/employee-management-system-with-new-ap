@@ -1,6 +1,6 @@
 'use client';
 
-import { UseFormReturn } from 'react-hook-form';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,7 @@ interface ProfileEditFormProps {
 
 const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
   const {
-    register,
+    control,
     formState: { errors, isSubmitting, isDirty },
   } = form;
 
@@ -26,13 +26,19 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         <Label htmlFor="username" className="text-xl">
           Employee Name
         </Label>
-        <Input
-          id="username"
-          className="text-center !text-3xl font-bold py-6"
-          type="text"
-          {...register('username')}
-          disabled={disable}
-          error={errors.username?.message}
+        <Controller
+          name="username"
+          control={control}
+          render={({ field }) => (
+            <Input
+              id="username"
+              className="text-center !text-3xl font-bold py-6"
+              type="text"
+              disabled={disable}
+              error={errors.username?.message}
+              {...field}
+            />
+          )}
         />
       </div>
 
@@ -40,13 +46,19 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         <Label htmlFor="department" className="text-xl">
           Department
         </Label>
-        <Input
-          id="department"
-          className="text-center !text-3xl font-bold py-6"
-          type="text"
-          {...register('department')}
-          disabled={disable}
-          error={errors.department?.message}
+        <Controller
+          name="department"
+          control={control}
+          render={({ field }) => (
+            <Input
+              id="department"
+              className="text-center !text-3xl font-bold py-6"
+              type="text"
+              disabled={disable}
+              error={errors.department?.message}
+              {...field}
+            />
+          )}
         />
       </div>
 
@@ -55,13 +67,19 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           <Label htmlFor="jobTitle" className="text-xl">
             Job Title
           </Label>
-          <Input
-            id="jobTitle"
-            className="text-center !text-3xl font-bold py-6"
-            type="text"
-            {...register('jobTitle')}
-            disabled={disable}
-            error={errors.jobTitle?.message}
+          <Controller
+            name="jobTitle"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="jobTitle"
+                className="text-center !text-3xl font-bold py-6"
+                type="text"
+                disabled={disable}
+                error={errors.jobTitle?.message}
+                {...field}
+              />
+            )}
           />
         </div>
 
@@ -69,13 +87,19 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           <Label htmlFor="jobCategory" className="text-xl">
             Job Category
           </Label>
-          <Input
-            id="jobCategory"
-            className="text-center !text-3xl font-bold py-6"
-            type="text"
-            {...register('jobCategory')}
-            disabled={disable}
-            error={errors.jobCategory?.message}
+          <Controller
+            name="jobCategory"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="jobCategory"
+                className="text-center !text-3xl font-bold py-6"
+                type="text"
+                disabled={disable}
+                error={errors.jobCategory?.message}
+                {...field}
+              />
+            )}
           />
         </div>
       </div>
