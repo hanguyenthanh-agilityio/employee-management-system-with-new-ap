@@ -1,6 +1,7 @@
 'use client';
 
-import { FieldError, UseFormReturn } from 'react-hook-form';
+import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
+import Link from 'next/link';
 
 // Components
 import { Input } from '@/components/ui/input';
@@ -10,8 +11,6 @@ import { Button } from '@/components/ui/button';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
-import { useEffect } from 'react';
-import Link from 'next/link';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
@@ -21,13 +20,9 @@ interface FormProps {
 
 const Form = ({ form, onReset, defaultDocument }: FormProps) => {
   const {
-    register,
+    control,
     formState: { errors, isSubmitting },
   } = form;
-
-  useEffect(() => {
-    console.log('Form errors:', errors);
-  }, [errors]);
 
   return (
     <>
@@ -46,22 +41,34 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           >
             Start Date
           </Label>
-          <Input
-            id="startDate"
-            type="date"
-            className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
-            {...register('startDate')}
-            error={errors.startDate?.message}
+          <Controller
+            name="startDate"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="startDate"
+                type="date"
+                className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
+                {...field}
+                error={errors.startDate?.message}
+              />
+            )}
           />
         </div>
         <div>
           <Label className="text-xl md:text-2xl text-[#1D1D1D]">End Date</Label>
-          <Input
-            id="endDate"
-            type="date"
-            className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
-            {...register('endDate')}
-            error={errors.endDate?.message}
+          <Controller
+            name="endDate"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="endDate"
+                type="date"
+                className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
+                {...field}
+                error={errors.endDate?.message}
+              />
+            )}
           />
         </div>
       </div>
@@ -74,13 +81,18 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           >
             Duration (days)
           </Label>
-          <Input
-            id="durations"
-            type="number"
-            className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
-            {...register('durations')}
-            readOnly
-            error={errors.durations?.message}
+          <Controller
+            name="durations"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="durations"
+                type="number"
+                className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
+                {...field}
+                error={errors.durations?.message}
+              />
+            )}
           />
         </div>
         <div>
@@ -90,47 +102,61 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           >
             Resumption Date
           </Label>
-          <Input
-            id="resumptionDate"
-            type="date"
-            className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
-            {...register('resumptionDate')}
-            readOnly
-            error={errors.resumptionDate?.message}
+          <Controller
+            name="resumptionDate"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="resumptionDate"
+                type="date"
+                className="h-auto my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[9px]"
+                {...field}
+                error={errors.resumptionDate?.message}
+              />
+            )}
           />
         </div>
       </div>
 
       <div>
-        <Label
-          htmlFor="reasonLeave"
-          className="text-xl md:text-2xl text-[#1D1D1D]"
-        >
+        <Label htmlFor="reason" className="text-xl md:text-2xl text-[#1D1D1D]">
           Reason for Leave
         </Label>
-        <Textarea
-          id="reasonLeave"
-          className="bg-[#E3EDF9] !text-xl mt-5 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
-          rows={3}
-          {...register('reason')}
+        <Controller
+          name="reason"
+          control={control}
+          render={({ field }) => (
+            <Textarea
+              id="reason"
+              className="bg-[#E3EDF9] !text-xl mt-5 block w-full rounded-[9px] border px-4 py-2 text-[25px]"
+              rows={3}
+              {...field}
+              error={errors.reason?.message}
+            />
+          )}
         />
-        {errors.reason && <p className="text-red">{errors.reason.message}</p>}
       </div>
 
       <div className="py-5">
         <Label
-          htmlFor="reasonLeave"
+          htmlFor="document"
           className="h-auto text-xl md:text-2xl text-[#1D1D1D]"
         >
           Attach handover document (pdf, jpg, docx or any other format)
         </Label>
-        <Input
-          id="document"
-          type="file"
-          accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-          className="h-auto bg-[#E3EDF9] mt-5 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700"
-          {...register('document')}
-          error={(errors.document as FieldError)?.message}
+        <Controller
+          name="document"
+          control={control}
+          render={({ field }) => (
+            <Input
+              id="document"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+              className="h-auto bg-[#E3EDF9] mt-5 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700"
+              {...field}
+              error={(errors.document as FieldError)?.message}
+            />
+          )}
         />
         {defaultDocument?.url && (
           <div className="mt-4 flex items-center gap-3 text-base text-[#1D1D1D]">
