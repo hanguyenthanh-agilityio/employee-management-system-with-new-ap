@@ -9,6 +9,7 @@ import { ERROR_MESSAGE } from '@/constants/error';
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
+import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
 
 type LoginPayload = {
   identifier: string;
@@ -226,5 +227,38 @@ export const getCachedUser = async () => {
     return JSON.parse(getUserCookie);
   } catch (error) {
     throw new Error(ERROR_MESSAGE.INVALID_CACHE);
+  }
+};
+
+export const updateProfile = async (
+  userId: number,
+  data: PersonalDetailsInput,
+) => {
+  const token = await getTokenFromCookies();
+  console.log('token:', token);
+
+  try {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Response error:', errorText);
+
+      throw new Error('Update failed');
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error('updateProfile error:', error);
+
+    return { success: false, message: 'Failed to update profile' };
   }
 };
