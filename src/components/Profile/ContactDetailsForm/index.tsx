@@ -10,9 +10,10 @@ import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 
 interface ContactDetailsFormProps {
   form: UseFormReturn<ContactDetailsInput>;
+  disable: boolean;
 }
 
-const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
+const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
   const {
     register,
     formState: { errors, isDirty, isSubmitting },
@@ -29,6 +30,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
             id="phoneNumber1"
             className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
             {...register('phoneNumber1')}
+            disabled={disable}
             error={errors.phoneNumber1?.message}
           />
         </div>
@@ -40,6 +42,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
             id="phoneNumber2"
             className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
             {...register('phoneNumber2')}
+            disabled={disable}
             error={errors.phoneNumber2?.message}
           />
         </div>
@@ -52,6 +55,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
           id="email"
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
           {...register('email')}
+          disabled={disable}
           error={errors.email?.message}
         />
       </div>
@@ -63,6 +67,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
           id="city"
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
           {...register('city')}
+          disabled={disable}
           error={errors.city?.message}
         />
       </div>
@@ -75,6 +80,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
           rows={4}
           className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[15px]"
           {...register('residential')}
+          disabled={disable}
           error={errors.residential?.message}
         />
       </div>

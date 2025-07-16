@@ -233,12 +233,19 @@ export const getCachedUser = async () => {
   }
 };
 
+// Update Profile
 export const updateProfile = async (
   userId: number,
   data: PersonalDetailsInput | ContactDetailsInput,
 ) => {
   const token = await getTokenFromCookies();
-  console.log('token:', token);
+
+  if (!token) {
+    return {
+      success: false,
+      message: ERROR_MESSAGE.TOKEN_MISSING,
+    };
+  }
 
   try {
     const res = await fetch(`${API_URL}/users/${userId}`, {
@@ -252,16 +259,17 @@ export const updateProfile = async (
     });
 
     if (!res.ok) {
-      const errorText = await res.text();
-      console.error('Response error:', errorText);
+      const errorText = await res.json();
 
-      throw new Error('Update failed');
+      return {
+        success: false,
+        message: errorText.error.message || ERROR_MESSAGE.UPDATE_USER_FAIL,
+        statusCode: res.status,
+      };
     }
 
     return { success: true };
   } catch (error) {
-    console.error('updateProfile error:', error);
-
-    return { success: false, message: 'Failed to update profile' };
+    return { success: false, message: ERROR_MESSAGE.UNEXPECTED };
   }
 };

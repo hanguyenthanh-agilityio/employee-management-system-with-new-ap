@@ -6,9 +6,17 @@ export const ERROR_MESSAGE = {
   VALIDATION_FAILED: 'Validation failed',
   ACTIVATION_FAILED: 'Activation failed',
   UNKNOWN: 'Unknown error occurred.',
-  UNEXPECTED: 'Unexpected error occurred',
   INVALID_CREDENTIALS: 'Invalid credentials',
   UNKNOWN_REGISTER: 'Unknown error during registration',
   USER_CACHE_NOT_FOUND: 'User cache not found',
   INVALID_CACHE: 'Invalid cache data',
+
+  // Client side authentication error
+  TOKEN_MISSING: 'Authentication token is missing',
+
+  // Error from server
+  UPDATE_USER_FAIL: 'Failed to update user',
+
+  // Network error, fail fetch
+  UNEXPECTED: 'Unexpected error occurred',
 };

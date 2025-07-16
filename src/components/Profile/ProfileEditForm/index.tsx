@@ -11,9 +11,10 @@ import { Label } from '@/components/ui/label';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
+  disable: boolean;
 }
 
-const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
+const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
   const {
     register,
     formState: { errors, isSubmitting, isDirty },
@@ -30,6 +31,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
           className="text-center !text-3xl font-bold py-6"
           type="text"
           {...register('username')}
+          disabled={disable}
           error={errors.username?.message}
         />
       </div>
@@ -43,6 +45,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
           className="text-center !text-3xl font-bold py-6"
           type="text"
           {...register('department')}
+          disabled={disable}
           error={errors.department?.message}
         />
       </div>
@@ -57,6 +60,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
             className="text-center !text-3xl font-bold py-6"
             type="text"
             {...register('jobTitle')}
+            disabled={disable}
             error={errors.jobTitle?.message}
           />
         </div>
@@ -70,6 +74,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
             className="text-center !text-3xl font-bold py-6"
             type="text"
             {...register('jobCategory')}
+            disabled={disable}
             error={errors.jobCategory?.message}
           />
         </div>

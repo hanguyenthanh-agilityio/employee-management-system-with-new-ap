@@ -14,8 +14,9 @@ import {
   contactDetails,
   ContactDetailsInput,
 } from '@/utils/schemas/updateProfile';
-import { useRouter } from 'next/navigation';
-import { updateProfile } from '@/services/apiService';
+
+// Hooks
+import { useUpdateProfile } from '@/hooks/useProfile';
 
 interface ContactDetailsSectionProps {
   contact: ContactsDetailsType;
@@ -37,19 +38,14 @@ const ContactDetailsSection = ({
     },
   });
 
-  const router = useRouter();
-
   const { handleSubmit, reset } = form;
 
-  const handleSubmitForm = async (data: ContactDetailsInput) => {
-    const result = await updateProfile(userId, data);
+  const { update, isPending, errorMessage } = useUpdateProfile();
 
-    if (result.success) {
-      reset(data);
-      router.refresh();
-    } else {
-      console.error(result.message);
-    }
+  const handleSubmitForm = async (data: ContactDetailsInput) => {
+    const result = await update(userId, data);
+
+    if (result.success) reset(data);
   };
 
   return (
@@ -58,7 +54,8 @@ const ContactDetailsSection = ({
       className="flex flex-col gap-4 md:gap-8 py-8 md:py-10 px-0 md:px-5"
       onSubmit={handleSubmit(handleSubmitForm)}
     >
-      <ContactDetailsForm form={form} />
+      <ContactDetailsForm form={form} disable={isPending} />
+      {errorMessage && <p className="text-red">{errorMessage}</p>}
     </form>
   );
 };

@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
 // Components
 import { Avatar, ProfileEditForm } from '@/components';
@@ -16,8 +15,8 @@ import {
 // Types
 import { PersonalDetailsType } from '@/types/profile';
 
-// Services
-import { updateProfile } from '@/services/apiService';
+// Hooks
+import { useUpdateProfile } from '@/hooks/useProfile';
 
 interface ProfileDisplayProps {
   avatarUrl?: string;
@@ -40,19 +39,14 @@ const ProfileDisplay = ({
     },
   });
 
-  const router = useRouter();
-
   const { handleSubmit, reset } = form;
 
-  const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    const result = await updateProfile(userId, data);
+  const { update, isPending, errorMessage } = useUpdateProfile();
 
-    if (result.success) {
-      reset(data);
-      router.refresh();
-    } else {
-      console.error(result.message);
-    }
+  const handleSubmitForm = async (data: PersonalDetailsInput) => {
+    const result = await update(userId, data);
+
+    if (result.success) reset(data);
   };
 
   return (
@@ -64,7 +58,8 @@ const ProfileDisplay = ({
         className="flex flex-col gap-14 text-center"
         onSubmit={handleSubmit(handleSubmitForm)}
       >
-        <ProfileEditForm form={form} />
+        <ProfileEditForm form={form} disable={isPending} />
+        {errorMessage && <p className="text-red">{errorMessage}</p>}
       </form>
     </div>
   );
