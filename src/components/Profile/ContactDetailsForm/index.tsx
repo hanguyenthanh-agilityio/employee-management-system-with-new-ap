@@ -23,36 +23,36 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-20 w-full">
         <div>
-          <Label htmlFor="phoneNumber1" className="text-xl md:text-2xl">
+          <Label htmlFor="mainPhoneNumber" className="text-xl md:text-2xl">
             Phone Number 1
           </Label>
           <Controller
-            name="phoneNumber1"
+            name="mainPhoneNumber"
             control={control}
             render={({ field }) => (
               <Input
-                id="phoneNumber1"
+                id="mainPhoneNumber"
                 className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
                 disabled={disable}
-                error={errors.phoneNumber1?.message}
+                error={errors.mainPhoneNumber?.message}
                 {...field}
               />
             )}
           />
         </div>
         <div>
-          <Label htmlFor="phoneNumber2" className="text-xl md:text-2xl">
+          <Label htmlFor="subPhoneNumber" className="text-xl md:text-2xl">
             Phone Number 2
           </Label>
           <Controller
-            name="phoneNumber2"
+            name="subPhoneNumber"
             control={control}
             render={({ field }) => (
               <Input
-                id="phoneNumber2"
+                id="subPhoneNumber"
                 className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
                 disabled={disable}
-                error={errors.phoneNumber2?.message}
+                error={errors.subPhoneNumber?.message}
                 {...field}
               />
             )}

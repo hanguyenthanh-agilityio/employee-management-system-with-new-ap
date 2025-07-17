@@ -21,7 +21,6 @@ describe('ProfileDisplay component', () => {
   const props = {
     avatarUrl: AVATAR_URL,
     profile,
-    userId: 2,
   };
 
   test('Renders Avatar with fallback text', () => {

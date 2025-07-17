@@ -21,14 +21,9 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 interface ProfileDisplayProps {
   avatarUrl?: string;
   profile: PersonalDetailsType;
-  userId: number;
 }
 
-const ProfileDisplay = ({
-  avatarUrl,
-  profile,
-  userId,
-}: ProfileDisplayProps) => {
+const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
@@ -44,7 +39,7 @@ const ProfileDisplay = ({
   const { update, isPending, errorMessage } = useUpdateProfile();
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    const result = await update(userId, data);
+    const result = await update(profile.id, data);
 
     if (result.success) reset(data);
   };

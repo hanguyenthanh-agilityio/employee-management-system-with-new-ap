@@ -243,7 +243,7 @@ export const updateProfile = async (
   if (!token) {
     return {
       success: false,
-      message: ERROR_MESSAGE.TOKEN_MISSING,
+      message: ERROR_MESSAGE.MISSING_TOKEN,
     };
   }
 

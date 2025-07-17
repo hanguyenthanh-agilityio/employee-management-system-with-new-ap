@@ -20,18 +20,14 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 
 interface ContactDetailsSectionProps {
   contact: ContactsDetailsType;
-  userId: number;
 }
 
-const ContactDetailsSection = ({
-  contact,
-  userId,
-}: ContactDetailsSectionProps) => {
+const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   const form = useForm<ContactDetailsInput>({
     resolver: zodResolver(contactDetails),
     defaultValues: {
-      phoneNumber1: contact.phoneNumber1,
-      phoneNumber2: contact.phoneNumber2,
+      mainPhoneNumber: contact.mainPhoneNumber,
+      subPhoneNumber: contact.subPhoneNumber,
       email: contact.email,
       city: contact.city,
       residential: contact.residential,
@@ -43,7 +39,7 @@ const ContactDetailsSection = ({
   const { update, isPending, errorMessage } = useUpdateProfile();
 
   const handleSubmitForm = async (data: ContactDetailsInput) => {
-    const result = await update(userId, data);
+    const result = await update(contact.id, data);
 
     if (result.success) reset(data);
   };

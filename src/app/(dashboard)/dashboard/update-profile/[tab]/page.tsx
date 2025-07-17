@@ -42,15 +42,14 @@ export async function generateMetadata({ params }: Props) {
 
 const PersonalDetailsContent = async () => {
   const userData = await getCurrentUser();
-  console.log(userData);
 
-  return <ProfileDisplay userId={userData.id} profile={userData} />;
+  return <ProfileDisplay profile={userData} />;
 };
 
 const ContactDetailsContent = async () => {
   const userData = await getCurrentUser();
 
-  return <ContactDetailsSection userId={userData.id} contact={userData} />;
+  return <ContactDetailsSection contact={userData} />;
 };
 
 export default async function TabPage({ params }: Props) {

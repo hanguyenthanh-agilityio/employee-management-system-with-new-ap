@@ -12,7 +12,7 @@ export const ERROR_MESSAGE = {
   INVALID_CACHE: 'Invalid cache data',
 
   // Client side authentication error
-  TOKEN_MISSING: 'Authentication token is missing',
+  MISSING_TOKEN: 'Authentication token is missing',
 
   // Error from server
   UPDATE_USER_FAIL: 'Failed to update user',
