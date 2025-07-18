@@ -16,6 +16,7 @@ const LeaveCard = ({ title, days, onClick }: LeaveCardProps) => {
   };
   return (
     <div
+      data-testid="leave-card"
       role="button"
       tabIndex={0}
       className="min-w-[250px] sm:min-w-[280px] md:min-w-[350px] bg-blue-900 text-white rounded-xl p-4 flex items-center gap-4 shadow transition hover:scale-105 hover:z-10 cursor-pointer"

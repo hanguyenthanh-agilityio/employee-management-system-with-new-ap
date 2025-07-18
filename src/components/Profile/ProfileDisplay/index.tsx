@@ -15,6 +15,9 @@ import {
 // Types
 import { PersonalDetailsType } from '@/types/profile';
 
+// Hooks
+import { useUpdateProfile } from '@/hooks/useProfile';
+
 interface ProfileDisplayProps {
   avatarUrl?: string;
   profile: PersonalDetailsType;
@@ -31,7 +34,15 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
     },
   });
 
-  const handleSubmitForm = () => {};
+  const { handleSubmit, reset } = form;
+
+  const { update, isPending, errorMessage } = useUpdateProfile();
+
+  const handleSubmitForm = async (data: PersonalDetailsInput) => {
+    const result = await update(profile.id, data);
+
+    if (result.success) reset(data);
+  };
 
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
@@ -40,9 +51,10 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
       <form
         data-testid="profile-edit-form"
         className="flex flex-col gap-14 text-center"
-        onSubmit={form.handleSubmit(handleSubmitForm)}
+        onSubmit={handleSubmit(handleSubmitForm)}
       >
-        <ProfileEditForm form={form} />
+        <ProfileEditForm form={form} disable={isPending} />
+        {errorMessage && <p className="text-red">{errorMessage}</p>}
       </form>
     </div>
   );

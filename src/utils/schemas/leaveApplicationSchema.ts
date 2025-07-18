@@ -26,6 +26,7 @@ export const leaveApplicationSchema = z
         'Resumption date must be in yyyy-mm-dd format',
       ),
     reason: z.string().min(1, 'Reason is required'),
+    document: z.any().optional(),
   })
   .refine(
     (data) => {

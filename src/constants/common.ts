@@ -1,3 +1,7 @@
+// type InputFieldType {
+//   label:
+// }
+
 export const INPUT_FIELDS = [
   { label: 'First Name', name: 'firstName' },
   { label: 'Last Name', name: 'lastName' },
@@ -24,8 +28,8 @@ export const CHECKBOXES = [
 export const TYPE_LABELS: Record<string, string> = {
   annual: 'Annual Leave',
   sick: 'Sick Leave',
-  casual: 'Casual Leave',
-  compassionate: 'Compassionate Leave',
+  maternity: 'Maternity Leave',
+  exam: 'Exam Leave',
 };
 
 export const AVATAR_URL =

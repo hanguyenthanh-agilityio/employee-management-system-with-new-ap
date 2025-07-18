@@ -9,10 +9,10 @@ export const BIRTHDAYS = [
 ];
 
 export const LEAVES = [
-  { title: 'Annual', days: 60 },
+  { title: 'Annual Leave', days: 60 },
   { title: 'Sick Leave', days: 20 },
   { title: 'Maternity Leave', days: 60 },
-  { title: 'Compassionate Leave', days: 30 },
+  { title: 'Exam Leave', days: 30 },
 ];
 
 export const LIST_ITEM = [
