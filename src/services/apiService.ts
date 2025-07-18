@@ -92,14 +92,17 @@ export const register = async (data: {
 export const getLeaveApplications = async (id: number) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}${API.BASE}?${USER_FILTER_PREFIX}=${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${API_URL}${API.BASE}?${USER_FILTER_PREFIX}=${id}&&populate=document`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      next: { tags: ['leave-apps'], revalidate: 3600 },
     },
-    next: { tags: ['leave-apps'], revalidate: 3600 },
-  });
+  );
 
   if (!res.ok) {
     throw new Error('Failed to fetch leave history');
@@ -112,15 +115,18 @@ export const getLeaveApplications = async (id: number) => {
 export const getLeaveApplicationById = async (documentId: string) => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}${API.BASE}/${documentId}`, {
-    method: 'GET',
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${API_URL}${API.BASE}/${documentId}?populate=document`,
+    {
+      method: 'GET',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      next: { tags: ['leave-apps'] },
     },
-    next: { tags: ['leave-apps'] },
-  });
+  );
 
   if (!res.ok) {
     throw new Error(
@@ -162,7 +168,7 @@ export const postLeaveApplication = async (body: {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
-    cache: 'no-store',
+    // cache: 'no-store',
   });
 
   if (!res.ok) {
@@ -192,8 +198,12 @@ export const patchLeaveApplication = async (
   });
 
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`API Error: ${res.status} - ${errorText}`);
+    const contentType = res.headers.get('Content-Type');
+    const errorText = contentType?.includes('application/json')
+      ? JSON.stringify(await res.json())
+      : await res.text();
+
+    throw new Error(`API Error ${res.status}: ${errorText}`);
   }
 
   return res.json();
@@ -216,6 +226,35 @@ export const deleteLeave = async (documentId: string) => {
   }
 
   return res;
+};
+
+// Upload file
+export const uploadFile = async (file: File) => {
+  const token = await getTokenFromCookies();
+
+  const formData = new FormData();
+  formData.append('files', file);
+
+  const res = await fetch(`${API_URL}/upload`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('Upload failed:', text);
+    throw new Error('Upload document fail');
+  }
+
+  const json = await res.json();
+  if (!Array.isArray(json) || !json[0]?.id) {
+    throw new Error('Invalid upload response: missing document ID.');
+  }
+
+  return json[0];
 };
 
 // Get user to reuse

@@ -4,6 +4,7 @@ import { ActionsDropdown, Button } from '@/components';
 // Types
 import { LeaveItem } from '@/types/components';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 type ColumnType = {
   sortBy: string;
@@ -90,6 +91,22 @@ export const COLUMNS = ({
       </Button>
     ),
     render: (row: LeaveItem) => row.type,
+  },
+  {
+    title: 'Document',
+    render: (row: LeaveItem) =>
+      row.document ? (
+        <Image
+          src={`https://strapi-backend-o8eo.onrender.com${row.document?.url}`}
+          alt={row.document?.name || 'Document'}
+          width={30}
+          height={30}
+          className="rounded shadow object-cover"
+        />
+      ) : (
+        <span>-</span>
+      ),
+    className: 'flex items-center justify-center',
   },
   {
     title: 'Reason(s)',

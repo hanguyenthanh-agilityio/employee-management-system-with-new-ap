@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 // REact Toast
 import { toast } from 'react-toastify';
@@ -16,7 +16,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Button, Input, Checkbox } from '@/components';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
@@ -29,12 +32,16 @@ const LoginForm = () => {
   const [serverError, setServerError] = useState('');
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     mode: 'onTouched',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const onSubmit = async (data: LoginInput) => {
@@ -67,58 +74,77 @@ const LoginForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div>
-          <Input
-            label="E-mail Address"
-            type="email"
-            placeholder="Enter your email"
-            // If the error has text, the screen reader will read the error when the user focuses on the input.
-            aria-describedby={errors.email ? 'email-error' : undefined}
-            {...register('email')}
-            labelClassName="block text-lg md:text-xl font-bold mb-3 text-primary"
-            inputClassName={`w-full rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
-              errors.email
-                ? 'border border-red focus:ring-red'
-                : 'focus:ring-secondary/30'
-            }`}
+          <Label
+            htmlFor="email"
+            className="block text-lg md:text-xl font-bold mb-3 text-primary"
+          >
+            E-mail Address
+          </Label>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                // If the error has text, the screen reader will read the error when the user focuses on the input.
+                aria-describedby={errors.email ? 'email-error' : undefined}
+                {...field}
+                className={`h-auto w-full rounded-md px-4 py-3 border-[2px] border-mediumLightGray !text-lg shadow focus:outline-none focus:ring-2 ${
+                  errors.email
+                    ? 'border border-red focus:ring-red'
+                    : 'focus:ring-secondary/30'
+                }`}
+                error={errors.email?.message}
+              />
+            )}
           />
-          {errors.email && (
-            <p
-              id="email-error"
-              aria-live="polite"
-              className="text-red text-sm mt-1"
-            >
-              {errors.email.message}
-            </p>
-          )}
         </div>
 
         <div>
-          <Input
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-            aria-describedby={errors.password ? 'password-error' : undefined}
-            {...register('password')}
-            labelClassName="block text-lg md:text-xl font-bold mb-3 text-primary"
-            inputClassName={`w-full rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 ${
-              errors.password
-                ? 'border border-red focus:ring-red'
-                : 'focus:ring-secondary/30'
-            }`}
+          <Label
+            htmlFor="password"
+            className="block text-lg md:text-xl font-bold mb-3 text-primary"
+          >
+            Password
+          </Label>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                aria-describedby={
+                  errors.password ? 'password-error' : undefined
+                }
+                {...field}
+                className={`h-auto w-full rounded-md px-4 py-3 !text-lg text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray ${
+                  errors.password
+                    ? 'border border-red focus:ring-red'
+                    : 'focus:ring-secondary/30'
+                }`}
+                error={errors.password?.message}
+              />
+            )}
           />
-          {errors.password && (
-            <p
-              id="password-error"
-              aria-live="polite"
-              className="text-red text-sm mt-1"
-            >
-              {errors.password.message}
-            </p>
-          )}
         </div>
 
         <div className="flex justify-between items-center text-sm">
-          <Checkbox label="Remember me" id="remember" />
+          <div className="flex justify-between items-center">
+            <Checkbox
+              id="remember"
+              className="form-checkbox w-[20px] h-[20px] text-mediumLightGray"
+            />
+            <Label
+              htmlFor="remember"
+              className="flex items-center text-xl text-Gray56 space-x-2 pl-3 max-w-[400px]"
+            >
+              Remember me
+            </Label>
+          </div>
           <Link
             href="/reset-password"
             className="text-primary font-bold hover:underline"
@@ -139,7 +165,7 @@ const LoginForm = () => {
 
         <Button
           type="submit"
-          customClass="justify-center w-full"
+          className="justify-center w-full text-white"
           disabled={isSubmitting}
           aria-label="Submit login form"
         >
