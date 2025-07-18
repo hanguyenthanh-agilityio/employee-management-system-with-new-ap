@@ -9,6 +9,10 @@ import { ERROR_MESSAGE } from '@/constants/error';
 // Utils
 import { getTokenFromCookies } from '@/utils/auth';
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
+import {
+  ContactDetailsInput,
+  PersonalDetailsInput,
+} from '@/utils/schemas/updateProfile';
 
 type LoginPayload = {
   identifier: string;
@@ -265,5 +269,46 @@ export const getCachedUser = async () => {
     return JSON.parse(getUserCookie);
   } catch (error) {
     throw new Error(ERROR_MESSAGE.INVALID_CACHE);
+  }
+};
+
+// Update Profile
+export const updateProfile = async (
+  userId: number,
+  data: PersonalDetailsInput | ContactDetailsInput,
+) => {
+  const token = await getTokenFromCookies();
+
+  if (!token) {
+    return {
+      success: false,
+      message: ERROR_MESSAGE.MISSING_TOKEN,
+    };
+  }
+
+  try {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      const errorText = await res.json();
+
+      return {
+        success: false,
+        message: errorText.error.message || ERROR_MESSAGE.UPDATE_USER_FAIL,
+        statusCode: res.status,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, message: ERROR_MESSAGE.UNEXPECTED };
   }
 };

@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,11 +10,12 @@ import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 
 interface ContactDetailsFormProps {
   form: UseFormReturn<ContactDetailsInput>;
+  disable: boolean;
 }
 
-const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
+const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
   const {
-    register,
+    control,
     formState: { errors, isDirty, isSubmitting },
   } = form;
 
@@ -22,25 +23,39 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-20 w-full">
         <div>
-          <Label htmlFor="phoneNumber1" className="text-xl md:text-2xl">
+          <Label htmlFor="mainPhoneNumber" className="text-xl md:text-2xl">
             Phone Number 1
           </Label>
-          <Input
-            id="phoneNumber1"
-            className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
-            {...register('phoneNumber1')}
-            error={errors.phoneNumber1?.message}
+          <Controller
+            name="mainPhoneNumber"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="mainPhoneNumber"
+                className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+                disabled={disable}
+                error={errors.mainPhoneNumber?.message}
+                {...field}
+              />
+            )}
           />
         </div>
         <div>
-          <Label htmlFor="phoneNumber2" className="text-xl md:text-2xl">
+          <Label htmlFor="subPhoneNumber" className="text-xl md:text-2xl">
             Phone Number 2
           </Label>
-          <Input
-            id="phoneNumber2"
-            className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
-            {...register('phoneNumber2')}
-            error={errors.phoneNumber2?.message}
+          <Controller
+            name="subPhoneNumber"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="subPhoneNumber"
+                className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+                disabled={disable}
+                error={errors.subPhoneNumber?.message}
+                {...field}
+              />
+            )}
           />
         </div>
       </div>
@@ -48,34 +63,55 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
         <Label htmlFor="email" className="text-xl md:text-2xl">
           E-mail Address
         </Label>
-        <Input
-          id="email"
-          className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
-          {...register('email')}
-          error={errors.email?.message}
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <Input
+              id="email"
+              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+              disabled={disable}
+              error={errors.email?.message}
+              {...field}
+            />
+          )}
         />
       </div>
       <div className="flex flex-col w-full md:w-[50%] pr-0 md:pr-10">
         <Label htmlFor="city" className="text-xl md:text-2xl">
           City of residence
         </Label>
-        <Input
-          id="city"
-          className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
-          {...register('city')}
-          error={errors.city?.message}
+        <Controller
+          name="city"
+          control={control}
+          render={({ field }) => (
+            <Input
+              id="city"
+              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+              disabled={disable}
+              error={errors.city?.message}
+              {...field}
+            />
+          )}
         />
       </div>
       <div>
         <Label htmlFor="residential" className="text-xl md:text-2xl">
           Residential Address
         </Label>
-        <Textarea
-          id="residential"
-          rows={4}
-          className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[15px]"
-          {...register('residential')}
-          error={errors.residential?.message}
+        <Controller
+          name="residential"
+          control={control}
+          render={({ field }) => (
+            <Textarea
+              id="residential"
+              rows={4}
+              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[15px]"
+              disabled={disable}
+              error={errors.residential?.message}
+              {...field}
+            />
+          )}
         />
       </div>
 
