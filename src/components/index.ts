@@ -1,9 +1,9 @@
 // Common components
 export { default as TransitionLoader } from './Common/TransitionLoader';
-export { default as TopBar } from './Common/TopBar';
-export { default as TopBarNav } from './Common/TopBarNav';
+export { default as TopBar } from './layout/TopBar';
+export { default as TopBarNav } from './layout/TopBarNav';
 export { default as Header } from './Common/Header';
-export { default as Breadcrumbs } from './Common/Breadcrumb';
+export { default as Breadcrumbs } from './layout/Breadcrumb';
 export { default as Form } from './Common/Form';
 export { default as Dropdown } from './Common/Dropdown';
 export { default as Button } from './Common/Button';
@@ -18,37 +18,37 @@ export { default as LoadingFormLeave } from './Common/LoadingFormLeave';
 export { default as LoadingLeaveApplication } from './Common/LoadingLeaveApplication';
 export { default as Avatar } from './Common/Avatar';
 
-export { default as ToastProvider } from './ToastProvider';
-export { default as BirthdayItem } from './BirthdayItem';
-export { default as LeaveCard } from './LeaveApplicationCard';
-export { default as NotFoundMessage } from './NotFoundMessage';
+export { default as ToastProvider } from './feedback/ToastProvider';
+export { default as BirthdayItem } from './dashboard/BirthdayItem';
+export { default as LeaveCard } from './leave/LeaveApplicationCard';
+export { default as NotFoundMessage } from './feedback/NotFoundMessage';
 
 // Table components
-export { default as GenericTable } from './LeaveHistoryTable';
+export { default as GenericTable } from './leave/LeaveHistoryTable';
 
 // Form components
-export { default as LoginForm } from './LoginForm';
-export { default as RegisterForm } from './RegisterForm';
-export { default as EditForm } from './EditForm';
-export { default as CreateLeaveContent } from './CreateForm';
+export { default as LoginForm } from './auth/LoginForm';
+export { default as RegisterForm } from './auth/RegisterForm';
+export { default as EditForm } from './leave/EditForm';
+export { default as CreateLeaveContent } from './leave/CreateForm';
 
 // Dropdown
-export { default as ActionsDropdown } from './ActionDropdown';
-export { default as ProfileDropdown } from './ProfileDropdown';
+export { default as ActionsDropdown } from './leave/ActionDropdown';
+export { default as ProfileDropdown } from './Profile/ProfileDropdown';
 
 // Section components
-export { default as BirthdaySection } from './BirthdaySection';
-export { default as LeaveSection } from './LeaveSection';
-export { default as PaySlipSection } from './PaySlipSection';
-export { default as ProfileSection } from './ProfileSection';
-export { default as QuickActions } from './QuickActions';
-export { default as LeaveApplicationSection } from './LeaveApplicationSection';
-export { default as LeaveHistorySection } from './LeaveHistorySection';
-export { default as LeaveHistoryHeader } from './LeaveHistoryHeader';
-export { default as LeaveHistoryWrapper } from './LeaveHistoryWrapper';
+export { default as BirthdaySection } from './dashboard/BirthdaySection';
+export { default as LeaveSection } from './leave/LeaveSection';
+export { default as PaySlipSection } from './dashboard/PaySlipSection';
+export { default as ProfileSection } from './Profile/ProfileSection';
+export { default as QuickActions } from './dashboard/QuickActions';
+export { default as LeaveApplicationSection } from './leave/LeaveApplicatonSection';
+export { default as LeaveHistorySection } from './leave/LeaveHistorySection';
+export { default as LeaveHistoryHeader } from './leave/LeaveHistoryHeader';
+export { default as LeaveHistoryWrapper } from './leave/LeaveHistoryWrapper';
 
 // Modal Components
-export { default as DeleteConfirmModal } from './DeleteConfirmModal';
+export { default as DeleteConfirmModal } from './feedback/DeleteConfirmModal';
 
 // Profile
 export { default as ProfileSidebar } from './Profile/ProfileSidebar';

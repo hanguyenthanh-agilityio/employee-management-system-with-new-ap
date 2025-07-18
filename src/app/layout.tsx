@@ -5,7 +5,7 @@ import { productSans } from './fonts';
 
 // Components
 import './globals.css';
-import ToastProvider from '@/components/ToastProvider';
+import ToastProvider from '@/components/feedback/ToastProvider';
 
 export const metadata: Metadata = {
   title: {

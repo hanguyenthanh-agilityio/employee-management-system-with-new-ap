@@ -11,7 +11,7 @@ import { Breadcrumbs, LoadingFormLeave } from '@/components';
 // Constants
 import { BREADCRUMBS } from '@/constants';
 
-const CreateLeaveContent = lazy(() => import('@/components/CreateForm'));
+const CreateLeaveContent = lazy(() => import('@/components/leave/CreateForm'));
 
 export const metadata: Metadata = {
   title: 'Create Leave',
