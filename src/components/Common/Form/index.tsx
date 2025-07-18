@@ -56,7 +56,12 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           />
         </div>
         <div>
-          <Label className="text-xl md:text-2xl text-[#1D1D1D]">End Date</Label>
+          <Label
+            htmlFor="endDate"
+            className="text-xl md:text-2xl text-[#1D1D1D]"
+          >
+            End Date
+          </Label>
           <Controller
             name="endDate"
             control={control}
