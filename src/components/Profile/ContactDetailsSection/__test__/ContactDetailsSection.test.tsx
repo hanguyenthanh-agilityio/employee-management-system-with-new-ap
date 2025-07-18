@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react';
 import { mockContact } from '@/mocks/profile';
 import ContactDetailsSection from '..';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
+
 describe('ContactDetailsSection component', () => {
   const contact = mockContact;
 
@@ -16,9 +22,13 @@ describe('ContactDetailsSection component', () => {
   test('Renders from fields with default values from Contact', () => {
     render(<ContactDetailsSection contact={contact} />);
 
-    expect(screen.getByDisplayValue(contact.phoneNumber1)).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(contact.mainPhoneNumber),
+    ).toBeInTheDocument();
 
-    expect(screen.getByDisplayValue(contact.phoneNumber2)).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(contact.subPhoneNumber),
+    ).toBeInTheDocument();
 
     expect(screen.getByDisplayValue(contact.email)).toBeInTheDocument();
 

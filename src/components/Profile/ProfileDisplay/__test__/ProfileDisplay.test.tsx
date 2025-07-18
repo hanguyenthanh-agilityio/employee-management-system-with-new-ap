@@ -9,11 +9,16 @@ import { AVATAR_URL } from '@/constants';
 // Mocks
 import { mockProfile } from '@/mocks/profile';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
+
 describe('ProfileDisplay component', () => {
   const profile = mockProfile;
 
   const props = {
-    avatarName: profile.username,
     avatarUrl: AVATAR_URL,
     profile,
   };

@@ -1,3 +1,7 @@
+// type InputFieldType {
+//   label:
+// }
+
 export const INPUT_FIELDS = [
   { label: 'First Name', name: 'firstName' },
   { label: 'Last Name', name: 'lastName' },

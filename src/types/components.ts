@@ -17,6 +17,10 @@ export type LeaveItem = {
   durations: number;
   status: string;
   resumptionDate: string;
+  document: {
+    name: string;
+    url: string;
+  };
 };
 
 export type LeaveApplication = {

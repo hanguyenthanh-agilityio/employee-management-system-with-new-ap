@@ -1,4 +1,5 @@
 export type PersonalDetailsType = {
+  id: number;
   username: string;
   department: string;
   jobTitle: string;
@@ -6,8 +7,9 @@ export type PersonalDetailsType = {
 };
 
 export type ContactsDetailsType = {
-  phoneNumber1: string;
-  phoneNumber2: string;
+  id: number;
+  mainPhoneNumber: string;
+  subPhoneNumber: string;
   email: string;
   city: string;
   residential: string;

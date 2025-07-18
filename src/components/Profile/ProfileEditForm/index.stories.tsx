@@ -29,7 +29,7 @@ const Form = () => {
     defaultValues: mockProfile,
   });
 
-  return <ProfileEditForm form={form} />;
+  return <ProfileEditForm form={form} disable={false} />;
 };
 
 export const Default: Story = { render: () => <Form /> };
