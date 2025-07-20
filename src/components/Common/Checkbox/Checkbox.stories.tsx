@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Checkbox } from './checkbox';
 
 const meta = {
-  title: 'Components/Checkbox',
+  title: 'Components/Common/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',

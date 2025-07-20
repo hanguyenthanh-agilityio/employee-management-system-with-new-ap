@@ -14,7 +14,7 @@ import {
 } from '@/utils/schemas/leaveApplicationSchema';
 
 const meta: Meta<typeof Form> = {
-  title: 'Components/Form',
+  title: 'Components/Common/Form',
   component: Form,
   parameters: {
     layout: 'centered',

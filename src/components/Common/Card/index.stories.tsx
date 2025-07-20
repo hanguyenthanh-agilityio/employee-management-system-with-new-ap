@@ -13,7 +13,7 @@ import Table from '../Table';
 import BirthdayItem from '@/components/dashboard/BirthdayItem';
 
 const meta = {
-  title: 'Components/Card',
+  title: 'Components/Common/Card',
   component: Card,
   parameters: {
     layout: 'centered',
