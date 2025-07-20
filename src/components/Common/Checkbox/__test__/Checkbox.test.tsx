@@ -1,29 +1,28 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Checkbox from '..';
+import { Checkbox } from '../checkbox';
 
 describe('Checkbox component', () => {
-  test('renders label', () => {
-    render(<Checkbox id="terms" label="Accept terms" />);
-    expect(screen.getByText('Accept terms')).toBeInTheDocument();
+  test('renders without crashing', () => {
+    render(<Checkbox />);
+    expect(screen.getByRole('checkbox')).toBeInTheDocument();
   });
 
-  test('renders subLabel when provided', () => {
-    render(<Checkbox id="terms" label="Accept" subLabel="(optional)" />);
-    expect(screen.getByText('(optional)')).toBeInTheDocument();
-  });
-
-  test('associates label with input via htmlFor and id', () => {
-    render(<Checkbox id="my-checkbox" label="Check me" />);
-    const checkbox = screen.getByLabelText('Check me');
-    expect(checkbox).toHaveAttribute('id', 'my-checkbox');
-  });
-
-  test('calls onChange when clicked', () => {
+  test('handles check and uncheck', () => {
     const handleChange = jest.fn();
-    render(<Checkbox id="cb" label="Label" onChange={handleChange} />);
-    const checkbox = screen.getByLabelText('Label');
+    render(<Checkbox onCheckedChange={handleChange} />);
+    const checkbox = screen.getByRole('checkbox');
+
     fireEvent.click(checkbox);
-    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledWith(true);
+
+    fireEvent.click(checkbox);
+    expect(handleChange).toHaveBeenCalledWith(false);
+  });
+
+  test('applies custom className', () => {
+    render(<Checkbox className="custom-class" />);
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).toHaveClass('custom-class');
   });
 });

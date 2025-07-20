@@ -19,7 +19,7 @@ import { loginAction } from '@/actions/auth-action';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/Common/Button/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Checkbox } from '@/components/Common/Checkbox/checkbox';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';

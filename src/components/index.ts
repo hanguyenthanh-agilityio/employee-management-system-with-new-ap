@@ -9,7 +9,7 @@ export { default as Header } from './Common/Header';
 export { Button } from './Common/Button/button';
 export { default as Select } from './Common/Select';
 export { default as Avatar } from './Common/Avatar';
-export { default as Checkbox } from './Common/Checkbox';
+export { Checkbox } from './Common/Checkbox/checkbox';
 export { default as Dropdown } from './Common/Dropdown';
 export { default as Pagination } from './Common/Pagination';
 export { default as ProgressBar } from './Common/ProgressBar';
