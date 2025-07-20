@@ -2,7 +2,7 @@
 
 import { Controller, UseFormReturn } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/Common/Button/button';
 import { Input } from '@/components/ui/input';
 
 // Utils

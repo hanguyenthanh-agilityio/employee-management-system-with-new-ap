@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 // Components
-import { Button } from '@/components';
+import { Button } from '@/components/Common/Button/button';
 
 // Constants
 import { IMAGE } from '@/constants';
@@ -29,10 +29,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => (
     </div>
     <div className="flex items-center">
       <div>
-        <Button
-          variant="secondary"
-          customClass="text-2xl px-14 py-4 rounded-[10px] font-bold w-full sm:w-auto text-center"
-        >
+        <Button className="h-auto bg-[#FFC20E] text-[#000] hover:bg-yellow text-2xl px-14 py-4 rounded-[10px] font-bold w-full sm:w-auto text-center">
           Edit Profile
         </Button>
       </div>

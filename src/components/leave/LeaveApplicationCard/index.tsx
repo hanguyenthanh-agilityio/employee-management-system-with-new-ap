@@ -1,5 +1,5 @@
 // Components
-import { Button } from '@/components';
+import { Button } from '@/components/Common/Button/button';
 
 interface LeaveCardProps {
   title: string;
@@ -30,10 +30,7 @@ const LeaveCard = ({ title, days, onClick }: LeaveCardProps) => {
         <div className="text-base md:text-lg font-medium truncate pb-2 text-center truncate w-[140px]">
           {title}
         </div>
-        <Button
-          variant="secondary"
-          customClass="text-sm md:text-base font-bold justify-center px-1 md:px-6 py-1 rounded-full bg-yellow-400 text-black"
-        >
+        <Button className="!bg-[#FFC20E] text-[#000] hover:bg-yellow text-sm md:text-base font-bold justify-center px-1 md:px-6 py-1 rounded-full bg-yellow-400 text-black">
           Apply
         </Button>
       </div>

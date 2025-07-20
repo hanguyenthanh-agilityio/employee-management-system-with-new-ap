@@ -1,5 +1,6 @@
 // Components
-import { ActionsDropdown, Button } from '@/components';
+import { ActionsDropdown } from '@/components';
+import { Button } from '@/components/Common/Button/button';
 
 // Types
 import { LeaveItem } from '@/types/components';
@@ -32,8 +33,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('startDate')}
       >
         Start Date
@@ -53,8 +53,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('endDate')}
       >
         End Date
@@ -74,8 +73,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('type')}
       >
         Type

@@ -6,7 +6,7 @@ export { default as Card } from './Common/Card';
 export { default as Input } from './Common/Input';
 export { default as Table } from './Common/Table';
 export { default as Header } from './Common/Header';
-export { default as Button } from './Common/Button';
+export { Button } from './Common/Button/button';
 export { default as Select } from './Common/Select';
 export { default as Avatar } from './Common/Avatar';
 export { default as Checkbox } from './Common/Checkbox';

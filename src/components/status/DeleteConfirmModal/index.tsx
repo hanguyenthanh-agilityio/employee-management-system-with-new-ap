@@ -1,8 +1,8 @@
+import { Button } from '@/components/Common/Button/button';
 import { CloseIcon, TrashIcon } from '@/icons';
 import clsx from 'clsx';
 
 // Components
-import { Button } from '@/components';
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -42,15 +42,14 @@ const DeleteConfirmModal = ({
           <Button
             data-modal-toggle="deleteModal"
             type="button"
-            variant="cancel"
-            customClass="py-2 px-3 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10"
+            className="text-gray-900 bg-white py-2 px-3 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10"
             onClick={onClose}
           >
             No, cancel
           </Button>
           <Button
             type="submit"
-            customClass={clsx(
+            className={clsx(
               'py-2 px-3 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none',
               {
                 'bg-red hover:bg-[#b91c1c] focus:ring-red': !isLoading,

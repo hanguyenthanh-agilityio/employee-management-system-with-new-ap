@@ -4,7 +4,7 @@
 import { PageErrorProps } from '@/types/components';
 
 // Components
-import { Button } from '@/components';
+import { Button } from '@/components/Common/Button/button';
 
 export default function GlobalError({
   // error,
@@ -14,7 +14,10 @@ export default function GlobalError({
     <html lang="en">
       <body>
         <h2>Something went wrong!</h2>
-        <Button variant="error" onClick={() => reset()}>
+        <Button
+          className="bg-rose-500 text-white hover:bg-rose-600 disabled:bg-rose-300"
+          onClick={() => reset()}
+        >
           Try again
         </Button>
       </body>
