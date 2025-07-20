@@ -17,7 +17,7 @@ import { loginAction } from '@/actions/auth-action';
 
 // Components
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components/Common/Label/label';
 import { Button } from '@/components/Common/Button/button';
 import { Checkbox } from '@/components/Common/Checkbox/checkbox';
 

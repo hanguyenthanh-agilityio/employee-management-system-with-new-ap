@@ -22,7 +22,7 @@ import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/Common/Button/button';
 import { Checkbox } from '@/components/Common/Checkbox/checkbox';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components/Common/Label/label';
 
 const RegisterForm = () => {
   const router = useRouter();

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 
 // Utils
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components/Common/Label/label';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
