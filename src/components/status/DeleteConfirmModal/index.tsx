@@ -1,8 +1,8 @@
-import { Button } from '@/components/Common/Button/button';
 import { CloseIcon, TrashIcon } from '@/icons';
 import clsx from 'clsx';
 
 // Components
+import { Button } from '@/components';
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;

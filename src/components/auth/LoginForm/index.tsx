@@ -16,10 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/Common/Label/label';
-import { Button } from '@/components/Common/Button/button';
-import { Checkbox } from '@/components/Common/Checkbox/checkbox';
+import { Input, Checkbox, Label, Button } from '@/components';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';

@@ -1,5 +1,5 @@
 // Components
-import { Button } from '@/components/Common/Button/button';
+import { Button } from '@/components';
 
 interface LeaveCardProps {
   title: string;

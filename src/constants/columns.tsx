@@ -1,6 +1,5 @@
 // Components
-import { ActionsDropdown } from '@/components';
-import { Button } from '@/components/Common/Button/button';
+import { ActionsDropdown, Button } from '@/components';
 
 // Types
 import { LeaveItem } from '@/types/components';

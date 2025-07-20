@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation';
 
 // Components
+import { Button } from '@/components';
 
 // Constants
 import { ACTIONS } from '@/constants';
-import { Button } from '@/components/Common/Button/button';
 
 const format = (text: string) => text.toLowerCase().replace(/\s+/g, '-');
 

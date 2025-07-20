@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────
 export { default as Form } from './Common/Form';
 export { default as Card } from './Common/Card';
-export { default as Input } from './Common/Input';
+export { Input } from './Common/Input/input';
 export { default as Table } from './Common/Table';
 export { default as Header } from './Common/Header';
 export { Button } from './Common/Button/button';
@@ -18,7 +18,7 @@ export { default as ToastProvider } from './status/ToastProvider';
 export { default as BirthdayItem } from './dashboard/BirthdayItem';
 export { default as LeaveCard } from './leave/LeaveApplicationCard';
 export { default as NotFoundMessage } from './status/NotFoundMessage';
-
+export { Label } from './Common/Label/label';
 export { Textarea } from './Common/Textarea/textarea';
 
 // ─────────────────────────────────────────────

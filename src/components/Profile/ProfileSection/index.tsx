@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 // Components
-import { Button } from '@/components/Common/Button/button';
+import { Button } from '@/components';
 
 // Constants
 import { IMAGE } from '@/constants';

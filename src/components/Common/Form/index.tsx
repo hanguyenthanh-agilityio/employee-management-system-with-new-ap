@@ -4,10 +4,7 @@ import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
 
 // Components
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/Common/Label/label';
-import { Textarea } from '@/components/Common/Textarea/textarea';
-import { Button } from '@/components/Common/Button/button';
+import { Input, Label, Textarea, Button } from '@/components';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';

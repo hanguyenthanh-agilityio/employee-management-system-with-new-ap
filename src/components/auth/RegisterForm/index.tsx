@@ -19,10 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/Common/Button/button';
-import { Checkbox } from '@/components/Common/Checkbox/checkbox';
-import { Label } from '@/components/Common/Label/label';
+import { Input, Button, Checkbox, Label } from '@/components';
 
 const RegisterForm = () => {
   const router = useRouter();

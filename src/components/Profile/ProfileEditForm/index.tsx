@@ -2,12 +2,11 @@
 
 import { Controller, UseFormReturn } from 'react-hook-form';
 
-import { Button } from '@/components/Common/Button/button';
-import { Input } from '@/components/ui/input';
+// Components
+import { Button, Input, Label } from '@/components';
 
 // Utils
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
-import { Label } from '@/components/Common/Label/label';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
