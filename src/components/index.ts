@@ -19,6 +19,8 @@ export { default as BirthdayItem } from './dashboard/BirthdayItem';
 export { default as LeaveCard } from './leave/LeaveApplicationCard';
 export { default as NotFoundMessage } from './status/NotFoundMessage';
 
+export { Textarea } from './Common/Textarea/textarea';
+
 // ─────────────────────────────────────────────
 // LAYOUT COMPONENTS
 // ─────────────────────────────────────────────

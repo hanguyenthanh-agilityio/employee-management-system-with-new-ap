@@ -6,7 +6,7 @@ import Link from 'next/link';
 // Components
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/Common/Label/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/Common/Textarea/textarea';
 import { Button } from '@/components/Common/Button/button';
 
 // Types

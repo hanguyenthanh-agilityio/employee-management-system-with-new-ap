@@ -2,7 +2,7 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { Button } from '@/components/Common/Button/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/Common/Textarea/textarea';
 import { Label } from '@/components/Common/Label/label';
 
 // Utils
