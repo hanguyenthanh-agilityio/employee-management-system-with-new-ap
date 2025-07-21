@@ -9,7 +9,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('../../../api/leaveApplications', () => ({
+jest.mock('@/api/leaveApplications', () => ({
   updateLeaveApplication: jest.fn(),
 }));
 

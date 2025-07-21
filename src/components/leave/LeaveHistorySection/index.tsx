@@ -19,7 +19,7 @@ import dynamic from 'next/dynamic';
 
 // Import with lazy load
 const DeleteConfirmModal = dynamic(
-  () => import('@/components/DeleteConfirmModal'),
+  () => import('@/components/status/DeleteConfirmModal'),
   {
     loading: () => <TransitionLoader />,
     ssr: false,

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 // Components
-import { LeaveCard } from '..';
+import { LeaveCard } from '@/components';
 
 const meta: Meta<typeof LeaveCard> = {
   title: 'Components/Leave/LeaveCard',

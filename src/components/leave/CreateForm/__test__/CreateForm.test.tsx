@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import CreateLeaveContent from '..';
 import { createLeaveApplication } from '@/api/leaveApplications';
+import { CreateLeaveContent } from '@/components';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -14,7 +14,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('../../../api/leaveApplications', () => ({
+jest.mock('@/api/leaveApplications', () => ({
   createLeaveApplication: jest.fn(),
 }));
 describe('CreateLeaveContent', () => {
