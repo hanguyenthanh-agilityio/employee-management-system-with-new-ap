@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 // Components
-import Button from '.';
+import { Button } from '@/components';
 
 import { UserIcon } from '@/icons';
 
