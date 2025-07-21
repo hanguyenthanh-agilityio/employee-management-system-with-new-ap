@@ -1,9 +1,11 @@
 export type PersonalDetailsType = {
-  id: number;
+  id: string;
   username: string;
   department: string;
   jobTitle: string;
   jobCategory: string;
+  documentId?: string;
+  avatar?: string | File | null;
 };
 
 export type ContactsDetailsType = {

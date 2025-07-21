@@ -249,12 +249,9 @@ export const uploadFile = async (file: File) => {
     throw new Error('Upload document fail');
   }
 
-  const json = await res.json();
-  if (!Array.isArray(json) || !json[0]?.id) {
-    throw new Error('Invalid upload response: missing document ID.');
-  }
-
-  return json[0];
+  const uploadRes = await res.json();
+  console.log('Upload success:', uploadRes[0].id);
+  return uploadRes[0]?.id;
 };
 
 // Get user to reuse
@@ -274,7 +271,7 @@ export const getCachedUser = async () => {
 
 // Update Profile
 export const updateProfile = async (
-  userId: number,
+  userId: string,
   data: PersonalDetailsInput | ContactDetailsInput,
 ) => {
   const token = await getTokenFromCookies();

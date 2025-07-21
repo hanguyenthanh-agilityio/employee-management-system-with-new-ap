@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Avatar as UIAvatar,
   AvatarFallback,
@@ -5,17 +7,22 @@ import {
 } from '@/components/ui/avatar';
 
 interface AvatarProps {
-  src?: string | undefined;
+  src?: string;
+  preview?: string;
   name: string;
 }
 
-const Avatar = ({ src, name }: AvatarProps) => {
+const Avatar = ({ src, preview, name }: AvatarProps) => {
   const fallback = name?.[0]?.toUpperCase() || '?';
 
   return (
-    <UIAvatar className="w-32 h-32 lg:w-52 lg:h-52">
-      {src && <AvatarImage src={src} alt={name} width={96} height={96} />}
-      <AvatarFallback className="bg-blue-500 text-white text-3xl font-bold">
+    <UIAvatar className="w-full h-full border border-muted ring-2 ring-offset-2 ring-offset-background ring-primary/50 transition duration-300 rounded-full overflow-hidden">
+      <AvatarImage
+        src={preview || src}
+        alt={name}
+        className="object-cover w-full h-full"
+      />
+      <AvatarFallback className="bg-primary text-white text-3xl font-bold flex items-center justify-center w-full h-full">
         {fallback}
       </AvatarFallback>
     </UIAvatar>

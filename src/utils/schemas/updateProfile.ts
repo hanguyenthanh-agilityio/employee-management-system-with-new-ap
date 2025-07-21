@@ -20,6 +20,11 @@ export const personalDetails = z.object({
     .string()
     .min(2, 'Job Category must be at least 2 characters')
     .max(100),
+  documentId: z.string().optional(),
+  avatar: z
+    .union([z.string(), z.instanceof(File)])
+    .optional()
+    .nullable(),
 });
 
 export type PersonalDetailsInput = z.infer<typeof personalDetails>;
