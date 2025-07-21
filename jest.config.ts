@@ -29,6 +29,10 @@ const config: Config = {
     '/src/app/error.tsx',
     '/src/app/page.tsx',
     'src/mocks',
+    'src/app/(dashboard)/company/page.tsx',
+    'src/app/(dashboard)/extras/page.tsx',
+    'src/app/(dashboard)/payroll/page.tsx',
+    'src/app/(dashboard)/requests/page.tsx',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
