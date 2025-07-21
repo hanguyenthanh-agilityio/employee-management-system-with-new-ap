@@ -1,18 +1,19 @@
 // ─────────────────────────────────────────────
-// COMMON UI COMPONENTS
+// cOMMON UI COMPONENTS
 // ─────────────────────────────────────────────
-export { default as Form } from './Common/Form';
-export { default as Card } from './Common/Card';
-export { default as Input } from './Common/Input';
-export { default as Table } from './Common/Table';
-export { default as Header } from './Common/Header';
-export { default as Button } from './Common/Button';
-export { default as Select } from './Common/Select';
-export { default as Avatar } from './Common/Avatar';
-export { default as Checkbox } from './Common/Checkbox';
-export { default as Dropdown } from './Common/Dropdown';
-export { default as Pagination } from './Common/Pagination';
-export { default as ProgressBar } from './Common/ProgressBar';
+export { default as Form } from './common/Form';
+export { default as Card } from './common/Card';
+export { default as Input } from './common/Input';
+export { default as Table } from './common/Table';
+export { default as Header } from './common/Header';
+export { default as Button } from './common/Button';
+export { default as Select } from './common/Select';
+export { default as Avatar } from './common/Avatar';
+export { default as Skeleton } from './common/Skeleton';
+export { default as Checkbox } from './common/Checkbox';
+export { default as Dropdown } from './common/Dropdown';
+export { default as Pagination } from './common/Pagination';
+export { default as ProgressBar } from './common/ProgressBar';
 
 export { default as ToastProvider } from './status/ToastProvider';
 export { default as BirthdayItem } from './dashboard/BirthdayItem';
@@ -43,13 +44,13 @@ export { default as RegisterForm } from './auth/RegisterForm';
 // ─────────────────────────────────────────────
 // PROFILE COMPONENTS
 // ─────────────────────────────────────────────
-export { default as ProfileSection } from './Profile/ProfileSection';
-export { default as ProfileSidebar } from './Profile/ProfileSidebar';
-export { default as ProfileDisplay } from './Profile/ProfileDisplay';
-export { default as ProfileEditForm } from './Profile/ProfileEditForm';
-export { default as ProfileDropdown } from './Profile/ProfileDropdown';
-export { default as ContactDetailsForm } from './Profile/ContactDetailsForm';
-export { default as ContactDetailsSection } from './Profile/ContactDetailsSection';
+export { default as ProfileSection } from './profile/ProfileSection';
+export { default as ProfileSidebar } from './profile/ProfileSidebar';
+export { default as ProfileDisplay } from './profile/ProfileDisplay';
+export { default as ProfileEditForm } from './profile/ProfileEditForm';
+export { default as ProfileDropdown } from './profile/ProfileDropdown';
+export { default as ContactDetailsForm } from './profile/ContactDetailsForm';
+export { default as ContactDetailsSection } from './profile/ContactDetailsSection';
 
 // ─────────────────────────────────────────────
 // LEAVE MANAGEMENT COMPONENTS

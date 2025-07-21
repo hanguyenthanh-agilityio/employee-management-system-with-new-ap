@@ -3,9 +3,7 @@ import { twMerge } from 'tailwind-merge';
 // Types
 import { CustomClassType } from '@/types/components';
 
-export const Skeleton = ({
-  customClass = 'h-2.5 w-48 mb-3',
-}: CustomClassType) => (
+const Skeleton = ({ customClass = 'h-2.5 w-48 mb-3' }: CustomClassType) => (
   <div className="animate-pulse">
     <div
       className={twMerge(
@@ -15,3 +13,5 @@ export const Skeleton = ({
     />
   </div>
 );
+
+export default Skeleton;
