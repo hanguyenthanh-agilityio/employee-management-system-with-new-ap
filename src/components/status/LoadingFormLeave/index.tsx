@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/Common/Skeleton';
+import { Skeleton } from '@/components';
 
 const LoadingFormLeave = () => (
   <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
