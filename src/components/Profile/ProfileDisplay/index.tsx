@@ -31,7 +31,6 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const [preview, setPreview] = useState(avatarUrl);
   const [file, setFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const [isPending, setIsPending] = useState(false);
 
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
@@ -45,7 +44,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   });
 
   const { handleSubmit, reset } = form;
-  const { update } = useUpdatePersonalDetails();
+  const { update, isPending } = useUpdatePersonalDetails();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -59,7 +58,6 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const handleChooseFile = () => inputRef.current?.click();
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    setIsPending(true);
     setErrorMessage('');
 
     let avatarId: string | null = null;
@@ -85,8 +83,6 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
     } catch (err) {
       console.error('[ERROR]', err);
       setErrorMessage('Something went wrong.');
-    } finally {
-      setIsPending(false);
     }
   };
 

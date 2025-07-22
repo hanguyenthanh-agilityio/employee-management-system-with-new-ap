@@ -22,15 +22,13 @@ export const useUpdatePersonalDetails = () => {
     try {
       let documentId = data.documentId;
 
-      // 👇 Upload avatar if it's a File
       if (data.avatar instanceof File) {
         documentId = await uploadFile(data.avatar);
       }
 
-      // 👇 Prepare clean object to send
       const payload = {
         ...data,
-        avatar: undefined, // remove avatar (File object can't be sent)
+        avatar: undefined,
         documentId,
       };
 
