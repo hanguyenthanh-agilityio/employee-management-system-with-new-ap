@@ -44,7 +44,12 @@ const TopBar = () => {
         {/* Bell */}
         <div className="relative">
           <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center shadow-lg">
-            <BellIcon className="w-6 h-6 text-white" />
+            <BellIcon
+              role="img"
+              aria-label="Notification Bell"
+              aria-hidden={false}
+              className="w-6 h-6 text-white"
+            />
           </div>
           <span className="absolute -top-1 -right-1 text-xs bg-red text-white w-4 h-4 flex items-center justify-center rounded-full">
             3
@@ -54,7 +59,12 @@ const TopBar = () => {
         {/* Mail */}
         <div className="relative">
           <div className="w-9 h-9 bg-green-700 rounded-full flex items-center justify-center shadow-lg">
-            <EnvelopeIcon className="w-5 h-5 text-white" />
+            <EnvelopeIcon
+              className="w-5 h-5 text-white"
+              role="img"
+              aria-label="Envelope"
+              aria-hidden={false}
+            />
           </div>
           <span className="absolute -top-1 -right-1 text-xs bg-red text-white w-4 h-4 flex items-center justify-center rounded-full">
             1
