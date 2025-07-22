@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react';
 import { ERROR_MESSAGE } from '@/constants';
 
 // Services
-import { updateProfile, uploadFile } from '@/services/apiService';
+import { updateProfile } from '@/services/apiService';
 
 // Utils
 import {
@@ -20,24 +20,13 @@ export const useUpdatePersonalDetails = () => {
 
   const update = async (data: PersonalDetailsInput, userId: string) => {
     try {
-      let documentId = data.documentId;
-
-      if (data.avatar instanceof File) {
-        documentId = await uploadFile(data.avatar);
-      }
-
-      const payload = {
+      const result = await updateProfile(userId, {
         ...data,
         avatar: undefined,
-        documentId,
-      };
-
-      const result = await updateProfile(userId, payload);
+      });
 
       if (result.success) {
-        startTransition(() => {
-          router.refresh();
-        });
+        startTransition(() => router.refresh());
       } else {
         setErrorMessage(result.message ?? ERROR_MESSAGE.UNKNOWN);
       }

@@ -1,3 +1,5 @@
+export type AvatarType = { url: string }[] | string | File | null | undefined;
+
 export type PersonalDetailsType = {
   id: string;
   username: string;
@@ -5,7 +7,7 @@ export type PersonalDetailsType = {
   jobTitle: string;
   jobCategory: string;
   documentId?: string;
-  avatar?: string | File | null;
+  avatar?: AvatarType;
 };
 
 export type ContactsDetailsType = {

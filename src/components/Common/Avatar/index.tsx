@@ -7,18 +7,22 @@ import {
 } from '@/components/ui/avatar';
 
 interface AvatarProps {
-  src?: string;
+  url?: string;
   preview?: string;
   name: string;
 }
 
-const Avatar = ({ src, preview, name }: AvatarProps) => {
+const Avatar = ({ url, preview, name }: AvatarProps) => {
   const fallback = name?.[0]?.toUpperCase() || '?';
+  const imageUrl = `${preview || url}?t=${Date.now()}`;
+
+  console.log('👉 Avatar preview:', preview);
+  console.log('👉 Avatar url:', url);
 
   return (
     <UIAvatar className="w-full h-full border border-muted ring-2 ring-offset-2 ring-offset-background ring-primary/50 transition duration-300 rounded-full overflow-hidden">
       <AvatarImage
-        src={preview || src}
+        src={imageUrl}
         alt={name}
         className="object-cover w-full h-full"
       />

@@ -43,7 +43,7 @@ export const login = async (data: LoginPayload) => {
 export const getCurrentUser = async () => {
   const token = await getTokenFromCookies();
 
-  const res = await fetch(`${API_URL}/users/me`, {
+  const res = await fetch(`${API_URL}/users/me?populate=avatar`, {
     method: 'GET',
     cache: 'no-store',
     headers: {
@@ -284,7 +284,7 @@ export const updateProfile = async (
   }
 
   try {
-    const res = await fetch(`${API_URL}/users/${userId}`, {
+    const res = await fetch(`${API_URL}/users/${userId}?populate=avatar`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
