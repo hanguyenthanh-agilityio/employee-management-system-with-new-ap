@@ -20,10 +20,10 @@ export const useUpdatePersonalDetails = () => {
 
   const updatePersonal = async (data: PersonalDetailsInput, userId: string) => {
     try {
-      const result = await updateProfile(userId, {
+      const payload = {
         ...data,
-        avatar: undefined,
-      });
+      };
+      const result = await updateProfile(userId, payload);
 
       if (result.success) {
         startTransition(() => router.refresh());

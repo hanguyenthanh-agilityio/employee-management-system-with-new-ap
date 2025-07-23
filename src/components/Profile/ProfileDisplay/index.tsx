@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,110 +14,92 @@ import {
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
 
-// Hooks
+// Hooks & Services
 import { useUpdatePersonalDetails } from '@/hooks/useProfile';
 
 // Types
 import { PersonalDetailsType } from '@/types/profile';
 import { getTokenFromCookies } from '@/utils/auth';
-import { ERROR_MESSAGE } from '@/constants';
 
 interface ProfileDisplayProps {
-  url?: string;
+  avatarUrl?: string;
   profile: PersonalDetailsType;
 }
 
-const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
+const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
+  console.log('Profile', profile);
+
   const inputRef = useRef<HTMLInputElement>(null);
-  const [preview, setPreview] = useState(url);
-  const [avatarId, setAvatarId] = useState<string | null>(null);
-
-  const avatarValue = profile.avatar;
-
-  const avatarUrl =
-    Array.isArray(avatarValue) && avatarValue[0]?.url
-      ? `https://strapi-backend-o8eo.onrender.com${avatarValue[0].url}`
-      : typeof avatarValue === 'string'
-        ? avatarValue
-        : undefined;
-
-  useEffect(() => {
-    const localPreview = localStorage.getItem('avatarPreview');
-    const localId = localStorage.getItem('avatarId');
-
-    if (localPreview) setPreview(localPreview);
-    if (localId) setAvatarId(localId);
-  }, []);
+  const [preview, setPreview] = useState(avatarUrl);
+  const [file, setFile] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
-      username: profile.username,
-      department: profile.department,
-      jobTitle: profile.jobTitle,
-      jobCategory: profile.jobCategory,
+      username: profile.username ?? '',
+      department: profile.department ?? '',
+      jobTitle: profile.jobTitle ?? '',
+      jobCategory: profile.jobCategory ?? '',
       avatar: undefined,
     },
   });
 
   const { handleSubmit, reset } = form;
-  const { updatePersonal, isPending, errorMessage } =
-    useUpdatePersonalDetails();
+  const { updatePersonal, isPending } = useUpdatePersonalDetails();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
-
-    try {
-      const token = await getTokenFromCookies();
-      const formData = new FormData();
-      formData.append('files', selectedFile);
-
-      const res = await fetch(
-        `https://strapi-backend-o8eo.onrender.com/api/upload`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        },
-      );
-
-      const data = await res.json();
-
-      const uploadedFile = data?.[0];
-      const uploadedId = uploadedFile?.id?.toString();
-      const uploadedUrl = uploadedFile?.url;
-
-      if (uploadedId && uploadedUrl) {
-        const fullUrl = `https://strapi-backend-o8eo.onrender.com${uploadedUrl}`;
-
-        setAvatarId(uploadedId);
-        setPreview(fullUrl);
-        console.log('✅ Uploaded image URL:', uploadedUrl);
-
-        localStorage.setItem('avatarPreview', fullUrl);
-        localStorage.setItem('avatarId', uploadedId);
-      }
-    } catch (err) {
-      return { success: false, message: ERROR_MESSAGE.UNKNOWN };
-    }
+    setPreview(URL.createObjectURL(selectedFile));
+    setFile(selectedFile);
   };
 
   const handleChooseFile = () => inputRef.current?.click();
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    const payload = {
-      ...data,
-      documentId: avatarId || profile.documentId,
-      avatar: preview || avatarUrl,
-    };
+    setErrorMessage('');
 
-    const result = await updatePersonal(payload, profile.id);
+    let avatarId: string | null = null;
 
-    if (result.success) {
-      reset(data);
+    try {
+      if (file) {
+        const token = await getTokenFromCookies();
+
+        const formData = new FormData();
+        formData.append('files', file);
+
+        const res = await fetch(
+          `https://strapi-backend-o8eo.onrender.com/api/upload`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          },
+        );
+
+        const data = await res.json();
+
+        avatarId = data?.[0]?.id?.toString();
+      }
+
+      const payload = {
+        ...data,
+        ...(avatarId && { avatar: avatarId }),
+      };
+
+      const result = await updatePersonal(payload, profile.id);
+
+      if (result.success) {
+        reset(data);
+      } else {
+        setErrorMessage(result.message || 'Update failed');
+      }
+    } catch (err) {
+      console.error('[ERROR]', err);
+      setErrorMessage('Something went wrong.');
     }
   };
 
