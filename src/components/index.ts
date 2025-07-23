@@ -1,24 +1,21 @@
 // ─────────────────────────────────────────────
-// cOMMON UI COMPONENTS
+// COMMON UI COMPONENTS
 // ─────────────────────────────────────────────
 export { default as Form } from './common/Form';
 export { default as Card } from './common/Card';
-export { default as Input } from './common/Input';
 export { default as Table } from './common/Table';
 export { default as Header } from './common/Header';
-export { default as Button } from './common/Button';
 export { default as Select } from './common/Select';
 export { default as Avatar } from './common/Avatar';
-export { default as Skeleton } from './common/Skeleton';
-export { default as Checkbox } from './common/Checkbox';
 export { default as Dropdown } from './common/Dropdown';
+export { default as Skeleton } from './common/Skeleton';
+export { default as Label } from './common/Label/label';
+export { default as Input } from './common/Input/input';
+export { default as Button } from './common/Button/button';
 export { default as Pagination } from './common/Pagination';
 export { default as ProgressBar } from './common/ProgressBar';
-
-export { default as ToastProvider } from './status/ToastProvider';
-export { default as BirthdayItem } from './dashboard/BirthdayItem';
-export { default as LeaveCard } from './leave/LeaveApplicationCard';
-export { default as NotFoundMessage } from './status/NotFoundMessage';
+export { default as Checkbox } from './common/Checkbox/checkbox';
+export { default as Textarea } from './common/Textarea/textarea';
 
 // ─────────────────────────────────────────────
 // LAYOUT COMPONENTS
@@ -31,6 +28,8 @@ export { default as TransitionLoader } from './layout/TransitionLoader';
 // ─────────────────────────────────────────────
 // STATUS
 // ─────────────────────────────────────────────
+export { default as ToastProvider } from './status/ToastProvider';
+export { default as NotFoundMessage } from './status/NotFoundMessage';
 export { default as LoadingFormLeave } from './status/LoadingFormLeave';
 export { default as DeleteConfirmModal } from './status/DeleteConfirmModal';
 export { default as LoadingLeaveApplication } from './status/LoadingLeaveApplication';
@@ -55,11 +54,14 @@ export { default as ContactDetailsSection } from './profile/ContactDetailsSectio
 // ─────────────────────────────────────────────
 // LEAVE MANAGEMENT COMPONENTS
 // ─────────────────────────────────────────────
+
 export { default as EditForm } from './leave/EditForm';
 export { default as LeaveSection } from './leave/LeaveSection';
 export { default as CreateLeaveContent } from './leave/CreateForm';
+export { default as BirthdayItem } from './dashboard/BirthdayItem';
 export { default as ActionsDropdown } from './leave/ActionDropdown';
 export { default as GenericTable } from './leave/LeaveHistoryTable';
+export { default as LeaveCard } from './leave/LeaveApplicationCard';
 export { default as LeaveHistoryHeader } from './leave/LeaveHistoryHeader';
 export { default as LeaveHistorySection } from './leave/LeaveHistorySection';
 export { default as LeaveHistoryWrapper } from './leave/LeaveHistoryWrapper';

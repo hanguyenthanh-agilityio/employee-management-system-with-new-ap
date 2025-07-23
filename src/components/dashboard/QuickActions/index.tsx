@@ -24,8 +24,7 @@ const QuickActions = () => {
         <Button
           key={index}
           onClick={() => handleClick(action)}
-          variant="outline"
-          customClass="bg-white p-4 rounded-full shadow text-2xl font-medium text-center w-full justify-center shadow-[rgba(0, 0, 0, 0.15)]"
+          className="h-auto text-back hover:bg-gray-50 bg-white p-4 rounded-full shadow text-2xl font-medium text-center w-full justify-center shadow-[rgba(0, 0, 0, 0.15)]"
         >
           {action}
         </Button>

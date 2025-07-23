@@ -32,8 +32,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('startDate')}
       >
         Start Date
@@ -53,8 +52,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('endDate')}
       >
         End Date
@@ -74,8 +72,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        variant="none"
-        customClass="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2"
         onClick={() => onSort('type')}
       >
         Type

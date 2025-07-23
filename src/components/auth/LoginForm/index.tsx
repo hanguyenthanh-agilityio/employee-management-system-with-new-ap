@@ -16,10 +16,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import Input from '../../common/Input/input';
+import Label from '../../common/Label/label';
+import Checkbox from '../../common/Checkbox/checkbox';
+import Button from '../../common/Button/button';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';

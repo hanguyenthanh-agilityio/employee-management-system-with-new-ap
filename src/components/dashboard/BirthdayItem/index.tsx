@@ -18,9 +18,8 @@ const BirthdayItem = ({ name, date, onClick }: BirthdayItemProps) => (
       </span>
     </div>
     <Button
-      variant="secondary"
       onClick={onClick}
-      customClass="text-black px-4 py-2 rounded-lg shadow-[5px_4px_8px_6px_rgba(0,0,0,0.12)] font-semibold transition"
+      className="bg-[#FFC20E] hover:bg-yellow text-black px-4 py-2 rounded-lg shadow-[5px_4px_8px_6px_rgba(0,0,0,0.12)] font-semibold transition"
     >
       Send Wishes
     </Button>

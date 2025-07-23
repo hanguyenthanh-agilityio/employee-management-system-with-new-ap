@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Header from '.';
 
 const meta = {
-  title: 'Components/Header',
+  title: 'Components/Common/Header',
   component: Header,
   parameters: {
     layout: 'centered',

@@ -1,9 +1,7 @@
 import { Controller, UseFormReturn } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+// Components
+import { Button, Input, Textarea, Label } from '@/components';
 
 // Utils
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';

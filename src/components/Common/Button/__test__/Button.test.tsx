@@ -1,50 +1,46 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 // Components
-import Button from '..';
+import Button from '../button';
 
-describe('Button component', () => {
-  test('renders the Button with children', () => {
+describe('Button', () => {
+  it('renders with default props', () => {
     render(<Button>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: /click me/i });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('bg-primary');
   });
 
-  test('renders startIcon and endIcon', () => {
-    render(
-      <Button startIcon={<span>Start</span>} endIcon={<span>End</span>}>
-        Click me
-      </Button>,
-    );
-    expect(screen.getByText('Start')).toBeInTheDocument();
-    expect(screen.getByText('End')).toBeInTheDocument();
+  it('applies custom className', () => {
+    render(<Button className="custom-class">Click</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('custom-class');
   });
 
-  test('applies the correct variant classes', () => {
-    render(<Button variant="success">Click me</Button>);
-    expect(screen.getByText('Click me')).toHaveClass(
-      'bg-green-600 text-white hover:bg-green-700 disabled:bg-green-400',
-    );
+  it('renders different variants', () => {
+    render(<Button variant="destructive">Delete</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('bg-destructive');
   });
 
-  test('applies customClass', () => {
-    render(<Button customClass="custom-class">Click me</Button>);
-    expect(screen.getByText('Click me')).toHaveClass('custom-class');
+  it('renders different sizes', () => {
+    render(<Button size="lg">Large</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('h-10');
   });
 
-  test('handles click events', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Click me</Button>);
-    fireEvent.click(screen.getByText('Click me'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
+  it('handles click events', () => {
+    const onClick = jest.fn();
+    render(<Button onClick={onClick}>Click</Button>);
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(onClick).toHaveBeenCalled();
   });
 
-  test('is disabled when the disabled prop is set', () => {
-    render(<Button disabled>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeDisabled();
-  });
-
-  test('renders button with type submit', () => {
-    render(<Button type="submit">Submit</Button>);
-    expect(screen.getByText('Submit')).toHaveAttribute('type', 'submit');
+  it('is disabled when `disabled` prop is set', () => {
+    render(<Button disabled>Disabled</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
   });
 });

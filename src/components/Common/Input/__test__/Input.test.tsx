@@ -1,26 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import React from 'react';
-import Input from '..';
-import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import { Input } from '../input';
 
 describe('Input component', () => {
-  test('renders the label', () => {
-    render(<Input label="Username" />);
-    expect(screen.getByText('Username')).toBeInTheDocument();
+  test('renders correctly', () => {
+    render(<Input placeholder="Your name" />);
+    expect(screen.getByPlaceholderText('Your name')).toBeInTheDocument();
   });
 
-  test('renders the icon if provided', () => {
-    render(
-      <Input
-        label="Email"
-        icon={
-          <span data-testid="icon">
-            <EnvelopeIcon />
-          </span>
-        }
-      />,
-    );
-    expect(screen.getByTestId('icon')).toBeInTheDocument();
+  test('handles change event', () => {
+    const handleChange = jest.fn();
+    render(<Input onChange={handleChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: 'hello' } });
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+  test('displays error message', () => {
+    render(<Input error="This field is required" />);
+    expect(screen.getByText('This field is required')).toBeInTheDocument();
   });
 });
