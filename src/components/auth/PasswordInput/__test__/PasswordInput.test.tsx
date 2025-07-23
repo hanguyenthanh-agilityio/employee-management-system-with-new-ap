@@ -9,7 +9,7 @@ describe('PasswordInput component', () => {
     expect(input.type).toBe('password');
   });
 
-  it('Roggles to type text when eye icon is clicked', () => {
+  test('Toggles to type text when eye icon is clicked', () => {
     render(<PasswordInput placeholder="Password" />);
     const input = screen.getByPlaceholderText('Password') as HTMLInputElement;
     const toggleButton = screen.getByRole('button');
@@ -19,5 +19,11 @@ describe('PasswordInput component', () => {
 
     fireEvent.click(toggleButton);
     expect(input.type).toBe('password');
+  });
+
+  test('Shows red border if error is passed', () => {
+    render(<PasswordInput placeholder="Password" error="Required" />);
+    const input = screen.getByPlaceholderText('Password');
+    expect(input).toHaveClass('border-red');
   });
 });
