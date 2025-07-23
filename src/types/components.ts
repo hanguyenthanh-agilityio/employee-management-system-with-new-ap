@@ -8,6 +8,7 @@ export type PageErrorProps = {
 };
 
 export type LeaveItem = {
+  id?: string;
   documentId: string;
   startDate: string;
   endDate: string;
@@ -17,7 +18,7 @@ export type LeaveItem = {
   durations: number;
   status: string;
   resumptionDate: string;
-  document: {
+  document?: {
     name: string;
     url: string;
   };
@@ -53,4 +54,11 @@ export type CreateLeavePayload = {
   daysRemaining?: number | null;
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type ConfirmModalType = {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  isLoading: boolean;
 };

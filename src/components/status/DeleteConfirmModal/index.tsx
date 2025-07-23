@@ -3,20 +3,14 @@ import clsx from 'clsx';
 
 // Components
 import { Button } from '@/components';
-
-interface DeleteConfirmModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  isLoading: boolean;
-}
+import { ConfirmModalType } from '@/types/components';
 
 const DeleteConfirmModal = ({
   isOpen,
   onClose,
   onConfirm,
   isLoading,
-}: DeleteConfirmModalProps) => (
+}: ConfirmModalType) => (
   <div
     className={clsx(
       'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity',
