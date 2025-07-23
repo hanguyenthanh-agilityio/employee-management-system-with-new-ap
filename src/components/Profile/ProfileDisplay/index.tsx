@@ -147,6 +147,7 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
       </div>
 
       <form
+        data-testid="profile-edit-form"
         className="flex flex-col gap-14 text-center w-full max-w-xl"
         onSubmit={handleSubmit(handleSubmitForm)}
       >
