@@ -24,12 +24,29 @@ export default meta;
 
 type Story = StoryObj<typeof ProfileEditForm>;
 
+const avatarValue: string | null =
+  Array.isArray(mockProfile.avatar) &&
+  typeof mockProfile.avatar[0]?.url === 'string'
+    ? mockProfile.avatar[0].url
+    : null;
+
+const defaultValues: PersonalDetailsInput = {
+  username: mockProfile.username,
+  department: mockProfile.department,
+  jobTitle: mockProfile.jobTitle,
+  jobCategory: mockProfile.jobCategory,
+  documentId: undefined,
+  avatar: avatarValue,
+};
+
 const Form = () => {
   const form = useForm<PersonalDetailsInput>({
-    defaultValues: mockProfile,
+    defaultValues,
   });
 
   return <ProfileEditForm form={form} disable={false} />;
 };
 
-export const Default: Story = { render: () => <Form /> };
+export const Default: Story = {
+  render: () => <Form />,
+};
