@@ -39,10 +39,10 @@ export const contactDetails = z.object({
     .min(9, 'Phone Number 1 is too short')
     .max(15, 'Phone Number 1 is too long'),
   email: emailField,
-  city: z.string().min(2, 'City name must be at least 2 characters').max(100),
+  city: z.string().min(1, 'Please enter your  city name').max(100),
   residential: z
     .string()
-    .min(5, 'Residential address must be at least 5 characters')
+    .min(1, 'Please enter your residential address')
     .max(200),
 });
 
