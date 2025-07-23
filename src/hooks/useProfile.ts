@@ -18,7 +18,7 @@ export const useUpdatePersonalDetails = () => {
   const [isPending, startTransition] = useTransition();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const update = async (data: PersonalDetailsInput, userId: string) => {
+  const updatePersonal = async (data: PersonalDetailsInput, userId: string) => {
     try {
       const result = await updateProfile(userId, {
         ...data,
@@ -39,12 +39,32 @@ export const useUpdatePersonalDetails = () => {
     }
   };
 
-  return { update, isPending, errorMessage };
+  return { updatePersonal, isPending, errorMessage };
 };
 
-export const useUpdateContactDetails = async (
-  data: ContactDetailsInput,
-  userId: string,
-) => {
-  return await updateProfile(userId, data);
+export const useUpdateContactDetails = () => {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const updateContact = async (data: ContactDetailsInput, userId: string) => {
+    try {
+      const result = await updateProfile(userId, {
+        ...data,
+      });
+
+      if (result.success) {
+        startTransition(() => router.refresh());
+      } else {
+        setErrorMessage(result.message ?? ERROR_MESSAGE.UNKNOWN);
+      }
+
+      return result;
+    } catch (error) {
+      setErrorMessage(ERROR_MESSAGE.UNKNOWN);
+      return { success: false, message: ERROR_MESSAGE.UNKNOWN };
+    }
+  };
+
+  return { updateContact, isPending, errorMessage };
 };

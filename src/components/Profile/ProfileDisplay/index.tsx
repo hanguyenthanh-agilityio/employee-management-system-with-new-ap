@@ -20,6 +20,7 @@ import { useUpdatePersonalDetails } from '@/hooks/useProfile';
 // Types
 import { PersonalDetailsType } from '@/types/profile';
 import { getTokenFromCookies } from '@/utils/auth';
+import { ERROR_MESSAGE } from '@/constants';
 
 interface ProfileDisplayProps {
   url?: string;
@@ -29,7 +30,6 @@ interface ProfileDisplayProps {
 const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(url);
-  const [errorMessage, setErrorMessage] = useState('');
   const [avatarId, setAvatarId] = useState<string | null>(null);
 
   const avatarValue = profile.avatar;
@@ -61,7 +61,8 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
   });
 
   const { handleSubmit, reset } = form;
-  const { update, isPending } = useUpdatePersonalDetails();
+  const { updatePersonal, isPending, errorMessage } =
+    useUpdatePersonalDetails();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -100,33 +101,23 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
         localStorage.setItem('avatarId', uploadedId);
       }
     } catch (err) {
-      console.error('❌ Upload error:', err);
-      setErrorMessage('Upload failed');
+      return { success: false, message: ERROR_MESSAGE.UNKNOWN };
     }
   };
 
   const handleChooseFile = () => inputRef.current?.click();
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    setErrorMessage('');
+    const payload = {
+      ...data,
+      documentId: avatarId || profile.documentId,
+      avatar: preview || avatarUrl,
+    };
 
-    try {
-      const payload = {
-        ...data,
-        documentId: avatarId || profile.documentId,
-        avatar: preview || avatarUrl,
-      };
+    const result = await updatePersonal(payload, profile.id);
 
-      const result = await update(payload, profile.id);
-
-      if (result.success) {
-        reset(data);
-      } else {
-        setErrorMessage(result.message || 'Update failed');
-      }
-    } catch (err) {
-      console.error('[ERROR]', err);
-      setErrorMessage('Something went wrong.');
+    if (result.success) {
+      reset(data);
     }
   };
 

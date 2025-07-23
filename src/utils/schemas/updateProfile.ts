@@ -47,3 +47,7 @@ export const contactDetails = z.object({
 });
 
 export type ContactDetailsInput = z.infer<typeof contactDetails>;
+
+export const fullProfileDetails = personalDetails.merge(contactDetails);
+
+export type FullProfileDetailsInput = z.infer<typeof fullProfileDetails>;
