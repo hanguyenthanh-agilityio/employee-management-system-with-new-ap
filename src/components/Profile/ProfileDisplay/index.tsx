@@ -103,10 +103,17 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
     }
   };
 
+  const fallbackAvatarUrl =
+    Array.isArray(profile.avatar) && profile.avatar.length > 0
+      ? `https://strapi-backend-o8eo.onrender.com${profile.avatar[0].url}`
+      : undefined;
+
+  const imageToShow = preview || fallbackAvatarUrl;
+
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 mx-auto group">
-        <Avatar name={profile.username} url={avatarUrl} preview={preview} />
+        <Avatar name={profile.username} url={imageToShow} preview={preview} />
 
         {/* Hidden input file */}
         <Input
