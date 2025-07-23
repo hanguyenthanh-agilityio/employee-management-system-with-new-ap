@@ -4,22 +4,22 @@ import { emailField } from './authSchema';
 export const personalDetails = z.object({
   username: z
     .string()
-    .min(3, 'Username must be at least 3 characters')
-    .max(50, 'Username must be at most 50 characters')
+    .min(3, 'Full name must be at least 3 characters long')
+    .max(50, 'Full name must be at most 50 characters long')
     .trim()
-    .regex(/^[a-zA-Z\s]+$/, 'Username must only contain letters and spaces'),
+    .regex(/^[a-zA-Z\s]+$/, 'Full name can only contain letters and spaces'),
   department: z
     .string()
-    .min(2, 'Department must be at least 2 characters')
-    .max(100),
+    .min(2, 'Please enter your department')
+    .max(100, 'Department name is too long'),
   jobTitle: z
     .string()
-    .min(2, 'JobTitle must be at least 2 characters')
-    .max(100),
+    .min(2, 'Please enter your job title')
+    .max(100, 'Job title is too long'),
   jobCategory: z
     .string()
-    .min(2, 'Job Category must be at least 2 characters')
-    .max(100),
+    .min(2, 'Please enter your job category')
+    .max(100, 'Job category is too long'),
   documentId: z.string().optional(),
   avatar: z
     .union([z.string(), z.instanceof(File)])

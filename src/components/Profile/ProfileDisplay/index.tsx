@@ -52,10 +52,10 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
-      username: profile.username,
-      department: profile.department,
-      jobTitle: profile.jobTitle,
-      jobCategory: profile.jobCategory,
+      username: profile.username ?? '',
+      department: profile.department ?? '',
+      jobTitle: profile.jobTitle ?? '',
+      jobCategory: profile.jobCategory ?? '',
       avatar: undefined,
     },
   });
