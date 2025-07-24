@@ -5,21 +5,24 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Components
-import { Avatar, Input, ProfileEditForm } from '@/components';
-import { Button } from '@/components';
+import { Avatar, Input, ProfileEditForm, Button } from '@/components';
 
-// Schemas
+// Utils
 import {
   personalDetails,
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
+import { uploadFileToStrapi } from '@/utils/upload';
+import { getAvatarUrl } from '@/utils/avatar';
 
-// Hooks & Services
-import { useUpdatePersonalDetails } from '@/hooks/useProfile';
+// Hooks
+import { useUpdateProfile } from '@/hooks/useProfile';
 
 // Types
 import { PersonalDetailsType } from '@/types/profile';
-import { getTokenFromCookies } from '@/utils/auth';
+
+// Constants
+import { ERROR_MESSAGE } from '@/constants';
 
 interface ProfileDisplayProps {
   avatarUrl?: string;
@@ -27,8 +30,6 @@ interface ProfileDisplayProps {
 }
 
 const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
-  console.log('Profile', profile);
-
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(avatarUrl);
   const [file, setFile] = useState<File | null>(null);
@@ -45,14 +46,16 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
     },
   });
 
-  const { handleSubmit, reset } = form;
-  const { updatePersonal, isPending } = useUpdatePersonalDetails();
+  const { handleSubmit, reset, setValue } = form;
+  const { update, isPending } = useUpdateProfile();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
     setPreview(URL.createObjectURL(selectedFile));
     setFile(selectedFile);
+
+    setValue('avatar', selectedFile, { shouldDirty: true });
   };
 
   const handleChooseFile = () => inputRef.current?.click();
@@ -60,62 +63,35 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
     setErrorMessage('');
 
-    let avatarId: string | null = null;
-
     try {
-      if (file) {
-        const token = await getTokenFromCookies();
-
-        const formData = new FormData();
-        formData.append('files', file);
-
-        const res = await fetch(
-          `https://strapi-backend-o8eo.onrender.com/api/upload`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-          },
-        );
-
-        const data = await res.json();
-
-        avatarId = data?.[0]?.id?.toString();
-      }
+      const avatarId = file ? await uploadFileToStrapi(file) : null;
 
       const payload = {
         ...data,
         ...(avatarId && { avatar: avatarId }),
       };
 
-      const result = await updatePersonal(payload, profile.id);
+      const result = await update(payload, profile.id);
 
       if (result.success) {
         reset(data);
       } else {
-        setErrorMessage(result.message || 'Update failed');
+        setErrorMessage(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL);
       }
     } catch (err) {
-      console.error('[ERROR]', err);
-      setErrorMessage('Something went wrong.');
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
     }
   };
-
-  const fallbackAvatarUrl =
-    Array.isArray(profile.avatar) && profile.avatar.length > 0
-      ? `https://strapi-backend-o8eo.onrender.com${profile.avatar[0].url}`
-      : undefined;
-
-  const imageToShow = preview || fallbackAvatarUrl;
 
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 mx-auto group">
-        <Avatar name={profile.username} url={imageToShow} preview={preview} />
+        <Avatar
+          name={profile.username}
+          url={preview || getAvatarUrl(profile.avatar)}
+          preview={preview}
+        />
 
-        {/* Hidden input file */}
         <Input
           ref={inputRef}
           type="file"
@@ -124,7 +100,6 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
           onChange={handleFileChange}
         />
 
-        {/* Overlay change button */}
         <Button
           type="button"
           variant="ghost"

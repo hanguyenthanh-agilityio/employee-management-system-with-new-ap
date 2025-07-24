@@ -10,6 +10,7 @@ export const ERROR_MESSAGE = {
   UNKNOWN_REGISTER: 'Unknown error during registration',
   USER_CACHE_NOT_FOUND: 'User cache not found',
   INVALID_CACHE: 'Invalid cache data',
+  UPLOAD_FAILED: 'Failed to upload file',
 
   // Client side authentication error
   MISSING_TOKEN: 'Authentication token is missing',

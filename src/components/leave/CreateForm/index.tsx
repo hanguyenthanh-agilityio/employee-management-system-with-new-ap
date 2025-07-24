@@ -20,10 +20,10 @@ import {
   LeaveApplicationInput,
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
+import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
 import { ROUTER } from '@/constants';
-import { getTokenFromCookies } from '@/utils/auth';
 
 const CreateLeaveContent = () => {
   const router = useRouter();
@@ -71,30 +71,13 @@ const CreateLeaveContent = () => {
       const file = data.document as File;
 
       if (file) {
-        const token = await getTokenFromCookies();
-
-        const formData = new FormData();
-        formData.append('files', file);
-
-        const res = await fetch(
-          `https://strapi-backend-o8eo.onrender.com/api/upload`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-          },
-        );
-
-        const data = await res.json();
-
-        uploadedFileId = data?.[0]?.id;
+        const fileId = await uploadFileToStrapi(file);
+        uploadedFileId = fileId ? Number(fileId) : undefined;
       }
 
       const payload = {
         ...data,
-        document: uploadedFileId,
+        document: uploadedFileId ?? undefined,
       };
 
       const result = await createLeaveApplication(payload);

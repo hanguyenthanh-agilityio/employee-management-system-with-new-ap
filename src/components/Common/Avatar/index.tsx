@@ -14,7 +14,6 @@ interface AvatarProps {
 
 const Avatar = ({ url, preview, name }: AvatarProps) => {
   const fallback = name?.[0]?.toUpperCase() || '?';
-  // const imageUrl = `${preview || url}?t=${Date.now()}`;
 
   return (
     <UIAvatar className="w-full h-full border border-muted ring-2 ring-offset-2 ring-offset-background ring-primary/50 transition duration-300 rounded-full overflow-hidden">

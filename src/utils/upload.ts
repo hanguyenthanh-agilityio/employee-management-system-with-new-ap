@@ -1,26 +1,27 @@
+import { ERROR_MESSAGE, NEXT_PUBLIC_API_URL } from '@/constants';
 import { getTokenFromCookies } from '@/utils/auth';
 
-export const uploadFile = async (file: File) => {
-  const token = await getTokenFromCookies();
+export const uploadFileToStrapi = async (
+  file: File,
+): Promise<string | null> => {
+  if (!file) return null;
 
+  const token = await getTokenFromCookies();
   const formData = new FormData();
   formData.append('files', file);
 
-  const res = await fetch(
-    'https://strapi-backend-o8eo.onrender.com/api/upload',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/upload`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  );
+    body: formData,
+  });
 
-  if (!res.ok) {
-    throw new Error('File upload failed');
+  if (!response.ok) {
+    throw new Error(ERROR_MESSAGE.UPLOAD_FAILED);
   }
 
-  const data = await res.json();
-  return data?.[0]?.id;
+  const data = await response.json();
+  return data?.[0]?.id?.toString() || null;
 };

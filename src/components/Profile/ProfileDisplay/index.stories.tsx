@@ -14,7 +14,7 @@ const meta: Meta<typeof ProfileDisplay> = {
   component: ProfileDisplay,
   tags: ['autodocs'],
   args: {
-    url: AVATAR_URL,
+    avatarUrl: AVATAR_URL,
     profile: mockProfile,
   },
 };
