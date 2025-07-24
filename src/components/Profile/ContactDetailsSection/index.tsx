@@ -16,7 +16,7 @@ import {
 } from '@/utils/schemas/updateProfile';
 
 // Hooks
-import { useUpdateContactDetails } from '@/hooks/useProfile';
+import { useUpdateProfile } from '@/hooks/useProfile';
 
 interface ContactDetailsSectionProps {
   contact: ContactsDetailsType;
@@ -36,10 +36,10 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
 
   const { handleSubmit, reset } = form;
 
-  const { updateContact, isPending, errorMessage } = useUpdateContactDetails();
+  const { update, isPending, errorMessage } = useUpdateProfile();
 
   const handleSubmitForm = async (data: ContactDetailsInput) => {
-    const result = await updateContact(data, String(contact.id));
+    const result = await update(data, String(contact.id));
 
     if (result.success) reset(data);
   };
