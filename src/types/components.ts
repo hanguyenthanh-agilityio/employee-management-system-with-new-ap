@@ -8,6 +8,7 @@ export type PageErrorProps = {
 };
 
 export type LeaveItem = {
+  id?: string;
   documentId: string;
   startDate: string;
   endDate: string;
