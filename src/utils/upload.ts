@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_API_URL } from '@/constants';
+import { ERROR_MESSAGE, NEXT_PUBLIC_API_URL } from '@/constants';
 import { getTokenFromCookies } from '@/utils/auth';
 
 export const uploadFileToStrapi = async (
@@ -19,7 +19,7 @@ export const uploadFileToStrapi = async (
   });
 
   if (!response.ok) {
-    throw new Error('Failed to upload file');
+    throw new Error(ERROR_MESSAGE.UPLOAD_FAILED);
   }
 
   const data = await response.json();

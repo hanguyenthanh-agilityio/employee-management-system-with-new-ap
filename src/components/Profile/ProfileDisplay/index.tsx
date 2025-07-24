@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Components
-import { Avatar, Input, ProfileEditForm } from '@/components';
-import { Button } from '@/components';
+import { Avatar, Input, ProfileEditForm, Button } from '@/components';
 
+// Utils
 import {
   personalDetails,
   PersonalDetailsInput,
@@ -20,6 +20,9 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 
 // Types
 import { PersonalDetailsType } from '@/types/profile';
+
+// Constants
+import { ERROR_MESSAGE } from '@/constants';
 
 interface ProfileDisplayProps {
   avatarUrl?: string;
@@ -73,11 +76,10 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
       if (result.success) {
         reset(data);
       } else {
-        setErrorMessage(result.message || 'Update failed');
+        setErrorMessage(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL);
       }
     } catch (err) {
-      console.error('[ERROR]', err);
-      setErrorMessage('Something went wrong.');
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
     }
   };
 
