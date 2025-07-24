@@ -1,13 +1,16 @@
 import { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
+import Button from '../Button/button';
 
 interface InputProps extends React.ComponentProps<'input'> {
   error?: string;
+  icon?: React.ReactNode;
+  onIconClick?: () => void;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, ...props }, ref) => (
+  ({ className, type, error, icon, onIconClick, ...props }, ref) => (
     <>
       <input
         type={type}
@@ -18,6 +21,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         {...props}
       />
+      {icon && (
+        <Button
+          type="button"
+          tabIndex={-1}
+          onClick={onIconClick}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+        >
+          {icon}
+        </Button>
+      )}
       {error && <p className="text-red text-sm mt-1">{error}</p>}
     </>
   ),

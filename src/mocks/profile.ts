@@ -6,6 +6,7 @@ export const mockProfile: PersonalDetailsType = {
   department: 'Design & Marketing',
   jobTitle: 'UI / UX Designer',
   jobCategory: 'Full time',
+  avatar: 'https://cdn.example.com/avatar.png',
 };
 
 export const mockContact: ContactsDetailsType = {

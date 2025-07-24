@@ -20,6 +20,8 @@ import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
 import { Input, Button, Checkbox, Label } from '@/components';
+import { cn } from '@/lib/utils';
+import PasswordInput from '../PasswordInput';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -77,15 +79,33 @@ const RegisterForm = () => {
             control={control}
             render={({ field: controllerField }) => {
               const value = controllerField.value ?? '';
+
+              const isError = !!errors[field.name as keyof RegisterInput];
+
+              const inputClassName = cn(
+                'input-base',
+                isError ? 'input-error' : 'input-normal',
+              );
+
+              if (
+                field.name === 'password' ||
+                field.name === 'confirmPassword'
+              ) {
+                return (
+                  <PasswordInput
+                    id={field.name}
+                    className={inputClassName}
+                    {...controllerField}
+                    value={typeof value === 'string' ? value : ''}
+                    error={errors[field.name as keyof RegisterInput]?.message}
+                  />
+                );
+              }
               return (
                 <Input
                   id={field.name}
                   type={field.type || 'text'}
-                  className={`h-auto rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg ${
-                    errors[field.name as keyof RegisterInput]
-                      ? 'border border-red focus:ring-red'
-                      : 'focus:ring-secondary/30'
-                  }`}
+                  className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
                   {...controllerField}
                   value={typeof value === 'string' ? value : ''}
                   error={errors[field.name as keyof RegisterInput]?.message}

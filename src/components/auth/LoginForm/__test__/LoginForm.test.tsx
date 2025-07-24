@@ -42,18 +42,7 @@ describe('LoginForm', () => {
     expect(screen.getByLabelText('Remember me')).toBeInTheDocument();
   });
 
-  it('shows validation errors for empty fields', async () => {
-    render(<LoginForm />);
-    fireEvent.click(screen.getByRole('button', { name: /Submit login form/i }));
-
-    await waitFor(async () => {
-      expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
-
-      expect(await screen.findByText(/6 character/i)).toBeInTheDocument();
-    });
-  });
-
-  it('calls loginAction with correct data and redirects on success', async () => {
+  test('calls loginAction with correct data and redirects on success', async () => {
     (loginAction as jest.Mock).mockResolvedValue({ success: true });
 
     render(

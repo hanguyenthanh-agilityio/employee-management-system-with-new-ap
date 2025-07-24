@@ -20,12 +20,14 @@ import Input from '../../common/Input/input';
 import Label from '../../common/Label/label';
 import Checkbox from '../../common/Checkbox/checkbox';
 import Button from '../../common/Button/button';
+import PasswordInput from '../../auth/PasswordInput';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 
 // Constants
 import { ROUTER, ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
+import { cn } from '@/lib/utils';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -63,6 +65,11 @@ const LoginForm = () => {
     }
   };
 
+  const inputClass = cn(
+    'input-base',
+    errors.email ? 'input-error' : 'input-normal',
+  );
+
   return (
     <>
       <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">
@@ -91,11 +98,7 @@ const LoginForm = () => {
                 // If the error has text, the screen reader will read the error when the user focuses on the input.
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 {...field}
-                className={`h-auto w-full rounded-md px-4 py-3 border-[2px] border-mediumLightGray !text-lg shadow focus:outline-none focus:ring-2 ${
-                  errors.email
-                    ? 'border border-red focus:ring-red'
-                    : 'focus:ring-secondary/30'
-                }`}
+                className={`${inputClass} h-auto py-3 border-[2px] border-mediumLightGray`}
                 error={errors.email?.message}
               />
             )}
@@ -113,19 +116,14 @@ const LoginForm = () => {
             name="password"
             control={control}
             render={({ field }) => (
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
                 placeholder="Enter your password"
                 aria-describedby={
                   errors.password ? 'password-error' : undefined
                 }
                 {...field}
-                className={`h-auto w-full rounded-md px-4 py-3 !text-lg text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray ${
-                  errors.password
-                    ? 'border border-red focus:ring-red'
-                    : 'focus:ring-secondary/30'
-                }`}
+                className={inputClass}
                 error={errors.password?.message}
               />
             )}
