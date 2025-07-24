@@ -16,10 +16,7 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import { validateLeaveApplication } from '@/utils/validate';
 
 // Create Leave Application
-export const createLeaveApplication = async (
-  data: LeaveApplicationInput,
-  uploadedFileId?: number,
-) => {
+export const createLeaveApplication = async (data: LeaveApplicationInput) => {
   try {
     const user = await getCachedUser();
 
@@ -33,7 +30,6 @@ export const createLeaveApplication = async (
       ...data,
       users_permissions_user: user.id,
       employeeName: user.username ?? 'unknown',
-      ...(uploadedFileId ? { document: uploadedFileId } : {}),
     };
 
     const validateData = validateLeaveApplication(fullData);

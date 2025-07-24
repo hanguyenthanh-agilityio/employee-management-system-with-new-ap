@@ -86,6 +86,9 @@ const EditForm = ({ leave }: EditFormProps) => {
           leave?.document
             ? {
                 name: leave.document.name,
+                url: leave.document.url.startsWith('http')
+                  ? leave.document.url
+                  : `https://strapi-backend-o8eo.onrender.com${leave.document.url}`,
               }
             : undefined
         }

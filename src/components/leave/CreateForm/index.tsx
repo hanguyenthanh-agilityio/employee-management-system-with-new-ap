@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -23,14 +23,13 @@ import {
 
 // Constants
 import { ROUTER } from '@/constants';
-
-// Services
-import { uploadFile } from '@/services/apiService';
+import { getTokenFromCookies } from '@/utils/auth';
 
 const CreateLeaveContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const typeFromQuery = searchParams.get('type') || undefined;
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
@@ -65,27 +64,50 @@ const CreateLeaveContent = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      console.log('🧾 data before upload:', data);
-      const file = data.document as File;
+      setErrorMessage('');
 
       let uploadedFileId: number | undefined;
+
+      const file = data.document as File;
+
       if (file) {
-        const uploaded = await uploadFile(file);
-        uploadedFileId = uploaded.id;
+        const token = await getTokenFromCookies();
+
+        const formData = new FormData();
+        formData.append('files', file);
+
+        const res = await fetch(
+          `https://strapi-backend-o8eo.onrender.com/api/upload`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          },
+        );
+
+        const data = await res.json();
+
+        uploadedFileId = data?.[0]?.id;
       }
 
-      const result = await createLeaveApplication({
+      const payload = {
         ...data,
         document: uploadedFileId,
-      });
+      };
+
+      const result = await createLeaveApplication(payload);
 
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
         router.refresh();
         reset();
+      } else {
+        setErrorMessage(result.message || 'Failed to submit leave application');
       }
     } catch (err) {
-      console.error('onSubmit error:', err);
+      setErrorMessage('Something went wrong during submission.');
     }
   };
 
@@ -100,6 +122,9 @@ const CreateLeaveContent = () => {
       className="space-y-6"
     >
       <Form form={form} onReset={handleReset} />
+      {errorMessage && (
+        <p className="text-sm text-red-500 font-medium">{errorMessage}</p>
+      )}
     </form>
   );
 };
