@@ -23,7 +23,7 @@ import {
 import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
-import { ROUTER } from '@/constants';
+import { ERROR_MESSAGE, ROUTER } from '@/constants';
 
 const CreateLeaveContent = () => {
   const router = useRouter();
@@ -87,10 +87,10 @@ const CreateLeaveContent = () => {
         router.refresh();
         reset();
       } else {
-        setErrorMessage(result.message || 'Failed to submit leave application');
+        setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
       }
     } catch (err) {
-      setErrorMessage('Something went wrong during submission.');
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
     }
   };
 
@@ -99,16 +99,18 @@ const CreateLeaveContent = () => {
   };
 
   return (
-    <form
-      data-testid="leave-form"
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
-    >
-      <Form form={form} onReset={handleReset} />
+    <>
+      <form
+        data-testid="leave-form"
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+      >
+        <Form form={form} onReset={handleReset} />
+      </form>
       {errorMessage && (
-        <p className="text-sm text-red-500 font-medium">{errorMessage}</p>
+        <p className="text-sm text-red font-medium">{errorMessage}</p>
       )}
-    </form>
+    </>
   );
 };
 

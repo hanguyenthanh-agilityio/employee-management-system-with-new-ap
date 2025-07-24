@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
   const leaveApplication = await getLeaveApplicationById(documentId);
+  console.log('leaveApplication', leaveApplication);
 
   if (!leaveApplication) return <div>Leave application not found!</div>;
 

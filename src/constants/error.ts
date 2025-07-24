@@ -11,6 +11,7 @@ export const ERROR_MESSAGE = {
   USER_CACHE_NOT_FOUND: 'User cache not found',
   INVALID_CACHE: 'Invalid cache data',
   UPLOAD_FAILED: 'Failed to upload file',
+  SUBMIT_LEAVE_FAILED: 'Failed to submit leave application',
 
   // Client side authentication error
   MISSING_TOKEN: 'Authentication token is missing',

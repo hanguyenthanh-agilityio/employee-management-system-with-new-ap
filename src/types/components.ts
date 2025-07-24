@@ -18,6 +18,7 @@ export type LeaveItem = {
   status: string;
   resumptionDate: string;
   document: {
+    id: number;
     name: string;
     url: string;
   };
