@@ -23,7 +23,7 @@ export const login = async (data: LoginPayload) => {
 
   if (!res.ok) {
     const message =
-      dataRes?.error?.message || dataRes?.message || 'Login failed';
+      dataRes?.error?.message || dataRes?.message || ERROR_MESSAGE.LOGIN_FAILED;
     throw new Error(message);
   }
 
