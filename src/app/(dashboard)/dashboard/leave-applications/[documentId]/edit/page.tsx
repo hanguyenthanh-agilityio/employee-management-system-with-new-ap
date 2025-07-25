@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // Services
-import { getLeaveApplicationById } from '@/services/apiService';
+import { getLeaveApplicationById } from '@/services';
 
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';

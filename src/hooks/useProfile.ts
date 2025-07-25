@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react';
 import { ERROR_MESSAGE } from '@/constants';
 
 // Services
-import { updateProfile } from '@/services/apiService';
+import { updateProfile } from '@/services';
 
 // Utils
 import {

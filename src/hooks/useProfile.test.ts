@@ -1,11 +1,17 @@
 import { renderHook, act } from '@testing-library/react';
-import { updateProfile } from '@/services/apiService';
 import { useRouter } from 'next/navigation';
+
+// Constants
 import { ERROR_MESSAGE } from '@/constants';
+
+// Hooks
 import { useUpdateProfile } from './useProfile';
 
+// Services
+import { updateProfile } from '@/services';
+
 // Mock API và useRouter
-jest.mock('@/services/apiService');
+jest.mock('@/services');
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
