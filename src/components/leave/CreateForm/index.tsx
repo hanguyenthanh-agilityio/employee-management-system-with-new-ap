@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -20,17 +20,16 @@ import {
   LeaveApplicationInput,
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
+import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
-import { ROUTER } from '@/constants';
-
-// Services
-import { uploadFile } from '@/services/apiService';
+import { ERROR_MESSAGE, ROUTER } from '@/constants';
 
 const CreateLeaveContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const typeFromQuery = searchParams.get('type') || undefined;
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
@@ -65,27 +64,33 @@ const CreateLeaveContent = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      console.log('🧾 data before upload:', data);
-      const file = data.document as File;
+      setErrorMessage('');
 
       let uploadedFileId: number | undefined;
+
+      const file = data.document as File;
+
       if (file) {
-        const uploaded = await uploadFile(file);
-        uploadedFileId = uploaded.id;
+        const fileId = await uploadFileToStrapi(file);
+        uploadedFileId = fileId ? Number(fileId) : undefined;
       }
 
-      const result = await createLeaveApplication({
+      const payload = {
         ...data,
-        document: uploadedFileId,
-      });
+        document: uploadedFileId ?? undefined,
+      };
+
+      const result = await createLeaveApplication(payload);
 
       if (result.success) {
         router.push(ROUTER.LEAVE_APPLICATION);
         router.refresh();
         reset();
+      } else {
+        setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
       }
     } catch (err) {
-      console.error('onSubmit error:', err);
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
     }
   };
 
@@ -94,13 +99,18 @@ const CreateLeaveContent = () => {
   };
 
   return (
-    <form
-      data-testid="leave-form"
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
-    >
-      <Form form={form} onReset={handleReset} />
-    </form>
+    <>
+      <form
+        data-testid="leave-form"
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+      >
+        <Form form={form} onReset={handleReset} />
+      </form>
+      {errorMessage && (
+        <p className="text-sm text-red font-medium">{errorMessage}</p>
+      )}
+    </>
   );
 };
 

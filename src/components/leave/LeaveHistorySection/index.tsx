@@ -49,7 +49,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
   const hasData = paginatedData && paginatedData.length > 0;
 
   return (
-    <>
+    <div data-testid="leave-history">
       {/* Leave History header */}
       <LeaveHistoryHeader
         leaveTypes={leaveTypes}
@@ -84,7 +84,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
         onClose={cancelDelete}
         onConfirm={confirmDelete}
       />
-    </>
+    </div>
   );
 };
 
