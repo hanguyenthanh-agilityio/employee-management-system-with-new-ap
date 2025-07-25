@@ -56,3 +56,10 @@ export type CreateLeavePayload = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type ConfirmModalType = {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  isLoading: boolean;
+};
