@@ -15,6 +15,7 @@ export const ERROR_MESSAGE = {
 
   // Client side authentication error
   MISSING_TOKEN: 'Authentication token is missing',
+  TOKEN_NOT_FOUND: 'Token not found',
 
   // Error from server
   UPDATE_USER_FAIL: 'Failed to update user',
