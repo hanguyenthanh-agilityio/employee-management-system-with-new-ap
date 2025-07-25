@@ -26,7 +26,7 @@ export const getCurrentUser = async () => {
   });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch current user info');
+    throw new Error(ERROR_MESSAGE.FAILED_TO_FETCH_USER);
   }
 
   return res.json();
