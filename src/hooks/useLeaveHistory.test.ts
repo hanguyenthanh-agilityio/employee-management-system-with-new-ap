@@ -32,8 +32,8 @@ describe('useUpdateProfile', () => {
 
   // useRouter
   (useRouter as jest.Mock).mockReturnValue({
-    push: jest.fn(),
-    refresh: jest.fn(),
+    push,
+    refresh,
   });
 
   // usePathname
@@ -85,5 +85,29 @@ describe('useUpdateProfile', () => {
     expect(deleteLeaveApplication).toHaveBeenCalledWith('1');
 
     expect(toast.success).toHaveBeenCalled();
+  });
+
+  test('Calls router.push with correct edit path in handleEdit', () => {
+    const { result } = renderHook(() => useLeaveHistory(mockData));
+
+    // handleEdit do not push immediately, it returns a function (callback function) that must be called manually to push
+    const editCallback = result.current.handleEdit('123');
+
+    // router.push will be
+    editCallback();
+
+    expect(push).toHaveBeenCalledWith('/dashboard/leave-applications/123/edit');
+  });
+
+  test('Calls router.push with updated page query in handleChange', () => {
+    const { result } = renderHook(() => useLeaveHistory([]));
+
+    act(() => {
+      result.current.handlePageChange(2);
+    });
+
+    expect(push).toHaveBeenCalledWith('/leave-application?type=All&page=2', {
+      scroll: false,
+    });
   });
 });
