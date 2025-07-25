@@ -1,53 +1,39 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Components
-import { Avatar, Input, ProfileEditForm } from '@/components';
-import { Button } from '@/components';
+import { Avatar, Input, ProfileEditForm, Button } from '@/components';
 
-// Schemas
+// Utils
 import {
   personalDetails,
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
+import { uploadFileToStrapi } from '@/utils/upload';
+import { getAvatarUrl } from '@/utils/avatar';
 
 // Hooks
-import { useUpdatePersonalDetails } from '@/hooks/useProfile';
+import { useUpdateProfile } from '@/hooks/useProfile';
 
 // Types
 import { PersonalDetailsType } from '@/types/profile';
-import { getTokenFromCookies } from '@/utils/auth';
+
+// Constants
 import { ERROR_MESSAGE } from '@/constants';
 
 interface ProfileDisplayProps {
-  url?: string;
+  avatarUrl?: string;
   profile: PersonalDetailsType;
 }
 
-const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
+const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [preview, setPreview] = useState(url);
-  const [avatarId, setAvatarId] = useState<string | null>(null);
-
-  const avatarValue = profile.avatar;
-
-  const avatarUrl =
-    Array.isArray(avatarValue) && avatarValue[0]?.url
-      ? `https://strapi-backend-o8eo.onrender.com${avatarValue[0].url}`
-      : typeof avatarValue === 'string'
-        ? avatarValue
-        : undefined;
-
-  useEffect(() => {
-    const localPreview = localStorage.getItem('avatarPreview');
-    const localId = localStorage.getItem('avatarId');
-
-    if (localPreview) setPreview(localPreview);
-    if (localId) setAvatarId(localId);
-  }, []);
+  const [preview, setPreview] = useState(avatarUrl);
+  const [file, setFile] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
@@ -60,73 +46,52 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
     },
   });
 
-  const { handleSubmit, reset } = form;
-  const { updatePersonal, isPending, errorMessage } =
-    useUpdatePersonalDetails();
+  const { handleSubmit, reset, setValue } = form;
+  const { update, isPending } = useUpdateProfile();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
+    setPreview(URL.createObjectURL(selectedFile));
+    setFile(selectedFile);
 
-    try {
-      const token = await getTokenFromCookies();
-      const formData = new FormData();
-      formData.append('files', selectedFile);
-
-      const res = await fetch(
-        `https://strapi-backend-o8eo.onrender.com/api/upload`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        },
-      );
-
-      const data = await res.json();
-
-      const uploadedFile = data?.[0];
-      const uploadedId = uploadedFile?.id?.toString();
-      const uploadedUrl = uploadedFile?.url;
-
-      if (uploadedId && uploadedUrl) {
-        const fullUrl = `https://strapi-backend-o8eo.onrender.com${uploadedUrl}`;
-
-        setAvatarId(uploadedId);
-        setPreview(fullUrl);
-        console.log('✅ Uploaded image URL:', uploadedUrl);
-
-        localStorage.setItem('avatarPreview', fullUrl);
-        localStorage.setItem('avatarId', uploadedId);
-      }
-    } catch (err) {
-      return { success: false, message: ERROR_MESSAGE.UNKNOWN };
-    }
+    setValue('avatar', selectedFile, { shouldDirty: true });
   };
 
   const handleChooseFile = () => inputRef.current?.click();
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
-    const payload = {
-      ...data,
-      documentId: avatarId || profile.documentId,
-      avatar: preview || avatarUrl,
-    };
+    setErrorMessage('');
 
-    const result = await updatePersonal(payload, profile.id);
+    try {
+      const avatarId = file ? await uploadFileToStrapi(file) : null;
 
-    if (result.success) {
-      reset(data);
+      const payload = {
+        ...data,
+        ...(avatarId && { avatar: avatarId }),
+      };
+
+      const result = await update(payload, profile.id);
+
+      if (result.success) {
+        reset(data);
+      } else {
+        setErrorMessage(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL);
+      }
+    } catch (err) {
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-10 p-6 w-full">
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 mx-auto group">
-        <Avatar name={profile.username} url={avatarUrl} preview={preview} />
+        <Avatar
+          name={profile.username}
+          url={preview || getAvatarUrl(profile.avatar)}
+          preview={preview}
+        />
 
-        {/* Hidden input file */}
         <Input
           ref={inputRef}
           type="file"
@@ -135,7 +100,6 @@ const ProfileDisplay = ({ url, profile }: ProfileDisplayProps) => {
           onChange={handleFileChange}
         />
 
-        {/* Overlay change button */}
         <Button
           type="button"
           variant="ghost"

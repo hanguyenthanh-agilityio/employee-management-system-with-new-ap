@@ -284,7 +284,7 @@ export const updateProfile = async (
   }
 
   try {
-    const res = await fetch(`${API_URL}/users/${userId}?populate=avatar`, {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

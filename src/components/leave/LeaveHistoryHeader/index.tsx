@@ -21,6 +21,7 @@ const LeaveHistoryHeader = ({
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 md:gap-10">
       {/* Filter by Type */}
       <Select
+        data-testid="leave-filter"
         label="Filter by Type:"
         name="type"
         value={selectedType}

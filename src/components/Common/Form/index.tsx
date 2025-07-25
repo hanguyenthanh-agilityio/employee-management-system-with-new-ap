@@ -155,7 +155,10 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
               type="file"
               accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
               className="h-auto bg-[#E3EDF9] mt-5 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700"
-              {...field}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                field.onChange(file);
+              }}
               error={(errors.document as FieldError)?.message}
             />
           )}

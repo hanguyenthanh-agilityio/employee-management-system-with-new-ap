@@ -1,57 +1,23 @@
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
-// Constants
 import { ERROR_MESSAGE } from '@/constants';
-
-// Services
 import { updateProfile } from '@/services/apiService';
-
-// Utils
 import {
   ContactDetailsInput,
   PersonalDetailsInput,
 } from '@/utils/schemas/updateProfile';
 
-export const useUpdatePersonalDetails = () => {
+type ProfileInput = PersonalDetailsInput | ContactDetailsInput;
+
+export const useUpdateProfile = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const updatePersonal = async (data: PersonalDetailsInput, userId: string) => {
+  const update = async (data: ProfileInput, userId: string) => {
     try {
-      const result = await updateProfile(userId, {
-        ...data,
-        avatar: undefined,
-      });
-
-      if (result.success) {
-        startTransition(() => router.refresh());
-      } else {
-        setErrorMessage(result.message ?? ERROR_MESSAGE.UNKNOWN);
-      }
-
-      return result;
-    } catch (error) {
-      console.error('Update failed:', error);
-      setErrorMessage(ERROR_MESSAGE.UNKNOWN);
-      return { success: false, message: ERROR_MESSAGE.UNKNOWN };
-    }
-  };
-
-  return { updatePersonal, isPending, errorMessage };
-};
-
-export const useUpdateContactDetails = () => {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const updateContact = async (data: ContactDetailsInput, userId: string) => {
-    try {
-      const result = await updateProfile(userId, {
-        ...data,
-      });
+      const result = await updateProfile(userId, data);
 
       if (result.success) {
         startTransition(() => router.refresh());
@@ -66,5 +32,5 @@ export const useUpdateContactDetails = () => {
     }
   };
 
-  return { updateContact, isPending, errorMessage };
+  return { update, isPending, errorMessage };
 };

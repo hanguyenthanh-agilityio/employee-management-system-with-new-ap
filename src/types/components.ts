@@ -18,7 +18,8 @@ export type LeaveItem = {
   durations: number;
   status: string;
   resumptionDate: string;
-  document?: {
+  document: {
+    id: number;
     name: string;
     url: string;
   };

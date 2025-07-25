@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addDays, differenceInCalendarDays } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // APIs
@@ -13,7 +13,7 @@ import { updateLeaveApplication } from '@/api/leaveApplications';
 import { Form } from '@/components';
 
 // Constants
-import { ROUTER } from '@/constants';
+import { ERROR_MESSAGE, ROUTER } from '@/constants';
 
 // Types
 import { LeaveItem } from '@/types/components';
@@ -23,11 +23,15 @@ import {
   LeaveApplicationInput,
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
+import { uploadFileToStrapi } from '@/utils/upload';
+import { getDefaultDocument } from '@/types/field';
 interface EditFormProps {
   leave: LeaveItem;
 }
 
 const EditForm = ({ leave }: EditFormProps) => {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const router = useRouter();
 
   const form = useForm<LeaveApplicationInput>({
@@ -62,11 +66,31 @@ const EditForm = ({ leave }: EditFormProps) => {
   }, [startDate, endDate, setValue]);
 
   const onSubmit = async (data: LeaveApplicationInput) => {
-    await updateLeaveApplication(leave.documentId, data);
+    try {
+      let uploadedFileId = leave.document?.id;
+      const file = data.document as File;
 
-    router.push(ROUTER.LEAVE_APPLICATION);
+      if (file instanceof File) {
+        uploadedFileId = Number(await uploadFileToStrapi(file));
+      }
 
-    reset(data);
+      const payload = {
+        ...data,
+        document: uploadedFileId,
+      };
+
+      const result = await updateLeaveApplication(leave.documentId, payload);
+
+      if (result.success) {
+        router.push(ROUTER.LEAVE_APPLICATION);
+        router.refresh();
+        reset();
+      } else {
+        setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
+      }
+    } catch (err) {
+      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+    }
   };
 
   const handleReset = () => {
@@ -74,23 +98,22 @@ const EditForm = ({ leave }: EditFormProps) => {
   };
 
   return (
-    <form
-      data-testid="edit-form"
-      onSubmit={handleSubmit(onSubmit)}
-      className="pt-5"
-    >
-      <Form
-        form={form}
-        onReset={handleReset}
-        defaultDocument={
-          leave?.document
-            ? {
-                name: leave.document.name,
-              }
-            : undefined
-        }
-      />
-    </form>
+    <>
+      <form
+        data-testid="edit-form"
+        onSubmit={handleSubmit(onSubmit)}
+        className="pt-5"
+      >
+        <Form
+          form={form}
+          onReset={handleReset}
+          defaultDocument={getDefaultDocument(leave?.document)}
+        />
+      </form>
+      {errorMessage && (
+        <p className="text-sm text-red font-medium">{errorMessage}</p>
+      )}
+    </>
   );
 };
 
