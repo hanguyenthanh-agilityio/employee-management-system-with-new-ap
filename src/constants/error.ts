@@ -17,6 +17,7 @@ export const ERROR_MESSAGE = {
   FAILED_TO_FETCH_USER: 'Failed to fetch current user info',
   USER_CACHE_NOT_FOUND: 'User cache not found',
   INVALID_CACHE: 'Invalid cache data',
+  ACTIVATION_FAILED: 'Activation failed',
 
   // ─────────────────────────────────────────────
   // Leave Application Errors
