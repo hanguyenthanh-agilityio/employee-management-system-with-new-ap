@@ -5,7 +5,7 @@ import {
   getSummaryLeaves,
   patchLeaveApplication,
   postLeaveApplication,
-} from './leaveService';
+} from './leave/leaveService';
 
 jest.mock('@/utils/auth', () => ({
   getTokenFromCookies: jest.fn(() => Promise.resolve('test-token')),
