@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic';
 
 // Component
 const RegisterForm = dynamic(() => import('@/components/auth/RegisterForm'));
-
 export const metadata: Metadata = {
   title: 'Register',
 };
