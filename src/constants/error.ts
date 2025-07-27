@@ -1,25 +1,28 @@
 export const ERROR_MESSAGE = {
+  // Authentication Errors
   LOGIN_FAILED: 'Login failed.',
   REGISTER_FAILED: 'Register failed',
-  EXPORT_FAILED: 'Export failed',
-  DELETE_FAILED: 'Delete failed',
-  VALIDATION_FAILED: 'Validation failed',
-  ACTIVATION_FAILED: 'Activation failed',
-  UNKNOWN: 'Unknown error occurred.',
   INVALID_CREDENTIALS: 'Invalid credentials',
-  UNKNOWN_REGISTER: 'Unknown error during registration',
-  USER_CACHE_NOT_FOUND: 'User cache not found',
-  INVALID_CACHE: 'Invalid cache data',
-  UPLOAD_FAILED: 'Failed to upload file',
-  SUBMIT_LEAVE_FAILED: 'Failed to submit leave application',
-
-  // Client side authentication error
   MISSING_TOKEN: 'Authentication token is missing',
   TOKEN_NOT_FOUND: 'Token not found',
 
-  // Error from server
+  // User Errors
+  UNKNOWN_REGISTER: 'Unknown error during registration',
   UPDATE_USER_FAIL: 'Failed to update user',
+  FAILED_TO_FETCH_USER: 'Failed to fetch current user info',
+  USER_CACHE_NOT_FOUND: 'User cache not found',
+  INVALID_CACHE: 'Invalid cache data',
+  ACTIVATION_FAILED: 'Activation failed',
 
-  // Network error, fail fetch
+  // Leave Application Errors
+  SUBMIT_LEAVE_FAILED: 'Failed to submit leave application',
+
+  // Action Errors
+  DELETE_FAILED: 'Delete failed',
+  VALIDATION_FAILED: 'Validation failed',
+  UPLOAD_FAILED: 'Upload failed',
+
+  // Network / Unexpected Errors
   UNEXPECTED: 'Unexpected error occurred',
+  UNKNOWN: 'Unknown error occurred.',
 };
