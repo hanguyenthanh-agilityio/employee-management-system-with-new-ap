@@ -23,10 +23,14 @@ const Select = ({
   className,
 }: SelectFieldProps) => (
   <div className={className}>
-    <label className="block text-xl font-medium text-gray-900 w-[200px]">
+    <label
+      htmlFor={name}
+      className="block text-xl font-medium text-gray-900 w-[200px]"
+    >
       {label}
     </label>
     <select
+      id={name}
       name={name}
       value={value}
       onChange={onChange}

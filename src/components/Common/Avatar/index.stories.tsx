@@ -14,13 +14,17 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    src: {
+    url: {
       control: 'text',
-      description: 'Image URL',
+      description: 'Image URL (from server)',
+    },
+    preview: {
+      control: 'text',
+      description: 'Preview image (from client)',
     },
     name: {
       control: 'text',
-      description: 'User name',
+      description: 'User name (used for fallback)',
     },
   },
   args: {
@@ -33,12 +37,12 @@ type Story = StoryObj<typeof meta>;
 
 export const WithImage: Story = {
   args: {
-    src: AVATAR_URL,
+    url: AVATAR_URL,
   },
 };
 
 export const WithoutImage: Story = {
   args: {
-    src: undefined,
+    url: undefined,
   },
 };

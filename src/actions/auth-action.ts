@@ -1,7 +1,7 @@
 'use server';
 
 // Services
-import { getCurrentUser, login, register } from '@/services/apiService';
+import { getCurrentUser, login, register } from '@/services';
 
 // Utils
 import {

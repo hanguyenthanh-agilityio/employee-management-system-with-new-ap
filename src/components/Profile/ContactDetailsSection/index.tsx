@@ -26,11 +26,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   const form = useForm<ContactDetailsInput>({
     resolver: zodResolver(contactDetails),
     defaultValues: {
-      mainPhoneNumber: contact.mainPhoneNumber,
-      subPhoneNumber: contact.subPhoneNumber,
-      email: contact.email,
-      city: contact.city,
-      residential: contact.residential,
+      mainPhoneNumber: contact.mainPhoneNumber ?? '',
+      subPhoneNumber: contact.subPhoneNumber ?? '',
+      email: contact.email ?? '',
+      city: contact.city ?? '',
+      residential: contact.residential ?? '',
     },
   });
 
@@ -39,7 +39,7 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   const { update, isPending, errorMessage } = useUpdateProfile();
 
   const handleSubmitForm = async (data: ContactDetailsInput) => {
-    const result = await update(contact.id, data);
+    const result = await update(data, String(contact.id));
 
     if (result.success) reset(data);
   };

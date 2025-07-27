@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { ROUTER } from '@/constants';
 
 import Link from 'next/link';
 
@@ -42,7 +43,7 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
           <ul className="py-1 text-sm text-gray-700">
             <li>
               <Link
-                href="/account"
+                href={ROUTER.EDIT_PERSONAL_DETAILS}
                 className="flex items-center block px-4 py-2 hover:bg-gray-100"
               >
                 <UserIcon className="w-6 h-6 mr-2" />

@@ -1,11 +1,12 @@
 import { ContactsDetailsType, PersonalDetailsType } from '@/types/profile';
 
 export const mockProfile: PersonalDetailsType = {
-  id: 1,
+  id: '1',
   username: 'Biruk Dawit',
   department: 'Design & Marketing',
   jobTitle: 'UI / UX Designer',
   jobCategory: 'Full time',
+  avatar: 'https://cdn.example.com/avatar.png',
 };
 
 export const mockContact: ContactsDetailsType = {
