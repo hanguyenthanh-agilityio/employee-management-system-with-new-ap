@@ -9,7 +9,7 @@ import {
   deleteLeave,
   getSummaryLeaves,
   getCachedUser,
-} from '@/services/apiService';
+} from '@/services';
 
 // Utils
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
