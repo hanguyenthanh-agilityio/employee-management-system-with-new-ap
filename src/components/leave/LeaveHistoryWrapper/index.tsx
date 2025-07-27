@@ -2,7 +2,7 @@
 import { LeaveHistorySection } from '@/components';
 
 // Services
-import { getCachedUser, getLeaveApplications } from '@/services/apiService';
+import { getCachedUser, getLeaveApplications } from '@/services';
 
 const LeaveHistoryWrapper = async () => {
   const userId = await getCachedUser();

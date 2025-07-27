@@ -33,7 +33,6 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(avatarUrl);
   const [file, setFile] = useState<File | null>(null);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
@@ -47,7 +46,8 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   });
 
   const { handleSubmit, reset, setValue } = form;
-  const { update, isPending } = useUpdateProfile();
+  const { update, isPending, errorMessage, setErrorMessage } =
+    useUpdateProfile();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];

@@ -49,6 +49,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     return data.filter((item) => item.type === selectedType);
   }, [data, selectedType]);
 
+  // Sort data by field - asc/desc
   const sortedData = useMemo(() => {
     const dataToSort = [...filteredData];
     if (!sortBy) return dataToSort;
@@ -61,8 +62,10 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     });
   }, [filteredData, sortBy, sortOrder]);
 
+  // Count total page
   const totalPages = Math.ceil(sortedData.length / ITEMS_PER_PAGE);
 
+  // Paginated data
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     return sortedData.slice(start, start + ITEMS_PER_PAGE);
@@ -85,9 +88,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     ];
   }, [data]);
 
-  /**
-   * Handle when select new filter
-   */
+  // Handle when select new filter - Update URL query param
   const handleChange = (type: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (type === 'All') {
@@ -97,12 +98,17 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     }
 
     params.set('page', '1');
+
+    // router.push to update the URL without reloading the entire page
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  // Page navigation
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
+
+    // router.push to update the URL without reloading the entire page
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 

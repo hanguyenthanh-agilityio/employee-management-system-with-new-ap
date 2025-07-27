@@ -12,7 +12,7 @@ import {
 import { TAB_ITEM } from '@/constants';
 
 // Services
-import { getCurrentUser } from '@/services/apiService';
+import { getCurrentUser } from '@/services';
 
 interface Props {
   params: { tab: string };

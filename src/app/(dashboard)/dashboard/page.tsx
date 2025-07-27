@@ -9,7 +9,7 @@ import {
 } from '@/components';
 
 // Services
-import { getCachedUser } from '@/services/apiService';
+import { getCachedUser } from '@/services';
 
 // APIs
 import { fetchSummaryLeaves } from '@/api/leaveApplications';
