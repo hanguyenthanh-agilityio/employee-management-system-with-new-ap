@@ -52,6 +52,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => {
           alt="User plan"
           width={250}
           height={190}
+          priority
           className="object-contain"
         />
       </div>
