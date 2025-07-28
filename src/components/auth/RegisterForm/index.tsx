@@ -98,6 +98,7 @@ const RegisterForm = () => {
                     {...controllerField}
                     value={typeof value === 'string' ? value : ''}
                     error={errors[field.name as keyof RegisterInput]?.message}
+                    disabled={isSubmitting}
                   />
                 );
               }
@@ -107,6 +108,7 @@ const RegisterForm = () => {
                   type={field.type || 'text'}
                   className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
                   {...controllerField}
+                  disabled={isSubmitting}
                   value={typeof value === 'string' ? value : ''}
                   error={errors[field.name as keyof RegisterInput]?.message}
                 />
@@ -129,9 +131,13 @@ const RegisterForm = () => {
                     id={cb.id}
                     checked={!!field.value}
                     onCheckedChange={field.onChange}
+                    disabled={isSubmitting}
                     className="form-checkbox w-[20px] h-[20px] text-white border-[2px] border-mediumLightGray"
                   />
-                  <Label className="text-sm md:text-xl text-Gray56">
+                  <Label
+                    htmlFor={cb.id}
+                    className="text-sm md:text-xl text-gray-700"
+                  >
                     {cb.label}
                     <span className="text-primary ml-1">{cb.subLabel}</span>
                   </Label>

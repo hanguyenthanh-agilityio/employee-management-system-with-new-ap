@@ -24,7 +24,12 @@ export const LeaveCardSkeleton = () => (
 export const LeaveHistorySkeleton = () => (
   <div className="space-y-4">
     <div className="h-6 w-32 bg-gray-300 rounded animate-pulse" />
-    <div className="overflow-x-auto">
+    <div
+      className="overflow-x-auto"
+      role="region"
+      aria-label="Scrollable table"
+      tabIndex={0}
+    >
       <table className="w-full min-w-[600px]">
         <thead>
           <tr>
