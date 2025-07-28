@@ -1,6 +1,6 @@
 export { default as Form } from './common/Form/index';
 export { default as Card } from './common/Card/index';
-export { default as Table } from './common/Table/index';
+export { default as Table } from './common/Table';
 export { default as Header } from './common/Header/index';
 export { default as Select } from './common/Select/index';
 export { default as Avatar } from './common/Avatar/index';
