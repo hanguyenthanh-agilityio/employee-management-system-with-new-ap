@@ -75,7 +75,7 @@ const LoginForm = () => {
       <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">
         Login
       </h1>
-      <p className="text-xl md:text-3xl text-muted my-6">
+      <p className="text-xl md:text-3xl text-gray-700 my-6">
         Login to your account
       </p>
 
@@ -98,6 +98,7 @@ const LoginForm = () => {
                 // If the error has text, the screen reader will read the error when the user focuses on the input.
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 {...field}
+                disabled={isSubmitting}
                 className={`${inputClass} h-auto py-3 border-[2px] border-mediumLightGray`}
                 error={errors.email?.message}
               />
@@ -123,6 +124,7 @@ const LoginForm = () => {
                   errors.password ? 'password-error' : undefined
                 }
                 {...field}
+                disabled={isSubmitting}
                 className={inputClass}
                 error={errors.password?.message}
               />
@@ -135,10 +137,11 @@ const LoginForm = () => {
             <Checkbox
               id="remember"
               className="form-checkbox w-[20px] h-[20px] text-mediumLightGray"
+              disabled={isSubmitting}
             />
             <Label
               htmlFor="remember"
-              className="flex items-center text-xl text-Gray56 space-x-2 pl-3 max-w-[400px]"
+              className="flex items-center text-xl text-gray-600 space-x-2 pl-3 max-w-[400px]"
             >
               Remember me
             </Label>
@@ -147,6 +150,7 @@ const LoginForm = () => {
             href="/reset-password"
             className="text-primary font-bold hover:underline"
             aria-label="Reset your password"
+            disabled={isSubmitting}
           >
             Reset Password?
           </Link>

@@ -30,6 +30,7 @@ const PasswordInput = ({ error, className, ...props }: PasswordInputProps) => {
         type="button"
         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 bg-[none] shadow-none hover:text-gray-700 hover:bg-[none] focus:outline-none"
         onClick={() => setShowPassword((prev) => !prev)}
+        aria-label={showPassword ? 'Hide password' : 'Show password'}
         tabIndex={-1}
       >
         {showPassword ? (
