@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 
 // Components
 import { ToastProvider } from '@/components';
+import Image from 'next/image';
+import { IMAGE } from '@/constants';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -14,8 +16,20 @@ const LoginLayout = ({ children }: AuthLayoutProps) => (
       className="relative w-full h-96 md:h-full order-1 md:order-2"
       aria-label="Login banner"
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-primary bg-[url(/login-banner.png)] bg-blend-multiply bg-cover bg-center bg-no-repeat z-10" />
+      {/* Image background */}
+      <Image
+        src={IMAGE.BANNER}
+        alt="banner"
+        fill
+        placeholder="blur"
+        blurDataURL="/banner.webp"
+        priority
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover object-center z-10"
+      />
+
+      {/* Overlay (blend effect) */}
+      <div className="absolute inset-0 bg-primary/80 z-20" />
 
       {/* Content */}
       <div className="relative z-20 flex items-end justify-start p-6 sm:p-8 text-white h-full">

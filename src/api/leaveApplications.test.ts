@@ -31,10 +31,10 @@ describe('leaveActions', () => {
 
   const formData = {
     type: 'Annual Leave',
-    startDate: '2025-07-27',
-    endDate: '2025-07-30',
-    durations: 4,
-    resumptionDate: '2025-07-31',
+    startDate: '2025-09-27',
+    endDate: '2025-09-29',
+    durations: 3,
+    resumptionDate: '2025-09-30',
     reason: 'Vacation',
   };
 

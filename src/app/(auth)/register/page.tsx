@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 // Constants
 import { ROUTER } from '@/constants';
+import dynamic from 'next/dynamic';
 
 // Component
-import { RegisterForm } from '@/components';
-
+const RegisterForm = dynamic(() => import('@/components/auth/RegisterForm'));
 export const metadata: Metadata = {
   title: 'Register',
 };
