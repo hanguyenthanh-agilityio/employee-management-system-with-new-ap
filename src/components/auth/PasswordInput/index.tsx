@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import Button from '@/components/common/Button/button';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid';
-import Input from '@/components/common/Input/input';
+
+// Components
+import { Button, Input } from '@/components';
 
 interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

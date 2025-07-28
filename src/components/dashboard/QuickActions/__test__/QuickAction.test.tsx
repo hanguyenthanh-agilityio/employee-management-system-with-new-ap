@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation';
-import QuickActions from '..';
+
 import { fireEvent, render, screen } from '@testing-library/react';
+import QuickActions from '..';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
