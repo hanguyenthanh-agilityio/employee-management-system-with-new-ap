@@ -150,7 +150,6 @@ const LoginForm = () => {
             href="/reset-password"
             className="text-primary font-bold hover:underline"
             aria-label="Reset your password"
-            disabled={isSubmitting}
           >
             Reset Password?
           </Link>
