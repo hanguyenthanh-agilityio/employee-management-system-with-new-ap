@@ -17,7 +17,7 @@ jest.mock('@/components', () => ({
 }));
 
 describe('generateMetadata', () => {
-  it('should return metadata with leave type and dates', async () => {
+  test('Should return metadata with leave type and dates', async () => {
     (getLeaveApplicationById as jest.Mock).mockResolvedValue({
       data: {
         type: 'Sick Leave',
