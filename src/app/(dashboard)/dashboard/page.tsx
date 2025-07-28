@@ -22,7 +22,8 @@ const DashboardPage = async () => {
   const { username, jobTitle } = user;
 
   return (
-    <section className="flex flex-col gap-12">
+    <main className="flex flex-col gap-10 md:gap-12 px-4 md:px-8">
+      <h1 className="sr-only">Dashboard page</h1>
       <Header title="Dashboard" />
 
       {/* Profile Section */}
@@ -30,7 +31,7 @@ const DashboardPage = async () => {
 
       {/* Quickly Action */}
       <div>
-        <h2 className="mb-6 text-3xl">Quick Actions</h2>
+        <h2 className="mb-4 md:mb-6 text-2xl md:text-3xl">Quick Actions</h2>
         <QuickActions />
       </div>
 
@@ -39,7 +40,7 @@ const DashboardPage = async () => {
         <BirthdaySection />
         <PaySlipSection />
       </div>
-    </section>
+    </main>
   );
 };
 
