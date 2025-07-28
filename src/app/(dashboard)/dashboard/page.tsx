@@ -22,7 +22,7 @@ const DashboardPage = async () => {
   const { username, jobTitle } = user;
 
   return (
-    <main className="flex flex-col gap-10 md:gap-12 px-4 md:px-8">
+    <div className="flex flex-col gap-10 md:gap-12 px-4 md:px-8">
       <h1 className="sr-only">Dashboard page</h1>
       <Header title="Dashboard" />
 
@@ -40,7 +40,7 @@ const DashboardPage = async () => {
         <BirthdaySection />
         <PaySlipSection />
       </div>
-    </main>
+    </div>
   );
 };
 

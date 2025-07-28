@@ -4,7 +4,12 @@ interface TableProps {
 }
 
 const Table = ({ headers, rows }: TableProps) => (
-  <div className="overflow-x-auto">
+  <div
+    className="overflow-x-auto"
+    role="region"
+    aria-label="Scrollable table"
+    tabIndex={0}
+  >
     <table className="w-full min-w-[500px] text-left text-cyanBlue border-separate border-spacing-y-3 text-sm sm:text-base">
       <thead className="bg-[#E3EDF9] h-[60px]">
         <tr>
