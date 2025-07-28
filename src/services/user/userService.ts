@@ -18,11 +18,11 @@ export const getCurrentUser = async () => {
 
   const res = await fetch(`${API_URL}/users/me?populate=avatar`, {
     method: 'GET',
-    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    next: { tags: ['current-user'] },
   });
 
   if (!res.ok) {
@@ -69,7 +69,6 @@ export const updateProfile = async (
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
-      cache: 'no-store',
     });
 
     if (!res.ok) {
