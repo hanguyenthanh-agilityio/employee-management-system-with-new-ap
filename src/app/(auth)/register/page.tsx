@@ -26,7 +26,7 @@ const RegisterPage = () => (
 
     {/* Footer */}
     <p className="text-lg sm:text-xl text-gray-600 mt-6 sm:mt-8">
-      muted Already have an account?{' '}
+      Already have an account?{' '}
       <Link href={ROUTER.LOGIN} className="text-primary font-bold">
         Log In
       </Link>
