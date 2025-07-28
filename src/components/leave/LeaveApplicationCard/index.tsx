@@ -1,6 +1,3 @@
-// Components
-import { Button } from '@/components';
-
 interface LeaveCardProps {
   title: string;
   days: number;
@@ -30,9 +27,9 @@ const LeaveCard = ({ title, days, onClick }: LeaveCardProps) => {
         <div className="text-base md:text-lg font-medium truncate pb-2 text-center truncate w-[140px]">
           {title}
         </div>
-        <Button className="!bg-[#FFC20E] text-[#000] hover:bg-yellow text-sm md:text-base font-bold justify-center px-1 md:px-6 py-1 rounded-full bg-yellow-400 text-black">
+        <span className="!bg-[#FFC20E] text-[#000] hover:bg-yellow text-sm md:text-base font-bold justify-center px-1 md:px-6 py-1 rounded-full bg-yellow-400 text-black text-center">
           Apply
-        </Button>
+        </span>
       </div>
     </div>
   );
