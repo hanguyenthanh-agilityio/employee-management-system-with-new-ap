@@ -34,6 +34,7 @@ const config: Config = {
     '/src/app/\\(dashboard\\)/extras/page.tsx',
     '/src/app/\\(dashboard\\)/payroll/page.tsx',
     '/src/app/\\(dashboard\\)/requests/page.tsx',
+    '/src/app/\\(dashboard\\)/dashboard/update-profile/layout.tsx',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
