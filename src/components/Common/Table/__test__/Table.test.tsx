@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Table from '../table';
+import Table from '..';
 
 describe('Table component', () => {
   const headers = ['Name', 'Age', 'Email'];

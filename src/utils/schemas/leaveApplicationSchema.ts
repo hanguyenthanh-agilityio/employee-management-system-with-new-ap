@@ -7,11 +7,22 @@ import {
 } from 'date-fns';
 import { z } from 'zod';
 
+export const ALLOWED_LEAVE_TYPES = [
+  'Annual Leave',
+  'Sick Leave',
+  'Maternity Leave',
+  'Exam Leave',
+] as const;
+
 export const leaveApplicationSchema = z
   .object({
     users_permissions_user: z.number().optional(),
     employeeName: z.string().optional(),
-    type: z.string().min(1, 'Leave type is required'),
+    type: z.enum(ALLOWED_LEAVE_TYPES, {
+      errorMap: () => ({
+        message: 'Leave type is invalid. Please use a valid leave type.',
+      }),
+    }),
     startDate: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'Start date must be in yyyy-mm-dd format'),

@@ -29,31 +29,46 @@ const GenericTable = <T,>({
   pagination,
 }: GenericTableProps<T>) => (
   <div className="overflow-x-auto w-full pb-24">
-    <table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base">
-      <thead className="bg-[#E3EDF9] text-black font-bold">
-        <tr>
-          {columns.map((col, index) => (
-            <th key={index} className="px-4 py-5 whitespace-nowrap text-lg">
-              {col.title}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, rowIndex) => (
-          <tr key={rowIndex} className="odd:bg-white even:bg-[#E3EDF9]">
-            {columns.map((col, colIndex) => (
-              <td
-                key={colIndex}
-                className={`px-4 py-2 whitespace-nowrap text-center ${col.className ?? ''}`}
-              >
-                {col.render(item)}
-              </td>
+    <div className="min-h-[400px] flex flex-col justify-between">
+      <table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base">
+        <thead className="bg-[#E3EDF9] text-black font-bold">
+          <tr>
+            {columns.map((col, index) => (
+              <th key={index} className="px-4 py-5 whitespace-nowrap text-lg">
+                {col.title}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {data.length === 0 ? (
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="text-center py-10 text-gray-500"
+              >
+                No data available.
+              </td>
+            </tr>
+          ) : (
+            data.map((item, rowIndex) => (
+              <tr key={rowIndex} className="odd:bg-white even:bg-[#E3EDF9]">
+                {columns.map((col, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className={`px-4 py-2 whitespace-nowrap text-center ${col.className ?? ''}`}
+                  >
+                    {col.render(item)}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+
     {pagination && (
       <div className="mt-4">
         <Pagination

@@ -29,21 +29,30 @@ export const personalDetails = z.object({
 
 export type PersonalDetailsInput = z.infer<typeof personalDetails>;
 
+const safeTextRegex = /^[a-zA-Z0-9\s,.'-]*$/;
+
+const phoneSchema = z
+  .string()
+  .trim()
+  .min(8, 'Phone must be at least 8 digits')
+  .max(11, 'Phone must be at most 11 digits')
+  .regex(/^\d+$/, 'Phone must contain only digits');
 export const contactDetails = z.object({
-  mainPhoneNumber: z
-    .string()
-    .min(9, 'Phone Number 1 is too short')
-    .max(15, 'Phone Number 1 is too long'),
-  subPhoneNumber: z
-    .string()
-    .min(9, 'Phone Number 1 is too short')
-    .max(15, 'Phone Number 1 is too long'),
+  mainPhoneNumber: phoneSchema,
+  subPhoneNumber: phoneSchema,
   email: emailField,
-  city: z.string().min(1, 'Please enter your  city name').max(100),
+  city: z
+    .string()
+    .trim()
+    .min(1, 'City is required')
+    .max(100)
+    .regex(safeTextRegex, 'City contains invalid characters'),
   residential: z
     .string()
-    .min(1, 'Please enter your residential address')
-    .max(200),
+    .trim()
+    .min(1, 'Residential address is required')
+    .max(200)
+    .regex(safeTextRegex, 'Residential address contains invalid characters'),
 });
 
 export type ContactDetailsInput = z.infer<typeof contactDetails>;

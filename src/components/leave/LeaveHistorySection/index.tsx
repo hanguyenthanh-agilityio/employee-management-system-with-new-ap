@@ -75,7 +75,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
           }}
         />
       ) : (
-        <div className="text-center py-7 text-red">No leave requests yet.</div>
+        <div className="text-center py-7">No leave requests yet.</div>
       )}
 
       <DeleteConfirmModal

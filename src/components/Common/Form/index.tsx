@@ -25,9 +25,14 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
     <>
       <div>
         <Label className="text-xl md:text-2xl text-[#1D1D1D]">Leave Type</Label>
-        <p className="mt-5 mb-11 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
-          {form.getValues('type')}
+        <p className="mt-5 mb-2 bg-[#E3EDF9] text-xl p-3 rounded-[9px]">
+          {form.getValues('type') || 'N/A'}
         </p>
+        {form.formState.errors.type?.message && (
+          <p className="text-sm text-red font-medium">
+            {form.formState.errors.type.message}
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
