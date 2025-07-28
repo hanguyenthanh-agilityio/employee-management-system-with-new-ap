@@ -9,7 +9,7 @@ import { PAY_ROWS } from '@/constants/table';
 // Component
 import Card from '.';
 import ProgressBar from '../ProgressBar';
-import Table from '../Table';
+import Table from '../Table/table';
 import BirthdayItem from '@/components/dashboard/BirthdayItem';
 
 const meta = {
