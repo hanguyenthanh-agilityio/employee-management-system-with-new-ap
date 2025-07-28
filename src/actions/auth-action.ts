@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 // Services
 import { getCurrentUser, login, register } from '@/services';
 
@@ -44,6 +46,8 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
     await setCookie('jwtToken', data.jwt, {
       maxAge: 60 * 60 * 12,
     });
+
+    revalidateTag('current-user');
 
     const user = await getCurrentUser();
 

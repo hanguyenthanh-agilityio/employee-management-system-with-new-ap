@@ -46,7 +46,8 @@ const DeleteConfirmModal = ({
             className={clsx(
               'py-2 px-3 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none',
               {
-                'bg-red hover:bg-[#b91c1c] focus:ring-red': !isLoading,
+                'bg-[#b91c1c] hover:bg-[#991b1b] focus:ring-red-800':
+                  !isLoading,
                 'bg-gray-400 cursor-not-allowed opacity-60': isLoading,
               },
             )}

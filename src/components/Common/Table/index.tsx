@@ -4,12 +4,21 @@ interface TableProps {
 }
 
 const Table = ({ headers, rows }: TableProps) => (
-  <div className="overflow-x-auto">
-    <table className="w-full text-xl text-left text-cyanBlue min-w-[500px] border-separate border-spacing-y-3">
+  <div
+    className="overflow-x-auto"
+    role="region"
+    aria-label="Scrollable table"
+    tabIndex={0}
+  >
+    <table className="w-full min-w-[500px] text-left text-cyanBlue border-separate border-spacing-y-3 text-sm sm:text-base">
       <thead className="bg-[#E3EDF9] h-[60px]">
         <tr>
           {headers.map((head, index) => (
-            <th key={index} className="px-4 py-3 font-medium">
+            <th
+              key={index}
+              scope="col"
+              className="px-4 py-3 font-semibold text-cyanBlue whitespace-nowrap"
+            >
               {head}
             </th>
           ))}

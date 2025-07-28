@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { CalendarDateRangeIcon } from '@heroicons/react/24/outline';
 
 // Components
@@ -10,20 +12,29 @@ interface BirthdayItemProps {
 }
 
 const BirthdayItem = ({ name, date, onClick }: BirthdayItemProps) => (
-  <div className="flex justify-between items-center bg-[#EAF1FB] px-6 py-3 rounded-xl shadow-sm">
-    <div className="flex items-center gap-2 text-cyanBlue text-xl">
-      <CalendarDateRangeIcon className="w-7 h-7" />
+  <div
+    className="flex flex-wrap justify-between items-center bg-[#EAF1FB] px-4 md:px-6 py-3 rounded-xl shadow-sm gap-y-2"
+    role="group"
+    aria-label={`Birthday info for ${name}`}
+  >
+    <div className="flex items-center gap-2 text-cyanBlue text-base md:text-xl">
+      <CalendarDateRangeIcon
+        className="w-5 h-5 md:w-6 md:h-6"
+        aria-hidden="true"
+      />
       <span>
-        {name}’s Day - {date}
+        <strong>{name}’s Day</strong> – <time dateTime={date}>{date}</time>
       </span>
     </div>
+
     <Button
       onClick={onClick}
-      className="bg-[#FFC20E] hover:bg-yellow text-black px-4 py-2 rounded-lg shadow-[5px_4px_8px_6px_rgba(0,0,0,0.12)] font-semibold transition"
+      className="bg-[#FFC20E] hover:bg-yellow text-black px-3 md:px-4 py-2 rounded-lg shadow-md font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+      aria-label={`Send wishes to ${name}`}
     >
       Send Wishes
     </Button>
   </div>
 );
 
-export default BirthdayItem;
+export default memo(BirthdayItem);

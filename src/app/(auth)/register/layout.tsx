@@ -1,8 +1,11 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 // Components
-import { ToastProvider } from '@/components';
+const ToastProvider = dynamic(
+  () => import('@/components/status/ToastProvider'),
+);
 
 // Constants
 import { IMAGE } from '@/constants';
@@ -14,7 +17,20 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
       className="relative w-full h-[60vh] md:h-full"
       aria-label="Register banner"
     >
-      <div className="absolute inset-0 bg-primary bg-[url(/register-banner.png)] bg-blend-multiply bg-cover bg-center bg-no-repeat z-10" />
+      {/* Image background */}
+      <Image
+        src={IMAGE.BANNER}
+        alt="banner"
+        fill
+        priority
+        sizes="(max-width: 768px) 100vw, 50vw"
+        placeholder="blur"
+        blurDataURL="/banner.webp"
+        className="object-cover object-center z-10"
+      />
+
+      {/* Overlay (blend effect) */}
+      <div className="absolute inset-0 bg-primary/80 z-20" />
 
       <div className="relative z-20 py-6 px-6 sm:px-10 text-white h-full flex flex-col justify-center">
         <Image
@@ -22,9 +38,8 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
           alt="Management System Logo"
           width={250}
           height={68}
-          className="md:absolute md:top-[30px] md:left-[5px] object-contain width-[250px] h-auto w-auto"
-          // LOGO is one of the LCPs if it is in the header
-          priority
+          sizes="(max-width: 768px) 150px, 250px"
+          className="md:absolute md:top-[30px] md:left-[5px] object-contain"
         />
         <div>
           <h2 className="text-2xl md:text-6xl font-bold leading-tight">

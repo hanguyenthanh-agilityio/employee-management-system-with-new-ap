@@ -189,7 +189,7 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         <Button
           type="reset"
           variant="outline"
-          className="text-red font-bold border-red hover:bg-red-50 border-[3px] border-solid px-10 md:px-28 py-5"
+          className="text-[#b30000] font-bold border-[#b30000] hover:bg-red-50 border-[3px] border-solid px-10 md:px-28 py-5"
           onClick={onReset}
         >
           Reset
