@@ -5,7 +5,9 @@ import { loginAction, logoutAction, registerAction } from './auth-action';
 
 jest.mock('@/services');
 jest.mock('@/utils/auth');
-
+jest.mock('next/cache', () => ({
+  revalidateTag: jest.fn(),
+}));
 describe('authActions', () => {
   beforeEach(() => {
     jest.clearAllMocks();
