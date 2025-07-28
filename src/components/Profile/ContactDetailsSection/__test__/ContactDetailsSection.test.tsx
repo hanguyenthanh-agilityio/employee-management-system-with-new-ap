@@ -12,14 +12,14 @@ jest.mock('next/navigation', () => ({
 describe('ContactDetailsSection component', () => {
   const contact = mockContact;
 
-  test.skip('Renders ContactDetailsSection inside a form element', () => {
+  test('Renders ContactDetailsSection inside a form element', () => {
     render(<ContactDetailsSection contact={contact} />);
     const form = screen.getByTestId('contact-details-form');
 
     expect(form).toBeInTheDocument();
   });
 
-  test.skip('Renders from fields with default values from Contact', () => {
+  test('Renders from fields with default values from Contact', () => {
     render(<ContactDetailsSection contact={contact} />);
 
     expect(
