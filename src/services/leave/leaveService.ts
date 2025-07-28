@@ -38,7 +38,6 @@ export const getLeaveApplicationById = async (documentId: string) => {
     `${API_URL}${API.BASE}/${documentId}?populate=document`,
     {
       method: 'GET',
-      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -111,8 +110,6 @@ export const patchLeaveApplication = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ data }),
-    // Caching data
-    cache: 'no-store',
   });
 
   if (!res.ok) {

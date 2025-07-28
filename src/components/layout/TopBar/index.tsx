@@ -80,6 +80,7 @@ const TopBar = () => {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="text-gray-700 focus:outline-none"
+          aria-label="hamburger"
         >
           {isMenuOpen ? (
             <XMarkIcon className="w-6 h-6" />

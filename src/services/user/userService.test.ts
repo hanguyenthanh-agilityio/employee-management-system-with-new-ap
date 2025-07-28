@@ -91,7 +91,6 @@ describe('userService', () => {
             Authorization: 'Bearer test-token',
           },
           body: JSON.stringify(inputData),
-          cache: 'no-store',
         }),
       );
       expect(result).toEqual({ success: true });

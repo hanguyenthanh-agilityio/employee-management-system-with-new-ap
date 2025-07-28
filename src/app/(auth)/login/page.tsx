@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 // Components
-import { LoginForm } from '@/components';
+import LoginForm from '@/components/auth/LoginForm';
 
 export const metadata: Metadata = {
   title: 'Login',

@@ -32,7 +32,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        className="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2 bg-transparent shadow-none hover:bg-transparent hover:outline-none hover:border-none font-bold !text-lg"
         onClick={() => onSort('startDate')}
       >
         Start Date
@@ -52,7 +52,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        className="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2 bg-transparent shadow-none hover:bg-transparent hover:outline-none hover:border-none font-bold !text-lg"
         onClick={() => onSort('endDate')}
       >
         End Date
@@ -72,7 +72,7 @@ export const COLUMNS = ({
   {
     title: (
       <Button
-        className="w-full flex justify-center gap-2"
+        className="w-full flex justify-center gap-2 bg-transparent shadow-none hover:bg-transparent hover:outline-none hover:border-none font-bold !text-lg"
         onClick={() => onSort('type')}
       >
         Type

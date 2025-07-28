@@ -33,7 +33,7 @@ const GenericTable = <T,>({
       <thead className="bg-[#E3EDF9] text-black font-bold">
         <tr>
           {columns.map((col, index) => (
-            <th key={index} className="px-4 py-5 whitespace-nowrap">
+            <th key={index} className="px-4 py-5 whitespace-nowrap text-lg">
               {col.title}
             </th>
           ))}
