@@ -1,6 +1,21 @@
-export * from './common';
 export * from './leave';
-export * from './profile';
+export * from './Profile';
 export * from './status';
 export * from './dashboard';
 export * from './layout';
+
+export { default as Form } from './common/Form';
+export { default as Card } from './common/Card/';
+export { default as Table } from './common/Table';
+export { default as Header } from './common/Header';
+export { default as Select } from './common/Select';
+export { default as Avatar } from './common/Avatar';
+export { default as Dropdown } from './common/Dropdown';
+export { default as Skeleton } from './common/Skeleton';
+export { default as Label } from './common/Label/label';
+export { default as Input } from './common/Input/input';
+export { default as Pagination } from './common/Pagination';
+export { default as ProgressBar } from './common/ProgressBar';
+export { default as Checkbox } from './common/Checkbox/checkbox';
+export { default as Textarea } from './common/Textarea/textarea';
+export { default as Button } from './common/Button/button';
