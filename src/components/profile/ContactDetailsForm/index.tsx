@@ -1,3 +1,5 @@
+'use client';
+
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // Components
