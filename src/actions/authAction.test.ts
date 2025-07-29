@@ -125,5 +125,42 @@ describe('authActions', () => {
         message: 'Register failed',
       });
     });
+
+    test('Should fallback to email if full name is empty', async () => {
+      (register as jest.Mock).mockResolvedValueOnce({ message: 'Registered' });
+
+      const result = await registerAction({
+        firstName: '',
+        lastName: '',
+        email: 'hanguyen@gmail.com',
+        password: '123456',
+        phone: '',
+        confirmPassword: '123456',
+        newsletter: false,
+        terms: true,
+      });
+
+      expect(register).toHaveBeenCalledWith({
+        username: 'hanguyen@gmail.com',
+        email: 'hanguyen@gmail.com',
+        password: '123456',
+      });
+
+      expect(result).toEqual({
+        success: true,
+        message: 'Registered',
+      });
+    });
+
+    test('Should return default error if unknown error is thrown', async () => {
+      (register as jest.Mock).mockRejectedValueOnce('Some unknown error');
+
+      const result = await registerAction(mock);
+
+      expect(result).toEqual({
+        success: false,
+        message: ERROR_MESSAGE.UNKNOWN_REGISTER,
+      });
+    });
   });
 });
