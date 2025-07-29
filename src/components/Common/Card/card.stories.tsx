@@ -5,11 +5,12 @@ import { EllipsisVerticalIcon } from '@heroicons/react/16/solid';
 
 // Constants
 import { PAY_ROWS } from '@/constants/table';
+import Card from '.';
+import { BirthdayItem } from '@/components/dashboard';
+import ProgressBar from '../ProgressBar';
+import Table from '../Table';
 
 // Component
-
-import BirthdayItem from '@/components/dashboard/BirthdayItem';
-import { Card, ProgressBar, Table } from '@/components';
 
 const meta = {
   title: 'Components/Common/Card',
