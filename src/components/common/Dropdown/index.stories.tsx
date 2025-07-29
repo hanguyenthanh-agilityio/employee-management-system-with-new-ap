@@ -7,7 +7,7 @@ import { ArrowDownCircleIcon } from '@heroicons/react/16/solid';
 import Dropdown from '.';
 
 const meta = {
-  title: 'Components/Common/Dropdown',
+  title: 'Components/common/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'centered',

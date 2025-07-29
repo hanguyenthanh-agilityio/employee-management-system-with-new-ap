@@ -7,7 +7,7 @@ import { Avatar } from '@/components';
 import { AVATAR_URL } from '@/constants';
 
 const meta = {
-  title: 'Components/Common/Avatar',
+  title: 'Components/common/Avatar',
   component: Avatar,
   parameters: {
     layout: 'centered',

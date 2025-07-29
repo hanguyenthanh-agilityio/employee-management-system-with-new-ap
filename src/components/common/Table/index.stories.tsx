@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Table from '.';
 
 const meta = {
-  title: 'Components/Common/Table',
+  title: 'Components/common/Table',
   component: Table,
   parameters: {
     layout: 'centered',
