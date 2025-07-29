@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import BirthdaySection from '.';
 
 const meta = {
-  title: 'Components/BirthdaySection',
+  title: 'Components/Dashboard/BirthdaySection',
   component: BirthdaySection,
   parameters: {
     layout: 'centered',

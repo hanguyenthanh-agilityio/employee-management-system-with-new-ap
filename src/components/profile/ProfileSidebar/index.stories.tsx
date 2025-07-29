@@ -7,7 +7,7 @@ import { ProfileSidebar } from '@/components';
 import { TABS_SIDEBAR } from '@/constants';
 
 const meta: Meta<typeof ProfileSidebar> = {
-  title: 'Components/ProfileSidebar',
+  title: 'Components/Profile/ProfileSidebar',
   component: ProfileSidebar,
   parameters: {
     layout: 'centered',
