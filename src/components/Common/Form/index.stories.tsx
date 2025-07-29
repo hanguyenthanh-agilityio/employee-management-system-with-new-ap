@@ -29,7 +29,7 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      type: args.type ?? '',
+      type: 'Annual Leave',
       startDate: args.startDate ?? '',
       endDate: args.endDate ?? '',
       durations: args.durations ?? 0,
@@ -38,7 +38,16 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
     },
   });
 
-  return <Form form={form} onReset={() => form.reset()} />;
+  const handleSubmit = form.handleSubmit((data) => {
+    // Log submitted data to Storybook action panel
+    console.log('Submitted:', data);
+  });
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Form form={form} onReset={() => form.reset()} />
+    </form>
+  );
 };
 
 export const Default: Story = {

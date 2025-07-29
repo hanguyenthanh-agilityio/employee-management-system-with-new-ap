@@ -1,3 +1,4 @@
+import { ALLOWED_LEAVE_TYPES } from '@/constants/inputField';
 import {
   addDays,
   differenceInDays,
@@ -6,13 +7,6 @@ import {
   startOfDay,
 } from 'date-fns';
 import { z } from 'zod';
-
-export const ALLOWED_LEAVE_TYPES = [
-  'Annual Leave',
-  'Sick Leave',
-  'Maternity Leave',
-  'Exam Leave',
-] as const;
 
 export const leaveApplicationSchema = z
   .object({

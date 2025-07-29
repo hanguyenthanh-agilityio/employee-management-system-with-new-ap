@@ -17,7 +17,6 @@ import { Form } from '@/components';
 
 // Utils
 import {
-  ALLOWED_LEAVE_TYPES,
   LeaveApplicationInput,
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
@@ -25,26 +24,24 @@ import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
 import { ERROR_MESSAGE, ROUTER } from '@/constants';
+import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 
-type LeaveType = (typeof ALLOWED_LEAVE_TYPES)[number];
+const isValidLeaveType = (type: string | null): type is LeaveType =>
+  ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
 
 const CreateLeaveContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const typeFromQuery = searchParams.get('type');
-  const leaveType: LeaveType | undefined = ALLOWED_LEAVE_TYPES.includes(
-    typeFromQuery as LeaveType,
-  )
-    ? (typeFromQuery as LeaveType)
+  const queryType = searchParams.get('type');
+  const typeFromQuery: LeaveType | undefined = isValidLeaveType(queryType)
+    ? queryType
     : undefined;
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      type: leaveType,
+      type: typeFromQuery,
       startDate: '',
       endDate: '',
       durations: 0,

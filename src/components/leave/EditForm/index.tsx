@@ -25,9 +25,13 @@ import {
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
 import { getDefaultDocument } from '@/types/field';
+import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 interface EditFormProps {
   leave: LeaveItem;
 }
+
+const isValidLeaveType = (type: string | null): type is LeaveType =>
+  ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
 
 const EditForm = ({ leave }: EditFormProps) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,7 +41,7 @@ const EditForm = ({ leave }: EditFormProps) => {
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
     defaultValues: {
-      type: leave.type,
+      type: isValidLeaveType(leave.type) ? leave.type : undefined,
       startDate: leave.startDate,
       endDate: leave.endDate,
       durations: leave.durations,
