@@ -31,6 +31,14 @@ describe('leaveService', () => {
 
       expect(result).toEqual(mockData);
     });
+
+    test('Throws error when fetch fails', async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+      await expect(getLeaveApplications(1)).rejects.toThrow(
+        'Failed to fetch leave history',
+      );
+    });
   });
 
   describe('getLeaveApplicationById', () => {
@@ -46,6 +54,14 @@ describe('leaveService', () => {
 
       expect(result).toEqual(mockData);
     });
+
+    test('Throws error when fetch fails', async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+      await expect(getLeaveApplicationById('invalid-id')).rejects.toThrow(
+        'Failed to fetch leave application with documentId invalid-id',
+      );
+    });
   });
 
   describe('getSummaryLeave', () => {
@@ -60,6 +76,14 @@ describe('leaveService', () => {
       const result = await getSummaryLeaves(1);
 
       expect(result).toEqual(mockData);
+    });
+
+    test('Throws error when fetch fails', async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+      await expect(getSummaryLeaves(1)).rejects.toThrow(
+        'Failed to fetch summary leaves',
+      );
     });
   });
 
@@ -124,6 +148,26 @@ describe('leaveService', () => {
       const res = await deleteLeave('123');
 
       expect(res.ok).toBe(true);
+    });
+
+    test('Throws error when delete fails with message', async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        text: async () => 'Delete failed',
+      });
+
+      await expect(deleteLeave('123')).rejects.toThrow('Delete failed');
+    });
+
+    test('Throws generic error when delete fails with empty message', async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        text: async () => '',
+      });
+
+      await expect(deleteLeave('123')).rejects.toThrow(
+        'Failed to delete leave application',
+      );
     });
   });
 });
