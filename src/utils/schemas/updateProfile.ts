@@ -10,15 +10,15 @@ export const personalDetails = z.object({
     .regex(/^[a-zA-Z\s]+$/, 'Full name can only contain letters and spaces'),
   department: z
     .string()
-    .min(2, 'Please enter your department')
+    .min(1, 'Department is required')
     .max(100, 'Department name is too long'),
   jobTitle: z
     .string()
-    .min(2, 'Please enter your job title')
+    .min(1, 'Job title is required')
     .max(100, 'Job title is too long'),
   jobCategory: z
     .string()
-    .min(2, 'Please enter your job category')
+    .min(1, 'Job category is required')
     .max(100, 'Job category is too long'),
   documentId: z.string().optional(),
   avatar: z

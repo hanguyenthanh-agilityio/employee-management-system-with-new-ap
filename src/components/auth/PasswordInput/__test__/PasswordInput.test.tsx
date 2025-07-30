@@ -5,6 +5,7 @@ describe('PasswordInput component', () => {
   test('Renders input with type password by default', () => {
     render(<PasswordInput placeholder="Password" />);
     const input = screen.getByPlaceholderText('Password') as HTMLInputElement;
+
     expect(input).toBeInTheDocument();
     expect(input.type).toBe('password');
   });
@@ -24,6 +25,31 @@ describe('PasswordInput component', () => {
   test('Shows red border if error is passed', () => {
     render(<PasswordInput placeholder="Password" error="Required" />);
     const input = screen.getByPlaceholderText('Password');
+
     expect(input).toHaveClass('border-red');
+  });
+
+  test('Toggle button has correct aria-label', () => {
+    render(<PasswordInput placeholder="Password" />);
+    const toggleButton = screen.getByRole('button');
+
+    expect(toggleButton).toHaveAttribute('aria-label', 'Show password');
+
+    fireEvent.click(toggleButton);
+
+    expect(toggleButton).toHaveAttribute('aria-label', 'Hide password');
+  });
+
+  test('Renders correct icon based on showPassword state', () => {
+    render(<PasswordInput placeholder="Password" />);
+
+    expect(screen.getByTestId('eye-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('eye-slash-icon')).not.toBeInTheDocument();
+
+    const toggleButton = screen.getByRole('button');
+    fireEvent.click(toggleButton);
+
+    expect(screen.getByTestId('eye-slash-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('eye-icon')).not.toBeInTheDocument();
   });
 });

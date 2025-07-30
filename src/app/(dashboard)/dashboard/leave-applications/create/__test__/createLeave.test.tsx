@@ -12,7 +12,7 @@ jest.mock('@/components/leave/CreateForm', () => ({
 }));
 
 describe('CreateLeavePage', () => {
-  it('renders breadcrumbs, title, description, and form', async () => {
+  test('renders breadcrumbs, title, description, and form', async () => {
     render(<CreateLeavePage />);
 
     expect(screen.getByTestId('breadcrumbs')).toBeInTheDocument();

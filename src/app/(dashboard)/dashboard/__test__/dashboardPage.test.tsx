@@ -38,7 +38,7 @@ jest.mock('@/api/leaveApplications', () => ({
 }));
 
 describe('DashboardPage', () => {
-  it('renders all sections with correct data', async () => {
+  test('renders all sections with correct data', async () => {
     render(await DashboardPage());
 
     // Profile

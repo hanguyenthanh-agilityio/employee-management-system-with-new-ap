@@ -20,7 +20,7 @@ jest.mock('next/link', () => ({
 }));
 
 describe('RegisterPage', () => {
-  it('renders title, description, RegisterForm, and login link', () => {
+  test('renders title, description, RegisterForm, and login link', () => {
     render(<RegisterPage />);
 
     // Header
