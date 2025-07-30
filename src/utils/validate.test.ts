@@ -19,12 +19,12 @@ describe('validateLeaveApplication', () => {
     jest.useFakeTimers().setSystemTime(new Date('2025-07-20T00:00:00Z'));
   });
 
-  it('returns parsed data if valid', () => {
+  test('Returns parsed data if valid', () => {
     const result = validateLeaveApplication(validData);
     expect(result).toEqual(validData);
   });
 
-  it('throws error if data is invalid', () => {
+  test('Throws error if data is invalid', () => {
     const invalidData = {
       ...validData,
       startDate: 'invalid-date',
@@ -35,7 +35,7 @@ describe('validateLeaveApplication', () => {
     );
   });
 
-  it('throws error if data is missing required field', () => {
+  test('Throws error if data is missing required field', () => {
     const missingFieldData = {
       startDate: '2025-07-21',
       endDate: '2025-07-23',

@@ -5,32 +5,32 @@ import '@testing-library/jest-dom';
 import Button from '../button';
 
 describe('Button', () => {
-  it('renders with default props', () => {
+  test('Renders with default props', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('bg-primary');
   });
 
-  it('applies custom className', () => {
+  test('Applies custom className', () => {
     render(<Button className="custom-class">Click</Button>);
     const button = screen.getByRole('button');
     expect(button).toHaveClass('custom-class');
   });
 
-  it('renders different variants', () => {
+  test('Renders different variants', () => {
     render(<Button variant="destructive">Delete</Button>);
     const button = screen.getByRole('button');
     expect(button).toHaveClass('bg-destructive');
   });
 
-  it('renders different sizes', () => {
+  test('Renders different sizes', () => {
     render(<Button size="lg">Large</Button>);
     const button = screen.getByRole('button');
     expect(button).toHaveClass('h-10');
   });
 
-  it('handles click events', () => {
+  test('Handles click events', () => {
     const onClick = jest.fn();
     render(<Button onClick={onClick}>Click</Button>);
     const button = screen.getByRole('button');
@@ -38,9 +38,24 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  it('is disabled when `disabled` prop is set', () => {
+  test('Is disabled when `disabled` prop is set', () => {
     render(<Button disabled>Disabled</Button>);
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
+  });
+
+  test('Renders using `asChild` with a custom component', () => {
+    render(
+      <Button asChild>
+        <a href="/test" data-testid="as-child-link">
+          Go to test
+        </a>
+      </Button>,
+    );
+
+    const link = screen.getByTestId('as-child-link');
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', '/test');
+    expect(link.tagName.toLowerCase()).toBe('a');
   });
 });

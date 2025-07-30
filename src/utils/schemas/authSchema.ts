@@ -20,9 +20,11 @@ export const emailField = z
     message: 'Please enter a valid email address',
   });
 
-const passwordField = z.string().min(6).max(100, {
-  message: 'Password must be between 6 and 100 characters',
-});
+const passwordField = z
+  .string()
+  .nonempty({ message: 'Password is required' })
+  .min(6, { message: 'Password must be at least 6 characters' })
+  .max(100, { message: 'Password must be at most 100 characters' });
 
 // Validate for Login form
 export const loginSchema = z.object({

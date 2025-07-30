@@ -33,7 +33,7 @@ describe('RegisterForm', () => {
     ).toBeInTheDocument();
   });
 
-  it('disables submit button when checkboxes are not checked', () => {
+  test('disables submit button when checkboxes are not checked', () => {
     render(<RegisterForm />);
     const button = screen.getByRole('button', { name: /Create Account/i });
     expect(button).toBeDisabled();

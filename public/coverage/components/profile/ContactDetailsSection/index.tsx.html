@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.22% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/59</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.22% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/59</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
@@ -147,38 +147,38 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use client';
@@ -209,11 +209,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) =&gt; {
   const form = useForm&lt;ContactDetailsInput&gt;({
     resolver: zodResolver(contactDetails),
     defaultValues: {
-      mainPhoneNumber: contact.mainPhoneNumber<span class="branch-0 cbranch-no" title="branch not covered" > ?? '',</span>
-      subPhoneNumber: contact.subPhoneNumber<span class="branch-0 cbranch-no" title="branch not covered" > ?? '',</span>
-      email: contact.email<span class="branch-0 cbranch-no" title="branch not covered" > ?? '',</span>
-      city: contact.city<span class="branch-0 cbranch-no" title="branch not covered" > ?? '',</span>
-      residential: contact.residential<span class="branch-0 cbranch-no" title="branch not covered" > ?? '',</span>
+      mainPhoneNumber: contact.mainPhoneNumber ?? '',
+      subPhoneNumber: contact.subPhoneNumber ?? '',
+      email: contact.email ?? '',
+      city: contact.city ?? '',
+      residential: contact.residential ?? '',
     },
   });
 &nbsp;
@@ -221,11 +221,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) =&gt; {
 &nbsp;
   const { update, isPending, errorMessage } = useUpdateProfile();
 &nbsp;
-  const handleSubmitForm = <span class="fstat-no" title="function not covered" >async (data: ContactDetailsInput) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const result = await update(data, String(contact.id));</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (result.success) reset(data);</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
+  const handleSubmitForm = async (data: ContactDetailsInput) =&gt; {
+    const result = await update(data, String(contact.id));
+&nbsp;
+    if (result.success) reset(data);
+  };
 &nbsp;
   return (
     &lt;form
@@ -247,7 +247,7 @@ export default ContactDetailsSection;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-30T02:19:25.049Z
+                at 2025-07-30T04:47:40.703Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

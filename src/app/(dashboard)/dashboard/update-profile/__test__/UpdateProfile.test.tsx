@@ -12,7 +12,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('UpdateProfilePage', () => {
-  it('redirects to personal-details page', () => {
+  test('redirects to personal-details page', () => {
     render(<UpdateProfilePage />);
     expect(redirect).toHaveBeenCalledWith(ROUTER.EDIT_PERSONAL_DETAILS);
   });

@@ -8,7 +8,7 @@ jest.mock('@/components/auth/LoginForm', () => ({
 }));
 
 describe('LoginPage', () => {
-  it('renders the LoginForm component', async () => {
+  test('renders the LoginForm component', async () => {
     // page.tsx is an server component: waits for the result of await LoginPage() before rendering
     const Component = await LoginPage();
     render(Component);

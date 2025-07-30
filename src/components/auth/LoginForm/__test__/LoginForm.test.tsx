@@ -68,4 +68,12 @@ describe('LoginForm', () => {
       expect(pushMock).toHaveBeenCalledWith('/dashboard');
     });
   });
+
+  test('shows validation errors on empty input', async () => {
+    render(<LoginForm />);
+
+    fireEvent.click(screen.getByRole('button', { name: /submit login form/i }));
+
+    expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
+  });
 });

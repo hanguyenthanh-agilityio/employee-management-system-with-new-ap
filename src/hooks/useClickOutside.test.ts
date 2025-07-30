@@ -19,7 +19,7 @@ describe('useClickOutside', () => {
     jest.clearAllMocks();
   });
 
-  it('should call handler when clicking outside the element', () => {
+  test('Should call handler when clicking outside the element', () => {
     const handler = jest.fn();
 
     // Simulate dom events(ex: mouseDown)
@@ -28,7 +28,7 @@ describe('useClickOutside', () => {
     expect(handler).toHaveBeenCalledTimes(0);
   });
 
-  it('should NOT call handler when clicking inside the element', () => {
+  test('Should NOT call handler when clicking inside the element', () => {
     const handler = jest.fn();
     const ref = setupHook(handler);
 

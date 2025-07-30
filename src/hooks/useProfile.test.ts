@@ -95,7 +95,7 @@ describe('useUpdateProfile', () => {
     expect(result.current.errorMessage).toBe(ERROR_MESSAGE.UNKNOWN);
   });
 
-  it('should handle network error (catch block)', async () => {
+  test('should handle network error (catch block)', async () => {
     // mock updateProfile function to throw error instead of returning normal data
     mockUpdateProfile.mockRejectedValue(new Error('Network error'));
 
