@@ -55,6 +55,7 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
                 <Loading width={8} height={8} />
               ) : (
                 <button
+                  aria-label="Logout"
                   className="flex items-center w-full block px-4 py-2 hover:bg-gray-100"
                   onClick={onClick}
                 >

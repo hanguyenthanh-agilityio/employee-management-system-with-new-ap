@@ -12,12 +12,12 @@ import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 
 const defaultValues = mockContact;
 
-const Form = () => {
+const Form = ({ disable = false }: { disable?: boolean }) => {
   const form = useForm<ContactDetailsInput>({
     defaultValues,
   });
 
-  return <ContactDetailsForm form={form} />;
+  return <ContactDetailsForm form={form} disable={disable} />;
 };
 describe('ContactDetailsForm component', () => {
   test('Renders form with all fields', () => {

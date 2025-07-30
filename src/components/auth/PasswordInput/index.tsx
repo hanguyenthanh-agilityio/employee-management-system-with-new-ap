@@ -35,9 +35,9 @@ const PasswordInput = ({ error, className, ...props }: PasswordInputProps) => {
         tabIndex={-1}
       >
         {showPassword ? (
-          <EyeSlashIcon width={20} height={20} />
+          <EyeSlashIcon data-testid="eye-slash-icon" width={20} height={20} />
         ) : (
-          <EyeIcon width={20} height={20} />
+          <EyeIcon data-testid="eye-icon" width={20} height={20} />
         )}
       </Button>
     </div>

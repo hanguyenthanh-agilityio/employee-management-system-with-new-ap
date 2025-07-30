@@ -10,7 +10,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, icon, onIconClick, ...props }, ref) => (
+  ({ className, type, error, icon, onIconClick, name, ...props }, ref) => (
     <>
       <input
         type={type}
@@ -31,7 +31,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {icon}
         </Button>
       )}
-      {error && <p className="text-red text-sm mt-1">{error}</p>}
+      {error && (
+        <p className="text-red text-sm mt-1" data-testid={`${name}-error`}>
+          {error}
+        </p>
+      )}
     </>
   ),
 );

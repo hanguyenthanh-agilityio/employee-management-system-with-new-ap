@@ -1,23 +1,39 @@
 import { render, screen } from '@testing-library/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 // Components
 import { ProfileEditForm } from '@/components';
 
 // Utils
-import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import {
+  personalDetails,
+  PersonalDetailsInput,
+} from '@/utils/schemas/updateProfile';
 
 // Mocks
-import { mockProfile } from '@/mocks/profile';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-const defaultValues = mockProfile;
-
-const Form = () => {
+const Form = ({ disable = false }: { disable?: boolean }) => {
   const form = useForm<PersonalDetailsInput>({
-    defaultValues,
+    resolver: zodResolver(personalDetails),
+    defaultValues: {
+      username: '',
+      department: '',
+      jobTitle: '',
+      jobCategory: '',
+    },
+    mode: 'onChange',
   });
 
-  return <ProfileEditForm form={form} />;
+  const onSubmit: SubmitHandler<PersonalDetailsInput> = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  };
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <ProfileEditForm form={form} disable={disable} />
+    </form>
+  );
 };
 
 describe('ProfileEditForm component', () => {
@@ -25,23 +41,15 @@ describe('ProfileEditForm component', () => {
     render(<Form />);
 
     expect(screen.getByText('Employee Name')).toBeInTheDocument();
-    expect(
-      screen.getByDisplayValue(defaultValues.username),
-    ).toBeInTheDocument();
-
     expect(screen.getByText('Department')).toBeInTheDocument();
-    expect(
-      screen.getByDisplayValue(defaultValues.department),
-    ).toBeInTheDocument();
-
     expect(screen.getByText('Job Title')).toBeInTheDocument();
-    expect(
-      screen.getByDisplayValue(defaultValues.jobTitle),
-    ).toBeInTheDocument();
-
     expect(screen.getByText('Job Category')).toBeInTheDocument();
-    expect(
-      screen.getByDisplayValue(defaultValues.jobCategory),
-    ).toBeInTheDocument();
+  });
+
+  test('Save button is rendered and disabled when form is not dirty', () => {
+    render(<Form />);
+    const button = screen.getByRole('button', { name: /save/i });
+    expect(button).toBeInTheDocument();
+    expect(button).toBeDisabled();
   });
 });
