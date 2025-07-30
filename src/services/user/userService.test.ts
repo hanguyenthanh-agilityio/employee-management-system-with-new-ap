@@ -95,5 +95,48 @@ describe('userService', () => {
       );
       expect(result).toEqual({ success: true });
     });
+
+    test('Returns correct message and statusCode when API returns error', async () => {
+      const errorMessage = 'Invalid user data';
+
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: jest.fn().mockResolvedValue({
+          error: { message: errorMessage },
+        }),
+      });
+
+      const result = await updateProfile(userId, inputData);
+
+      expect(result).toEqual({
+        success: false,
+        message: errorMessage,
+        statusCode: 400,
+      });
+    });
+
+    test('Returns MISSING_TOKEN error if token is not found', async () => {
+      const { getTokenFromCookies } = await import('@/utils/auth');
+      (getTokenFromCookies as jest.Mock).mockResolvedValue(null);
+
+      const result = await updateProfile(userId, inputData);
+
+      expect(result).toEqual({
+        success: false,
+        message: ERROR_MESSAGE.MISSING_TOKEN,
+      });
+    });
+
+    test('Returns UNEXPECTED error on fetch exception', async () => {
+      mockFetch.mockRejectedValue(new Error('Network error'));
+
+      const result = await updateProfile(userId, inputData);
+
+      expect(result).toEqual({
+        success: false,
+        message: 'Authentication token is missing',
+      });
+    });
   });
 });

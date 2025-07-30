@@ -93,6 +93,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
         />
 
         <Input
+          data-testid="file-input"
           ref={inputRef}
           type="file"
           accept="image/*"
@@ -101,6 +102,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
         />
 
         <Button
+          data-testid="change-button"
           type="button"
           variant="ghost"
           onClick={handleChooseFile}
