@@ -1,0 +1,43 @@
+@tailwind components;
+
+@layer components {
+  .input-base {
+    @apply h-auto rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg;
+  }
+
+  .input-error {
+    @apply border-red focus:ring-red;
+  }
+
+  .input-normal {
+    @apply border-mediumLightGray focus:ring-secondary/30;
+  }
+
+  .label-base {
+    @apply block text-lg md:text-xl font-bold mb-3 text-primary;
+  }
+
+  .checkbox-base {
+    @apply w-[20px] h-[20px] border-mediumLightGray;
+  }
+
+  .password-input-wrapper {
+    @apply relative w-full;
+  }
+
+  .password-input-field {
+    @apply h-auto w-full rounded-md border-2 px-4 py-3 pr-12 !text-lg text-primary shadow-sm focus:outline-none focus:ring-2;
+  }
+
+  .password-input-error {
+    @apply border-red focus:ring-red;
+  }
+
+  .password-input-normal {
+    @apply border-mediumLightGray focus:ring-secondary/30;
+  }
+
+  .password-toggle-button {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 shadow-none hover:text-gray-700 focus:outline-none;
+  }
+}

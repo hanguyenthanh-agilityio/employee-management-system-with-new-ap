@@ -3,6 +3,8 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 
+// Css
+import '@/styles/formStyle.css';
 // Toast message
 import { toast } from 'react-toastify';
 
@@ -132,7 +134,7 @@ const RegisterForm = () => {
                     checked={!!field.value}
                     onCheckedChange={field.onChange}
                     disabled={isSubmitting}
-                    className="form-checkbox w-[20px] h-[20px] text-white border-[2px] border-mediumLightGray"
+                    className="checkbox-base"
                   />
                   <Label
                     htmlFor={cb.id}
