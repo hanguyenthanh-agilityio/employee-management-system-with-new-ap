@@ -68,17 +68,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-@layer components {
-  .input-base {
-    @apply h-auto rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg;
-  }
-
-  .input-error {
-    @apply border-red focus:ring-red;
-  }
-
-  .input-normal {
-    @apply border-mediumLightGray focus:ring-secondary/30;
-  }
-}

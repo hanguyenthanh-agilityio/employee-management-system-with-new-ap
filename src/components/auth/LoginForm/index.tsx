@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
+// Css
+import '@/styles/formStyle.css';
+
 // REact Toast
 import { toast } from 'react-toastify';
 
@@ -133,7 +136,7 @@ const LoginForm = () => {
           <div className="flex justify-between items-center">
             <Checkbox
               id="remember"
-              className="form-checkbox w-[20px] h-[20px] text-mediumLightGray"
+              className="checkbox-base"
               disabled={isSubmitting}
             />
             <Label

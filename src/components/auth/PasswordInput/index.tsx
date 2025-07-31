@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid';
+
+// Css
+import '@/styles/formStyle.css';
 
 // Components
 import { Button, Input } from '@/components';
@@ -10,38 +13,39 @@ interface PasswordInputProps
   error?: string;
 }
 
-const PasswordInput = ({ error, className, ...props }: PasswordInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+  ({ error, className, ...props }, _ref) => {
+    const [showPassword, setShowPassword] = useState(false);
 
-  return (
-    <div className="relative w-full">
-      <Input
-        type={showPassword ? 'text' : 'password'}
-        className={cn(
-          'h-auto w-full rounded-md border-2 px-4 py-3 pr-12 !text-lg text-primary shadow-sm',
-          error
-            ? 'border-red focus:ring-red'
-            : 'border-mediumLightGray focus:ring-secondary/30',
-          'focus:outline-none focus:ring-2',
-          className,
-        )}
-        {...props}
-      />
-      <Button
-        type="button"
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 bg-[none] shadow-none hover:text-gray-700 hover:bg-[none] focus:outline-none"
-        onClick={() => setShowPassword((prev) => !prev)}
-        aria-label={showPassword ? 'Hide password' : 'Show password'}
-        tabIndex={-1}
-      >
-        {showPassword ? (
-          <EyeSlashIcon data-testid="eye-slash-icon" width={20} height={20} />
-        ) : (
-          <EyeIcon data-testid="eye-icon" width={20} height={20} />
-        )}
-      </Button>
-    </div>
-  );
-};
+    return (
+      <div className="relative w-full">
+        <Input
+          type={showPassword ? 'text' : 'password'}
+          className={cn(
+            'password-input-field',
+            error ? 'password-input-error' : 'password-input-normal',
+            className,
+          )}
+          {...props}
+        />
+        <Button
+          type="button"
+          className="password-toggle-button bg-[none] hover:bg-[none]"
+          onClick={() => setShowPassword((prev) => !prev)}
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+          tabIndex={-1}
+        >
+          {showPassword ? (
+            <EyeSlashIcon data-testid="eye-slash-icon" width={20} height={20} />
+          ) : (
+            <EyeIcon data-testid="eye-icon" width={20} height={20} />
+          )}
+        </Button>
+      </div>
+    );
+  },
+);
+
+PasswordInput.displayName = 'PasswordInput';
 
 export default PasswordInput;

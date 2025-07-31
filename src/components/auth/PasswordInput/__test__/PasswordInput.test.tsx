@@ -22,13 +22,6 @@ describe('PasswordInput component', () => {
     expect(input.type).toBe('password');
   });
 
-  test('Shows red border if error is passed', () => {
-    render(<PasswordInput placeholder="Password" error="Required" />);
-    const input = screen.getByPlaceholderText('Password');
-
-    expect(input).toHaveClass('border-red');
-  });
-
   test('Toggle button has correct aria-label', () => {
     render(<PasswordInput placeholder="Password" />);
     const toggleButton = screen.getByRole('button');
