@@ -41,6 +41,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             <EyeIcon data-testid="eye-icon" width={20} height={20} />
           )}
         </Button>
+
+        {error && <p className="text-red text-sm mt-2">{error}</p>}
       </div>
     );
   },

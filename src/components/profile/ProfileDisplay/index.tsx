@@ -84,7 +84,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 p-6 w-full">
+    <div className="flex flex-col items-center gap-10 p-2 md:p-6 w-full">
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 mx-auto group">
         <Avatar
           name={profile.username}
@@ -114,7 +114,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
 
       <form
         data-testid="profile-edit-form"
-        className="flex flex-col gap-14 text-center w-full max-w-xl"
+        className="flex flex-col gap-8 md:gap-14 text-center w-full max-w-xl"
         onSubmit={handleSubmit(handleSubmitForm)}
       >
         <ProfileEditForm form={form} disable={isPending} />

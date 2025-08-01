@@ -9,7 +9,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
   <nav
-    className="bg-white px-8 py-6 text-gray-700 text-[25px] font-medium py-2 mb-4"
+    className="bg-white px-6 md:px-8 py-4 md:py-6 text-gray-700 text-xl md:text-[25px] font-medium py-2 mb-4"
     aria-label="Breadcrumb"
   >
     <ul className="flex flex-wrap gap-1 items-center">

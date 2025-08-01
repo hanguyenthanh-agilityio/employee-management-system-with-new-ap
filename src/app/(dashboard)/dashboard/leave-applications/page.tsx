@@ -25,8 +25,8 @@ const ApplyForLeavePage = async () => {
 
       {/* Main content */}
       <div className="bg-white">
-        <div className="p-6 md:p-8">
-          <h2 className="flex item-center gap-4 text-3xl text-[#1D1D1D] px-0 md:px-5 py-8">
+        <div className="p-6 md:p-6 lg:p-8">
+          <h2 className="flex item-center gap-4 text-2xl md:text-3xl text-[#1D1D1D] px-0 md:px-5 py-4 md:py-6 lg:py-8">
             <BookOpenIcon width={34} height={34} />
             Leave Application
           </h2>

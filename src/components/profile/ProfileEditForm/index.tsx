@@ -31,7 +31,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="username"
-              className="text-center !text-3xl font-bold py-6"
+              className="text-center !text-2xl md:!text-3xl font-bold py-6"
               type="text"
               disabled={disable}
               error={errors.username?.message}
@@ -51,7 +51,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="department"
-              className="text-center !text-3xl font-bold py-6"
+              className="text-center !text-2xl md:!text-3xl font-bold py-6"
               type="text"
               disabled={disable}
               error={errors.department?.message}
@@ -72,7 +72,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobTitle"
-                className="text-center !text-3xl font-bold py-6"
+                className="text-center !text-2xl md:!text-3xl font-bold py-6 truncate max-w-80 md:max-w-none w-full"
                 type="text"
                 disabled={disable}
                 error={errors.jobTitle?.message}
@@ -92,7 +92,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobCategory"
-                className="text-center !text-3xl font-bold py-6"
+                className="text-center !text-2xl md:!text-3xl font-bold py-6"
                 type="text"
                 disabled={disable}
                 error={errors.jobCategory?.message}
