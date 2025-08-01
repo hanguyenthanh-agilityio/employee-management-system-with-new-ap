@@ -27,7 +27,7 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="en">
+  <html lang="en" className="light">
     <body className={productSans.className}>
       {children} <ToastProvider />
     </body>
