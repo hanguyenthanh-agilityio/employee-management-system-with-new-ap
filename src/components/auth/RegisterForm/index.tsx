@@ -43,7 +43,6 @@ const RegisterForm = () => {
       password: '',
       confirmPassword: '',
       terms: false,
-      newsletter: false,
     },
   });
 
@@ -58,7 +57,6 @@ const RegisterForm = () => {
     }
   };
 
-  const watchedNewsletter = watch('newsletter');
   const watchedTerms = watch('terms');
 
   return (
@@ -160,7 +158,7 @@ const RegisterForm = () => {
         <Button
           type="submit"
           className="h-auto w-full sm:max-w-[300px] justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
-          disabled={isSubmitting || !watchedNewsletter || !watchedTerms}
+          disabled={isSubmitting || !watchedTerms}
         >
           {isSubmitting ? 'Creating Account...' : 'Create Account'}
         </Button>

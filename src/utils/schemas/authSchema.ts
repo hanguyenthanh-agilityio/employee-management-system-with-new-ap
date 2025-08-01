@@ -47,9 +47,6 @@ export const registerSchema = z
       .regex(/^\d+$/, 'Phone must contain only digits'),
     password: passwordField,
     confirmPassword: z.string(),
-    newsletter: z.boolean().refine((val) => val === true, {
-      message: 'You must agree to receive newsletter',
-    }),
     terms: z.boolean().refine((val) => val === true, {
       message: 'You must agree to terms and privacy',
     }),
