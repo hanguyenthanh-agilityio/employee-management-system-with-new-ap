@@ -18,8 +18,9 @@ const ErrorFallback = ({ error, reset }: ErrorFallbackProps) => {
         Something went wrong!
       </h2>
 
-      <p className="mt-2 text-sm text-gray-500">
-        {error.message || 'An unexpected error occurred.'}
+      <p className="mt-2 text-sm text-gray-500 max-w-md">
+        We’re sorry, something went wrong while loading the page. <br />
+        Please try again or contact support if the issue continues.
       </p>
 
       <button

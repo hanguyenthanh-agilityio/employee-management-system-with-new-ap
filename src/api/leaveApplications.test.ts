@@ -15,6 +15,9 @@ import {
   updateLeaveApplication,
 } from './leaveApplications';
 
+// Constants
+import { ERROR_MESSAGE } from '@/constants';
+
 jest.mock('@/services/leave/leaveService');
 jest.mock('@/services/user/userService');
 
@@ -96,7 +99,7 @@ describe('leaveActions', () => {
 
       expect(result).toEqual({
         success: false,
-        message: 'Failed to update leave application.',
+        message: ERROR_MESSAGE.UPDATE_LEAVE_FAILED,
       });
     });
   });
@@ -130,7 +133,7 @@ describe('leaveActions', () => {
 
       expect(result).toEqual({
         success: false,
-        message: 'Unable to load summary leaves',
+        message: ERROR_MESSAGE.SUMMARY_LEAVE_FAILED,
       });
     });
   });
