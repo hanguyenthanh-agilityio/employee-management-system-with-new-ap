@@ -1,3 +1,5 @@
+'use client';
+
 import { ErrorFallback } from '@/components';
 
 export default function Error({
