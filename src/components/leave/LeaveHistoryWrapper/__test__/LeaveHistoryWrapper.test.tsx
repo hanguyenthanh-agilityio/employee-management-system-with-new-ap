@@ -8,14 +8,23 @@ jest.mock('@/components', () => ({
 }));
 
 // Mock service functions
-jest.mock('@/services', () => ({
+jest.mock('@/services/user/userService', () => ({
   getCachedUser: jest.fn(),
+}));
+
+jest.mock('@/services/leave/leaveService', () => ({
   getLeaveApplications: jest.fn(),
 }));
 
-import { getCachedUser, getLeaveApplications } from '@/services';
+// Components
 import LeaveHistoryWrapper from '..';
+
+// Types
 import { LeaveItem } from '@/types/components';
+
+// Services
+import { getCachedUser } from '@/services/user/userService';
+import { getLeaveApplications } from '@/services/leave/leaveService';
 
 describe('LeaveHistoryWrapper', () => {
   test('Renders LeaveHistorySection with fetched data', async () => {
