@@ -3,13 +3,13 @@
 import { revalidateTag } from 'next/cache';
 
 // Services
+import { getCachedUser } from '@/services/user/userService';
 import {
-  postLeaveApplication,
-  patchLeaveApplication,
   deleteLeave,
   getSummaryLeaves,
-  getCachedUser,
-} from '@/services';
+  patchLeaveApplication,
+  postLeaveApplication,
+} from '@/services/leave/leaveService';
 
 // Utils
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
