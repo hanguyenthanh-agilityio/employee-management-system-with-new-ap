@@ -4,3 +4,4 @@ export { default as LoadingFormLeave } from './LoadingFormLeave';
 export { default as DeleteConfirmModal } from './DeleteConfirmModal';
 export { default as LoadingLeaveApplication } from './LoadingLeaveApplication';
 export { default as DashboardSkeleton } from './DashboardSkeleton';
+export { default as EmptyStatePage } from './EmptyStatePage';
