@@ -1,10 +1,13 @@
+// Services
 import {
-  postLeaveApplication,
-  patchLeaveApplication,
   deleteLeave,
   getSummaryLeaves,
-  getCachedUser,
-} from '@/services';
+  patchLeaveApplication,
+  postLeaveApplication,
+} from '@/services/leave/leaveService';
+import { getCachedUser } from '@/services/user/userService';
+
+// Apis
 import {
   createLeaveApplication,
   deleteLeaveApplication,
@@ -12,7 +15,8 @@ import {
   updateLeaveApplication,
 } from './leaveApplications';
 
-jest.mock('@/services');
+jest.mock('@/services/leave/leaveService');
+jest.mock('@/services/user/userService');
 
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),
