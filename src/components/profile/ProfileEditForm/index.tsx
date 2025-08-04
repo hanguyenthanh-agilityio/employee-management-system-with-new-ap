@@ -3,7 +3,7 @@
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, Input, Label } from '@/components';
+import { Button, Input, Label, TransitionLoader } from '@/components';
 
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
@@ -21,6 +21,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
 
   return (
     <>
+      {isSubmitting && <TransitionLoader />}
       {/* Username */}
       <div className="flex flex-col gap-2">
         <Label
