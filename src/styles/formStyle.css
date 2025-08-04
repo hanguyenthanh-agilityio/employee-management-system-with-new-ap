@@ -13,8 +13,16 @@
     @apply border-mediumLightGray focus:ring-secondary/30;
   }
 
+  .input-profile {
+    @apply my-3 md:my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-2 md:py-4 rounded-[15px];
+  }
+
   .label-base {
     @apply block text-lg md:text-xl font-bold mb-3 text-primary;
+  }
+
+  .label-secondary {
+    @apply text-xl md:text-2xl;
   }
 
   .checkbox-base {
@@ -39,5 +47,13 @@
 
   .password-toggle-button {
     @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 shadow-none hover:text-gray-700 focus:outline-none;
+  }
+
+  .password-toggle-button {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 shadow-none hover:text-gray-700 focus:outline-none;
+  }
+
+  .textarea-base {
+    @apply input-base !text-xl resize-none;
   }
 }

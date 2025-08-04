@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'react-toastify';
 
 // Components
 import { Avatar, Input, ProfileEditForm, Button } from '@/components';
@@ -75,6 +76,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
 
       if (result.success) {
         reset(data);
+        toast.success('Profile updated successfully!');
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL);
       }
@@ -85,7 +87,8 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
 
   return (
     <div className="flex flex-col items-center gap-10 p-2 md:p-6 w-full">
-      <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 mx-auto group">
+      {/* Avatar */}
+      <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto group rounded-full overflow-hidden">
         <Avatar
           name={profile.username}
           url={preview || getAvatarUrl(profile.avatar)}
@@ -101,25 +104,36 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
           onChange={handleFileChange}
         />
 
-        <Button
-          data-testid="change-button"
-          type="button"
-          variant="ghost"
-          onClick={handleChooseFile}
-          className="h-auto absolute inset-0 bg-black/40 text-white opacity-0 group-hover:opacity-100 rounded-full flex items-center justify-center transition"
-        >
-          Change
-        </Button>
+        <div className="h-auto absolute inset-0 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Button
+            data-testid="change-button"
+            type="button"
+            onClick={handleChooseFile}
+            className="bg-white text-black px-3 py-1 rounded-full text-sm font-semibold shadow hover:text-white"
+            disabled={isPending}
+          >
+            Change
+          </Button>
+        </div>
       </div>
 
+      {/* Form */}
       <form
         data-testid="profile-edit-form"
-        className="flex flex-col gap-8 md:gap-14 text-center w-full max-w-xl"
         onSubmit={handleSubmit(handleSubmitForm)}
+        className="w-full max-w-xl mx-auto"
       >
-        <ProfileEditForm form={form} disable={isPending} />
+        <fieldset
+          disabled={isPending}
+          className="space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+        >
+          <ProfileEditForm form={form} disable={isPending} />
+        </fieldset>
+
         {errorMessage && (
-          <p className="text-sm text-red-500 font-medium">{errorMessage}</p>
+          <p className="text-center text-red !text-sm mt-3 font-medium">
+            {errorMessage}
+          </p>
         )}
       </form>
     </div>

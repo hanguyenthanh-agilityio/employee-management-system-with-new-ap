@@ -1,11 +1,12 @@
 'use client';
 
+import '../../../styles/formStyle.css';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // Components
 import { Button, Input, Textarea, Label } from '@/components';
-
 // Utils
+import { cn } from '@/lib/utils';
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 
 interface ContactDetailsFormProps {
@@ -21,9 +22,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-20 w-full">
+      {/* Phone Numbers */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 w-full">
         <div>
-          <Label htmlFor="mainPhoneNumber" className="text-xl md:text-2xl">
+          <Label htmlFor="mainPhoneNumber" className="label-secondary">
             Phone Number 1
           </Label>
           <Controller
@@ -32,7 +34,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
             render={({ field }) => (
               <Input
                 id="mainPhoneNumber"
-                className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+                className={cn(
+                  'input-base',
+                  errors.mainPhoneNumber ? 'input-error' : 'input-profile',
+                )}
                 disabled={disable}
                 error={errors.mainPhoneNumber?.message}
                 {...field}
@@ -41,7 +46,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           />
         </div>
         <div>
-          <Label htmlFor="subPhoneNumber" className="text-xl md:text-2xl">
+          <Label htmlFor="subPhoneNumber" className="label-secondary">
             Phone Number 2
           </Label>
           <Controller
@@ -50,7 +55,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
             render={({ field }) => (
               <Input
                 id="subPhoneNumber"
-                className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+                className={cn(
+                  'input-base',
+                  errors.subPhoneNumber ? 'input-error' : 'input-profile',
+                )}
                 disabled={disable}
                 error={errors.subPhoneNumber?.message}
                 {...field}
@@ -59,9 +67,11 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           />
         </div>
       </div>
+
+      {/* Email */}
       <div>
-        <Label htmlFor="email" className="text-xl md:text-2xl">
-          E-mail Address
+        <Label htmlFor="email" className="label-secondary">
+          Email Address
         </Label>
         <Controller
           name="email"
@@ -69,7 +79,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           render={({ field }) => (
             <Input
               id="email"
-              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+              className={cn(
+                'input-base',
+                errors.email ? 'input-error' : 'input-profile',
+              )}
               disabled={disable}
               error={errors.email?.message}
               {...field}
@@ -77,9 +90,11 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           )}
         />
       </div>
-      <div className="flex flex-col w-full md:w-[50%] pr-0 md:pr-10">
-        <Label htmlFor="city" className="text-xl md:text-2xl">
-          City of residence
+
+      {/* City */}
+      <div className="w-full md:w-[50%]">
+        <Label htmlFor="city" className="label-secondary">
+          City of Residence
         </Label>
         <Controller
           name="city"
@@ -87,7 +102,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           render={({ field }) => (
             <Input
               id="city"
-              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-6 md:py-8 rounded-[15px]"
+              className={cn(
+                'input-base',
+                errors.city ? 'input-error' : 'input-profile',
+              )}
               disabled={disable}
               error={errors.city?.message}
               {...field}
@@ -95,8 +113,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           )}
         />
       </div>
+
+      {/* Address */}
       <div>
-        <Label htmlFor="residential" className="text-xl md:text-2xl">
+        <Label htmlFor="residential" className="label-secondary">
           Residential Address
         </Label>
         <Controller
@@ -106,7 +126,10 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
             <Textarea
               id="residential"
               rows={4}
-              className="my-5 bg-[#E3EDF9] !text-xl border-none p-3 rounded-[15px]"
+              className={cn(
+                'textarea-base',
+                errors.residential ? 'input-error' : 'input-profile',
+              )}
               disabled={disable}
               error={errors.residential?.message}
               {...field}
@@ -115,8 +138,9 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
         />
       </div>
 
+      {/* Submit */}
       <Button
-        className="bg-darkGreen text-white hover:bg-green-700 font-bold py-6 md:py-8 text-lg md:text-2xl"
+        className="bg-darkGreen text-white hover:bg-green-700 font-bold py-6 md:py-8 text-lg md:text-2xl w-full md:w-[200px] mx-auto mt-4"
         disabled={isSubmitting || !isDirty}
       >
         {isSubmitting ? 'Updating...' : 'Update'}

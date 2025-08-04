@@ -2,12 +2,11 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-// types
-import { ContactsDetailsType } from '@/types/profile';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 // Components
-import { ContactDetailsForm } from '@/components';
+import { ContactDetailsForm, TransitionLoader } from '@/components';
 
 // Utils
 import {
@@ -17,6 +16,9 @@ import {
 
 // Hooks
 import { useUpdateProfile } from '@/hooks/useProfile';
+
+// Types
+import { ContactsDetailsType } from '@/types/profile';
 
 interface ContactDetailsSectionProps {
   contact: ContactsDetailsType;
@@ -34,24 +36,41 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
     },
   });
 
-  const { handleSubmit, reset } = form;
+  const {
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = form;
 
-  const { update, isPending, errorMessage } = useUpdateProfile();
+  const { update, errorMessage, setErrorMessage } = useUpdateProfile();
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage);
+      setErrorMessage('');
+    }
+  }, [errorMessage, setErrorMessage]);
 
   const handleSubmitForm = async (data: ContactDetailsInput) => {
     const result = await update(data, String(contact.id));
 
-    if (result.success) reset(data);
+    if (result.success) {
+      toast.success('Contact details updated successfully!');
+      reset(data);
+    }
   };
 
   return (
     <form
       data-testid="contact-details-form"
-      className="flex flex-col gap-4 md:gap-8 py-8 md:py-10 px-0 md:px-5"
+      className="flex flex-col gap-4 md:gap-8 py-6 md:px-6 md:py-10"
       onSubmit={handleSubmit(handleSubmitForm)}
     >
-      <ContactDetailsForm form={form} disable={isPending} />
-      {errorMessage && <p className="text-red">{errorMessage}</p>}
+      {isSubmitting && <TransitionLoader />}
+
+      <fieldset className="flex flex-col gap-6" disabled={isSubmitting}>
+        <ContactDetailsForm form={form} disable={isSubmitting} />
+      </fieldset>
     </form>
   );
 };

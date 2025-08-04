@@ -5,7 +5,7 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 // Components
 import { Button, Input, Label } from '@/components';
 
-// Utils
+// Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
 
 interface ProfileEditFormProps {
@@ -21,8 +21,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
-        <Label htmlFor="username" className="text-xl">
+      {/* Username */}
+      <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="username"
+          className="!text-xl font-semibold text-gray-700"
+        >
           Employee Name
         </Label>
         <Controller
@@ -31,7 +35,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="username"
-              className="text-center !text-2xl md:!text-3xl font-bold py-6"
+              className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
               type="text"
               disabled={disable}
               error={errors.username?.message}
@@ -41,8 +45,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         />
       </div>
 
-      <div className="flex flex-col gap-4">
-        <Label htmlFor="department" className="text-xl">
+      {/* Department */}
+      <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="department"
+          className="!text-xl font-semibold text-gray-700"
+        >
           Department
         </Label>
         <Controller
@@ -51,7 +59,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="department"
-              className="text-center !text-2xl md:!text-3xl font-bold py-6"
+              className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
               type="text"
               disabled={disable}
               error={errors.department?.message}
@@ -61,9 +69,13 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         />
       </div>
 
-      <div className="mt-4 flex gap-10 lg:gap-24">
-        <div className="flex flex-col gap-4">
-          <Label htmlFor="jobTitle" className="text-xl">
+      {/* Job title & category */}
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
+        <div className="flex-1 flex flex-col gap-2">
+          <Label
+            htmlFor="jobTitle"
+            className="!text-xl font-semibold text-gray-700"
+          >
             Job Title
           </Label>
           <Controller
@@ -72,7 +84,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobTitle"
-                className="text-center !text-2xl md:!text-3xl font-bold py-6 truncate max-w-80 md:max-w-none w-full"
+                className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
                 type="text"
                 disabled={disable}
                 error={errors.jobTitle?.message}
@@ -82,8 +94,11 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           />
         </div>
 
-        <div className="flex flex-col gap-4">
-          <Label htmlFor="jobCategory" className="text-xl">
+        <div className="flex-1 flex flex-col gap-2">
+          <Label
+            htmlFor="jobCategory"
+            className="!text-xl font-semibold text-gray-700"
+          >
             Job Category
           </Label>
           <Controller
@@ -92,7 +107,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobCategory"
-                className="text-center !text-2xl md:!text-3xl font-bold py-6"
+                className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
                 type="text"
                 disabled={disable}
                 error={errors.jobCategory?.message}
@@ -103,9 +118,10 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         </div>
       </div>
 
+      {/* Save button */}
       <Button
         type="submit"
-        className="bg-darkGreen hover:bg-green-700 px-10 py-7 text-white text-2xl font-bold"
+        className="w-full bg-darkGreen hover:bg-green-700 text-white text-lg py-3 rounded-lg flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition"
         disabled={isSubmitting || !isDirty}
       >
         {isSubmitting ? 'Saving...' : 'Save'}
