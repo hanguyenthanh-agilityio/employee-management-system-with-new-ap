@@ -4,7 +4,7 @@ import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
 
 // Components
-import { Input, Label, Textarea, Button } from '@/components';
+import { Input, Label, Textarea, Button, RequiredLabel } from '@/components';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
@@ -35,14 +35,14 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
         <div>
-          <Label
+          <RequiredLabel
             htmlFor="startDate"
             className="text-xl md:text-2xl text-[#1D1D1D]"
           >
             Start Date
-          </Label>
+          </RequiredLabel>
           <Controller
             name="startDate"
             control={control}
@@ -58,12 +58,12 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           />
         </div>
         <div>
-          <Label
+          <RequiredLabel
             htmlFor="endDate"
             className="text-xl md:text-2xl text-[#1D1D1D]"
           >
             End Date
-          </Label>
+          </RequiredLabel>
           <Controller
             name="endDate"
             control={control}
@@ -80,14 +80,14 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
         <div>
-          <Label
+          <RequiredLabel
             htmlFor="durations"
             className="text-xl md:text-2xl text-[#1D1D1D]"
           >
             Duration (days)
-          </Label>
+          </RequiredLabel>
           <Controller
             name="durations"
             control={control}
@@ -103,12 +103,12 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           />
         </div>
         <div>
-          <Label
+          <RequiredLabel
             htmlFor="resumptionDate"
             className="text-xl md:text-2xl text-[#1D1D1D]"
           >
             Resumption Date
-          </Label>
+          </RequiredLabel>
           <Controller
             name="resumptionDate"
             control={control}
@@ -125,10 +125,13 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         </div>
       </div>
 
-      <div>
-        <Label htmlFor="reason" className="text-xl md:text-2xl text-[#1D1D1D]">
+      <div className="pt-4">
+        <RequiredLabel
+          htmlFor="reason"
+          className="text-xl md:text-2xl text-[#1D1D1D]"
+        >
           Reason for Leave
-        </Label>
+        </RequiredLabel>
         <Controller
           name="reason"
           control={control}
