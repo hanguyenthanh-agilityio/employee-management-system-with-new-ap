@@ -9,12 +9,8 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 import { getLeaveApplicationById } from '@/services/leave/leaveService';
 
 // Components
-import {
-  Breadcrumbs,
-  EditForm,
-  LoadingFormLeave,
-  ToastProvider,
-} from '@/components';
+import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
+import ToastProvider from '@/components/status/ToastProvider';
 
 // Constants
 import { BREADCRUMBS } from '@/constants';

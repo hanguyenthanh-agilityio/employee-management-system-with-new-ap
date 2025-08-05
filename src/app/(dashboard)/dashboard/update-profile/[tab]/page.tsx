@@ -6,8 +6,8 @@ import {
   NotFoundMessage,
   ProfileDisplay,
   ContactDetailsSection,
-  ToastProvider,
 } from '@/components';
+import ToastProvider from '@/components/status/ToastProvider';
 
 // Constants
 import { TAB_ITEM } from '@/constants';

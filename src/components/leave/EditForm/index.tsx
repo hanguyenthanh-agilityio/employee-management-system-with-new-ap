@@ -5,6 +5,7 @@ import { addDays, differenceInCalendarDays } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 // APIs
 import { updateLeaveApplication } from '@/api/leaveApplications';
@@ -14,9 +15,11 @@ import { Form } from '@/components';
 
 // Constants
 import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
+import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 
 // Types
 import { LeaveItem } from '@/types/components';
+import { getDefaultDocument } from '@/types/field';
 
 // Utils
 import {
@@ -24,9 +27,6 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
-import { getDefaultDocument } from '@/types/field';
-import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
-import { toast } from 'react-toastify';
 interface EditFormProps {
   leave: LeaveItem;
 }
