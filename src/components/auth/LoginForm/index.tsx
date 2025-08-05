@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Button, Checkbox, Input, Label } from '@/components';
+import { Button, Checkbox, Input, Label, TransitionLoader } from '@/components';
 import PasswordInput from '../PasswordInput';
 
 // Utils
@@ -52,9 +52,17 @@ const LoginForm = () => {
       const result = await loginAction(undefined, data);
 
       if (result.success) {
-        toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS);
+        toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS, {
+          toastId: 'login-success',
+          autoClose: 5000,
+          closeOnClick: true,
+          draggable: true,
+          pauseOnHover: true,
+        });
 
-        router.push(ROUTER.DASHBOARD);
+        setTimeout(() => {
+          router.push(ROUTER.DASHBOARD);
+        }, 1000);
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
         toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
@@ -72,6 +80,8 @@ const LoginForm = () => {
 
   return (
     <>
+      {isSubmitting && <TransitionLoader />}
+
       <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">
         Login
       </h1>
@@ -155,6 +165,7 @@ const LoginForm = () => {
           </Link>
         </div>
 
+        {/* Server error */}
         {serverError && (
           <div
             className="text-red text-center text-lg font-medium"

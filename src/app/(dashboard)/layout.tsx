@@ -8,7 +8,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
     <div className="min-h-screen flex flex-col bg-lavender">
       <TopBar />
       <main className="flex-grow">
-        <div className="flex-grow container mx-auto px-4 sm:px-8 py-8">
+        <div className="flex-grow container mx-auto px-4 sm:px-8 py-4 md:py-6 lg:py-8">
           {children}
         </div>
       </main>

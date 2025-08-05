@@ -28,13 +28,16 @@ const GenericTable = <T,>({
   columns,
   pagination,
 }: GenericTableProps<T>) => (
-  <div className="overflow-x-auto w-full pb-24">
-    <div className="min-h-[400px] flex flex-col justify-between">
+  <div className="overflow-x-auto w-full pb-20">
+    <div className="min-h-[350px] flex flex-col justify-between">
       <table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base">
         <thead className="bg-[#E3EDF9] text-black font-bold">
           <tr>
             {columns.map((col, index) => (
-              <th key={index} className="px-4 py-5 whitespace-nowrap text-lg">
+              <th
+                key={index}
+                className="px-4 py-3 md:py-5 whitespace-nowrap text-lg"
+              >
                 {col.title}
               </th>
             ))}
