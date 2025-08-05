@@ -4,6 +4,7 @@ import Link from 'next/link';
 // Constants
 import { ROUTER } from '@/constants';
 import dynamic from 'next/dynamic';
+import { ToastProvider } from '@/components';
 
 // Component
 const RegisterForm = dynamic(() => import('@/components/auth/RegisterForm'));
@@ -31,6 +32,7 @@ const RegisterPage = () => (
         Log In
       </Link>
     </p>
+    <ToastProvider />
   </>
 );
 

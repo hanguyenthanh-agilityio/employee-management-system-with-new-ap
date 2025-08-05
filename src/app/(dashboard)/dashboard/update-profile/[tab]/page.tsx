@@ -6,6 +6,7 @@ import {
   NotFoundMessage,
   ProfileDisplay,
   ContactDetailsSection,
+  ToastProvider,
 } from '@/components';
 
 // Constants
@@ -55,22 +56,25 @@ const ContactDetailsContent = async () => {
 export default async function TabPage({ params }: Props) {
   const { tab } = params;
 
-  switch (tab) {
-    case TAB_ITEM.PERSONAL_DETAILS:
-      return (
+  return (
+    <>
+      <ToastProvider />
+
+      {tab === TAB_ITEM.PERSONAL_DETAILS && (
         <Suspense fallback={<LoadingFormLeave />}>
           <PersonalDetailsContent />
         </Suspense>
-      );
+      )}
 
-    case TAB_ITEM.CONTACT_DETAILS:
-      return (
+      {tab === TAB_ITEM.CONTACT_DETAILS && (
         <Suspense fallback={<LoadingFormLeave />}>
           <ContactDetailsContent />
         </Suspense>
-      );
+      )}
 
-    default:
-      return <NotFoundMessage title="Tabs not found" />;
-  }
+      {!Object.values(TAB_ITEM).includes(tab) && (
+        <NotFoundMessage title="Tabs not found" />
+      )}
+    </>
+  );
 }
