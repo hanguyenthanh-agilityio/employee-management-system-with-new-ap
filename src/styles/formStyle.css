@@ -6,7 +6,7 @@
   }
 
   .input-error {
-    @apply border-red focus:ring-red;
+    @apply my-3 md:my-5 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px];
   }
 
   .input-normal {

@@ -1,10 +1,12 @@
 'use client';
 
-import '../../../styles/formStyle.css';
+import '@/styles/formStyle.css';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, Input, Textarea, Label } from '@/components';
+import { Button, Input, Textarea, RequiredLabel } from '@/components';
+import MaskedInput from '@/components/common/MaskedInput';
+
 // Utils
 import { cn } from '@/lib/utils';
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
@@ -25,15 +27,16 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
       {/* Phone Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 w-full">
         <div>
-          <Label htmlFor="mainPhoneNumber" className="label-secondary">
+          <RequiredLabel htmlFor="mainPhoneNumber" className="label-secondary">
             Phone Number 1
-          </Label>
+          </RequiredLabel>
           <Controller
             name="mainPhoneNumber"
             control={control}
             render={({ field }) => (
-              <Input
+              <MaskedInput
                 id="mainPhoneNumber"
+                mask="999 999 9999"
                 className={cn(
                   'input-base',
                   errors.mainPhoneNumber ? 'input-error' : 'input-profile',
@@ -46,15 +49,16 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           />
         </div>
         <div>
-          <Label htmlFor="subPhoneNumber" className="label-secondary">
+          <RequiredLabel htmlFor="subPhoneNumber" className="label-secondary">
             Phone Number 2
-          </Label>
+          </RequiredLabel>
           <Controller
             name="subPhoneNumber"
             control={control}
             render={({ field }) => (
-              <Input
+              <MaskedInput
                 id="subPhoneNumber"
+                mask="999 999 9999"
                 className={cn(
                   'input-base',
                   errors.subPhoneNumber ? 'input-error' : 'input-profile',
@@ -70,9 +74,9 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* Email */}
       <div>
-        <Label htmlFor="email" className="label-secondary">
+        <RequiredLabel htmlFor="email" className="label-secondary">
           Email Address
-        </Label>
+        </RequiredLabel>
         <Controller
           name="email"
           control={control}
@@ -93,9 +97,9 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* City */}
       <div className="w-full md:w-[50%]">
-        <Label htmlFor="city" className="label-secondary">
+        <RequiredLabel htmlFor="city" className="label-secondary">
           City of Residence
-        </Label>
+        </RequiredLabel>
         <Controller
           name="city"
           control={control}
@@ -116,9 +120,9 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* Address */}
       <div>
-        <Label htmlFor="residential" className="label-secondary">
+        <RequiredLabel htmlFor="residential" className="label-secondary">
           Residential Address
-        </Label>
+        </RequiredLabel>
         <Controller
           name="residential"
           control={control}

@@ -61,8 +61,8 @@ const LoginForm = () => {
 
       if (result.success) {
         toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS, {
-          autoClose: 2000, // tự động tắt sau 2s
-          onClose: () => router.push(ROUTER.DASHBOARD), // chỉ chuyển trang khi toast đóng
+          autoClose: 2000,
+          onClose: () => router.push(ROUTER.DASHBOARD),
         });
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
