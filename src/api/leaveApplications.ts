@@ -3,17 +3,20 @@
 import { revalidateTag } from 'next/cache';
 
 // Services
+import { getCachedUser } from '@/services/user/userService';
 import {
-  postLeaveApplication,
-  patchLeaveApplication,
   deleteLeave,
   getSummaryLeaves,
-  getCachedUser,
-} from '@/services';
+  patchLeaveApplication,
+  postLeaveApplication,
+} from '@/services/leave/leaveService';
 
 // Utils
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import { validateLeaveApplication } from '@/utils/validate';
+
+// Constants
+import { ERROR_MESSAGE } from '@/constants';
 
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
@@ -21,9 +24,7 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
     const user = await getCachedUser();
 
     if (!user || !user.id) {
-      throw new Error(
-        'User information is missing. Cannot submit application.',
-      );
+      throw new Error(ERROR_MESSAGE.MISSING_USER);
     }
 
     const fullData: LeaveApplicationInput = {
@@ -34,20 +35,20 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
 
     const validateData = validateLeaveApplication(fullData);
 
+    if (!validateData) throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
+
     await postLeaveApplication({ data: validateData });
 
     revalidateTag('leave-apps');
 
     return { success: true };
   } catch (error) {
-    console.error('Error in createLeaveApplication:', error);
-
     return {
       success: false,
       message:
         error instanceof Error
           ? error.message
-          : 'Unknown error while creating leave application.',
+          : ERROR_MESSAGE.CREATE_LEAVE_FAILED,
     };
   }
 };
@@ -64,9 +65,11 @@ export const updateLeaveApplication = async (
     reason: string;
   },
 ) => {
-  const validateData = validateLeaveApplication(data);
-
   try {
+    const validateData = validateLeaveApplication(data);
+
+    if (!validateData) throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
+
     await patchLeaveApplication(documentId, validateData);
     // Apply revalidateTag
     revalidateTag('leave-apps');
@@ -75,28 +78,39 @@ export const updateLeaveApplication = async (
   } catch (error) {
     return {
       success: false,
-      message: 'Failed to update leave application.',
+      message: ERROR_MESSAGE.UPDATE_LEAVE_FAILED,
     };
   }
 };
 
 // Delete Leave Application
 export const deleteLeaveApplication = async (id: string) => {
-  await deleteLeave(id);
-  revalidateTag('leave-apps');
+  try {
+    await deleteLeave(id);
+    revalidateTag('leave-apps');
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: ERROR_MESSAGE.DELETE_LEAVE_FAILED,
+    };
+  }
 };
 
 // Get Summary Leaves
 export const fetchSummaryLeaves = async () => {
   try {
-    const userId = await getCachedUser();
-    const summary = await getSummaryLeaves(userId.id);
+    const user = await getCachedUser();
+
+    if (!user?.id) throw new Error(ERROR_MESSAGE.MISSING_USER);
+
+    const summary = await getSummaryLeaves(user.id);
 
     return { success: true, data: summary };
   } catch (error) {
     return {
       success: false,
-      message: 'Unable to load summary leaves',
+      message: ERROR_MESSAGE.SUMMARY_LEAVE_FAILED,
     };
   }
 };
