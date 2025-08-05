@@ -9,7 +9,12 @@ import { BookOpenIcon } from '@heroicons/react/16/solid';
 import { getLeaveApplicationById } from '@/services/leave/leaveService';
 
 // Components
-import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
+import {
+  Breadcrumbs,
+  EditForm,
+  LoadingFormLeave,
+  ToastProvider,
+} from '@/components';
 
 // Constants
 import { BREADCRUMBS } from '@/constants';
@@ -64,6 +69,7 @@ const UpdateLeavePage = async (props: {
           <UpdateLeaveContent documentId={documentId} />
         </Suspense>
       </div>
+      <ToastProvider />
     </>
   );
 };

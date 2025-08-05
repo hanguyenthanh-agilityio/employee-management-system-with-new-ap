@@ -4,7 +4,14 @@ import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
 
 // Components
-import { Input, Label, Textarea, Button, RequiredLabel } from '@/components';
+import {
+  Input,
+  Label,
+  Textarea,
+  Button,
+  RequiredLabel,
+  TransitionLoader,
+} from '@/components';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
@@ -18,7 +25,7 @@ interface FormProps {
 const Form = ({ form, onReset, defaultDocument }: FormProps) => {
   const {
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = form;
 
   return (
@@ -190,7 +197,7 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         <Button
           type="submit"
           className="bg-darkGreen hover:bg-green-700 px-10 md:px-28 py-6 font-bold text-white"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isDirty}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>
@@ -203,6 +210,8 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
           Reset
         </Button>
       </div>
+
+      {isSubmitting && <TransitionLoader />}
     </>
   );
 };
