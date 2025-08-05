@@ -26,8 +26,9 @@ describe('RegisterForm', () => {
 
     expect(screen.getByLabelText(/First Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Last Name/i)).toBeInTheDocument();
-    expect(screen.getByLabelText('E-mail Address')).toBeInTheDocument();
+    expect(screen.getByLabelText(/E-mail Address/i)).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
+    expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument();
     expect(
       screen.getByText(/Yes, I want to receive KRIS newsletters/i),
     ).toBeInTheDocument();
