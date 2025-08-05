@@ -72,9 +72,10 @@ export default async function TabPage({ params }: Props) {
         </Suspense>
       )}
 
-      {!Object.values(TAB_ITEM).includes(tab) && (
-        <NotFoundMessage title="Tabs not found" />
-      )}
+      {tab !== TAB_ITEM.PERSONAL_DETAILS &&
+        tab !== TAB_ITEM.CONTACT_DETAILS && (
+          <NotFoundMessage title="Tabs not found" />
+        )}
     </>
   );
 }
