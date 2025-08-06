@@ -43,13 +43,14 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
       };
     }
 
-    // Set token to cookie
+    // Save JWT token
     await setCookie('jwtToken', data.jwt, {
-      maxAge: 60 * 60 * 12,
+      maxAge: 60 * 60 * 12, // 12h
     });
 
     revalidateTag('current-user');
 
+    // Get user info after login
     const user = await getCurrentUser();
 
     //  Set user to cookie
@@ -68,6 +69,7 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
 
 export const logoutAction = async () => {
   await removeCookie('jwtToken');
+  await removeCookie('user');
   return { success: true };
 };
 
