@@ -22,7 +22,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row lg:flex-row justify-center md:justify-between items-center bg-primary rounded-lg text-white p-4 sm:p-6 lg:p-8 gap-y-6 gap-x-12">
+    <div className="flex flex-col md:flex-row lg:flex-row justify-center md:justify-between items-center bg-primary dark:bg-[#1e2b8b] rounded-lg text-white p-4 sm:p-6 lg:p-8 gap-y-6 gap-x-12">
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
         {/* Image */}
         <div className="relative w-24 h-24 sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden shrink-0">
