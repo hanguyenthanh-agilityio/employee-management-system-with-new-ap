@@ -9,7 +9,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
   <nav
-    className="bg-white px-6 md:px-8 py-4 md:py-6 text-gray-700 text-xl md:text-[25px] font-medium py-2 mb-4"
+    className="bg-white dark:bg-[#0d1626] text-foreground px-6 md:px-8 py-4 md:py-6 text-xl md:text-[25px] font-medium border-b border-border"
     aria-label="Breadcrumb"
   >
     <ul className="flex flex-wrap gap-1 items-center">
@@ -19,14 +19,14 @@ const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
             <>
               <Link
                 href={generateBreadcrumbUrl(paths, index)}
-                className="hover:underline"
+                className="hover:underline text-muted-foreground"
               >
                 {path}
               </Link>
-              <span>{'>'}</span>
+              <span className="text-muted-foreground">›</span>
             </>
           ) : (
-            <span className="text-black">{path}</span>
+            <span className="text-foreground">{path}</span>
           )}
         </li>
       ))}

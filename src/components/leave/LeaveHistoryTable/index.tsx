@@ -30,8 +30,8 @@ const GenericTable = <T,>({
 }: GenericTableProps<T>) => (
   <div className="overflow-x-auto w-full pb-20">
     <div className="min-h-[350px] flex flex-col justify-between">
-      <table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base">
-        <thead className="bg-[#E3EDF9] text-black font-bold">
+      <table className="min-w-full bg-card rounded-lg shadow-sm text-sm md:text-base text-foreground transition-colors duration-300">
+        <thead className="bg-[#e3edf9] dark:bg-[#969696] text-foreground font-bold">
           <tr>
             {columns.map((col, index) => (
               <th
@@ -49,14 +49,17 @@ const GenericTable = <T,>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="text-center py-10 text-gray-500"
+                className="text-center py-10 text-muted-foreground"
               >
                 No data available.
               </td>
             </tr>
           ) : (
             data.map((item, rowIndex) => (
-              <tr key={rowIndex} className="odd:bg-white even:bg-[#E3EDF9]">
+              <tr
+                key={rowIndex}
+                className="odd:bg-white even:bg-[#e3edf9] dark:odd:bg-[#0a0a0a] dark:even:bg-[#969696] transition-colors"
+              >
                 {columns.map((col, colIndex) => (
                   <td
                     key={colIndex}
