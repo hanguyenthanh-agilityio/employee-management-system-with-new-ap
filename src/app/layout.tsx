@@ -5,6 +5,7 @@ import { productSans } from './fonts';
 
 // Components
 import './globals.css';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 
 export const metadata: Metadata = {
   title: {
@@ -26,8 +27,12 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="en" className="light">
-    <body className={productSans.className}>{children}</body>
+  <html lang="en" suppressHydrationWarning>
+    <body className={productSans.className}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+    </body>
   </html>
 );
 

@@ -24,7 +24,7 @@ const QuickActions = () => {
         <Button
           key={index}
           onClick={() => handleClick(action)}
-          className="h-auto p-3 sm:p-4 text-sm md:text-xl lg:text-2xl bg-white rounded-full shadow text-center w-full justify-center hover:bg-gray-50 font-medium"
+          className="h-auto p-3 sm:p-4 text-sm md:text-xl lg:text-2xl bg-card text-foreground rounded-full shadow w-full justify-center hover:bg-muted transition"
         >
           {action}
         </Button>
