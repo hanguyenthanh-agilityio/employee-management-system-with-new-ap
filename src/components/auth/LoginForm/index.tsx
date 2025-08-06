@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 // Css
 import '@/styles/formStyle.css';
+import '@/styles/labelStyle.css';
 
 // REact Toast
 import { toast } from 'react-toastify';
@@ -19,7 +20,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import { Button, Checkbox, Input, Label, TransitionLoader } from '@/components';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Label,
+  RequiredLabel,
+  TransitionLoader,
+} from '@/components';
 import PasswordInput from '../PasswordInput';
 
 // Utils
@@ -53,16 +61,9 @@ const LoginForm = () => {
 
       if (result.success) {
         toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS, {
-          toastId: 'login-success',
-          autoClose: 5000,
-          closeOnClick: true,
-          draggable: true,
-          pauseOnHover: true,
+          autoClose: 2000,
+          onClose: () => router.push(ROUTER.DASHBOARD),
         });
-
-        setTimeout(() => {
-          router.push(ROUTER.DASHBOARD);
-        }, 1000);
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
         toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
@@ -91,12 +92,9 @@ const LoginForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div>
-          <Label
-            htmlFor="email"
-            className="block text-lg md:text-xl font-bold mb-3 text-primary"
-          >
+          <RequiredLabel htmlFor="email" className="label-base">
             E-mail Address
-          </Label>
+          </RequiredLabel>
           <Controller
             name="email"
             control={control}
@@ -117,12 +115,9 @@ const LoginForm = () => {
         </div>
 
         <div>
-          <Label
-            htmlFor="password"
-            className="block text-lg md:text-xl font-bold mb-3 text-primary"
-          >
+          <RequiredLabel htmlFor="password" className="label-base">
             Password
-          </Label>
+          </RequiredLabel>
           <Controller
             name="password"
             control={control}

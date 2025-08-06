@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['strapi-backend-867w.onrender.com'],
+    domains: ['strapi-backend-o8eo.onrender.com'],
     remotePatterns: [
       {
         protocol: 'https',

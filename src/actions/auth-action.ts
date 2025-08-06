@@ -3,7 +3,9 @@
 import { revalidateTag } from 'next/cache';
 
 // Services
-import { getCurrentUser, login, register } from '@/services';
+import { removeCookie, setCookie } from '@/utils/auth';
+import { login, register } from '@/services/auth/authService';
+import { getCurrentUser } from '@/services/user/userService';
 
 // Utils
 import {
@@ -11,7 +13,6 @@ import {
   loginSchema,
   RegisterInput,
 } from '@/utils/schemas/authSchema';
-import { removeCookie, setCookie } from '@/utils/auth';
 
 // Constants
 import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';

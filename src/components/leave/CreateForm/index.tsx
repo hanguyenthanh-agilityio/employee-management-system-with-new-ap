@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -23,7 +24,7 @@ import {
 import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
-import { ERROR_MESSAGE, ROUTER } from '@/constants';
+import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
 import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 
 const isValidLeaveType = (type: string | null): type is LeaveType =>
@@ -38,17 +39,19 @@ const CreateLeaveContent = () => {
     : undefined;
   const [errorMessage, setErrorMessage] = useState('');
 
+  const defaultValues = {
+    type: typeFromQuery,
+    startDate: '',
+    endDate: '',
+    durations: 0,
+    resumptionDate: '',
+    reason: '',
+    document: undefined,
+  };
+
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
-    defaultValues: {
-      type: typeFromQuery,
-      startDate: '',
-      endDate: '',
-      durations: 0,
-      resumptionDate: '',
-      reason: '',
-      document: undefined,
-    },
+    defaultValues,
   });
 
   const { watch, setValue, handleSubmit, reset } = form;
@@ -90,9 +93,14 @@ const CreateLeaveContent = () => {
       const result = await createLeaveApplication(payload);
 
       if (result.success) {
-        router.push(ROUTER.LEAVE_APPLICATION);
-        router.refresh();
-        reset();
+        toast.success(SUCCESS_MESSAGES.CREATE_SUCCESS, {
+          autoClose: 2000,
+          onClose: () => {
+            router.push(ROUTER.LEAVE_APPLICATION);
+            router.refresh();
+          },
+        });
+        reset(defaultValues);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
       }
@@ -102,7 +110,7 @@ const CreateLeaveContent = () => {
   };
 
   const handleReset = () => {
-    reset();
+    reset(defaultValues);
   };
 
   return (

@@ -8,10 +8,10 @@ import { ERROR_MESSAGE } from '@/constants';
 import { useUpdateProfile } from './useProfile';
 
 // Services
-import { updateProfile } from '@/services';
+import { updateProfile } from '@/services/user/userService';
 
 // Mock API và useRouter
-jest.mock('@/services');
+jest.mock('@/services/user/userService');
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));

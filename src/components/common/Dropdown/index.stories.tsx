@@ -30,10 +30,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  render: (args) => (
+    <div style={{ height: '100px' }}>
+      <Dropdown {...args} />
+    </div>
+  ),
 };
 
 export const WithAction: Story = {
+  render: (args) => (
+    <div style={{ height: '150px' }}>
+      <Dropdown {...args} />
+    </div>
+  ),
   args: {
     buttonLabel: 'Action',
     buttonClassName:
@@ -54,6 +63,11 @@ export const WithAction: Story = {
 };
 
 export const WithExportFile: Story = {
+  render: (args) => (
+    <div style={{ height: '200px' }}>
+      <Dropdown {...args} />
+    </div>
+  ),
   args: {
     buttonLabel: 'Export',
     buttonClassName:

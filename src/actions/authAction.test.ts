@@ -1,9 +1,18 @@
-import { getCurrentUser, login, register } from '@/services';
+// Utils
 import { setCookie, removeCookie } from '@/utils/auth';
+
+// Constants
 import { ERROR_MESSAGE } from '@/constants';
+
+// Actions
 import { loginAction, logoutAction, registerAction } from './auth-action';
 
-jest.mock('@/services');
+// Services
+import { login, register } from '@/services/auth/authService';
+import { getCurrentUser } from '@/services/user/userService';
+
+jest.mock('@/services/auth/authService');
+jest.mock('@/services/user/userService');
 jest.mock('@/utils/auth');
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),
@@ -136,7 +145,6 @@ describe('authActions', () => {
         password: '123456',
         phone: '',
         confirmPassword: '123456',
-        newsletter: false,
         terms: true,
       });
 

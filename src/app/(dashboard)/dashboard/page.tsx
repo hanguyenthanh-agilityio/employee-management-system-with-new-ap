@@ -1,47 +1,19 @@
+import { Suspense } from 'react';
+
 // Components
 import {
-  BirthdaySection,
-  Header,
-  LeaveSection,
-  PaySlipSection,
-  ProfileSection,
-  QuickActions,
+  DashboardSkeleton,
+  DashboardWrapper,
+  ToastProvider,
 } from '@/components';
 
-// Services
-import { getCachedUser } from '@/services';
-
-// APIs
-import { fetchSummaryLeaves } from '@/api/leaveApplications';
-
-const DashboardPage = async () => {
-  const user = await getCachedUser();
-  const summaryData = await fetchSummaryLeaves();
-
-  // Show user detail
-  const { username, jobTitle } = user;
-
+const Page = () => {
   return (
-    <div className="flex flex-col gap-4 md:gap-6 lg:gap-12 lg:px-8">
-      <h1 className="sr-only">Dashboard page</h1>
-      <Header title="Dashboard" />
-
-      {/* Profile Section */}
-      <ProfileSection name={username} jobTitle={jobTitle} />
-
-      {/* Quickly Action */}
-      <div>
-        <h2 className="mb-4 md:mb-6 text-2xl md:text-3xl">Quick Actions</h2>
-        <QuickActions />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LeaveSection data={summaryData.data} />
-        <BirthdaySection />
-        <PaySlipSection />
-      </div>
-    </div>
+    <Suspense fallback={<DashboardSkeleton />}>
+      <DashboardWrapper />
+      <ToastProvider />
+    </Suspense>
   );
 };
 
-export default DashboardPage;
+export default Page;

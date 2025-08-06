@@ -33,10 +33,16 @@ const safeTextRegex = /^[a-zA-Z0-9\s,.'-]*$/;
 
 const phoneSchema = z
   .string()
-  .trim()
-  .min(8, 'Phone must be at least 8 digits')
-  .max(11, 'Phone must be at most 11 digits')
-  .regex(/^\d+$/, 'Phone must contain only digits');
+  .transform((val) => val.replace(/\s+/g, ''))
+  .refine((val) => /^\d+$/.test(val), {
+    message: 'Phone must contain only digits',
+  })
+  .refine((val) => val.length >= 8, {
+    message: 'Phone must be at least 8 digits',
+  })
+  .refine((val) => val.length <= 10, {
+    message: 'Phone must be at most 10 digits',
+  });
 export const contactDetails = z.object({
   mainPhoneNumber: phoneSchema,
   subPhoneNumber: phoneSchema,
