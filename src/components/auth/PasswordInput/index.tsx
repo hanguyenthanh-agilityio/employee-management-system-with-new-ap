@@ -31,7 +31,10 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         />
         <Button
           type="button"
-          className="password-toggle-button bg-[none] hover:bg-[none]"
+          className={cn(
+            'password-toggle-button bg-[none] hover:bg-[none]',
+            error ? 'top-[32%]' : 'top-[50%]',
+          )}
           onClick={() => setShowPassword((prev) => !prev)}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
           tabIndex={-1}

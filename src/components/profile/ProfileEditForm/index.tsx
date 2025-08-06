@@ -3,7 +3,7 @@
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, Input, Label, TransitionLoader } from '@/components';
+import { Button, Input, RequiredLabel, TransitionLoader } from '@/components';
 
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
@@ -24,12 +24,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       {isSubmitting && <TransitionLoader />}
       {/* Username */}
       <div className="flex flex-col gap-2">
-        <Label
+        <RequiredLabel
           htmlFor="username"
           className="!text-xl font-semibold text-gray-700"
         >
           Employee Name
-        </Label>
+        </RequiredLabel>
         <Controller
           name="username"
           control={control}
@@ -48,12 +48,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
 
       {/* Department */}
       <div className="flex flex-col gap-2">
-        <Label
+        <RequiredLabel
           htmlFor="department"
           className="!text-xl font-semibold text-gray-700"
         >
           Department
-        </Label>
+        </RequiredLabel>
         <Controller
           name="department"
           control={control}
@@ -73,12 +73,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       {/* Job title & category */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
         <div className="flex-1 flex flex-col gap-2">
-          <Label
+          <RequiredLabel
             htmlFor="jobTitle"
             className="!text-xl font-semibold text-gray-700"
           >
             Job Title
-          </Label>
+          </RequiredLabel>
           <Controller
             name="jobTitle"
             control={control}
@@ -96,12 +96,12 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         </div>
 
         <div className="flex-1 flex flex-col gap-2">
-          <Label
+          <RequiredLabel
             htmlFor="jobCategory"
             className="!text-xl font-semibold text-gray-700"
           >
             Job Category
-          </Label>
+          </RequiredLabel>
           <Controller
             name="jobCategory"
             control={control}

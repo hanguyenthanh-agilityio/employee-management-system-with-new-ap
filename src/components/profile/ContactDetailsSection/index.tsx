@@ -52,11 +52,17 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   }, [errorMessage, setErrorMessage]);
 
   const handleSubmitForm = async (data: ContactDetailsInput) => {
-    const result = await update(data, String(contact.id));
+    const sanitizedData: ContactDetailsInput = {
+      ...data,
+      mainPhoneNumber: data.mainPhoneNumber.replace(/\s+/g, ''),
+      subPhoneNumber: data.subPhoneNumber.replace(/\s+/g, ''),
+    };
+
+    const result = await update(sanitizedData, String(contact.id));
 
     if (result.success) {
       toast.success('Contact details updated successfully!');
-      reset(data);
+      reset(sanitizedData);
     }
   };
 

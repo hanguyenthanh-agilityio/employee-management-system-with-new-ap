@@ -32,6 +32,7 @@ import {
   RequiredLabel,
 } from '@/components';
 import PasswordInput from '../PasswordInput';
+import MaskedInput from '@/components/common/MaskedInput';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -110,6 +111,20 @@ const RegisterForm = () => {
                   'input-base',
                   isError ? 'input-error' : 'input-normal',
                 );
+
+                if (field.name === 'phone') {
+                  return (
+                    <MaskedInput
+                      id={field.name}
+                      mask="099 999 9999"
+                      className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
+                      {...controllerField}
+                      value={typeof value === 'string' ? value : ''}
+                      error={errors[field.name as keyof RegisterInput]?.message}
+                      disabled={isFormDisabled}
+                    />
+                  );
+                }
 
                 if (
                   field.name === 'password' ||
