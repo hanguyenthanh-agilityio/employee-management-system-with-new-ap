@@ -13,3 +13,4 @@ export { default as Pagination } from './Pagination';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Checkbox } from './Checkbox/checkbox';
 export { default as Textarea } from './Textarea/textarea';
+export { default as RequiredLabel } from './RequiredLabel';

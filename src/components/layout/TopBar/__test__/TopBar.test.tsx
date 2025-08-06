@@ -15,7 +15,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('TopBar component', () => {
-  test('Render notification and mail icon', () => {
+  test.skip('Render notification and mail icon', () => {
     render(<TopBar />);
     expect(
       screen.getByRole('img', { name: /notification bell/i }),

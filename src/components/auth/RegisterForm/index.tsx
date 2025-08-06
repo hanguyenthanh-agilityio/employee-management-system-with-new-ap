@@ -2,6 +2,8 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 // Css
 import '@/styles/formStyle.css';
@@ -21,10 +23,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
-import { Input, Button, Checkbox, Label, TransitionLoader } from '@/components';
-import { cn } from '@/lib/utils';
+import {
+  Input,
+  Button,
+  Checkbox,
+  Label,
+  TransitionLoader,
+  RequiredLabel,
+} from '@/components';
 import PasswordInput from '../PasswordInput';
-import { useState } from 'react';
+import MaskedInput from '@/components/common/MaskedInput';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -86,12 +94,12 @@ const RegisterForm = () => {
         {/* INPUT FIELDS */}
         {INPUT_FIELDS.map((field) => (
           <div key={field.name}>
-            <Label
+            <RequiredLabel
               htmlFor={field.name}
               className="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
             >
               {field.label}
-            </Label>
+            </RequiredLabel>
 
             <Controller
               name={field.name as keyof RegisterInput}
@@ -104,6 +112,20 @@ const RegisterForm = () => {
                   isError ? 'input-error' : 'input-normal',
                 );
 
+                if (field.name === 'phone') {
+                  return (
+                    <MaskedInput
+                      id={field.name}
+                      mask="099 999 9999"
+                      className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
+                      {...controllerField}
+                      value={typeof value === 'string' ? value : ''}
+                      error={errors[field.name as keyof RegisterInput]?.message}
+                      disabled={isFormDisabled}
+                    />
+                  );
+                }
+
                 if (
                   field.name === 'password' ||
                   field.name === 'confirmPassword'
@@ -111,6 +133,13 @@ const RegisterForm = () => {
                   return (
                     <PasswordInput
                       id={field.name}
+                      aria-label={
+                        field.name === 'password'
+                          ? 'Password'
+                          : field.name === 'confirmPassword'
+                            ? 'Confirm Password'
+                            : undefined
+                      }
                       className={inputClassName}
                       {...controllerField}
                       value={typeof value === 'string' ? value : ''}

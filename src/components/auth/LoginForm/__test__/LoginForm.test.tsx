@@ -32,9 +32,9 @@ describe('LoginForm', () => {
       </>,
     );
 
-    expect(screen.getByLabelText('E-mail Address')).toBeInTheDocument();
+    expect(screen.getByLabelText(/E-mail Address/i)).toBeInTheDocument();
     expect(
-      screen.getByLabelText('Password', { selector: 'input' }),
+      screen.getByPlaceholderText(/enter your password/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Submit login form/i }),
