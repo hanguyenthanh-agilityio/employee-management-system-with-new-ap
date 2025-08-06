@@ -19,12 +19,12 @@ const QuickActions = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {ACTIONS.map((action, index) => (
         <Button
           key={index}
           onClick={() => handleClick(action)}
-          className="h-auto p-3 sm:p-4 text-sm lg:text-2xl bg-white rounded-full shadow text-center w-full justify-center hover:bg-gray-50 font-medium"
+          className="h-auto p-3 sm:p-4 text-sm md:text-xl lg:text-2xl bg-white rounded-full shadow text-center w-full justify-center hover:bg-gray-50 font-medium"
         >
           {action}
         </Button>

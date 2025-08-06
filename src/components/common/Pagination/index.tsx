@@ -46,46 +46,58 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <nav className="flex justify-center mt-6">
       <ul className="inline-flex -space-x-px text-base">
+        {/* Previous button */}
         <li>
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={clsx(
-              'px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100',
-              currentPage === 1 && 'opacity-50 cursor-not-allowed',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100',
+              'rounded-l-lg',
+              currentPage === 1
+                ? 'opacity-50 cursor-not-allowed'
+                : 'cursor-pointer',
             )}
           >
             Previous
           </button>
         </li>
 
+        {/* Page numbers */}
         {getPages.map((page, index) => (
           <li key={index}>
             {typeof page === 'number' ? (
               <button
                 onClick={() => handleClick(page)}
                 className={clsx(
-                  'px-3 py-2 leading-tight border border-gray-300',
+                  'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300',
                   page === currentPage
                     ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-500 hover:bg-gray-100',
+                    : 'bg-white text-gray-600 hover:bg-gray-100',
+                  page !== currentPage && 'cursor-pointer',
                 )}
               >
                 {page}
               </button>
             ) : (
-              <span className="px-3 py-2 text-gray-400">...</span>
+              <span className="flex items-center px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-400 border border-gray-300 bg-white select-none">
+                ...
+              </span>
             )}
           </li>
         ))}
 
+        {/* Next button */}
         <li>
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={clsx(
-              'px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100',
-              currentPage === totalPages && 'opacity-50 cursor-not-allowed',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100',
+              'rounded-r-lg',
+              currentPage === totalPages
+                ? 'opacity-50 cursor-not-allowed'
+                : 'cursor-pointer',
             )}
           >
             Next

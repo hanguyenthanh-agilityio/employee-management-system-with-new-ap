@@ -17,19 +17,19 @@ const BirthdayItem = ({ name, date, onClick }: BirthdayItemProps) => (
     role="group"
     aria-label={`Birthday info for ${name}`}
   >
-    <div className="flex items-center gap-2 text-cyanBlue text-base md:text-xl">
+    <div className="flex items-center gap-2 text-cyanBlue text-base md:text-xl ">
       <CalendarDateRangeIcon
         className="w-5 h-5 md:w-6 md:h-6"
         aria-hidden="true"
       />
-      <span>
+      <span className="truncate max-w-48 sm:max-w-80 overflow-hidden whitespace-nowrap text-ellipsis block">
         <strong>{name}’s Day</strong> – <time dateTime={date}>{date}</time>
       </span>
     </div>
 
     <Button
       onClick={onClick}
-      className="bg-[#FFC20E] hover:bg-yellow text-black px-3 md:px-4 py-2 rounded-lg shadow-md font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+      className="bg-[#FFC20E] hover:bg-yellow text-black px-3 md:px-4 py-1 md:py-2 rounded-lg shadow-md font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 w-full md:w-auto"
       aria-label={`Send wishes to ${name}`}
     >
       Send Wishes

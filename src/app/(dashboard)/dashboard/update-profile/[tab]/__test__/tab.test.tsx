@@ -2,7 +2,7 @@ import { screen, render } from '@testing-library/react';
 import { ContactsDetailsType, PersonalDetailsType } from '@/types/profile';
 import TabPage from '../page';
 
-jest.mock('@/services', () => ({
+jest.mock('@/services/user/userService', () => ({
   getCurrentUser: jest.fn().mockResolvedValue({
     username: 'John Doe',
     email: 'john@example.com',

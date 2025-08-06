@@ -21,6 +21,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       <div className="relative w-full">
         <Input
           type={showPassword ? 'text' : 'password'}
+          aria-label={props['aria-label']}
           className={cn(
             'password-input-field',
             error ? 'password-input-error' : 'password-input-normal',
@@ -30,7 +31,10 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         />
         <Button
           type="button"
-          className="password-toggle-button bg-[none] hover:bg-[none]"
+          className={cn(
+            'password-toggle-button bg-[none] hover:bg-[none]',
+            error ? 'top-[32%]' : 'top-[50%]',
+          )}
           onClick={() => setShowPassword((prev) => !prev)}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
           tabIndex={-1}
@@ -41,6 +45,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             <EyeIcon data-testid="eye-icon" width={20} height={20} />
           )}
         </Button>
+
+        {error && <p className="text-red text-sm mt-2">{error}</p>}
       </div>
     );
   },

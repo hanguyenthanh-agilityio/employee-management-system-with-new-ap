@@ -41,7 +41,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => {
           <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold pb-1 sm:pb-2">
             {name}
           </h2>
-          <p className="text-base sm:text-xl lg:text-2xl">{jobTitle}</p>
+          <p className="text-base sm:text-xl lg:text-2xl w-full">{jobTitle}</p>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full lg:w-auto justify-between">

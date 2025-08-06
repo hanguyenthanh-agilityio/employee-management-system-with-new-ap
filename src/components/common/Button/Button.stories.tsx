@@ -23,6 +23,10 @@ const meta: Meta<typeof Button> = {
     children: {
       control: 'text',
     },
+    className: {
+      control: 'text',
+      description: 'Tailwind className override',
+    },
     onClick: { action: 'clicked' },
   },
   args: {
@@ -36,7 +40,11 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    className: 'text-white',
+  },
+};
 
 export const Destructive: Story = {
   args: {
@@ -56,6 +64,7 @@ export const Secondary: Story = {
   args: {
     variant: 'secondary',
     children: 'Secondary',
+    className: 'text-white',
   },
 };
 
@@ -77,6 +86,7 @@ export const Small: Story = {
   args: {
     size: 'sm',
     children: 'Small',
+    className: 'text-white',
   },
 };
 
@@ -84,6 +94,7 @@ export const Large: Story = {
   args: {
     size: 'lg',
     children: 'Large',
+    className: 'text-white',
   },
 };
 

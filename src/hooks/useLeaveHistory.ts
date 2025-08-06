@@ -164,7 +164,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
         toast.success(SUCCESS_MESSAGES.DELETE_SUCCESS);
       });
     } catch (error) {
-      toast.error(ERROR_MESSAGE.DELETE_FAILED);
+      toast.error(ERROR_MESSAGE.DELETE_LEAVE_FAILED);
     }
   };
 

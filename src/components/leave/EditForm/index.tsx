@@ -5,6 +5,7 @@ import { addDays, differenceInCalendarDays } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 // APIs
 import { updateLeaveApplication } from '@/api/leaveApplications';
@@ -13,10 +14,12 @@ import { updateLeaveApplication } from '@/api/leaveApplications';
 import { Form } from '@/components';
 
 // Constants
-import { ERROR_MESSAGE, ROUTER } from '@/constants';
+import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
+import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 
 // Types
 import { LeaveItem } from '@/types/components';
+import { getDefaultDocument } from '@/types/field';
 
 // Utils
 import {
@@ -24,8 +27,6 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
-import { getDefaultDocument } from '@/types/field';
-import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 interface EditFormProps {
   leave: LeaveItem;
 }
@@ -38,16 +39,18 @@ const EditForm = ({ leave }: EditFormProps) => {
 
   const router = useRouter();
 
+  const defaultValues = {
+    type: isValidLeaveType(leave.type) ? leave.type : undefined,
+    startDate: leave.startDate,
+    endDate: leave.endDate,
+    durations: leave.durations,
+    resumptionDate: leave.resumptionDate,
+    reason: leave.reason,
+  };
+
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
-    defaultValues: {
-      type: isValidLeaveType(leave.type) ? leave.type : undefined,
-      startDate: leave.startDate,
-      endDate: leave.endDate,
-      durations: leave.durations,
-      resumptionDate: leave.resumptionDate,
-      reason: leave.reason,
-    },
+    defaultValues,
   });
 
   const { watch, setValue, handleSubmit, reset } = form;
@@ -86,9 +89,14 @@ const EditForm = ({ leave }: EditFormProps) => {
       const result = await updateLeaveApplication(leave.documentId, payload);
 
       if (result.success) {
-        router.push(ROUTER.LEAVE_APPLICATION);
-        router.refresh();
-        reset();
+        toast.success(SUCCESS_MESSAGES.UPDATE_SUCCESS, {
+          autoClose: 2000,
+          onClose: () => {
+            router.push(ROUTER.LEAVE_APPLICATION);
+            router.refresh();
+          },
+        });
+        reset(defaultValues);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
       }
@@ -98,7 +106,7 @@ const EditForm = ({ leave }: EditFormProps) => {
   };
 
   const handleReset = () => {
-    reset();
+    reset(defaultValues);
   };
 
   return (

@@ -2,10 +2,12 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 // Css
 import '@/styles/formStyle.css';
-// Toast message
+// Toast
 import { toast } from 'react-toastify';
 
 // Actions
@@ -21,12 +23,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
-import { Input, Button, Checkbox, Label } from '@/components';
-import { cn } from '@/lib/utils';
+import {
+  Input,
+  Button,
+  Checkbox,
+  Label,
+  TransitionLoader,
+  RequiredLabel,
+} from '@/components';
 import PasswordInput from '../PasswordInput';
+import MaskedInput from '@/components/common/MaskedInput';
 
 const RegisterForm = () => {
   const router = useRouter();
+  const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
@@ -43,129 +54,171 @@ const RegisterForm = () => {
       password: '',
       confirmPassword: '',
       terms: false,
-      newsletter: false,
     },
   });
 
   const onSubmit = async (data: RegisterInput) => {
-    const result = await registerAction(data);
+    setIsLoading(true);
+    setServerError('');
 
-    if (result.success) {
-      toast.success('Account created successfully!');
-      router.push(ROUTER.LOGIN);
-    } else {
-      toast.error(result.message || ERROR_MESSAGE.REGISTER_FAILED);
+    try {
+      const result = await registerAction(data);
+
+      if (result.success) {
+        toast.success('Account created successfully!', { autoClose: 1500 });
+        setTimeout(() => {
+          router.push(ROUTER.LOGIN);
+        }, 1500);
+      } else {
+        setServerError(result.message || ERROR_MESSAGE.REGISTER_FAILED);
+        toast.error(result.message || ERROR_MESSAGE.REGISTER_FAILED);
+      }
+    } catch (error) {
+      setServerError(ERROR_MESSAGE.UNEXPECTED);
+      toast.error(ERROR_MESSAGE.UNEXPECTED);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const watchedNewsletter = watch('newsletter');
   const watchedTerms = watch('terms');
+  const isFormDisabled = isSubmitting || isLoading;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
-    >
-      {/* INPUT FIELDS */}
-      {INPUT_FIELDS.map((field) => (
-        <div key={field.name}>
-          <Label
-            htmlFor={field.name}
-            className="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
-          >
-            {field.label}
-          </Label>
+    <>
+      {isLoading && <TransitionLoader />}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pointer-events-auto"
+      >
+        {/* INPUT FIELDS */}
+        {INPUT_FIELDS.map((field) => (
+          <div key={field.name}>
+            <RequiredLabel
+              htmlFor={field.name}
+              className="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
+            >
+              {field.label}
+            </RequiredLabel>
 
-          <Controller
-            name={field.name as keyof RegisterInput}
-            control={control}
-            render={({ field: controllerField }) => {
-              const value = controllerField.value ?? '';
+            <Controller
+              name={field.name as keyof RegisterInput}
+              control={control}
+              render={({ field: controllerField }) => {
+                const value = controllerField.value ?? '';
+                const isError = !!errors[field.name as keyof RegisterInput];
+                const inputClassName = cn(
+                  'input-base',
+                  isError ? 'input-error' : 'input-normal',
+                );
 
-              const isError = !!errors[field.name as keyof RegisterInput];
+                if (field.name === 'phone') {
+                  return (
+                    <MaskedInput
+                      id={field.name}
+                      mask="099 999 9999"
+                      className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
+                      {...controllerField}
+                      value={typeof value === 'string' ? value : ''}
+                      error={errors[field.name as keyof RegisterInput]?.message}
+                      disabled={isFormDisabled}
+                    />
+                  );
+                }
 
-              const inputClassName = cn(
-                'input-base',
-                isError ? 'input-error' : 'input-normal',
-              );
+                if (
+                  field.name === 'password' ||
+                  field.name === 'confirmPassword'
+                ) {
+                  return (
+                    <PasswordInput
+                      id={field.name}
+                      aria-label={
+                        field.name === 'password'
+                          ? 'Password'
+                          : field.name === 'confirmPassword'
+                            ? 'Confirm Password'
+                            : undefined
+                      }
+                      className={inputClassName}
+                      {...controllerField}
+                      value={typeof value === 'string' ? value : ''}
+                      error={errors[field.name as keyof RegisterInput]?.message}
+                      disabled={isFormDisabled}
+                    />
+                  );
+                }
 
-              if (
-                field.name === 'password' ||
-                field.name === 'confirmPassword'
-              ) {
                 return (
-                  <PasswordInput
+                  <Input
                     id={field.name}
-                    className={inputClassName}
+                    type={field.type || 'text'}
+                    className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
                     {...controllerField}
+                    disabled={isFormDisabled}
                     value={typeof value === 'string' ? value : ''}
                     error={errors[field.name as keyof RegisterInput]?.message}
-                    disabled={isSubmitting}
                   />
                 );
-              }
-              return (
-                <Input
-                  id={field.name}
-                  type={field.type || 'text'}
-                  className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
-                  {...controllerField}
-                  disabled={isSubmitting}
-                  value={typeof value === 'string' ? value : ''}
-                  error={errors[field.name as keyof RegisterInput]?.message}
-                />
-              );
-            }}
-          />
-        </div>
-      ))}
-
-      {/* CHECKBOXES */}
-      <div className="col-span-1 md:col-span-2 space-y-2 pt-4">
-        {CHECKBOXES.map((cb) => (
-          <div key={cb.id}>
-            <Controller
-              name={cb.name as keyof RegisterInput}
-              control={control}
-              render={({ field }) => (
-                <div className="flex items-center gap-3">
-                  <Checkbox
-                    id={cb.id}
-                    checked={!!field.value}
-                    onCheckedChange={field.onChange}
-                    disabled={isSubmitting}
-                    className="checkbox-base"
-                  />
-                  <Label
-                    htmlFor={cb.id}
-                    className="text-sm md:text-xl text-gray-700"
-                  >
-                    {cb.label}
-                    <span className="text-primary ml-1">{cb.subLabel}</span>
-                  </Label>
-                </div>
-              )}
+              }}
             />
-            {errors[cb.name as keyof RegisterInput]?.message && (
-              <p className="text-red text-sm mt-1">
-                {errors[cb.name as keyof RegisterInput]?.message}
-              </p>
-            )}
           </div>
         ))}
-      </div>
 
-      {/* SUBMIT */}
-      <div className="col-span-1 md:col-span-2">
-        <Button
-          type="submit"
-          className="h-auto w-full sm:max-w-[300px] justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
-          disabled={isSubmitting || !watchedNewsletter || !watchedTerms}
-        >
-          {isSubmitting ? 'Creating Account...' : 'Create Account'}
-        </Button>
-      </div>
-    </form>
+        {/* CHECKBOXES */}
+        <div className="col-span-1 md:col-span-2 space-y-2 pt-4">
+          {CHECKBOXES.map((cb) => (
+            <div key={cb.id}>
+              <Controller
+                name={cb.name as keyof RegisterInput}
+                control={control}
+                render={({ field }) => (
+                  <div className="flex items-center gap-3">
+                    <Checkbox
+                      id={cb.id}
+                      checked={!!field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={isFormDisabled}
+                      className="checkbox-base"
+                    />
+                    <Label
+                      htmlFor={cb.id}
+                      className="text-sm md:text-xl text-gray-700"
+                    >
+                      {cb.label}
+                      <span className="text-primary ml-1">{cb.subLabel}</span>
+                    </Label>
+                  </div>
+                )}
+              />
+              {errors[cb.name as keyof RegisterInput]?.message && (
+                <p className="text-red text-sm mt-1">
+                  {errors[cb.name as keyof RegisterInput]?.message}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* ERROR */}
+        {serverError && (
+          <div className="col-span-2 text-red text-center font-medium">
+            {serverError}
+          </div>
+        )}
+
+        {/* SUBMIT */}
+        <div className="col-span-1 md:col-span-2">
+          <Button
+            type="submit"
+            className="h-auto w-full sm:max-w-[300px] justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
+            disabled={isFormDisabled || !watchedTerms}
+          >
+            {isFormDisabled ? 'Creating Account...' : 'Create Account'}
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 

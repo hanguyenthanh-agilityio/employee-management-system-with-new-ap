@@ -5,7 +5,6 @@ import { productSans } from './fonts';
 
 // Components
 import './globals.css';
-import ToastProvider from '@/components/status/ToastProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -27,10 +26,8 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="en">
-    <body className={productSans.className}>
-      {children} <ToastProvider />
-    </body>
+  <html lang="en" className="light">
+    <body className={productSans.className}>{children}</body>
   </html>
 );
 

@@ -5,6 +5,7 @@ export const ERROR_MESSAGE = {
   INVALID_CREDENTIALS: 'Invalid credentials',
   MISSING_TOKEN: 'Authentication token is missing',
   TOKEN_NOT_FOUND: 'Token not found',
+  ACTIVATION_FAILED: 'Activation failed',
 
   // User Errors
   UNKNOWN_REGISTER: 'Unknown error during registration',
@@ -12,13 +13,16 @@ export const ERROR_MESSAGE = {
   FAILED_TO_FETCH_USER: 'Failed to fetch current user info',
   USER_CACHE_NOT_FOUND: 'User cache not found',
   INVALID_CACHE: 'Invalid cache data',
-  ACTIVATION_FAILED: 'Activation failed',
+  MISSING_USER: 'User information is missing. Cannot submit application.',
 
   // Leave Application Errors
   SUBMIT_LEAVE_FAILED: 'Failed to submit leave application',
+  CREATE_LEAVE_FAILED: 'Failed to create leave application.',
+  UPDATE_LEAVE_FAILED: 'Failed to update leave application.',
+  DELETE_LEAVE_FAILED: 'Failed to delete leave application.',
+  SUMMARY_LEAVE_FAILED: 'Unable to load summary leaves',
 
-  // Action Errors
-  DELETE_FAILED: 'Delete failed',
+  // Validation & Upload
   VALIDATION_FAILED: 'Validation failed',
   UPLOAD_FAILED: 'Upload failed',
 

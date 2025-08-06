@@ -2,19 +2,27 @@
 
 @layer components {
   .input-base {
-    @apply h-auto rounded-md px-4 py-2 text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg;
+    @apply h-auto rounded-md px-4 py-2 md:py-4 rounded-[15px] text-primary shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg my-3 md:my-5;
   }
 
   .input-error {
-    @apply border-red focus:ring-red;
+    @apply my-3 md:my-5 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px];
   }
 
   .input-normal {
-    @apply border-mediumLightGray focus:ring-secondary/30;
+    @apply my-3 md:my-5 border-mediumLightGray focus:ring-secondary/30 p-3 py-2 md:py-4 rounded-[15px];
+  }
+
+  .input-profile {
+    @apply my-3 md:my-5 bg-[#E3EDF9] !text-xl border-none p-3 py-2 md:py-4 rounded-[15px];
   }
 
   .label-base {
     @apply block text-lg md:text-xl font-bold mb-3 text-primary;
+  }
+
+  .label-secondary {
+    @apply text-xl md:text-2xl;
   }
 
   .checkbox-base {
@@ -26,7 +34,7 @@
   }
 
   .password-input-field {
-    @apply h-auto w-full rounded-md border-2 px-4 py-3 pr-12 !text-lg text-primary shadow-sm focus:outline-none focus:ring-2;
+    @apply h-auto w-full border-2 px-4 py-2 md:py-4 rounded-[15px] pr-12 !text-lg text-primary shadow-sm focus:outline-none focus:ring-2 my-3 md:my-5;
   }
 
   .password-input-error {
@@ -38,6 +46,10 @@
   }
 
   .password-toggle-button {
-    @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 shadow-none hover:text-gray-700 focus:outline-none;
+    @apply absolute right-3 -translate-y-1/2 text-gray-500 shadow-none hover:text-gray-700 focus:outline-none;
+  }
+
+  .textarea-base {
+    @apply input-base !text-xl resize-none;
   }
 }
