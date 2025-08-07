@@ -8,12 +8,13 @@ import { Card, BirthdayItem } from '@/components';
 // Constants
 import { BIRTHDAYS } from '@/constants';
 
+// Styles
+import '@/styles/cardStyle.css';
+
 const BirthdaySection = () => (
-  <Card className="py-8 px-4">
-    <div className="flex justify-between items-start">
-      <h2 className="font-bold text-cyanBlue text-xl sm:text-2xl md:text-3xl pl-2">
-        Birthdays
-      </h2>
+  <Card className="card-section">
+    <div className="card-header">
+      <h2 className="card-title">Birthdays</h2>
       <EllipsisVerticalIcon className="text-[#000] w-6 h-6 sm:w-7 sm:h-7" />
     </div>
     <div className="flex flex-col gap-4 py-6 md:py-10">

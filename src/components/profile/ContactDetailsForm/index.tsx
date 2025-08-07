@@ -27,7 +27,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
       {/* Phone Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 w-full">
         <div>
-          <RequiredLabel htmlFor="mainPhoneNumber" className="label-secondary">
+          <RequiredLabel htmlFor="mainPhoneNumber" className="form-label">
             Phone Number 1
           </RequiredLabel>
           <Controller
@@ -49,7 +49,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
           />
         </div>
         <div>
-          <RequiredLabel htmlFor="subPhoneNumber" className="label-secondary">
+          <RequiredLabel htmlFor="subPhoneNumber" className="form-label">
             Phone Number 2
           </RequiredLabel>
           <Controller
@@ -74,7 +74,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* Email */}
       <div>
-        <RequiredLabel htmlFor="email" className="label-secondary">
+        <RequiredLabel htmlFor="email" className="form-label">
           Email Address
         </RequiredLabel>
         <Controller
@@ -97,7 +97,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* City */}
       <div className="w-full md:w-[50%]">
-        <RequiredLabel htmlFor="city" className="label-secondary">
+        <RequiredLabel htmlFor="city" className="form-label">
           City of Residence
         </RequiredLabel>
         <Controller
@@ -120,7 +120,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* Address */}
       <div>
-        <RequiredLabel htmlFor="residential" className="label-secondary">
+        <RequiredLabel htmlFor="residential" className="form-label">
           Residential Address
         </RequiredLabel>
         <Controller

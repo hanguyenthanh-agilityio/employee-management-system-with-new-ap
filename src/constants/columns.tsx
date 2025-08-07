@@ -94,7 +94,7 @@ export const COLUMNS = ({
     render: (row: LeaveItem) =>
       row.document ? (
         <Image
-          src={`https://strapi-backend-o8eo.onrender.com${row.document?.url}`}
+          src={`${process.env.NEXT_PUBLIC_API_URL}${row.document?.url}`}
           alt={row.document?.name || 'Document'}
           width={30}
           height={30}

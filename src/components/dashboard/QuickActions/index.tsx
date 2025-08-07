@@ -8,6 +8,9 @@ import { Button } from '@/components';
 // Constants
 import { ACTIONS } from '@/constants';
 
+// Styles
+import '@/styles/buttonStyle.css';
+
 const format = (text: string) => text.toLowerCase().replace(/\s+/g, '-');
 
 const QuickActions = () => {
@@ -24,7 +27,7 @@ const QuickActions = () => {
         <Button
           key={index}
           onClick={() => handleClick(action)}
-          className="h-auto p-3 sm:p-4 text-sm md:text-xl lg:text-2xl bg-white rounded-full shadow text-center w-full justify-center hover:bg-gray-50 font-medium"
+          className="btn-base btn-white-outline btn-sm w-full !py-7"
         >
           {action}
         </Button>

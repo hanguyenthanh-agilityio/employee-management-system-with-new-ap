@@ -16,6 +16,10 @@ const colors = {
   darkGreen: '#3F861E',
   red: '#F50707',
   lavender: '#E6EEF9',
+  darkPrimary: '#0F172A',
+  darkSecondary: '#1E293B',
+  darkTitle: '#E2E8F0',
+  darkBorder: '#334155',
 };
 
 export default colors;

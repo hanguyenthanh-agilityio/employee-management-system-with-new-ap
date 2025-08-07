@@ -4,6 +4,10 @@ import '../src/app/globals.css';
 
 const preview: Preview = {
   parameters: {
+    darkMode: {
+      dark: { appBg: '#000000' },
+      light: { appBg: '#ffffff' },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

@@ -1,0 +1,29 @@
+@tailwind components;
+
+.card {
+  @apply bg-white rounded-xl shadow-md p-4;
+}
+
+.card-blue {
+  @apply bg-[#EAF1FB];
+}
+
+.card-space {
+  @apply px-4 md:px-6 py-3 gap-y-2;
+}
+
+.card-row {
+  @apply flex flex-wrap justify-between items-center;
+}
+
+.card-section {
+  @apply py-8 px-4;
+}
+
+.card-header {
+  @apply flex justify-between items-start;
+}
+
+.card-title {
+  @apply font-bold text-cyanBlue text-xl sm:text-2xl md:text-3xl pl-2;
+}

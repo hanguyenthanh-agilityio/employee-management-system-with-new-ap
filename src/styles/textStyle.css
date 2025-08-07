@@ -1,0 +1,17 @@
+@tailwind components;
+
+.text-base-md {
+  @apply text-base md:text-xl;
+}
+
+.text-heading {
+  @apply text-xl font-semibold text-gray-800;
+}
+
+.text-muted {
+  @apply text-gray-600 text-sm;
+}
+
+.truncate-text {
+  @apply truncate max-w-48 sm:max-w-80 overflow-hidden whitespace-nowrap text-ellipsis block;
+}

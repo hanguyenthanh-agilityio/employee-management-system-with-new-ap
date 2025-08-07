@@ -63,7 +63,7 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
 
     {/* Form Section */}
     <section
-      className="flex flex-col justify-center px-6 sm:px-10 py-10 md:py-16"
+      className="flex flex-col justify-center px-6 sm:px-10 py-10 md:py-16 bg-white"
       aria-label="Register form"
     >
       {children}
