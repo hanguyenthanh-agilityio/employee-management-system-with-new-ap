@@ -66,9 +66,7 @@ describe('UpdateLeavePage', () => {
     });
 
     expect(
-      screen.getByText(
-        'Fill the required fields below to apply for annual leave.',
-      ),
+      screen.getByText('Fill the required fields below to apply for leave.'),
     ).toBeInTheDocument();
   });
 
