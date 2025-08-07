@@ -37,6 +37,7 @@ const config: Config = {
     '/src/app/\\(dashboard\\)/payroll/page.tsx',
     '/src/app/\\(dashboard\\)/requests/page.tsx',
     '/src/app/\\(dashboard\\)/dashboard/update-profile/layout.tsx',
+    '/src/app/\\(dashboard\\)/dashboard/page.tsx',
     '/src/app/\\(dashboard\\)/layout.tsx',
     '/src/app/\\(dashboard\\)/loading.tsx',
     '/src/app/\\(dashboard\\)/not-found.tsx',
@@ -46,6 +47,7 @@ const config: Config = {
     '/src/app/\\(auth\\)/error.tsx',
     '/src/app/\\(auth\\)/loading.tsx',
     '/src/app/\\(auth\\)/not-found.tsx',
+    '/src/components/theme/theme-provider.tsx',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 

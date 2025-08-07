@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.28% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/84</span>
+                <span class='fraction'>81/90</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.28% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/84</span>
+                <span class='fraction'>81/90</span>
             </div>
         
             
@@ -147,7 +147,13 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -182,6 +188,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -201,6 +210,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -261,13 +273,16 @@ const GenericTable = &lt;T,&gt;({
   columns,
   pagination,
 }: GenericTableProps&lt;T&gt;) =&gt; (
-  &lt;div className="overflow-x-auto w-full pb-24"&gt;
-    &lt;div className="min-h-[400px] flex flex-col justify-between"&gt;
-      &lt;table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base"&gt;
-        &lt;thead className="bg-[#E3EDF9] text-black font-bold"&gt;
+  &lt;div className="overflow-x-auto w-full pb-20"&gt;
+    &lt;div className="min-h-[350px] flex flex-col justify-between"&gt;
+      &lt;table className="min-w-full bg-card rounded-lg shadow-sm text-sm md:text-base text-foreground transition-colors duration-300"&gt;
+        &lt;thead className="bg-[#e3edf9] dark:bg-[#969696] text-foreground font-bold"&gt;
           &lt;tr&gt;
             {columns.map((col, index) =&gt; (
-              &lt;th key={index} className="px-4 py-5 whitespace-nowrap text-lg"&gt;
+              &lt;th
+                key={index}
+                className="px-4 py-3 md:py-5 whitespace-nowrap text-lg"
+              &gt;
                 {col.title}
               &lt;/th&gt;
             ))}
@@ -279,14 +294,17 @@ const GenericTable = &lt;T,&gt;({
 <span class="cstat-no" title="statement not covered" >            &lt;tr&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;td</span>
 <span class="cstat-no" title="statement not covered" >                colSpan={columns.length}</span>
-<span class="cstat-no" title="statement not covered" >                className="text-center py-10 text-gray-500"</span>
+<span class="cstat-no" title="statement not covered" >                className="text-center py-10 text-muted-foreground"</span>
 <span class="cstat-no" title="statement not covered" >              &gt;</span>
 <span class="cstat-no" title="statement not covered" >                No data available.</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/td&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/tr&gt;</span>
 <span class="cstat-no" title="statement not covered" >          ) : (</span>
             data.map((item, rowIndex) =&gt; (
-              &lt;tr key={rowIndex} className="odd:bg-white even:bg-[#E3EDF9]"&gt;
+              &lt;tr
+                key={rowIndex}
+                className="odd:bg-white even:bg-[#e3edf9] dark:odd:bg-[#0a0a0a] dark:even:bg-[#969696] transition-colors"
+              &gt;
                 {columns.map((col, colIndex) =&gt; (
                   &lt;td
                     key={colIndex}
@@ -322,7 +340,7 @@ export default GenericTable;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-30T04:47:40.703Z
+                at 2025-08-07T09:44:21.916Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
