@@ -24,10 +24,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       {isSubmitting && <TransitionLoader />}
       {/* Username */}
       <div className="flex flex-col gap-2">
-        <RequiredLabel
-          htmlFor="username"
-          className="!text-xl font-semibold text-gray-700"
-        >
+        <RequiredLabel htmlFor="username" className="form-label">
           Employee Name
         </RequiredLabel>
         <Controller
@@ -48,10 +45,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
 
       {/* Department */}
       <div className="flex flex-col gap-2">
-        <RequiredLabel
-          htmlFor="department"
-          className="!text-xl font-semibold text-gray-700"
-        >
+        <RequiredLabel htmlFor="department" className="form-label">
           Department
         </RequiredLabel>
         <Controller
@@ -73,10 +67,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       {/* Job title & category */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
         <div className="flex-1 flex flex-col gap-2">
-          <RequiredLabel
-            htmlFor="jobTitle"
-            className="!text-xl font-semibold text-gray-700"
-          >
+          <RequiredLabel htmlFor="jobTitle" className="form-label">
             Job Title
           </RequiredLabel>
           <Controller
@@ -96,10 +87,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         </div>
 
         <div className="flex-1 flex flex-col gap-2">
-          <RequiredLabel
-            htmlFor="jobCategory"
-            className="!text-xl font-semibold text-gray-700"
-          >
+          <RequiredLabel htmlFor="jobCategory" className="form-label">
             Job Category
           </RequiredLabel>
           <Controller

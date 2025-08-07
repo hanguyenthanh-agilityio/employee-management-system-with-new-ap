@@ -1,0 +1,38 @@
+@tailwind components;
+
+.btn-base {
+  @apply px-3 md:px-4 py-1 md:py-2 rounded-lg font-semibold transition shadow-md
+    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+.btn-yellow {
+  @apply bg-[#FFC20E] hover:bg-yellow text-black focus-visible:outline-yellow;
+}
+
+.btn-blue {
+  @apply bg-blue-500 text-white hover:bg-blue-600 focus-visible:outline-blue-600;
+}
+
+.btn-danger {
+  @apply bg-red text-white focus-visible:outline-red;
+}
+
+.btn-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.btn-white-outline {
+  @apply bg-white text-foreground dark:text-cyanBlue rounded-full shadow justify-center hover:bg-muted;
+}
+
+.btn-sm {
+  @apply text-sm sm:text-base md:text-xl lg:text-2xl;
+}
+
+.btn-submit {
+  @apply bg-darkGreen hover:bg-green-700 px-10 md:px-28 py-6 font-bold text-white dark:bg-green-500 dark:hover:bg-green-400;
+}
+
+.btn-reset {
+  @apply font-bold border-[#b30000] border-[3px] border-solid px-10 md:px-28 py-5;
+}

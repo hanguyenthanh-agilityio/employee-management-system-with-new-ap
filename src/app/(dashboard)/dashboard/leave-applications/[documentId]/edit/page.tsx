@@ -49,15 +49,15 @@ const UpdateLeavePage = async (props: {
       <Breadcrumbs paths={BREADCRUMBS.UPDATE_LEAVE} />
 
       {/* Main content */}
-      <div className="w-full max-w-[1151px] mx-auto bg-white p-14">
-        <div className="flex flex-col items-center">
-          <h2 className="text-[40px] font-semibold text-[#1D1D1D] flex items-center justify-center gap-4">
-            <BookOpenIcon width={45} height={45} />
+      <div className="leave-form-wrapper">
+        <div className="form-header">
+          <h2 className="form-title">
+            <BookOpenIcon className="w-8 sm:w-10 h-8 sm:h-10 text-primary" />
             Leave Application
           </h2>
-          <span className="text-[25px] text-[#1D1D1D] py-4">
-            Fill the required fields below to apply for annual leave.
-          </span>
+          <p className="form-subtitle">
+            Fill the required fields below to apply for leave.
+          </p>
         </div>
 
         {/* Update form */}
