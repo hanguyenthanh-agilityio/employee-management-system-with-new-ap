@@ -28,3 +28,11 @@
 .btn-sm {
   @apply text-sm sm:text-base md:text-xl lg:text-2xl;
 }
+
+.btn-submit {
+  @apply bg-darkGreen hover:bg-green-700 px-10 md:px-28 py-6 font-bold text-white dark:bg-green-500 dark:hover:bg-green-400;
+}
+
+.btn-reset {
+  @apply font-bold border-[#b30000] border-[3px] border-solid px-10 md:px-28 py-5;
+}
