@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 
 // Components
 import { Avatar } from '@/components';
@@ -35,18 +36,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Template = (args: { name: string }) => (
+const Template: StoryFn<{ name: string; url?: string }> = (args) => (
   <div className="w-24 h-24">
     <Avatar {...args} />
   </div>
 );
 
-export const WithImage: Story = {
-  render: Template,
-  args: {
-    name: 'Anna',
-    url: AVATAR_URL,
-  },
+export const WithImage = Template.bind({});
+WithImage.args = {
+  name: 'Anna',
+  url: AVATAR_URL,
 };
 
 export const WithoutImage: Story = {

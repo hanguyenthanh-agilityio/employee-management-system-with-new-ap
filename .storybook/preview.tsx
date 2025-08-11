@@ -13,7 +13,7 @@ const preview: Preview = {
       default: 'light',
       values: [
         { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#00000' },
+        { name: 'dark', value: '#0c1120' },
       ],
     },
     controls: {
@@ -28,8 +28,8 @@ const preview: Preview = {
       const isDark = context.globals.theme === 'dark';
 
       return (
-        <div className={`${isDark ? 'dark' : ''}`}>
-          <div className="h-full w-full bg-white dark:bg-[#0c1120] text-foreground transition-colors duration-300 p-8 border-none">
+        <div className={`h-full w-full ${isDark ? 'dark' : ''}`}>
+          <div className="h-full w-full bg-white dark:bg-[#0c1120] text-foreground transition-colors duration-300 p-8 border-none rounded-lg shadow-md">
             <Story />
           </div>
         </div>
