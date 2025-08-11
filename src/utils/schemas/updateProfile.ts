@@ -33,7 +33,7 @@ const safeTextRegex = /^[a-zA-Z0-9\s,.'-]*$/;
 
 const phoneSchema = z
   .string()
-  .transform((val) => val.replace(/\s+/g, ''))
+  .transform((val) => val.replace(/\D+/g, ''))
   .refine((val) => /^\d+$/.test(val), {
     message: 'Phone must contain only digits',
   })

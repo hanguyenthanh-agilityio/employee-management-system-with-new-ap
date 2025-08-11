@@ -35,16 +35,26 @@ export const loginSchema = z.object({
 export type LoginInput = z.infer<typeof loginSchema>;
 
 // Validate for Register form
+
+const phoneSchema = z
+  .string()
+  .transform((val) => val.replace(/\D+/g, ''))
+  .refine((val) => /^\d+$/.test(val), {
+    message: 'Phone must contain only digits',
+  })
+  .refine((val) => val.length >= 8, {
+    message: 'Phone must be at least 8 digits',
+  })
+  .refine((val) => val.length <= 10, {
+    message: 'Phone must be at most 10 digits',
+  });
+
 export const registerSchema = z
   .object({
     firstName: nameField('First name'),
     lastName: nameField('Last name'),
     email: emailField,
-    phone: z
-      .string()
-      .min(8, 'Phone must be at least 8 digits')
-      .max(11, 'Phone must be at most 11 digits')
-      .regex(/^\d+$/, 'Phone must contain only digits'),
+    phone: phoneSchema,
     password: passwordField,
     confirmPassword: z.string(),
     terms: z.boolean().refine((val) => val === true, {
