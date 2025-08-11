@@ -24,13 +24,16 @@ interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
   onReset: () => void;
   defaultDocument?: { name: string; url?: string };
+  isLoading?: boolean;
 }
 
-const Form = ({ form, onReset, defaultDocument }: FormProps) => {
+const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
   const {
     control,
     formState: { errors, isSubmitting, isDirty },
   } = form;
+
+  const isLoadingSubmit = isLoading || isSubmitting;
 
   return (
     <>
@@ -195,7 +198,7 @@ const Form = ({ form, onReset, defaultDocument }: FormProps) => {
         </Button>
       </div>
 
-      {isSubmitting && <TransitionLoader />}
+      {isLoadingSubmit && <TransitionLoader />}
     </>
   );
 };
