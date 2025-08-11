@@ -191,7 +191,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
         <Button
           type="reset"
           variant="outline"
-          className="btn-reset text-red-600 dark:border-red-400 hover:bg-red-100 dark:hover:bg-red-900 hover:bg-red-50"
+          className="btn-reset"
           onClick={onReset}
         >
           Reset
