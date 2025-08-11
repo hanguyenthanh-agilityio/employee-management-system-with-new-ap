@@ -126,7 +126,6 @@ const RegisterForm = () => {
                       {...controllerField}
                       value={typeof value === 'string' ? value : ''}
                       error={errors[field.name as keyof RegisterInput]?.message}
-                      disabled={isFormDisabled}
                     />
                   );
                 }
@@ -149,7 +148,6 @@ const RegisterForm = () => {
                       {...controllerField}
                       value={typeof value === 'string' ? value : ''}
                       error={errors[field.name as keyof RegisterInput]?.message}
-                      disabled={isFormDisabled}
                     />
                   );
                 }
@@ -160,7 +158,6 @@ const RegisterForm = () => {
                     type={field.type || 'text'}
                     className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
                     {...controllerField}
-                    disabled={isFormDisabled}
                     value={typeof value === 'string' ? value : ''}
                     error={errors[field.name as keyof RegisterInput]?.message}
                   />
@@ -183,7 +180,6 @@ const RegisterForm = () => {
                       id={cb.id}
                       checked={!!field.value}
                       onCheckedChange={field.onChange}
-                      disabled={isFormDisabled}
                       className="checkbox-base"
                     />
                     <Label

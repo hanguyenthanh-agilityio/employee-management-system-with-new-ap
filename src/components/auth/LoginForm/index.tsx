@@ -40,6 +40,7 @@ import { cn } from '@/lib/utils';
 const LoginForm = () => {
   const router = useRouter();
   const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
@@ -55,24 +56,37 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginInput) => {
+    setIsLoading(true);
     setServerError('');
+
     try {
       const result = await loginAction(undefined, data);
 
       if (result.success) {
         toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS, {
-          autoClose: 2000,
-          onClose: () => router.push(ROUTER.DASHBOARD),
+          autoClose: 1500,
+          onClose: () => {
+            setIsLoading(false);
+            router.push(ROUTER.DASHBOARD);
+          },
         });
       } else {
         setServerError(result.message || ERROR_MESSAGE.LOGIN_FAILED);
-        toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED);
+        toast.error(result.message || ERROR_MESSAGE.LOGIN_FAILED, {
+          autoClose: 1500,
+          onClose: () => setIsLoading(false),
+        });
       }
-    } catch (error) {
+    } catch {
       setServerError(ERROR_MESSAGE.UNEXPECTED);
-      toast.error(ERROR_MESSAGE.UNEXPECTED);
+      toast.error(ERROR_MESSAGE.UNEXPECTED, {
+        autoClose: 1500,
+        onClose: () => setIsLoading(false),
+      });
     }
   };
+
+  const isFormDisabled = isSubmitting || isLoading;
 
   const inputClass = cn(
     'input-base',
@@ -81,7 +95,7 @@ const LoginForm = () => {
 
   return (
     <>
-      {isSubmitting && <TransitionLoader />}
+      {isFormDisabled && <TransitionLoader />}
 
       <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">
         Login
@@ -173,10 +187,10 @@ const LoginForm = () => {
         <Button
           type="submit"
           className="justify-center w-full text-white"
-          disabled={isSubmitting}
+          disabled={isFormDisabled}
           aria-label="Submit login form"
         >
-          {isSubmitting ? 'Signing In...' : 'Sign In'}
+          {isFormDisabled ? 'Signing In...' : 'Sign In'}
         </Button>
 
         <p className="text-center text-lg md:text-xl text-Gray56 mt-6">
