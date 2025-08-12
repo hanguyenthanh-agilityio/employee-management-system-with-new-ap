@@ -36,7 +36,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
     sortBy,
     sortOrder,
     isModalOpen,
-    isPending,
+    isDeleting,
     handleSort,
     handleFilterChange,
     handlePageChange,
@@ -80,7 +80,7 @@ const LeaveHistorySection = ({ data }: { data: LeaveItem[] }) => {
 
       <DeleteConfirmModal
         isOpen={isModalOpen}
-        isLoading={isPending}
+        isLoading={isDeleting}
         onClose={cancelDelete}
         onConfirm={confirmDelete}
       />
