@@ -103,7 +103,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 p-2 md:p-6 w-full">
+    <div className="flex flex-col items-center gap-10 md:p-2 md:p-6 w-full">
       {/* Avatar */}
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto group rounded-full overflow-hidden">
         <Avatar
@@ -142,7 +142,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
       >
         <fieldset
           disabled={isPending}
-          className="space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          className="space-y-4 md:space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
           <ProfileEditForm form={form} disable={isPending} />
         </fieldset>

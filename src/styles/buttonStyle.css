@@ -5,12 +5,12 @@
     focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
 }
 
-.btn-yellow {
-  @apply bg-[#FFC20E] hover:bg-yellow text-black focus-visible:outline-yellow;
+.btn-primary {
+  @apply px-10 md:px-28 py-6 font-bold cursor-pointer disabled:cursor-not-allowed disabled:pointer-events-auto;
 }
 
-.btn-blue {
-  @apply bg-blue-500 text-white hover:bg-blue-600 focus-visible:outline-blue-600;
+.btn-yellow {
+  @apply bg-[#FFC20E] hover:bg-yellow text-black focus-visible:outline-yellow;
 }
 
 .btn-danger {
@@ -30,12 +30,12 @@
 }
 
 .btn-submit {
-  @apply bg-darkGreen hover:bg-green-700 px-10 md:px-28 py-6 font-bold text-white dark:bg-green-500 dark:hover:bg-green-400;
+  @apply bg-darkGreen hover:bg-green-700    text-white dark:bg-green-500 dark:hover:bg-green-400;
 }
 
 .btn-reset {
-  @apply font-bold border-gray-300 border-[3px] dark:border-gray-600 border-solid bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200
+  @apply border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200
              hover:bg-gray-200 dark:hover:bg-gray-700
              focus:outline-none focus:ring-2 focus:ring-blue-400
-             transition-colors duration-200 px-10 md:px-28 py-5;
+             transition-colors duration-200;
 }

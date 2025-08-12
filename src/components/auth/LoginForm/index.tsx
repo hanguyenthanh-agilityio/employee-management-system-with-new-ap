@@ -186,7 +186,7 @@ const LoginForm = () => {
 
         <Button
           type="submit"
-          className="justify-center w-full text-white"
+          className="h-auto w-full justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
           disabled={isFormDisabled}
           aria-label="Submit login form"
         >

@@ -19,6 +19,7 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 // Styles
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
+import { cn } from '@/lib/utils';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
@@ -59,7 +60,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="startDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.startDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.startDate?.message}
               />
@@ -77,7 +81,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="endDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.endDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.endDate?.message}
               />
@@ -98,7 +105,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="durations"
                 type="number"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base',
+                  errors.durations ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.durations?.message}
               />
@@ -116,7 +126,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="resumptionDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.resumptionDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.resumptionDate?.message}
               />
@@ -135,7 +148,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           render={({ field }) => (
             <Textarea
               id="reason"
-              className="textarea-form"
+              className={cn(
+                'textarea-base',
+                errors.reason ? 'input-error' : 'input-profile',
+              )}
               rows={3}
               {...field}
               error={errors.reason?.message}
@@ -156,7 +172,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               id="document"
               type="file"
               accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-              className="input-file"
+              className="input-file cursor-interactive"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 field.onChange(file);
@@ -183,7 +199,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       <div className="flex gap-5 py-4">
         <Button
           type="submit"
-          className="btn-submit"
+          className="btn-primary btn-submit"
           disabled={isSubmitting || !isDirty}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
@@ -191,7 +207,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
         <Button
           type="reset"
           variant="outline"
-          className="btn-reset"
+          className="btn-primary btn-reset"
           onClick={onReset}
         >
           Reset
