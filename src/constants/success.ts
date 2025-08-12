@@ -5,4 +5,5 @@ export const SUCCESS_MESSAGES = {
   DELETE_SUCCESS: 'Deleted!',
   UPDATE_SUCCESS: 'Update success',
   CREATE_SUCCESS: 'Create success',
+  UPDATE_PROFILE_SUCCESS: 'Profile updated successfully!',
 };

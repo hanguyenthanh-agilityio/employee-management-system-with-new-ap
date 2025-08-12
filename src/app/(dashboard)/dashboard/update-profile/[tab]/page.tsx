@@ -7,7 +7,6 @@ import {
   ProfileDisplay,
   ContactDetailsSection,
 } from '@/components';
-import ToastProvider from '@/components/status/ToastProvider';
 
 // Constants
 import { TAB_ITEM } from '@/constants';
@@ -58,8 +57,6 @@ export default async function TabPage({ params }: Props) {
 
   return (
     <>
-      <ToastProvider />
-
       {tab === TAB_ITEM.PERSONAL_DETAILS && (
         <Suspense fallback={<LoadingFormLeave />}>
           <PersonalDetailsContent />
