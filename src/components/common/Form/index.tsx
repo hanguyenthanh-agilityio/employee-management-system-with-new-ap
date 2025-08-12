@@ -2,6 +2,8 @@
 
 import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
+import { useState } from 'react';
+import Image from 'next/image';
 
 // Components
 import {
@@ -19,6 +21,8 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 // Styles
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
+
+// Utils
 import { cn } from '@/lib/utils';
 
 interface FormProps {
@@ -34,7 +38,14 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
     formState: { errors, isSubmitting, isDirty },
   } = form;
 
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const isLoadingSubmit = isLoading || isSubmitting;
+
+  const handleReset = () => {
+    setPreviewUrl(null);
+    onReset?.();
+  };
 
   return (
     <>
@@ -175,12 +186,34 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               className="input-file cursor-interactive"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                field.onChange(file);
+                if (file) {
+                  field.onChange(file);
+
+                  if (file.type.startsWith('image/')) {
+                    const objectUrl = URL.createObjectURL(file);
+                    setPreviewUrl(objectUrl);
+                  } else {
+                    setPreviewUrl(null);
+                  }
+                }
               }}
               error={(errors.document as FieldError)?.message}
             />
           )}
         />
+
+        {previewUrl && (
+          <div className="mt-4">
+            <Image
+              src={previewUrl}
+              alt="Document preview"
+              width={200}
+              height={200}
+              className="rounded border border-gray-300 object-contain"
+            />
+          </div>
+        )}
+
         {defaultDocument?.url && (
           <div className="mt-4 flex items-center gap-3 text-base text-[#1D1D1D]">
             <Link
@@ -208,7 +241,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           type="reset"
           variant="outline"
           className="btn-primary btn-reset"
-          onClick={onReset}
+          onClick={handleReset}
         >
           Reset
         </Button>
