@@ -9,6 +9,9 @@ import { Button } from '@/components';
 // Constants
 import { IMAGE, ROUTER } from '@/constants';
 
+// Utils
+import { formatName } from '@/utils/format';
+
 interface ProfileSectionProps {
   name: string;
   jobTitle: string;
@@ -39,7 +42,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => {
         {/* Info */}
         <div className="text-center sm:text-left max-w-xs">
           <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold pb-1 sm:pb-2">
-            {name}
+            {formatName(name)}
           </h2>
           <p className="text-base sm:text-xl lg:text-2xl">{jobTitle}</p>
         </div>
