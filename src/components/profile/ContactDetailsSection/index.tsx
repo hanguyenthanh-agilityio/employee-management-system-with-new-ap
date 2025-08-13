@@ -31,11 +31,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   const form = useForm<ContactDetailsInput>({
     resolver: zodResolver(contactDetails),
     defaultValues: {
-      mainPhoneNumber: contact.mainPhoneNumber ?? '',
-      subPhoneNumber: contact.subPhoneNumber ?? '',
-      email: contact.email ?? '',
-      city: contact.city ?? '',
-      residential: contact.residential ?? '',
+      mainPhoneNumber: contact.mainPhoneNumber || '',
+      subPhoneNumber: contact.subPhoneNumber || '',
+      email: contact.email || '',
+      city: contact.city || '',
+      residential: contact.residential || '',
     },
   });
 

@@ -18,7 +18,7 @@ interface MaskedInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
   ({ mask, error, ...props }, ref) => (
-    <InputMask mask={mask} {...props}>
+    <InputMask mask={mask} maskChar={null} alwaysShowMask={false} {...props}>
       {(inputProps: ComponentPropsWithoutRef<'input'>) => (
         <Input ref={ref} {...inputProps} error={error} />
       )}
