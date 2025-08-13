@@ -30,7 +30,7 @@ import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
 const isValidLeaveType = (type: string | null): type is LeaveType =>
   ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
 
-const CreateLeaveContent = () => {
+const CreateLeaveForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryType = searchParams.get('type');
@@ -102,7 +102,7 @@ const CreateLeaveContent = () => {
             router.refresh();
           },
         });
-        reset(defaultValues);
+        reset(payload);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
         setIsLoading(false);
@@ -133,4 +133,4 @@ const CreateLeaveContent = () => {
   );
 };
 
-export default CreateLeaveContent;
+export default CreateLeaveForm;
