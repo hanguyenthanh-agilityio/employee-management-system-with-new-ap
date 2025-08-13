@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 // Components
@@ -51,5 +51,22 @@ describe('ProfileEditForm component', () => {
     const button = screen.getByRole('button', { name: /save/i });
     expect(button).toBeInTheDocument();
     expect(button).toBeDisabled();
+  });
+
+  test('Enables Save button when form is dirty', async () => {
+    render(<Form />);
+    const usernameInput = screen.getByLabelText(/employee name/i);
+
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /save/i })).toBeEnabled();
+    });
+  });
+
+  test('Uses "input-profile" class when no error', () => {
+    render(<Form />);
+    const usernameInput = screen.getByLabelText(/employee name/i);
+    expect(usernameInput).toHaveClass('input-profile');
   });
 });

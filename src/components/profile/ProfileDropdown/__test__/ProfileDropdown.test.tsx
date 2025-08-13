@@ -12,4 +12,23 @@ describe('ProfileDropdown', () => {
     fireEvent.click(screen.getByTestId('profile-button'));
     expect(screen.getByTestId('dropdown')).toBeInTheDocument();
   });
+
+  test('should show loading when isLoading = true', () => {
+    render(<ProfileDropdown isLoading={true} onClick={() => {}} />);
+    fireEvent.click(screen.getByTestId('profile-button'));
+
+    expect(screen.getByTestId('dropdown')).toBeInTheDocument();
+  });
+
+  test('should show logout button when isLoading = false', () => {
+    const onClickMock = jest.fn();
+    render(<ProfileDropdown isLoading={false} onClick={onClickMock} />);
+    fireEvent.click(screen.getByTestId('profile-button'));
+
+    const logoutButton = screen.getByRole('button', { name: /logout/i });
+    expect(logoutButton).toBeInTheDocument();
+
+    fireEvent.click(logoutButton);
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
 });

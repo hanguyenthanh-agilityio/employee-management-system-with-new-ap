@@ -56,7 +56,7 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
             </li>
             <li className={`flex justify-center ${isLoading && 'py-2'}`}>
               {isLoading ? (
-                <Loading width={8} height={8} />
+                <Loading data-testid="loading-icon" width={8} height={8} />
               ) : (
                 <button
                   aria-label="Logout"
