@@ -1,17 +1,12 @@
 import { Suspense } from 'react';
 
 // Components
-import {
-  DashboardSkeleton,
-  DashboardWrapper,
-  ToastProvider,
-} from '@/components';
+import { DashboardSkeleton, DashboardWrapper } from '@/components';
 
 const Page = () => {
   return (
     <Suspense fallback={<DashboardSkeleton />}>
       <DashboardWrapper />
-      <ToastProvider />
     </Suspense>
   );
 };

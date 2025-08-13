@@ -38,6 +38,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   /**
    * Render data when filter by type
@@ -54,8 +55,9 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     const dataToSort = [...filteredData];
     if (!sortBy) return dataToSort;
     return dataToSort.sort((a, b) => {
-      const valA = a[sortBy];
-      const valB = b[sortBy];
+      const valA = a[sortBy] ?? '';
+      const valB = b[sortBy] ?? '';
+
       if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
       if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
       return 0;
@@ -139,32 +141,41 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
 
   const confirmDelete = async () => {
     if (!deletingId) return;
+    setIsDeleting(true);
 
     try {
       await deleteLeaveApplication(deletingId);
 
-      setModalOpen(false);
-      setDeletingId(null);
+      toast.success(SUCCESS_MESSAGES.DELETE_SUCCESS, {
+        autoClose: 1500,
+        onClose: () => {
+          setModalOpen(false);
+          setDeletingId(null);
 
-      //check condition: is this the last page and the page has only 1 item left
-      const isLastItemOnPage = paginatedData.length === 1;
-      const isNotFirstPage = currentPage > 1;
+          // check condition: is this the last page and the page has only 1 item left
+          const isLastItemOnPage = paginatedData.length === 1;
+          const isNotFirstPage = currentPage > 1;
 
-      // Prepare new searchParam to change Url
-      const params = new URLSearchParams(searchParams.toString());
-      if (isLastItemOnPage && isNotFirstPage) {
-        params.set('page', String(currentPage - 1));
-      }
+          const params = new URLSearchParams(searchParams.toString());
+          if (isLastItemOnPage && isNotFirstPage) {
+            params.set('page', String(currentPage - 1));
+          }
 
-      // Navigate and refresh after deleting
-      startTransition(() => {
-        router.push(`${pathname}?${params.toString()}`, { scroll: false });
-        router.refresh();
-
-        toast.success(SUCCESS_MESSAGES.DELETE_SUCCESS);
+          startTransition(() => {
+            router.push(`${pathname}?${params.toString()}`, { scroll: false });
+            router.refresh();
+          });
+        },
       });
     } catch (error) {
-      toast.error(ERROR_MESSAGE.DELETE_LEAVE_FAILED);
+      toast.error(ERROR_MESSAGE.DELETE_LEAVE_FAILED, {
+        onClose: () => {
+          setModalOpen(false);
+          setDeletingId(null);
+        },
+      });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -183,6 +194,7 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     sortOrder,
     isModalOpen,
     isPending,
+    isDeleting,
     handleFilterChange,
     handlePageChange,
     handleEdit,

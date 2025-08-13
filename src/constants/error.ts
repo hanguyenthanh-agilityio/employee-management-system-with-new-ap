@@ -22,6 +22,9 @@ export const ERROR_MESSAGE = {
   DELETE_LEAVE_FAILED: 'Failed to delete leave application.',
   SUMMARY_LEAVE_FAILED: 'Unable to load summary leaves',
 
+  // Profile Errors
+  UPDATE_PROFILE_FAILED: 'Failed to update contact details.',
+
   // Validation & Upload
   VALIDATION_FAILED: 'Validation failed',
   UPLOAD_FAILED: 'Upload failed',

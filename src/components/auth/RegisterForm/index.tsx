@@ -65,19 +65,24 @@ const RegisterForm = () => {
       const result = await registerAction(data);
 
       if (result.success) {
-        toast.success('Account created successfully!', { autoClose: 1500 });
-        setTimeout(() => {
-          router.push(ROUTER.LOGIN);
-        }, 1500);
+        toast.success('Account created successfully!', {
+          autoClose: 1500,
+          onClose: () => {
+            setIsLoading(false);
+            router.push(ROUTER.LOGIN);
+          },
+        });
       } else {
-        setServerError(result.message || ERROR_MESSAGE.REGISTER_FAILED);
-        toast.error(result.message || ERROR_MESSAGE.REGISTER_FAILED);
+        toast.error(result.message || ERROR_MESSAGE.REGISTER_FAILED, {
+          autoClose: 1500,
+          onClose: () => setIsLoading(false),
+        });
       }
-    } catch (error) {
-      setServerError(ERROR_MESSAGE.UNEXPECTED);
-      toast.error(ERROR_MESSAGE.UNEXPECTED);
-    } finally {
-      setIsLoading(false);
+    } catch {
+      toast.error(ERROR_MESSAGE.UNEXPECTED, {
+        autoClose: 1500,
+        onClose: () => setIsLoading(false),
+      });
     }
   };
 
@@ -121,7 +126,6 @@ const RegisterForm = () => {
                       {...controllerField}
                       value={typeof value === 'string' ? value : ''}
                       error={errors[field.name as keyof RegisterInput]?.message}
-                      disabled={isFormDisabled}
                     />
                   );
                 }
@@ -144,7 +148,6 @@ const RegisterForm = () => {
                       {...controllerField}
                       value={typeof value === 'string' ? value : ''}
                       error={errors[field.name as keyof RegisterInput]?.message}
-                      disabled={isFormDisabled}
                     />
                   );
                 }
@@ -155,7 +158,6 @@ const RegisterForm = () => {
                     type={field.type || 'text'}
                     className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
                     {...controllerField}
-                    disabled={isFormDisabled}
                     value={typeof value === 'string' ? value : ''}
                     error={errors[field.name as keyof RegisterInput]?.message}
                   />
@@ -178,7 +180,6 @@ const RegisterForm = () => {
                       id={cb.id}
                       checked={!!field.value}
                       onCheckedChange={field.onChange}
-                      disabled={isFormDisabled}
                       className="checkbox-base"
                     />
                     <Label

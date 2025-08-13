@@ -68,3 +68,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .cursor-interactive {
+    @apply cursor-pointer pointer-events-auto;
+  }
+
+  .cursor-not-allowed-auto {
+    @apply cursor-not-allowed pointer-events-auto;
+  }
+}

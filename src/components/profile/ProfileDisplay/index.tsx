@@ -6,7 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 
 // Components
-import { Avatar, Input, ProfileEditForm, Button } from '@/components';
+import {
+  Avatar,
+  Input,
+  ProfileEditForm,
+  Button,
+  TransitionLoader,
+} from '@/components';
 
 // Utils
 import {
@@ -15,6 +21,7 @@ import {
 } from '@/utils/schemas/updateProfile';
 import { uploadFileToStrapi } from '@/utils/upload';
 import { getAvatarUrl } from '@/utils/avatar';
+import { formatName } from '@/utils/format';
 
 // Hooks
 import { useUpdateProfile } from '@/hooks/useProfile';
@@ -34,11 +41,12 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(avatarUrl);
   const [file, setFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
-      username: profile.username ?? '',
+      username: formatName(profile.username) ?? '',
       department: profile.department ?? '',
       jobTitle: profile.jobTitle ?? '',
       jobCategory: profile.jobCategory ?? '',
@@ -63,6 +71,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
 
   const handleSubmitForm = async (data: PersonalDetailsInput) => {
     setErrorMessage('');
+    setIsLoading(true);
 
     try {
       const avatarId = file ? await uploadFileToStrapi(file) : null;
@@ -76,17 +85,26 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
 
       if (result.success) {
         reset(data);
-        toast.success('Profile updated successfully!');
+        toast.success('Profile updated successfully!', {
+          autoClose: 2000,
+          onClose: () => setIsLoading(false),
+        });
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL);
+        toast.error(result.message || ERROR_MESSAGE.UPDATE_USER_FAIL, {
+          onClose: () => setIsLoading(false),
+        });
       }
     } catch (err) {
       setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+      toast.error(ERROR_MESSAGE.UNEXPECTED, {
+        onClose: () => setIsLoading(false),
+      });
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 p-2 md:p-6 w-full">
+    <div className="flex flex-col items-center gap-10 md:p-2 md:p-6 w-full">
       {/* Avatar */}
       <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto group rounded-full overflow-hidden">
         <Avatar
@@ -125,10 +143,12 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
       >
         <fieldset
           disabled={isPending}
-          className="space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          className="space-y-4 md:space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
           <ProfileEditForm form={form} disable={isPending} />
         </fieldset>
+
+        {(isPending || isLoading) && <TransitionLoader />}
 
         {errorMessage && (
           <p className="text-center text-red !text-sm mt-3 font-medium">

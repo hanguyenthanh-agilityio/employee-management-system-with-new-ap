@@ -27,6 +27,7 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
+
 interface EditFormProps {
   leave: LeaveItem;
 }
@@ -36,16 +37,18 @@ const isValidLeaveType = (type: string | null): type is LeaveType =>
 
 const EditForm = ({ leave }: EditFormProps) => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const defaultValues = {
     type: isValidLeaveType(leave.type) ? leave.type : undefined,
-    startDate: leave.startDate,
-    endDate: leave.endDate,
-    durations: leave.durations,
-    resumptionDate: leave.resumptionDate,
-    reason: leave.reason,
+    startDate: leave.startDate || '',
+    endDate: leave.endDate || '',
+    durations: leave.durations || 0,
+    resumptionDate: leave.resumptionDate || '',
+    reason: leave.reason || '',
+    document: null,
   };
 
   const form = useForm<LeaveApplicationInput>({
@@ -74,6 +77,8 @@ const EditForm = ({ leave }: EditFormProps) => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
+      setIsLoading(true);
+
       let uploadedFileId = leave.document?.id;
       const file = data.document as File;
 
@@ -96,12 +101,14 @@ const EditForm = ({ leave }: EditFormProps) => {
             router.refresh();
           },
         });
-        reset(defaultValues);
+        reset(payload);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
+        setIsLoading(false);
       }
     } catch (err) {
       setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+      setIsLoading(false);
     }
   };
 
@@ -120,6 +127,7 @@ const EditForm = ({ leave }: EditFormProps) => {
           form={form}
           onReset={handleReset}
           defaultDocument={getDefaultDocument(leave?.document)}
+          isLoading={isLoading}
         />
       </form>
       {errorMessage && (

@@ -1,10 +1,15 @@
+// Icons
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+
 // Components
 import { ActionsDropdown, Button } from '@/components';
+import FallbackImage from '@/components/status/ImageFallback';
 
 // Types
 import { LeaveItem } from '@/types/components';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
-import Image from 'next/image';
+
+// Utils
+import { formatName } from '@/utils/format';
 
 type ColumnType = {
   sortBy: string;
@@ -23,7 +28,10 @@ export const COLUMNS = ({
 }: ColumnType) => [
   {
     title: 'Name(s)',
-    render: (row: LeaveItem) => row.employeeName,
+    render: (row: LeaveItem) =>
+      formatName(
+        row.users_permissions_user?.username || row.employeeName || '',
+      ),
   },
   {
     title: 'Duration(s)',
@@ -93,11 +101,11 @@ export const COLUMNS = ({
     title: 'Document',
     render: (row: LeaveItem) =>
       row.document ? (
-        <Image
+        <FallbackImage
           src={`${process.env.NEXT_PUBLIC_API_URL}${row.document?.url}`}
           alt={row.document?.name || 'Document'}
           width={30}
-          height={30}
+          height={40}
           className="rounded shadow object-cover"
         />
       ) : (

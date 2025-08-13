@@ -1,11 +1,5 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-// Components
-const ToastProvider = dynamic(
-  () => import('@/components/status/ToastProvider'),
-);
 
 // Constants
 import { IMAGE } from '@/constants';
@@ -67,7 +61,6 @@ const RegisterLayout = ({ children }: { children: ReactNode }) => (
       aria-label="Register form"
     >
       {children}
-      <ToastProvider />
     </section>
   </main>
 );

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 // Components
-import { ToastProvider } from '@/components';
 import Image from 'next/image';
 import { IMAGE } from '@/constants';
 
@@ -54,7 +53,6 @@ const LoginLayout = ({ children }: AuthLayoutProps) => (
       aria-label="Login form"
     >
       {children}
-      <ToastProvider />
     </section>
   </main>
 );

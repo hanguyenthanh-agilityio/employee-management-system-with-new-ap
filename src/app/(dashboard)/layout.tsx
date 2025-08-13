@@ -1,9 +1,11 @@
+'use client';
+
 import { ReactNode } from 'react';
 
 // Components
 import { TopBar } from '@/components';
 
-const DashboardLayout = async ({ children }: { children: ReactNode }) => {
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
       <TopBar />

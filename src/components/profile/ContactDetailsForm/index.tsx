@@ -25,7 +25,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
   return (
     <>
       {/* Phone Numbers */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
         <div>
           <RequiredLabel htmlFor="mainPhoneNumber" className="form-label">
             Phone Number 1
@@ -144,7 +144,7 @@ const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
 
       {/* Submit */}
       <Button
-        className="bg-darkGreen text-white hover:bg-green-700 font-bold py-6 md:py-8 text-lg md:text-2xl w-full md:w-[200px] mx-auto mt-4"
+        className="btn-primary btn-submit disabled:opacity-50 transition text-xl"
         disabled={isSubmitting || !isDirty}
       >
         {isSubmitting ? 'Updating...' : 'Update'}

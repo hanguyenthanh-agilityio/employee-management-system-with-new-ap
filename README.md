@@ -10,9 +10,9 @@
 
 ## Timeline
 
-- days
-- Start day:
-- End day:
+- 18 days
+- Start day: July 1, 2025
+- End day: july 28, 2025
 
 ## Team size
 

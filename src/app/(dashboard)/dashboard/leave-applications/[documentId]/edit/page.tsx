@@ -10,7 +10,6 @@ import { getLeaveApplicationById } from '@/services/leave/leaveService';
 
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
-import ToastProvider from '@/components/status/ToastProvider';
 
 // Constants
 import { BREADCRUMBS } from '@/constants';
@@ -65,7 +64,6 @@ const UpdateLeavePage = async (props: {
           <UpdateLeaveContent documentId={documentId} />
         </Suspense>
       </div>
-      <ToastProvider />
     </>
   );
 };

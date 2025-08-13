@@ -38,6 +38,7 @@ const CreateLeaveContent = () => {
     ? queryType
     : undefined;
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const defaultValues = {
     type: typeFromQuery,
@@ -75,6 +76,7 @@ const CreateLeaveContent = () => {
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
       setErrorMessage('');
+      setIsLoading(true);
 
       let uploadedFileId: number | undefined;
 
@@ -103,9 +105,11 @@ const CreateLeaveContent = () => {
         reset(defaultValues);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
+        setIsLoading(false);
       }
     } catch (err) {
       setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+      setIsLoading(false);
     }
   };
 
@@ -120,7 +124,7 @@ const CreateLeaveContent = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <Form form={form} onReset={handleReset} />
+        <Form form={form} onReset={handleReset} isLoading={isLoading} />
       </form>
       {errorMessage && (
         <p className="text-sm text-red font-medium">{errorMessage}</p>
