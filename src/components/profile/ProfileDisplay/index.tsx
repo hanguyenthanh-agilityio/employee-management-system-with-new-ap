@@ -21,6 +21,7 @@ import {
 } from '@/utils/schemas/updateProfile';
 import { uploadFileToStrapi } from '@/utils/upload';
 import { getAvatarUrl } from '@/utils/avatar';
+import { formatName } from '@/utils/format';
 
 // Hooks
 import { useUpdateProfile } from '@/hooks/useProfile';
@@ -45,7 +46,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
-      username: profile.username ?? '',
+      username: formatName(profile.username) ?? '',
       department: profile.department ?? '',
       jobTitle: profile.jobTitle ?? '',
       jobCategory: profile.jobCategory ?? '',

@@ -52,7 +52,8 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={clsx(
-              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border bg-white text-gray-500 hover:bg-gray-100',
+              'dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700',
               'rounded-l-lg',
               currentPage === 1
                 ? 'opacity-50 cursor-not-allowed'
@@ -70,10 +71,11 @@ const Pagination: React.FC<PaginationProps> = ({
               <button
                 onClick={() => handleClick(page)}
                 className={clsx(
-                  'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300',
+                  'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border',
+                  'dark:border-gray-700',
                   page === currentPage
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100',
+                    ? 'bg-blue-500 text-white dark:bg-blue-600 dark:text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
                   page !== currentPage && 'cursor-pointer',
                 )}
               >
@@ -93,7 +95,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={clsx(
-              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
               'rounded-r-lg',
               currentPage === totalPages
                 ? 'opacity-50 cursor-not-allowed'

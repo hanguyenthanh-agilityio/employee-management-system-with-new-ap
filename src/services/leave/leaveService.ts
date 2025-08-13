@@ -12,7 +12,7 @@ export const getLeaveApplications = async (id: number) => {
   const token = await getTokenFromCookies();
 
   const res = await fetch(
-    `${API_URL}${API.BASE}?${USER_FILTER_PREFIX}=${id}&&populate=document`,
+    `${API_URL}${API.BASE}?${USER_FILTER_PREFIX}=${id}&&populate[users_permissions_user][fields]=username&populate=document`,
     {
       method: 'GET',
       headers: {

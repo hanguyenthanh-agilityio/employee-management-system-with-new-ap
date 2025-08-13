@@ -1,10 +1,15 @@
+// Icons
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+
 // Components
 import { ActionsDropdown, Button } from '@/components';
 import FallbackImage from '@/components/status/ImageFallback';
 
 // Types
 import { LeaveItem } from '@/types/components';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+
+// Utils
+import { formatName } from '@/utils/format';
 
 type ColumnType = {
   sortBy: string;
@@ -23,7 +28,10 @@ export const COLUMNS = ({
 }: ColumnType) => [
   {
     title: 'Name(s)',
-    render: (row: LeaveItem) => row.employeeName,
+    render: (row: LeaveItem) =>
+      formatName(
+        row.users_permissions_user?.username || row.employeeName || '',
+      ),
   },
   {
     title: 'Duration(s)',

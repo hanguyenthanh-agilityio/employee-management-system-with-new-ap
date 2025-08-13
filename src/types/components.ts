@@ -12,7 +12,7 @@ export type LeaveItem = {
   documentId: string;
   startDate: string;
   endDate: string;
-  employeeName: string;
+  employeeName?: string;
   type: string;
   reason: string;
   durations: number;
@@ -22,6 +22,10 @@ export type LeaveItem = {
     id: number;
     name: string;
     url: string;
+  };
+  users_permissions_user?: {
+    id: number;
+    username: string;
   };
 };
 
