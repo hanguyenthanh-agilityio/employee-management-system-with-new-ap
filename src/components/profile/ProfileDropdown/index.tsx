@@ -34,12 +34,16 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
         className="w-9 h-9 rounded-full bg-yellow flex items-center justify-center shadow-lg"
         onClick={handleClick}
         aria-label="profile"
+        data-testid="profile-button"
       >
         <UserCircleIcon className="w-6 h-6 text-white" />
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-50">
+        <div
+          data-testid="dropdown"
+          className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-50"
+        >
           <ul className="py-1 text-sm text-gray-700">
             <li>
               <Link
