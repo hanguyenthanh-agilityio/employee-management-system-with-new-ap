@@ -2,6 +2,8 @@
 
 import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
+import { useState } from 'react';
+import Image from 'next/image';
 
 // Components
 import {
@@ -20,6 +22,9 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
 
+// Utils
+import { cn } from '@/lib/utils';
+
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
   onReset: () => void;
@@ -33,7 +38,14 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
     formState: { errors, isSubmitting, isDirty },
   } = form;
 
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const isLoadingSubmit = isLoading || isSubmitting;
+
+  const handleReset = () => {
+    setPreviewUrl(null);
+    onReset?.();
+  };
 
   return (
     <>
@@ -59,7 +71,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="startDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.startDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.startDate?.message}
               />
@@ -77,7 +92,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="endDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.endDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.endDate?.message}
               />
@@ -98,7 +116,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="durations"
                 type="number"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base',
+                  errors.durations ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.durations?.message}
               />
@@ -116,7 +137,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               <Input
                 id="resumptionDate"
                 type="date"
-                className="h-auto mb-5 form-paragraph border-none"
+                className={cn(
+                  'input-base cursor-interactive',
+                  errors.resumptionDate ? 'input-error' : 'input-profile',
+                )}
                 {...field}
                 error={errors.resumptionDate?.message}
               />
@@ -135,7 +159,10 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           render={({ field }) => (
             <Textarea
               id="reason"
-              className="textarea-form"
+              className={cn(
+                'textarea-base',
+                errors.reason ? 'input-error' : 'input-profile',
+              )}
               rows={3}
               {...field}
               error={errors.reason?.message}
@@ -156,15 +183,37 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               id="document"
               type="file"
               accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-              className="input-file"
+              className="input-file cursor-interactive"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                field.onChange(file);
+                if (file) {
+                  field.onChange(file);
+
+                  if (file.type.startsWith('image/')) {
+                    const objectUrl = URL.createObjectURL(file);
+                    setPreviewUrl(objectUrl);
+                  } else {
+                    setPreviewUrl(null);
+                  }
+                }
               }}
               error={(errors.document as FieldError)?.message}
             />
           )}
         />
+
+        {previewUrl && (
+          <div className="mt-4">
+            <Image
+              src={previewUrl}
+              alt="Document preview"
+              width={200}
+              height={200}
+              className="rounded border border-gray-300 object-contain"
+            />
+          </div>
+        )}
+
         {defaultDocument?.url && (
           <div className="mt-4 flex items-center gap-3 text-base text-[#1D1D1D]">
             <Link
@@ -183,7 +232,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       <div className="flex gap-5 py-4">
         <Button
           type="submit"
-          className="btn-submit"
+          className="btn-primary btn-submit"
           disabled={isSubmitting || !isDirty}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
@@ -191,8 +240,8 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
         <Button
           type="reset"
           variant="outline"
-          className="btn-reset"
-          onClick={onReset}
+          className="btn-primary btn-reset"
+          onClick={handleReset}
         >
           Reset
         </Button>

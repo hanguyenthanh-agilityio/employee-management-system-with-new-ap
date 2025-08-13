@@ -7,6 +7,7 @@ import { Button, Input, RequiredLabel, TransitionLoader } from '@/components';
 
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import { cn } from '@/lib/utils';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
@@ -23,7 +24,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
     <>
       {isSubmitting && <TransitionLoader />}
       {/* Username */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col md:gap-2">
         <RequiredLabel htmlFor="username" className="form-label">
           Employee Name
         </RequiredLabel>
@@ -33,7 +34,10 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="username"
-              className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
+              className={cn(
+                'input-base',
+                errors.username ? 'input-error' : 'input-profile',
+              )}
               type="text"
               disabled={disable}
               error={errors.username?.message}
@@ -44,7 +48,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       </div>
 
       {/* Department */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col md:gap-2">
         <RequiredLabel htmlFor="department" className="form-label">
           Department
         </RequiredLabel>
@@ -54,7 +58,10 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           render={({ field }) => (
             <Input
               id="department"
-              className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
+              className={cn(
+                'input-base',
+                errors.department ? 'input-error' : 'input-profile',
+              )}
               type="text"
               disabled={disable}
               error={errors.department?.message}
@@ -66,7 +73,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
 
       {/* Job title & category */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
-        <div className="flex-1 flex flex-col gap-2">
+        <div className="flex-1 flex flex-col md:gap-2">
           <RequiredLabel htmlFor="jobTitle" className="form-label">
             Job Title
           </RequiredLabel>
@@ -76,7 +83,10 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobTitle"
-                className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
+                className={cn(
+                  'input-base',
+                  errors.jobTitle ? 'input-error' : 'input-profile',
+                )}
                 type="text"
                 disabled={disable}
                 error={errors.jobTitle?.message}
@@ -86,7 +96,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
           />
         </div>
 
-        <div className="flex-1 flex flex-col gap-2">
+        <div className="flex-1 flex flex-col md:gap-2">
           <RequiredLabel htmlFor="jobCategory" className="form-label">
             Job Category
           </RequiredLabel>
@@ -96,7 +106,10 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
             render={({ field }) => (
               <Input
                 id="jobCategory"
-                className="h-auto w-full text-center !text-2xl font-bold border border-gray-300 rounded-md"
+                className={cn(
+                  'input-base',
+                  errors.jobCategory ? 'input-error' : 'input-profile',
+                )}
                 type="text"
                 disabled={disable}
                 error={errors.jobCategory?.message}
@@ -110,7 +123,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
       {/* Save button */}
       <Button
         type="submit"
-        className="w-full bg-darkGreen hover:bg-green-700 text-white text-lg py-3 rounded-lg flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        className="w-full btn-primary btn-submit disabled:opacity-50 transition text-xl"
         disabled={isSubmitting || !isDirty}
       >
         {isSubmitting ? 'Saving...' : 'Save'}

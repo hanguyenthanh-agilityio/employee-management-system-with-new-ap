@@ -55,8 +55,9 @@ export const useLeaveHistory = (data: LeaveItem[]) => {
     const dataToSort = [...filteredData];
     if (!sortBy) return dataToSort;
     return dataToSort.sort((a, b) => {
-      const valA = a[sortBy];
-      const valB = b[sortBy];
+      const valA = a[sortBy] ?? '';
+      const valB = b[sortBy] ?? '';
+
       if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
       if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
       return 0;

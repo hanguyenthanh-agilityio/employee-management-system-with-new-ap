@@ -31,11 +31,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
   const form = useForm<ContactDetailsInput>({
     resolver: zodResolver(contactDetails),
     defaultValues: {
-      mainPhoneNumber: contact.mainPhoneNumber ?? '',
-      subPhoneNumber: contact.subPhoneNumber ?? '',
-      email: contact.email ?? '',
-      city: contact.city ?? '',
-      residential: contact.residential ?? '',
+      mainPhoneNumber: contact.mainPhoneNumber || '',
+      subPhoneNumber: contact.subPhoneNumber || '',
+      email: contact.email || '',
+      city: contact.city || '',
+      residential: contact.residential || '',
     },
   });
 
@@ -92,7 +92,10 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
     >
       {isLoadingSubmit && <TransitionLoader />}
 
-      <fieldset className="flex flex-col gap-6" disabled={isLoadingSubmit}>
+      <fieldset
+        className="flex flex-col gap-4 md:gap-6"
+        disabled={isLoadingSubmit}
+      >
         <ContactDetailsForm form={form} disable={isLoadingSubmit} />
       </fieldset>
     </form>

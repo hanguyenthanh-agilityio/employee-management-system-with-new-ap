@@ -6,6 +6,7 @@ import { productSans } from './fonts';
 // Components
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { ToastProvider } from '@/components';
 
 export const metadata: Metadata = {
   title: {
@@ -31,6 +32,7 @@ const RootLayout = ({
     <body className={productSans.className}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {children}
+        <ToastProvider />
       </ThemeProvider>
     </body>
   </html>

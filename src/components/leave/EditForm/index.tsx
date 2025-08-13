@@ -27,6 +27,7 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
+
 interface EditFormProps {
   leave: LeaveItem;
 }
@@ -100,7 +101,7 @@ const EditForm = ({ leave }: EditFormProps) => {
             router.refresh();
           },
         });
-        reset(defaultValues);
+        reset(payload);
       } else {
         setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
         setIsLoading(false);
