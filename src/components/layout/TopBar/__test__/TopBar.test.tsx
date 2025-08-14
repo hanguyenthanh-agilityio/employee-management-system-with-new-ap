@@ -15,11 +15,9 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('TopBar component', () => {
-  test.skip('Render notification and mail icon', () => {
+  test('Render notification and mail icon', () => {
     render(<TopBar />);
-    expect(
-      screen.getByRole('img', { name: /notification bell/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /envelope/i })).toBeInTheDocument();
+    expect(screen.getByTestId('bell-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('envelope-icon')).toBeInTheDocument();
   });
 });

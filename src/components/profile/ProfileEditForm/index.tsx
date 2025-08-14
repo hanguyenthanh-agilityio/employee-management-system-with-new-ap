@@ -55,6 +55,7 @@ const ProfileEditForm = ({ form, disable }: ProfileEditFormProps) => {
         <Controller
           name="department"
           control={control}
+          rules={{ required: 'Department is required' }}
           render={({ field }) => (
             <Input
               id="department"

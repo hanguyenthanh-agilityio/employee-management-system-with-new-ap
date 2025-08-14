@@ -2,83 +2,91 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { mockContact } from '@/mocks/profile';
 import ContactDetailsSection from '..';
-import { ContactsDetailsType } from '@/types/profile';
+import { useUpdateProfile } from '@/hooks/useProfile';
+import { toast } from 'react-toastify';
 
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
+jest.mock('@/hooks/useProfile', () => ({
+  useUpdateProfile: jest.fn(),
 }));
 
-const mockUpdate = jest.fn();
-jest.mock('@/hooks/useProfile', () => ({
-  useUpdateProfile: () => ({
-    update: mockUpdate,
-    isPending: false,
-    errorMessage: '',
-  }),
+jest.mock('@/components', () => ({
+  ContactDetailsForm: () => (
+    <div data-testid="mock-contact-form">Mock Form</div>
+  ),
+  TransitionLoader: () => <div data-testid="mock-loader">Loading...</div>,
+}));
+
+jest.mock('react-toastify', () => ({
+  toast: {
+    success: jest.fn(),
+    error: jest.fn(),
+  },
 }));
 
 describe('ContactDetailsSection component', () => {
-  const contact = mockContact;
+  const mockUpdate = jest.fn();
 
-  test.skip('Renders ContactDetailsSection inside a form element', () => {
-    render(<ContactDetailsSection contact={contact} />);
-    const form = screen.getByTestId('contact-details-form');
-
-    expect(form).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useUpdateProfile as jest.Mock).mockReturnValue({
+      update: mockUpdate,
+      errorMessage: '',
+      setErrorMessage: jest.fn(),
+    });
   });
 
-  test.skip('Renders from fields with default values from Contact', () => {
-    render(<ContactDetailsSection contact={contact} />);
-
-    expect(
-      screen.getByDisplayValue(contact.mainPhoneNumber),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByDisplayValue(contact.subPhoneNumber),
-    ).toBeInTheDocument();
-
-    expect(screen.getByDisplayValue(contact.email)).toBeInTheDocument();
-
-    expect(screen.getByDisplayValue(contact.city)).toBeInTheDocument();
-
-    expect(screen.getByDisplayValue(contact.residential)).toBeInTheDocument();
+  it('renders the form with initial data', () => {
+    render(<ContactDetailsSection contact={mockContact} />);
+    expect(screen.getByTestId('mock-contact-form')).toBeInTheDocument();
   });
-  test.skip('Submits form and calls update function on success', async () => {
-    mockUpdate.mockResolvedValueOnce({ success: true });
 
-    render(<ContactDetailsSection contact={contact} />);
+  it('submits form successfully and shows success toast', async () => {
+    mockUpdate.mockResolvedValue({ success: true });
 
-    const form = screen.getByTestId('contact-details-form');
+    render(<ContactDetailsSection contact={mockContact} />);
 
-    fireEvent.submit(form);
+    fireEvent.submit(screen.getByTestId('contact-details-form'));
 
     await waitFor(() => {
-      expect(mockUpdate).toHaveBeenCalledWith(
+      expect(mockUpdate).toHaveBeenCalled();
+      expect(toast.success).toHaveBeenCalledWith(
+        expect.stringContaining('success'),
         expect.any(Object),
-        String(contact.id),
       );
     });
   });
 
-  test.skip('Falls back to empty string for nullish contact fields', () => {
-    const incompleteContact: Partial<ContactsDetailsType> = {
-      id: 1,
-      mainPhoneNumber: undefined,
-      subPhoneNumber: undefined,
-      email: undefined,
-      city: undefined,
-      residential: undefined,
-    };
+  it('shows error toast when update fails', async () => {
+    mockUpdate.mockResolvedValue({
+      success: false,
+      message: 'Update failed',
+    });
 
-    render(
-      <ContactDetailsSection
-        contact={incompleteContact as ContactsDetailsType}
-      />,
+    render(<ContactDetailsSection contact={mockContact} />);
+
+    fireEvent.submit(screen.getByTestId('contact-details-form'));
+
+    await waitFor(() => {
+      expect(mockUpdate).toHaveBeenCalled();
+      expect(toast.error).toHaveBeenCalledWith(
+        'Update failed',
+        expect.any(Object),
+      );
+    });
+  });
+
+  it('shows loader when submitting', async () => {
+    mockUpdate.mockImplementation(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ success: true }), 100),
+        ),
     );
 
-    expect(screen.getAllByDisplayValue('')).toHaveLength(5); // All fields fallback to ''
+    render(<ContactDetailsSection contact={mockContact} />);
+
+    fireEvent.submit(screen.getByTestId('contact-details-form'));
+
+    expect(screen.getByTestId('mock-loader')).toBeInTheDocument();
   });
 });
