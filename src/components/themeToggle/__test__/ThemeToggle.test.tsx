@@ -57,4 +57,33 @@ describe('ThemeToggle', () => {
     // dropdown should be gone
     expect(screen.queryByText(/light/i)).not.toBeInTheDocument();
   });
+
+  test('Selects light theme and closes dropdown', () => {
+    render(<ThemeToggle />);
+
+    // open dropdown
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByText(/light/i)).toBeInTheDocument();
+
+    // click Light option
+    fireEvent.click(screen.getByText(/light/i));
+
+    // assert theme is set to light
+    expect(setThemeMock).toHaveBeenCalledWith('light');
+
+    // assert dropdown closes
+    expect(screen.queryByText(/light/i)).not.toBeInTheDocument();
+  });
+
+  test('Selects light theme and closes dropdown', () => {
+    render(<ThemeToggle />);
+
+    fireEvent.click(screen.getByRole('button'));
+
+    fireEvent.click(screen.getByText(/system/i));
+
+    expect(setThemeMock).toHaveBeenCalledWith('system');
+
+    expect(screen.queryByText(/system/i)).not.toBeInTheDocument();
+  });
 });
