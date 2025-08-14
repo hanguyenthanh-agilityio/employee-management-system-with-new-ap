@@ -1,0 +1,24 @@
+import { ROUTER } from './router';
+
+export const BIRTHDAYS = [
+  { name: 'biruk kidan', date: 'April 25th' },
+  { name: 'biruk kidan', date: 'April 25th' },
+  { name: 'biruk kidan', date: 'April 25th' },
+  { name: 'biruk kidan', date: 'April 25th' },
+  { name: 'biruk kidan', date: 'April 25th' },
+];
+
+export const LEAVES = [
+  { title: 'Annual Leave', days: 60 },
+  { title: 'Sick Leave', days: 20 },
+  { title: 'Maternity Leave', days: 60 },
+  { title: 'Exam Leave', days: 30 },
+];
+
+export const LIST_ITEM = [
+  { name: 'Dashboard', href: ROUTER.DASHBOARD },
+  { name: 'Requests', href: ROUTER.REQUESTS },
+  { name: 'Payroll', href: ROUTER.PAYROLL },
+  { name: 'Company', href: ROUTER.COMPANY },
+  { name: 'Extras', href: ROUTER.EXTRAS },
+];

@@ -1,92 +1,103 @@
-# nextjs-training
+# Employee Management System (NEXT.JS - PRACTICE)
 
+## Author
 
+- Ha Nguyen
 
-## Getting started
+## Overview
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- This document provides a detailed estimate of the Next.js Basic practice.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Timeline
 
-## Add your files
+- 18 days
+- Start day: July 1, 2025
+- End day: july 28, 2025
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Team size
 
-```
-cd existing_repo
-git remote add origin https://gitlab.asoft-python.com/ha.nguyenthanh/nextjs-training.git
-git branch -M main
-git push -uf origin main
-```
+- 1 Dev
 
-## Integrate with your tools
+## Technical stack
 
-- [ ] [Set up project integrations](https://gitlab.asoft-python.com/ha.nguyenthanh/nextjs-training/-/settings/integrations)
+- [Next.js](https://nextjs.org/learn/dashboard-app) App Router
 
-## Collaborate with your team
+  - The App Router is a file-system based router that uses React's latest features such as Server Components, Suspense, and Server Functions.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- React latest version (v19)
 
-## Test and Deploy
+  - React is declarative, efficient, and flexible Javascript library for building user interfaces. It let you compose complex UIs from small and isolated pieces of code called "component".
 
-Use the built-in continuous integration in GitLab.
+- [Tailwind UI](https://tailwindui.com/) (v3.4.1)
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+  - Tailwind CSS is a utility-first CSS framework that provides pre-designed classes to build responsive web designs.
 
-***
+- [Swagger](https://human-resource.up.railway.app/swagger/)
 
-# Editing this README
+- [Strapi](https://strapi.io/)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- [Storybook](https://storybook.js.org/) (v8.1.2)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+  - Chakra UI is a simple, modular and accessible component library that gives you the building blocks you need to build your React applications.
 
-## Name
-Choose a self-explaining name for your project.
+- [TypeScript](https://www.typescriptlang.org/) (4.9.5)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+  - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- Vercel
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+  - Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
+
+- Developer tools:
+
+  - [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) (v8.34.0)
+
+    - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
+
+  - [Prettier](https://prettier.io/) (v2.8.4)
+
+    - An opinionated code formatter
+    - Supports many languages
+    - Integrates with most editors
+    - Has few options
+
+  - [Husky](https://www.npmjs.com/package/husky) (v8.0.0)
+
+    - Husky is a tool that allows us to easily wrangle Git hooks and run the scripts we want at those stages.
+    - Husky improves your commits and more
+
+  - [Lint-staged](https://www.npmjs.com/package/lint-staged) (v13.1.2)
+
+    - Lint-staged is a tool that prevents bad code from leaving a developer's computer. It allows us to run commands on staged files when a developer runs git commit . If any of the commands fail then the commit also fails—preventing bad commits from being pushed to GitHub.
+
+## Development environment
+
+- Visual Studio Code (text editor)
+
+## Target
+
+- Analysis design
+- Build Next.js app
+- Build React app with the latest version (v19+)
+- Practice with next.js
+  - Streaming + Data Fetching
+  - Caching
+  - App Router
+  - Server/client rendering
+- Apply Storybook
+- Deploy with vercel
+
+## Design
+
+- Implement UI with: [Design](https://www.figma.com/proto/Dd7pkxd0HvurA1JwGkaIQZ/HRMS-Human-Resource-management-system---Employee-mnagement-System-?node-id=483-54&p=f&t=B8Vhv0Ym3V0MODuq-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1)
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+| Command                                                                    | Action                                                           |
+| :------------------------------------------------------------------------- | :--------------------------------------------------------------- |
+| `git clone git@gitlab.asoft-python.com:ha.nguyenthanh/nextjs-training.git` | Create a copy of the target repository                           |
+| `cd employee-management-system-with-new-api`                               | Change directory to Employee Management System                   |
+| `pnpm install`                                                             | Installs dependencies                                            |
+| `pnpm run dev`                                                             | Start local dev server at localhost:3000                         |
+| `pnpm lint`                                                                | Check warning & error following ESLint                           |
+| `pnpm storybook`                                                           | Run the storybook to review all the components at localhost:6006 |
