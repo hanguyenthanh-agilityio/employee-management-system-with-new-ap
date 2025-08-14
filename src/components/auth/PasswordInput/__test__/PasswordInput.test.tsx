@@ -45,4 +45,9 @@ describe('PasswordInput component', () => {
     expect(screen.getByTestId('eye-slash-icon')).toBeInTheDocument();
     expect(screen.queryByTestId('eye-icon')).not.toBeInTheDocument();
   });
+
+  test('Displays error message when error prop is passed', () => {
+    render(<PasswordInput placeholder="Password" error="Invalid password" />);
+    expect(screen.getByText('Invalid password')).toBeInTheDocument();
+  });
 });
