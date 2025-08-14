@@ -42,4 +42,28 @@ describe('CreateLeaveContent', () => {
     expect(fileInput.files?.[0].name).toBe('test-document.pdf');
     expect(fileInput.files).toHaveLength(1);
   });
+
+  test('Sets previewUrl when an image file is selected', () => {
+    render(<CreateLeaveContent />);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (global.URL.createObjectURL as any) = jest.fn(
+      () => 'blob:http://localhost/test-image',
+    );
+
+    const imageFile = new File(['image content'], 'test-image.png', {
+      type: 'image/png',
+    });
+
+    const fileInput = screen.getByLabelText(/document/i) as HTMLInputElement;
+
+    fireEvent.change(fileInput, {
+      target: { files: [imageFile] },
+    });
+
+    expect(fileInput.files?.[0]).toBe(imageFile);
+    expect(global.URL.createObjectURL).toHaveBeenCalledWith(imageFile);
+
+    expect(screen.getByAltText(/document preview/i)).toBeInTheDocument();
+  });
 });
