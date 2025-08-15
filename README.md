@@ -10,9 +10,10 @@
 
 ## Timeline
 
-- 18 days
+- 27 days
 - Start day: July 1, 2025
-- End day: july 28, 2025
+- End Feature: july 28, 2025
+- Review - fix bug and issues: August 7, 2025
 
 ## Team size
 
