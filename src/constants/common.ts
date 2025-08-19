@@ -1,14 +1,38 @@
-// type InputFieldType {
-//   label:
-// }
-
 export const INPUT_FIELDS = [
-  { label: 'First Name', name: 'firstName' },
-  { label: 'Last Name', name: 'lastName' },
-  { label: 'E-mail Address', type: 'email', name: 'email' },
-  { label: 'Phone Number', name: 'phone' },
-  { label: 'Password', type: 'password', name: 'password' },
-  { label: 'Confirm Password', type: 'password', name: 'confirmPassword' },
+  {
+    label: 'First Name',
+    name: 'firstName',
+    placeholder: 'Enter your first name',
+  },
+  {
+    label: 'Last Name',
+    name: 'lastName',
+    placeholder: 'Enter your last name',
+  },
+  {
+    label: 'E-mail Address',
+    type: 'email',
+    name: 'email',
+    placeholder: 'Enter your email',
+  },
+  {
+    label: 'Phone Number',
+    name: 'phone',
+    placeholder: '000 000 0000',
+  },
+  {
+    label: 'Password',
+    type: 'password',
+    name: 'password',
+    placeholder: 'Enter your password',
+  },
+  {
+    label: 'Confirm Password',
+    type: 'password',
+    name: 'confirmPassword',
+    placeholder: 'Re-enter your password',
+    'aria-describedby': '',
+  },
 ];
 
 export const CHECKBOXES = [

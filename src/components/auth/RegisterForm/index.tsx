@@ -3,7 +3,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 
 // Css
 import '@/styles/formStyle.css';
@@ -24,15 +23,12 @@ import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
 import {
-  Input,
   Button,
   Checkbox,
   Label,
   TransitionLoader,
-  RequiredLabel,
+  FormInput,
 } from '@/components';
-import PasswordInput from '../PasswordInput';
-import MaskedInput from '@/components/common/MaskedInput';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -98,73 +94,26 @@ const RegisterForm = () => {
       >
         {/* INPUT FIELDS */}
         {INPUT_FIELDS.map((field) => (
-          <div key={field.name}>
-            <RequiredLabel
-              htmlFor={field.name}
-              className="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
-            >
-              {field.label}
-            </RequiredLabel>
-
-            <Controller
-              name={field.name as keyof RegisterInput}
-              control={control}
-              render={({ field: controllerField }) => {
-                const value = controllerField.value ?? '';
-                const isError = !!errors[field.name as keyof RegisterInput];
-                const inputClassName = cn(
-                  'input-base',
-                  isError ? 'input-error' : 'input-normal',
-                );
-
-                if (field.name === 'phone') {
-                  return (
-                    <MaskedInput
-                      id={field.name}
-                      mask="099 999 9999"
-                      className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
-                      {...controllerField}
-                      value={typeof value === 'string' ? value : ''}
-                      error={errors[field.name as keyof RegisterInput]?.message}
-                    />
-                  );
-                }
-
-                if (
-                  field.name === 'password' ||
-                  field.name === 'confirmPassword'
-                ) {
-                  return (
-                    <PasswordInput
-                      id={field.name}
-                      aria-label={
-                        field.name === 'password'
-                          ? 'Password'
-                          : field.name === 'confirmPassword'
-                            ? 'Confirm Password'
-                            : undefined
-                      }
-                      className={inputClassName}
-                      {...controllerField}
-                      value={typeof value === 'string' ? value : ''}
-                      error={errors[field.name as keyof RegisterInput]?.message}
-                    />
-                  );
-                }
-
-                return (
-                  <Input
-                    id={field.name}
-                    type={field.type || 'text'}
-                    className={`${inputClassName} py-3 h-auto border-[2px] border-mediumLightGray`}
-                    {...controllerField}
-                    value={typeof value === 'string' ? value : ''}
-                    error={errors[field.name as keyof RegisterInput]?.message}
-                  />
-                );
-              }}
-            />
-          </div>
+          <FormInput
+            key={field.name}
+            control={control}
+            name={field.name as keyof RegisterInput}
+            htmlFor={field.name}
+            type={field.type}
+            label={field.label}
+            required
+            as={
+              field.name === 'password' || field.name === 'confirmPassword'
+                ? 'password'
+                : 'input'
+            }
+            className="mb-4"
+            inputProps={{
+              placeholder: field.placeholder,
+            }}
+            classNameInput="py-3 h-auto border-[2px] border-mediumLightGray"
+            classNameLabel="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
+          />
         ))}
 
         {/* CHECKBOXES */}
