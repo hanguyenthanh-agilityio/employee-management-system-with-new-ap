@@ -1,19 +1,12 @@
 'use client';
 
-import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
 
 // Components
-import {
-  Input,
-  Label,
-  Textarea,
-  Button,
-  RequiredLabel,
-  TransitionLoader,
-} from '@/components';
+import { Label, Button, TransitionLoader, FormInput } from '@/components';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
@@ -21,9 +14,6 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 // Styles
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
-
-// Utils
-import { cn } from '@/lib/utils';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
@@ -35,7 +25,7 @@ interface FormProps {
 const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
   const {
     control,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty },
   } = form;
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -60,146 +50,84 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <div>
-          <RequiredLabel htmlFor="startDate" className="form-label">
-            Start Date
-          </RequiredLabel>
-          <Controller
-            name="startDate"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="startDate"
-                type="date"
-                className={cn(
-                  'input-base cursor-interactive',
-                  errors.startDate ? 'input-error' : 'input-profile',
-                )}
-                {...field}
-                error={errors.startDate?.message}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <RequiredLabel htmlFor="endDate" className="form-label">
-            End Date
-          </RequiredLabel>
-          <Controller
-            name="endDate"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="endDate"
-                type="date"
-                className={cn(
-                  'input-base cursor-interactive',
-                  errors.endDate ? 'input-error' : 'input-profile',
-                )}
-                {...field}
-                error={errors.endDate?.message}
-              />
-            )}
-          />
-        </div>
+        <FormInput
+          htmlFor="startDate"
+          control={control}
+          name="startDate"
+          type="date"
+          label="Start Date"
+          classNameLabel="form-label"
+          classNameInput="input-profile"
+          required
+        />
+
+        <FormInput
+          htmlFor="endDate"
+          control={control}
+          name="endDate"
+          type="date"
+          label="End Date"
+          classNameLabel="form-label"
+          classNameInput="input-profile"
+          required
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <div>
-          <RequiredLabel htmlFor="durations" className="form-label">
-            Duration (days)
-          </RequiredLabel>
-          <Controller
-            name="durations"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="durations"
-                type="number"
-                className={cn(
-                  'input-base',
-                  errors.durations ? 'input-error' : 'input-profile',
-                )}
-                {...field}
-                error={errors.durations?.message}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <RequiredLabel htmlFor="resumptionDate" className="form-label">
-            Resumption Date
-          </RequiredLabel>
-          <Controller
-            name="resumptionDate"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="resumptionDate"
-                type="date"
-                className={cn(
-                  'input-base cursor-interactive',
-                  errors.resumptionDate ? 'input-error' : 'input-profile',
-                )}
-                {...field}
-                error={errors.resumptionDate?.message}
-              />
-            )}
-          />
-        </div>
+        <FormInput
+          htmlFor="durations"
+          control={control}
+          name="durations"
+          type="number"
+          label="Duration (days)"
+          classNameLabel="form-label"
+          classNameInput="input-profile"
+          required
+        />
+        <FormInput
+          htmlFor="resumptionDate"
+          control={control}
+          name="resumptionDate"
+          type="date"
+          label="Resumption Date"
+          classNameLabel="form-label"
+          classNameInput="input-profile"
+          required
+        />
       </div>
 
       <div className="pt-4">
-        <RequiredLabel htmlFor="reason" className="form-label">
-          Reason for Leave
-        </RequiredLabel>
-        <Controller
-          name="reason"
+        <FormInput
+          htmlFor="reason"
           control={control}
-          render={({ field }) => (
-            <Textarea
-              id="reason"
-              className={cn(
-                'textarea-base',
-                errors.reason ? 'input-error' : 'input-profile',
-              )}
-              rows={3}
-              {...field}
-              error={errors.reason?.message}
-            />
-          )}
+          name="reason"
+          label="Reason for Leave"
+          classNameLabel="form-label"
+          as="textarea"
+          required
         />
       </div>
 
       <div className="py-5">
-        <Label htmlFor="document" className="h-auto form-label">
-          Attach handover document (pdf, jpg, docx or any other format)
-        </Label>
-        <Controller
-          name="document"
+        <FormInput
           control={control}
-          render={({ field }) => (
-            <Input
-              id="document"
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-              className="input-file cursor-interactive"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  field.onChange(file);
-
-                  if (file.type.startsWith('image/')) {
-                    const objectUrl = URL.createObjectURL(file);
-                    setPreviewUrl(objectUrl);
-                  } else {
-                    setPreviewUrl(null);
-                  }
-                }
-              }}
-              error={(errors.document as FieldError)?.message}
-            />
-          )}
+          name="document"
+          htmlFor="document"
+          type="file"
+          label="Attach handover document (pdf, jpg, docx or any other format)"
+          classNameLabel="form-label"
+          className="input-file cursor-interactive"
+          onChange={(e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (file) {
+              if (file.type.startsWith('image/')) {
+                const objectUrl = URL.createObjectURL(file);
+                setPreviewUrl(objectUrl);
+              } else {
+                setPreviewUrl(null);
+              }
+            }
+          }}
         />
 
         {previewUrl && (

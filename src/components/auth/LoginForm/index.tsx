@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // Css
 import '@/styles/formStyle.css';
@@ -23,19 +23,16 @@ import { loginAction } from '@/actions/auth-action';
 import {
   Button,
   Checkbox,
-  Input,
+  FormInput,
   Label,
-  RequiredLabel,
   TransitionLoader,
 } from '@/components';
-import PasswordInput from '../PasswordInput';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 
 // Constants
 import { ROUTER, ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
-import { cn } from '@/lib/utils';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -88,11 +85,6 @@ const LoginForm = () => {
 
   const isFormDisabled = isSubmitting || isLoading;
 
-  const inputClass = cn(
-    'input-base',
-    errors.email ? 'input-error' : 'input-normal',
-  );
-
   return (
     <>
       {isFormDisabled && <TransitionLoader />}
@@ -105,51 +97,38 @@ const LoginForm = () => {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <div>
-          <RequiredLabel htmlFor="email" className="label-base">
-            E-mail Address
-          </RequiredLabel>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                // If the error has text, the screen reader will read the error when the user focuses on the input.
-                aria-describedby={errors.email ? 'email-error' : undefined}
-                {...field}
-                disabled={isSubmitting}
-                className={`${inputClass} h-auto py-3 border-[2px] border-mediumLightGray`}
-                error={errors.email?.message}
-              />
-            )}
-          />
-        </div>
+        <FormInput
+          htmlFor="email"
+          control={control}
+          name="email"
+          type="email"
+          label="E-mail Address"
+          classNameLabel="label-base"
+          required
+          inputProps={{
+            placeholder: 'Enter your email',
+            'aria-describedby': errors.email ? 'email-error' : undefined,
+            disabled: isSubmitting,
+          }}
+          className="h-auto py-3 border-[2px] border-mediumLightGray"
+          classNameInput="input-normal"
+        />
 
-        <div>
-          <RequiredLabel htmlFor="password" className="label-base">
-            Password
-          </RequiredLabel>
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <PasswordInput
-                id="password"
-                placeholder="Enter your password"
-                aria-describedby={
-                  errors.password ? 'password-error' : undefined
-                }
-                {...field}
-                disabled={isSubmitting}
-                className={inputClass}
-                error={errors.password?.message}
-              />
-            )}
-          />
-        </div>
+        <FormInput
+          htmlFor="password"
+          control={control}
+          name="password"
+          label="Password"
+          classNameLabel="label-base"
+          as="password"
+          required
+          inputProps={{
+            placeholder: 'Enter your password',
+            'aria-describedby': errors.password ? 'password-error' : undefined,
+            disabled: isSubmitting,
+          }}
+          classNameInput="input-normal"
+        />
 
         <div className="flex justify-between items-center text-sm">
           <div className="flex justify-between items-center">
