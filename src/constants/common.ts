@@ -31,7 +31,6 @@ export const INPUT_FIELDS = [
     type: 'password',
     name: 'confirmPassword',
     placeholder: 'Re-enter your password',
-    'aria-describedby': '',
   },
 ];
 
