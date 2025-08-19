@@ -44,7 +44,7 @@ const Form = () => {
     defaultValues,
   });
 
-  return <ProfileEditForm form={form} disable={false} />;
+  return <ProfileEditForm form={form} />;
 };
 
 export const Default: Story = {
