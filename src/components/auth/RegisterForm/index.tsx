@@ -103,10 +103,13 @@ const RegisterForm = () => {
             label={field.label}
             required
             as={
-              field.name === 'password' || field.name === 'confirmPassword'
-                ? 'password'
-                : 'input'
+              field.name === 'phone'
+                ? 'masked'
+                : field.name === 'password' || field.name === 'confirmPassword'
+                  ? 'password'
+                  : 'input'
             }
+            mask={field.name === 'phone' ? '099 999 9999' : undefined}
             className="mb-4"
             inputProps={{
               placeholder: field.placeholder,

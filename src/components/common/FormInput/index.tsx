@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Input, Label, Textarea } from '@/components';
 import { ChangeEvent } from 'react';
 import PasswordInput from '@/components/auth/PasswordInput';
+import MaskedInput from '../MaskedInput';
 
 interface FormInputProps<T extends FieldValues> {
   control: Control<T>;
@@ -15,9 +16,10 @@ interface FormInputProps<T extends FieldValues> {
   type?: string;
   label?: string;
   required?: boolean;
-  as?: 'input' | 'textarea' | 'password';
+  as?: 'input' | 'textarea' | 'password' | 'masked';
   className?: string;
   rows?: number;
+  mask?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   inputProps?: Record<string, any>;
   classNameLabel?: string;
@@ -34,6 +36,7 @@ function FormInput<T extends FieldValues>({
   as = 'input',
   className,
   rows,
+  mask,
   onChange,
   inputProps,
   classNameLabel,
@@ -92,6 +95,24 @@ function FormInput<T extends FieldValues>({
                 {...inputProps}
                 error={error}
                 onChange={handleChange}
+              />
+            );
+          }
+
+          if (as === 'masked' && mask) {
+            return (
+              <MaskedInput
+                id={name}
+                mask={mask}
+                className={cn(
+                  'input-base cursor-interactive',
+                  error ? 'input-error' : classNameInput,
+                  className,
+                )}
+                {...field}
+                {...inputProps}
+                error={error}
+                onChange={handleChange as any}
               />
             );
           }

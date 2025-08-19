@@ -1,14 +1,12 @@
 'use client';
 
 import '@/styles/formStyle.css';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, Input, Textarea, RequiredLabel } from '@/components';
-import MaskedInput from '@/components/common/MaskedInput';
+import { Button, FormInput } from '@/components';
 
 // Utils
-import { cn } from '@/lib/utils';
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 
 interface ContactDetailsFormProps {
@@ -16,129 +14,77 @@ interface ContactDetailsFormProps {
   disable: boolean;
 }
 
-const ContactDetailsForm = ({ form, disable }: ContactDetailsFormProps) => {
+const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
   const {
     control,
-    formState: { errors, isDirty, isSubmitting },
+    formState: { isDirty, isSubmitting },
   } = form;
 
   return (
     <>
       {/* Phone Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-        <div>
-          <RequiredLabel htmlFor="mainPhoneNumber" className="form-label">
-            Phone Number 1
-          </RequiredLabel>
-          <Controller
-            name="mainPhoneNumber"
-            control={control}
-            render={({ field }) => (
-              <MaskedInput
-                id="mainPhoneNumber"
-                mask="999 999 9999"
-                className={cn(
-                  'input-base',
-                  errors.mainPhoneNumber ? 'input-error' : 'input-profile',
-                )}
-                disabled={disable}
-                error={errors.mainPhoneNumber?.message}
-                {...field}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <RequiredLabel htmlFor="subPhoneNumber" className="form-label">
-            Phone Number 2
-          </RequiredLabel>
-          <Controller
-            name="subPhoneNumber"
-            control={control}
-            render={({ field }) => (
-              <MaskedInput
-                id="subPhoneNumber"
-                mask="999 999 9999"
-                className={cn(
-                  'input-base',
-                  errors.subPhoneNumber ? 'input-error' : 'input-profile',
-                )}
-                disabled={disable}
-                error={errors.subPhoneNumber?.message}
-                {...field}
-              />
-            )}
-          />
-        </div>
-      </div>
-
-      {/* Email */}
-      <div>
-        <RequiredLabel htmlFor="email" className="form-label">
-          Email Address
-        </RequiredLabel>
-        <Controller
-          name="email"
+        <FormInput
+          htmlFor="mainPhoneNumber"
           control={control}
-          render={({ field }) => (
-            <Input
-              id="email"
-              className={cn(
-                'input-base',
-                errors.email ? 'input-error' : 'input-profile',
-              )}
-              disabled={disable}
-              error={errors.email?.message}
-              {...field}
-            />
-          )}
+          name="mainPhoneNumber"
+          label="Phone Number 1"
+          classNameLabel="form-label"
+          as="masked"
+          mask="099 999 9999"
+          required
+          classNameInput="input-profile"
+        />
+
+        <FormInput
+          htmlFor="subPhoneNumber"
+          control={control}
+          name="subPhoneNumber"
+          label="Phone Number 2"
+          classNameLabel="form-label"
+          as="masked"
+          required
+          mask="099 999 9999"
+          classNameInput="input-profile"
         />
       </div>
 
+      {/* Email */}
+      <FormInput
+        htmlFor="email"
+        control={control}
+        name="email"
+        label="Email Address"
+        classNameLabel="form-label"
+        required
+        classNameInput="input-profile"
+      />
+
       {/* City */}
       <div className="w-full md:w-[50%]">
-        <RequiredLabel htmlFor="city" className="form-label">
-          City of Residence
-        </RequiredLabel>
-        <Controller
-          name="city"
+        <FormInput
+          htmlFor="city"
           control={control}
-          render={({ field }) => (
-            <Input
-              id="city"
-              className={cn(
-                'input-base',
-                errors.city ? 'input-error' : 'input-profile',
-              )}
-              disabled={disable}
-              error={errors.city?.message}
-              {...field}
-            />
-          )}
+          name="city"
+          label="City of Residence"
+          classNameLabel="form-label"
+          required
+          classNameInput="input-profile"
         />
       </div>
 
       {/* Address */}
-      <div>
-        <RequiredLabel htmlFor="residential" className="form-label">
-          Residential Address
-        </RequiredLabel>
-        <Controller
-          name="residential"
+      <div className="w-full">
+        <FormInput
+          htmlFor="residential"
           control={control}
-          render={({ field }) => (
-            <Textarea
-              id="residential"
-              rows={4}
-              className={cn(
-                'textarea-base',
-                errors.residential ? 'input-error' : 'input-profile',
-              )}
-              disabled={disable}
-              error={errors.residential?.message}
-              {...field}
-            />
-          )}
+          name="residential"
+          as="textarea"
+          rows={4}
+          label="Residential Address"
+          classNameLabel="form-label"
+          required
+          classNameInput="input-profile"
         />
       </div>
 
