@@ -145,7 +145,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
           disabled={isPending}
           className="space-y-4 md:space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
-          <ProfileEditForm form={form} disable={isPending} />
+          <ProfileEditForm form={form} />
         </fieldset>
 
         {(isPending || isLoading) && <TransitionLoader />}
