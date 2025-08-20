@@ -4,7 +4,10 @@ import { ROUTER } from './constants';
 
 function decodeJwt(token: string): any | null {
   try {
-    const payloadBase64 = token.split('.')[1];
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+
+    const payloadBase64 = parts[1];
     const payloadJson = Buffer.from(payloadBase64, 'base64').toString('utf-8');
     return JSON.parse(payloadJson);
   } catch {
@@ -33,10 +36,22 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // If logged in and access /login, it will redirect to /leave-applications
-  if (pathname === ROUTER.LOGIN && token && !isJwtExpired(token)) {
-    const leaveApplicationsUrl = new URL(ROUTER.DASHBOARD, request.url);
-    return NextResponse.redirect(leaveApplicationsUrl);
+  if (token) {
+    const payload = decodeJwt(token);
+
+    // Token invalid or expired
+    if (!payload || isJwtExpired(token)) {
+      // If you are at login → skip, no redirect loop
+      if (pathname === ROUTER.LOGIN) {
+        return NextResponse.next();
+      }
+      return NextResponse.redirect(new URL(ROUTER.LOGIN, request.url));
+    }
+
+    // Token valid but in login → redirect dashboard
+    if (pathname === ROUTER.LOGIN) {
+      return NextResponse.redirect(new URL(ROUTER.DASHBOARD, request.url));
+    }
   }
 
   return NextResponse.next();

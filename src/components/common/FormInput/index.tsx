@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
@@ -21,7 +20,8 @@ interface FormInputProps<T extends FieldValues> {
   rows?: number;
   mask?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  inputProps?: Record<string, any>;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement> &
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>;
   classNameLabel?: string;
   classNameInput?: string;
 }
@@ -112,7 +112,7 @@ function FormInput<T extends FieldValues>({
                 {...field}
                 {...inputProps}
                 error={error}
-                onChange={handleChange as any}
+                onChange={handleChange}
               />
             );
           }
