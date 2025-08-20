@@ -1,7 +1,7 @@
 // Components
 import {
   BirthdaySection,
-  Header,
+  Heading,
   LeaveSection,
   PaySlipSection,
   ProfileSection,
@@ -12,7 +12,7 @@ import {
 import { getCurrentUser } from '@/services/user/userService';
 
 // APIs
-import { fetchSummaryLeaves } from '@/api/leaveApplications';
+import { fetchSummaryLeaves } from '@/actions/leaveApplications';
 
 const DashboardWrapper = async () => {
   const user = await getCurrentUser();
@@ -24,7 +24,7 @@ const DashboardWrapper = async () => {
   return (
     <div className="flex flex-col gap-4 md:gap-6 lg:gap-12 lg:px-8">
       <h1 className="sr-only">Dashboard page</h1>
-      <Header title="Dashboard" />
+      <Heading title="Dashboard" />
 
       {/* Profile Section */}
       <ProfileSection name={username} jobTitle={jobTitle} />

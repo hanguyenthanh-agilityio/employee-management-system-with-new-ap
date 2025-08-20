@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { addDays, differenceInCalendarDays } from 'date-fns';
 
 // APIs
-import { createLeaveApplication } from '@/api/leaveApplications';
+import { createLeaveApplication } from '@/actions/leaveApplications';
 
 // Components
 import { Form } from '@/components';

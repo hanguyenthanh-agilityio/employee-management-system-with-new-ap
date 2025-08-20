@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import EditForm from '..';
-import { updateLeaveApplication } from '@/api/leaveApplications';
+import { updateLeaveApplication } from '@/actions/leaveApplications';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -9,7 +9,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('@/api/leaveApplications', () => ({
+jest.mock('@/actions/leaveApplications', () => ({
   updateLeaveApplication: jest.fn(),
 }));
 

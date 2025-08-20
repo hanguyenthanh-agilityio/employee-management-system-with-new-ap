@@ -19,7 +19,7 @@ jest.mock('@/components', () => ({
   ),
 }));
 
-jest.mock('@/components/common/MaskedInput', () => {
+jest.mock('@/components/common/inputs/MaskedInput', () => {
   const MockMaskedInput = (
     props: React.InputHTMLAttributes<HTMLInputElement> & { id: string },
   ) => <input data-testid={props.id} {...props} />;
