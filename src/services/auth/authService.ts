@@ -9,7 +9,10 @@ type LoginPayload = {
   password: string;
 };
 
-export const login = async (data: LoginPayload) => {
+/**
+ * Authenticate a user and return response data
+ */
+export const loginUser = async (data: LoginPayload) => {
   const res = await fetch(`${API_URL}${API.LOGIN}`, {
     method: 'POST',
     cache: 'no-store',
@@ -30,8 +33,10 @@ export const login = async (data: LoginPayload) => {
   return dataRes;
 };
 
-// Fetch API Register
-export const register = async (data: {
+/**
+ * Register a new user
+ */
+export const registerUser = async (data: {
   username: string;
   email: string;
   password: string;

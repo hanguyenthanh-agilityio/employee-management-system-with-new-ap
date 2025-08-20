@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, NEXT_PUBLIC_API_URL } from '@/constants';
-import { login, register } from './authService';
+import { loginUser, registerUser } from './authService';
 
 describe('auth API', () => {
   const mockFetch = jest.fn();
@@ -21,7 +21,7 @@ describe('auth API', () => {
         json: async () => ({ jwt: 'token', user: { id: 1 } }),
       });
 
-      const result = await login(payload);
+      const result = await loginUser(payload);
 
       expect(fetch).toHaveBeenCalledWith(
         `${NEXT_PUBLIC_API_URL}/api/auth/local`,
@@ -43,7 +43,7 @@ describe('auth API', () => {
         }),
       });
 
-      await expect(login(payload)).rejects.toThrow(
+      await expect(loginUser(payload)).rejects.toThrow(
         ERROR_MESSAGE.INVALID_CREDENTIALS,
       );
     });
@@ -56,7 +56,9 @@ describe('auth API', () => {
         },
       });
 
-      await expect(login(payload)).rejects.toThrow(ERROR_MESSAGE.LOGIN_FAILED);
+      await expect(loginUser(payload)).rejects.toThrow(
+        ERROR_MESSAGE.LOGIN_FAILED,
+      );
     });
   });
 
@@ -75,7 +77,7 @@ describe('auth API', () => {
         json: async () => mockResponse,
       });
 
-      const result = await register(payload);
+      const result = await registerUser(payload);
       expect(result).toEqual(mockResponse);
     });
 
@@ -87,7 +89,9 @@ describe('auth API', () => {
         }),
       });
 
-      await expect(register(payload)).rejects.toThrow('Email already taken');
+      await expect(registerUser(payload)).rejects.toThrow(
+        'Email already taken',
+      );
     });
 
     test('Throws default error if no message provided', async () => {
@@ -96,7 +100,7 @@ describe('auth API', () => {
         json: async () => ({}),
       });
 
-      await expect(register(payload)).rejects.toThrow(
+      await expect(registerUser(payload)).rejects.toThrow(
         ERROR_MESSAGE.REGISTER_FAILED,
       );
     });
