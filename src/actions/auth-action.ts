@@ -4,7 +4,7 @@ import { revalidateTag } from 'next/cache';
 
 // Services
 import { removeCookie, setCookie } from '@/utils/auth';
-import { login, register } from '@/services/auth/authService';
+import { loginUser, registerUser } from '@/services/auth/authService';
 import { getCurrentUser } from '@/services/user/userService';
 
 // Utils
@@ -34,7 +34,7 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
       password: parsed.data.password,
     };
 
-    const data = await login(payload);
+    const data = await loginUser(payload);
 
     if (!data.jwt) {
       return {
@@ -85,7 +85,7 @@ export const registerAction = async (data: RegisterInput) => {
       password: data.password,
     };
 
-    const response = await register(strapiRegisterPayload);
+    const response = await registerUser(strapiRegisterPayload);
 
     return {
       success: true,
