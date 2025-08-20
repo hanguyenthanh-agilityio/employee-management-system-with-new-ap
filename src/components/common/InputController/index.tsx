@@ -1,12 +1,9 @@
 'use client';
 
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { cn } from '@/lib/utils';
-
-import { Input, Label, Textarea } from '@/components';
 import { ChangeEvent } from 'react';
-import PasswordInput from '@/components/auth/PasswordInput';
-import MaskedInput from '../MaskedInput';
+import { Label } from '@/components';
+import InputField from '../InputField';
 
 interface InputControllerProps<T extends FieldValues> {
   control: Control<T>;
@@ -15,7 +12,7 @@ interface InputControllerProps<T extends FieldValues> {
   type?: string;
   label?: string;
   required?: boolean;
-  as?: 'input' | 'textarea' | 'password' | 'masked';
+  as?: 'input' | 'textarea' | 'password' | 'masked' | 'file';
   className?: string;
   rows?: number;
   mask?: string;
@@ -26,13 +23,13 @@ interface InputControllerProps<T extends FieldValues> {
   classNameInput?: string;
 }
 
-function InputController<T extends FieldValues>({
+export default function InputController<T extends FieldValues>({
   control,
   name,
   htmlFor,
-  type = 'text',
   label,
   required,
+  type = 'text',
   as = 'input',
   className,
   rows,
@@ -63,81 +60,24 @@ function InputController<T extends FieldValues>({
             field.onChange(e);
             onChange?.(e);
           };
-          if (as === 'textarea') {
-            return (
-              <>
-                <Textarea
-                  id={name}
-                  rows={rows ?? 3}
-                  className={cn(
-                    'textarea-base',
-                    error ? 'input-error' : 'input-profile',
-                    className,
-                  )}
-                  {...field}
-                  error={error}
-                  onChange={handleChange}
-                />
-              </>
-            );
-          }
-
-          if (as === 'password') {
-            return (
-              <PasswordInput
-                id={name}
-                className={cn(
-                  'input-base cursor-interactive',
-                  error ? 'input-error' : classNameInput,
-                  className,
-                )}
-                {...field}
-                {...inputProps}
-                error={error}
-                onChange={handleChange}
-              />
-            );
-          }
-
-          if (as === 'masked' && mask) {
-            return (
-              <MaskedInput
-                id={name}
-                mask={mask}
-                className={cn(
-                  'input-base cursor-interactive',
-                  error ? 'input-error' : classNameInput,
-                  className,
-                )}
-                {...field}
-                {...inputProps}
-                error={error}
-                onChange={handleChange}
-              />
-            );
-          }
 
           return (
-            <>
-              <Input
-                id={name}
-                type={type}
-                className={cn(
-                  'input-base cursor-interactive',
-                  error ? 'input-error' : classNameInput,
-                  className,
-                )}
-                {...field}
-                {...inputProps}
-                error={error}
-                onChange={handleChange}
-              />
-            </>
+            <InputField
+              as={as}
+              type={type}
+              mask={mask}
+              rows={rows}
+              field={field}
+              error={error}
+              onChange={handleChange}
+              inputProps={inputProps}
+              name={name}
+              className={className}
+              classNameInput={classNameInput}
+            />
           );
         }}
       />
     </div>
   );
 }
-
-export default InputController;

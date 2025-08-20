@@ -1,6 +1,7 @@
 @tailwind components;
 
 @layer components {
+  /* ==== INPUT BASE ==== */
   .input-base {
     @apply h-auto rounded-md px-4 rounded-[15px] shadow focus:outline-none focus:ring-2 border-[2px] border-mediumLightGray !text-lg mt-2 md:mt-5 mb-2;
   }
@@ -23,6 +24,20 @@
 
   .input-file {
     @apply h-auto bg-[#E3EDF9] dark:bg-darkPrimary mt-5 block w-full text-sm border-none file:rounded-md file:border-0 file:bg-[#242121] file:px-4 file:py-4 file:text-white hover:file:bg-blue-700;
+  }
+
+  /* ==== FILE INPUT ==== */
+  .input-file {
+    @apply block w-full mt-5 h-auto text-sm border-none
+           bg-[#E3EDF9] dark:bg-darkPrimary rounded-[9px] cursor-pointer;
+  }
+
+  .input-file::file-selector-button {
+    @apply rounded-md border-0 px-4 py-2 md:py-4 text-sm font-semibold
+           bg-[#242121] text-white cursor-pointer transition;
+  }
+  .input-file::file-selector-button:hover {
+    @apply bg-blue-700;
   }
 
   .label-base {
