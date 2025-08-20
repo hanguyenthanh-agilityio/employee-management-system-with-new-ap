@@ -7,7 +7,7 @@ import '@/styles/formStyle.css';
 
 // Components
 import Button from '@/components/common/Button/button';
-import Input from '@/components/common/Input/input';
+import Input from '@/components/common/inputs/Input/input';
 
 interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

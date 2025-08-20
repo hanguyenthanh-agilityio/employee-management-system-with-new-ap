@@ -3,11 +3,11 @@
 import { ChangeEvent } from 'react';
 import { cn } from '@/lib/utils';
 
-import Input from '../Input/input';
-import Textarea from '../Textarea/textarea';
+import Textarea from '../../Textarea/textarea';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MaskedInput from '../MaskedInput';
 import FileInput from '../FileInput';
+import Input from '../Input/input';
 
 type InputAs = 'input' | 'textarea' | 'password' | 'masked' | 'file';
 

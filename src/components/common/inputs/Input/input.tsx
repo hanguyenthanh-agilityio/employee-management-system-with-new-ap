@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
-import Button from '../Button/button';
+import Button from '../../Button/button';
 
 interface InputProps extends React.ComponentProps<'input'> {
   error?: string;
