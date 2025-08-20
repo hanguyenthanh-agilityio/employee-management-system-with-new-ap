@@ -12,6 +12,7 @@ interface InputControllerProps<T extends FieldValues> {
   type?: string;
   label?: string;
   required?: boolean;
+  readonly?: boolean;
   as?: 'input' | 'textarea' | 'password' | 'masked' | 'file';
   className?: string;
   rows?: number;
@@ -57,7 +58,12 @@ export default function InputController<T extends FieldValues>({
           const handleChange = (
             e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
           ) => {
-            field.onChange(e);
+            if (type === 'file') {
+              const file = (e.target as HTMLInputElement).files?.[0];
+              field.onChange(file ?? null);
+            } else {
+              field.onChange(e);
+            }
             onChange?.(e);
           };
 
@@ -67,8 +73,9 @@ export default function InputController<T extends FieldValues>({
               type={type}
               mask={mask}
               rows={rows}
-              field={field}
+              id={htmlFor}
               error={error}
+              {...(type !== 'file' ? { value: field.value ?? '' } : {})}
               onChange={handleChange}
               inputProps={inputProps}
               name={name}

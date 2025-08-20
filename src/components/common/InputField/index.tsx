@@ -14,7 +14,9 @@ type InputAs = 'input' | 'textarea' | 'password' | 'masked' | 'file';
 interface InputFieldProps {
   as: InputAs;
   name: string;
-  field: Record<string, unknown>;
+  id?: string;
+  field?: Record<string, unknown>;
+  value?: string | number | readonly string[];
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   className?: string;
@@ -45,7 +47,9 @@ const baseClassMapping: Record<InputAs, string> = {
 const InputField = ({
   as,
   name,
+  id,
   field,
+  value,
   error,
   onChange,
   className,
@@ -57,13 +61,15 @@ const InputField = ({
 }: InputFieldProps) => {
   const Component = componentMapping[as];
   const baseClass = baseClassMapping[as];
+  const inputId = id ?? name;
 
   // textarea
   if (as === 'textarea') {
     return (
       <Component
-        id={name}
+        id={inputId}
         rows={rows ?? 3}
+        value={value}
         className={cn(
           baseClass,
           error ? 'input-error' : 'input-profile',
@@ -81,8 +87,9 @@ const InputField = ({
   if (as === 'masked' && mask) {
     return (
       <Component
-        id={name}
+        id={inputId}
         mask={mask}
+        value={value}
         className={cn(
           baseClass,
           error ? 'input-error' : classNameInput,
@@ -98,11 +105,13 @@ const InputField = ({
 
   // file input
   if (as === 'file') {
+    const { value: _omit, ...restField } = field ?? {};
+
     return (
       <Component
-        id={name}
+        id={inputId}
         className={cn(baseClass, className)}
-        {...field}
+        {...restField}
         {...inputProps}
         error={error}
         onChange={onChange}
@@ -113,8 +122,9 @@ const InputField = ({
   // input | password (default)
   return (
     <Component
-      id={name}
+      id={inputId}
       type={type ?? (as === 'password' ? 'password' : 'text')}
+      value={value}
       className={cn(
         baseClass,
         error ? 'input-error' : classNameInput,

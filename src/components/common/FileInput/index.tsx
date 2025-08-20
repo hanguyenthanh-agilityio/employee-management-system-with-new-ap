@@ -4,11 +4,14 @@ import clsx from 'clsx';
 // Styles
 import '@/styles/formStyle.css';
 
+// Components
+import Input from '../Input/input';
+
 type FileInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const FileInput = ({ className, ...props }: FileInputProps) => {
   return (
-    <input type="file" className={clsx('input-file', className)} {...props} />
+    <Input type="file" className={clsx('input-file', className)} {...props} />
   );
 };
 

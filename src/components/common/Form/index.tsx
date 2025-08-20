@@ -82,7 +82,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           label="Duration (days)"
           classNameLabel="form-label"
           classNameInput="input-profile"
-          required
+          inputProps={{ readOnly: true }}
         />
         <InputController
           htmlFor="resumptionDate"
@@ -92,7 +92,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           label="Resumption Date"
           classNameLabel="form-label"
           classNameInput="input-profile"
-          required
+          inputProps={{ readOnly: true }}
         />
       </div>
 
@@ -126,6 +126,8 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
               } else {
                 setPreviewUrl(null);
               }
+            } else {
+              setPreviewUrl(null);
             }
           }}
         />
