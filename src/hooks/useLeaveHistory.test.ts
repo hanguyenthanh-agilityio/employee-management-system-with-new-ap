@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useLeaveHistory } from './useLeaveHistory';
 import { LeaveItem } from '@/types/components';
-import { deleteLeaveApplication } from '@/api/leaveApplications';
+import { deleteLeaveApplication } from '@/actions/leaveApplications';
 import { toast } from 'react-toastify';
 
 jest.mock('next/navigation', () => ({

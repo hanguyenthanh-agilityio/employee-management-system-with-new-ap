@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 // APIs
-import { updateLeaveApplication } from '@/api/leaveApplications';
+import { updateLeaveApplication } from '@/actions/leaveApplications';
 
 // Components
 import { Form } from '@/components';

@@ -5,7 +5,7 @@ import {
   patchLeaveApplication,
   postLeaveApplication,
 } from '@/services/leave/leaveService';
-import { getCachedUser } from '@/services/user/userService';
+import { getCurrentUser } from '@/services/user/userService';
 
 // Apis
 import {
@@ -29,7 +29,7 @@ const mockedPost = postLeaveApplication as jest.Mock;
 const mockedPatch = patchLeaveApplication as jest.Mock;
 const mockedDelete = deleteLeave as jest.Mock;
 const mockedGetSummary = getSummaryLeaves as jest.Mock;
-const mockedGetUser = getCachedUser as jest.Mock;
+const mockedGetUser = getCurrentUser as jest.Mock;
 
 describe('leaveActions', () => {
   beforeEach(() => {

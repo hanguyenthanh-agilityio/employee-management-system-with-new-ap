@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 // APIs
-import { deleteLeaveApplication } from '@/api/leaveApplications';
+import { deleteLeaveApplication } from '@/actions/leaveApplications';
 
 // Types
 import { SortField } from '@/types/field';

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getCurrentUser } from '@/services/user/userService';
-import { fetchSummaryLeaves } from '@/api/leaveApplications';
+import { fetchSummaryLeaves } from '@/actions/leaveApplications';
 import DashboardWrapper from '..';
 
 jest.mock('@/components', () => ({

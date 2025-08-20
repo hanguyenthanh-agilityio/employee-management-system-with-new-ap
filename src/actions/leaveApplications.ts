@@ -3,7 +3,7 @@
 import { revalidateTag } from 'next/cache';
 
 // Services
-import { getCachedUser } from '@/services/user/userService';
+import { getCurrentUser } from '@/services/user/userService';
 import {
   deleteLeave,
   getSummaryLeaves,
@@ -21,7 +21,7 @@ import { ERROR_MESSAGE } from '@/constants';
 // Create Leave Application
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
   try {
-    const user = await getCachedUser();
+    const user = await getCurrentUser();
 
     if (!user || !user.id) {
       throw new Error(ERROR_MESSAGE.MISSING_USER);
@@ -100,7 +100,7 @@ export const deleteLeaveApplication = async (id: string) => {
 // Get Summary Leaves
 export const fetchSummaryLeaves = async () => {
   try {
-    const user = await getCachedUser();
+    const user = await getCurrentUser();
 
     if (!user?.id) throw new Error(ERROR_MESSAGE.MISSING_USER);
 

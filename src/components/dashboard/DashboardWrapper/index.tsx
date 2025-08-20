@@ -12,7 +12,7 @@ import {
 import { getCurrentUser } from '@/services/user/userService';
 
 // APIs
-import { fetchSummaryLeaves } from '@/api/leaveApplications';
+import { fetchSummaryLeaves } from '@/actions/leaveApplications';
 
 const DashboardWrapper = async () => {
   const user = await getCurrentUser();

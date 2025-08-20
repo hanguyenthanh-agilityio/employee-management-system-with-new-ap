@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { createLeaveApplication } from '@/api/leaveApplications';
+import { createLeaveApplication } from '@/actions/leaveApplications';
 import { CreateLeaveContent } from '@/components';
 
 jest.mock('next/navigation', () => ({
