@@ -3,7 +3,7 @@
 import { UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, FormInput, TransitionLoader } from '@/components';
+import { Button, InputController, TransitionLoader } from '@/components';
 
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
@@ -23,7 +23,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
       {isSubmitting && <TransitionLoader />}
       {/* Username */}
       <div className="flex flex-col md:gap-2">
-        <FormInput
+        <InputController
           htmlFor="username"
           control={control}
           name="username"
@@ -36,7 +36,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
 
       {/* Department */}
       <div className="flex flex-col md:gap-2">
-        <FormInput
+        <InputController
           htmlFor="department"
           control={control}
           type="text"
@@ -51,7 +51,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
       {/* Job title & category */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
         <div className="flex-1 flex flex-col md:gap-2">
-          <FormInput
+          <InputController
             htmlFor="jobTitle"
             control={control}
             type="text"
@@ -64,7 +64,7 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
         </div>
 
         <div className="flex-1 flex flex-col md:gap-2">
-          <FormInput
+          <InputController
             htmlFor="jobCategory"
             control={control}
             type="text"

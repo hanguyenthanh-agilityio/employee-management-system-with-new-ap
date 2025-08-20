@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 // Components
-import { Label, Button, TransitionLoader, FormInput } from '@/components';
+import { Label, Button, TransitionLoader, InputController } from '@/components';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
@@ -50,7 +50,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <FormInput
+        <InputController
           htmlFor="startDate"
           control={control}
           name="startDate"
@@ -61,7 +61,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           required
         />
 
-        <FormInput
+        <InputController
           htmlFor="endDate"
           control={control}
           name="endDate"
@@ -74,7 +74,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <FormInput
+        <InputController
           htmlFor="durations"
           control={control}
           name="durations"
@@ -84,7 +84,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           classNameInput="input-profile"
           required
         />
-        <FormInput
+        <InputController
           htmlFor="resumptionDate"
           control={control}
           name="resumptionDate"
@@ -97,7 +97,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="pt-4">
-        <FormInput
+        <InputController
           htmlFor="reason"
           control={control}
           name="reason"
@@ -109,7 +109,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="py-5">
-        <FormInput
+        <InputController
           control={control}
           name="document"
           htmlFor="document"

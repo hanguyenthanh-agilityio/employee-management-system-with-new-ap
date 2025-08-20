@@ -27,7 +27,7 @@ import {
   Checkbox,
   Label,
   TransitionLoader,
-  FormInput,
+  InputController,
 } from '@/components';
 
 const RegisterForm = () => {
@@ -94,7 +94,7 @@ const RegisterForm = () => {
       >
         {/* INPUT FIELDS */}
         {INPUT_FIELDS.map((field) => (
-          <FormInput
+          <InputController
             key={field.name}
             control={control}
             name={field.name as keyof RegisterInput}

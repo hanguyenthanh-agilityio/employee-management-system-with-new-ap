@@ -8,7 +8,7 @@ import { ChangeEvent } from 'react';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MaskedInput from '../MaskedInput';
 
-interface FormInputProps<T extends FieldValues> {
+interface InputControllerProps<T extends FieldValues> {
   control: Control<T>;
   htmlFor: string;
   name: Path<T>;
@@ -26,7 +26,7 @@ interface FormInputProps<T extends FieldValues> {
   classNameInput?: string;
 }
 
-function FormInput<T extends FieldValues>({
+function InputController<T extends FieldValues>({
   control,
   name,
   htmlFor,
@@ -41,7 +41,7 @@ function FormInput<T extends FieldValues>({
   inputProps,
   classNameLabel,
   classNameInput,
-}: FormInputProps<T>) {
+}: InputControllerProps<T>) {
   return (
     <div className="w-full">
       {label && (
@@ -140,4 +140,4 @@ function FormInput<T extends FieldValues>({
   );
 }
 
-export default FormInput;
+export default InputController;

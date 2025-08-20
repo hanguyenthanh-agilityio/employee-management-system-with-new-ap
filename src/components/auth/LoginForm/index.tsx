@@ -23,7 +23,7 @@ import { loginAction } from '@/actions/auth-action';
 import {
   Button,
   Checkbox,
-  FormInput,
+  InputController,
   Label,
   TransitionLoader,
 } from '@/components';
@@ -97,7 +97,7 @@ const LoginForm = () => {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <FormInput
+        <InputController
           htmlFor="email"
           control={control}
           name="email"
@@ -114,7 +114,7 @@ const LoginForm = () => {
           classNameInput="input-normal"
         />
 
-        <FormInput
+        <InputController
           htmlFor="password"
           control={control}
           name="password"

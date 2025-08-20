@@ -4,7 +4,7 @@ import '@/styles/formStyle.css';
 import { UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, FormInput } from '@/components';
+import { Button, InputController } from '@/components';
 
 // Utils
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
@@ -24,7 +24,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
     <>
       {/* Phone Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-        <FormInput
+        <InputController
           htmlFor="mainPhoneNumber"
           control={control}
           name="mainPhoneNumber"
@@ -36,7 +36,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
           classNameInput="input-profile"
         />
 
-        <FormInput
+        <InputController
           htmlFor="subPhoneNumber"
           control={control}
           name="subPhoneNumber"
@@ -50,7 +50,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
       </div>
 
       {/* Email */}
-      <FormInput
+      <InputController
         htmlFor="email"
         control={control}
         name="email"
@@ -62,7 +62,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
 
       {/* City */}
       <div className="w-full md:w-[50%]">
-        <FormInput
+        <InputController
           htmlFor="city"
           control={control}
           name="city"
@@ -75,7 +75,7 @@ const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
 
       {/* Address */}
       <div className="w-full">
-        <FormInput
+        <InputController
           htmlFor="residential"
           control={control}
           name="residential"
