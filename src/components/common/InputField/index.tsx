@@ -12,10 +12,9 @@ import FileInput from '../FileInput';
 type InputAs = 'input' | 'textarea' | 'password' | 'masked' | 'file';
 
 interface InputFieldProps {
-  as: InputAs;
+  as: InputAs; // input type
   name: string;
-  id?: string;
-  field?: Record<string, unknown>;
+  field: Record<string, unknown>; // field of RHF
   value?: string | number | readonly string[];
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -28,6 +27,16 @@ interface InputFieldProps {
     React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 }
 
+// Type helps to assign separate extraProps for each input type
+type InputExtraProps = {
+  input: React.InputHTMLAttributes<HTMLInputElement>;
+  password: React.InputHTMLAttributes<HTMLInputElement>;
+  textarea: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+  masked: { mask?: string } & React.InputHTMLAttributes<HTMLInputElement>;
+  file: React.InputHTMLAttributes<HTMLInputElement>;
+};
+
+// Get actual component based on as
 const componentMapping: Record<InputAs, React.ElementType> = {
   input: Input,
   textarea: Textarea,
@@ -36,18 +45,43 @@ const componentMapping: Record<InputAs, React.ElementType> = {
   file: FileInput,
 };
 
-const baseClassMapping: Record<InputAs, string> = {
-  input: 'input-base cursor-interactive',
-  textarea: 'textarea-base',
-  password: 'input-base cursor-interactive',
-  masked: 'input-base cursor-interactive',
-  file: 'file-input-base',
+// Configure default class (baseClass) and extraProps for each input type
+const configMapping: {
+  [K in InputAs]: (options: {
+    rows?: number;
+    mask?: string;
+    type?: string;
+  }) => {
+    className: string;
+    extraProps?: Partial<InputExtraProps[K]>;
+    omitValue?: boolean; // omitValue is only used for input files
+  };
+} = {
+  input: ({ type }) => ({
+    className: 'input-base cursor-interactive',
+    extraProps: { type: type ?? 'text' },
+  }),
+  textarea: ({ rows }) => ({
+    className: 'textarea-base',
+    extraProps: { rows: rows ?? 3 },
+  }),
+  password: () => ({
+    className: 'input-base cursor-interactive',
+    extraProps: { type: 'password' },
+  }),
+  masked: ({ mask }) => ({
+    className: 'input-base cursor-interactive',
+    extraProps: { mask },
+  }),
+  file: () => ({
+    className: 'file-input-base',
+    omitValue: true,
+  }),
 };
 
 const InputField = ({
   as,
   name,
-  id,
   field,
   value,
   error,
@@ -60,82 +94,35 @@ const InputField = ({
   inputProps,
 }: InputFieldProps) => {
   const Component = componentMapping[as];
-  const baseClass = baseClassMapping[as];
-  const inputId = id ?? name;
 
-  // textarea
-  if (as === 'textarea') {
-    return (
-      <Component
-        id={inputId}
-        rows={rows ?? 3}
-        value={value}
-        className={cn(
-          baseClass,
-          error ? 'input-error' : 'input-profile',
-          className,
-        )}
-        {...field}
-        {...inputProps}
-        error={error}
-        onChange={onChange}
-      />
-    );
-  }
+  // Default config of each input type
+  const {
+    className: baseClass,
+    extraProps,
+    omitValue,
+  } = configMapping[as]({
+    rows,
+    mask,
+    type,
+  });
 
-  // masked input
-  if (as === 'masked' && mask) {
-    return (
-      <Component
-        id={inputId}
-        mask={mask}
-        value={value}
-        className={cn(
-          baseClass,
-          error ? 'input-error' : classNameInput,
-          className,
-        )}
-        {...field}
-        {...inputProps}
-        error={error}
-        onChange={onChange}
-      />
-    );
-  }
+  /**
+   * _omitValue is removed: avoid passing value directly from field, so we can bind value separately
+   * Do not set value because browser does not allow setting value for input file
+   */
+  const { value: _omitValue, ...restField } = field ?? {};
 
-  // file input
-  if (as === 'file') {
-    const { value: _omit, ...restField } = field ?? {};
+  const commonProps = {
+    id: name,
+    className: cn(baseClass, error ? 'input-error' : classNameInput, className),
+    error,
+    onChange,
+    ...restField,
+    ...inputProps,
+    ...(omitValue ? {} : { value: value ?? field?.value ?? '' }),
+  };
 
-    return (
-      <Component
-        id={inputId}
-        className={cn(baseClass, className)}
-        {...restField}
-        {...inputProps}
-        error={error}
-        onChange={onChange}
-      />
-    );
-  }
-
-  // input | password (default)
-  return (
-    <Component
-      id={inputId}
-      type={type ?? (as === 'password' ? 'password' : 'text')}
-      value={value}
-      className={cn(
-        baseClass,
-        error ? 'input-error' : classNameInput,
-        className,
-      )}
-      {...field}
-      {...inputProps}
-      error={error}
-      onChange={onChange}
-    />
-  );
+  return <Component {...commonProps} {...extraProps} />;
 };
 
 export default InputField;
