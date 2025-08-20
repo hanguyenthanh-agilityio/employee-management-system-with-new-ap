@@ -13,7 +13,7 @@ import {
   deleteLeaveApplication,
   fetchSummaryLeaves,
   updateLeaveApplication,
-} from './leaveApplications';
+} from '../leaveApplications';
 
 // Constants
 import { ERROR_MESSAGE } from '@/constants';

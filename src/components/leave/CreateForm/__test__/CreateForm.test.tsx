@@ -14,7 +14,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('@/api/leaveApplications', () => ({
+jest.mock('@/actions/leaveApplications', () => ({
   createLeaveApplication: jest.fn(),
 }));
 describe('CreateLeaveContent', () => {

@@ -18,7 +18,7 @@ jest.mock('react-toastify', () => ({
   },
 }));
 
-jest.mock('@/api/leaveApplications', () => ({
+jest.mock('@/actions/leaveApplications', () => ({
   deleteLeaveApplication: jest.fn(),
 }));
 
