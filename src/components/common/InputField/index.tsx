@@ -14,7 +14,8 @@ type InputAs = 'input' | 'textarea' | 'password' | 'masked' | 'file';
 interface InputFieldProps {
   as: InputAs; // input type
   name: string;
-  field: Record<string, unknown>; // field of RHF
+  id?: string;
+  field?: Record<string, unknown>; // field of RHF
   value?: string | number | readonly string[];
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
