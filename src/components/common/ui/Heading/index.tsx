@@ -3,8 +3,8 @@ interface HeaderProps {
   className?: string;
 }
 
-const Header = ({ title, className }: HeaderProps) => (
+const Heading = ({ title, className }: HeaderProps) => (
   <h1 className={`text-3xl font-bold text-primary ${className}`}>{title}</h1>
 );
 
-export default Header;
+export default Heading;

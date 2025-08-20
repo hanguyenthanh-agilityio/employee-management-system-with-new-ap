@@ -4,7 +4,7 @@ import {
   Avatar as UIAvatar,
   AvatarFallback,
   AvatarImage,
-} from '@/components/ui/avatar';
+} from '@/components/common/ui/Avatar/avatar';
 import { useState } from 'react';
 
 interface AvatarProps {

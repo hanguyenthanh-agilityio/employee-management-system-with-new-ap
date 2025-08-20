@@ -3,7 +3,7 @@
 import { ChangeEvent } from 'react';
 import { cn } from '@/lib/utils';
 
-import Textarea from '../../Textarea/textarea';
+import Textarea from '../Textarea/textarea';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MaskedInput from '../MaskedInput';
 import FileInput from '../FileInput';

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 // Components
-import Table from '.';
+import Table from './';
 
 const meta = {
   title: 'Components/Common/Table',

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Checkbox } from '../checkbox';
+import { Checkbox } from '../../ui/Checkbox/checkbox';
 
 describe('Checkbox component', () => {
   test('renders without crashing', () => {

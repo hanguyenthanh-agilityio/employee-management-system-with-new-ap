@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Header from '..';
+import Heading from '..';
 
 describe('Header component', () => {
   test('renders the title', () => {
-    render(<Header title="Dashboard" />);
+    render(<Heading title="Dashboard" />);
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
   });
 
   test('applies default classes', () => {
-    render(<Header title="Dashboard" />);
+    render(<Heading title="Dashboard" />);
     const header = screen.getByText('Dashboard');
     expect(header).toHaveClass('text-3xl');
     expect(header).toHaveClass('font-bold');
