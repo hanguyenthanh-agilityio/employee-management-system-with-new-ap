@@ -5,7 +5,7 @@ import { setCookie, removeCookie } from '@/utils/auth';
 import { ERROR_MESSAGE } from '@/constants';
 
 // Actions
-import { loginAction, logoutAction, registerAction } from './auth-action';
+import { loginAction, logoutAction, registerAction } from '../auth-action';
 
 // Services
 import { login, register } from '@/services/auth/authService';
