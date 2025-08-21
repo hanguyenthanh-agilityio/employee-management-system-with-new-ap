@@ -13,7 +13,7 @@ jest.mock('@/services/user/userService', () => ({
 }));
 
 jest.mock('@/services/leave/leaveService', () => ({
-  getLeaveApplications: jest.fn(),
+  fetchLeaveApplications: jest.fn(),
 }));
 
 // Components
@@ -24,13 +24,13 @@ import { LeaveItem } from '@/types/components';
 
 // Services
 import { getCurrentUser } from '@/services/user/userService';
-import { getLeaveApplications } from '@/services/leave/leaveService';
+import { fetchLeaveApplications } from '@/services/leave/leaveService';
 
 describe('LeaveHistoryWrapper', () => {
   test('Renders LeaveHistorySection with fetched data', async () => {
     // Arrange mock data
     (getCurrentUser as jest.Mock).mockResolvedValue({ id: 'user-123' });
-    (getLeaveApplications as jest.Mock).mockResolvedValue({
+    (fetchLeaveApplications as jest.Mock).mockResolvedValue({
       data: [{ id: 'leave-1' }, { id: 'leave-2' }],
     });
 

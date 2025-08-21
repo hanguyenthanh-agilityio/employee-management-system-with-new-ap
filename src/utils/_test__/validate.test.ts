@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '@/constants';
-import { validateLeaveApplication } from './validate';
+import { validateLeaveApplication } from '../validate';
 
 describe('validateLeaveApplication', () => {
   const validData = {

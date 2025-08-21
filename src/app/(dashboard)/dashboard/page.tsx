@@ -1,14 +1,8 @@
-import { Suspense } from 'react';
-
 // Components
-import { DashboardSkeleton, DashboardWrapper } from '@/components';
+import { DashboardWrapper } from '@/components';
 
 const Page = () => {
-  return (
-    <Suspense fallback={<DashboardSkeleton />}>
-      <DashboardWrapper />
-    </Suspense>
-  );
+  return <DashboardWrapper />;
 };
 
 export default Page;

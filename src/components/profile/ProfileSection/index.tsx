@@ -12,6 +12,9 @@ import { IMAGE, ROUTER } from '@/constants';
 // Utils
 import { formatName } from '@/utils/format';
 
+// Styles
+import '@/styles/buttonStyle.css';
+
 interface ProfileSectionProps {
   name: string;
   jobTitle: string;
@@ -50,7 +53,7 @@ const ProfileSection = ({ name, jobTitle }: ProfileSectionProps) => {
 
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full lg:w-auto justify-between">
         <Button
-          className="bg-[#ffc20e] hover:bg-yellow text-black text-base sm:text-lg lg:text-xl px-4 sm:px-6 lg:px-10 py-2 lg:py-4 rounded-[10px] font-bold w-full sm:w-auto"
+          className="btn-base btn-yellow btn-sm transform transition-all duration-200 hover:scale-105 hover:shadow-lg !text-xl"
           onClick={handleEditProfile}
         >
           Edit Profile
