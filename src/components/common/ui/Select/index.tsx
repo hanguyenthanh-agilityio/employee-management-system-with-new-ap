@@ -25,7 +25,7 @@ const Select = ({
   <div className={className}>
     <label
       htmlFor={name}
-      className="block text-xl font-medium text-gray-900 w-[200px]"
+      className="block text-xl font-medium text-gray-900 w-[150px]"
     >
       {label}
     </label>

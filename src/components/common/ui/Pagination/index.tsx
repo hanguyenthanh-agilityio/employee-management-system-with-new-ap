@@ -2,7 +2,6 @@
 
 import clsx from 'clsx';
 import { useMemo } from 'react';
-// spinner icon
 import Button from '../Button/button';
 
 interface PaginationProps {
@@ -64,29 +63,31 @@ const Pagination: React.FC<PaginationProps> = ({
           </Button>
         </li>
 
-        {/* Page numbers */}
-        {getPages.map((page, index) => (
-          <li key={index}>
-            {typeof page === 'number' ? (
-              <Button
-                onClick={() => handleClick(page)}
-                className={clsx(
-                  'px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition',
-                  page === currentPage
-                    ? 'bg-blue-500 text-white dark:bg-blue-600'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
-                  page !== currentPage && 'cursor-pointer',
-                )}
-              >
-                {page}
-              </Button>
-            ) : (
-              <span className="flex items-center px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-400 dark:text-gray-500 select-none">
-                ...
-              </span>
-            )}
-          </li>
-        ))}
+        {/* Page numbers (hidden on mobile) */}
+        <div className="hidden sm:flex">
+          {getPages.map((page, index) => (
+            <li key={index}>
+              {typeof page === 'number' ? (
+                <Button
+                  onClick={() => handleClick(page)}
+                  className={clsx(
+                    'px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition',
+                    page === currentPage
+                      ? 'bg-blue-500 text-white dark:bg-blue-600'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
+                    page !== currentPage && 'cursor-pointer',
+                  )}
+                >
+                  {page}
+                </Button>
+              ) : (
+                <span className="flex items-center px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-400 dark:text-gray-500 select-none">
+                  ...
+                </span>
+              )}
+            </li>
+          ))}
+        </div>
 
         {/* Next button */}
         <li>
