@@ -3,16 +3,19 @@
 import { UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, InputController, TransitionLoader } from '@/components';
+import { Button, TransitionLoader } from '@/components';
 
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import { FieldConfig } from '@/types/field';
+import ValidatedInputField from '@/components/common/forms/ValidatedInputField';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
+  fields: FieldConfig<PersonalDetailsInput>[];
 }
 
-const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
+const ProfileEditForm = ({ form, fields }: ProfileEditFormProps) => {
   const {
     control,
     formState: { isSubmitting, isDirty },
@@ -21,60 +24,21 @@ const ProfileEditForm = ({ form }: ProfileEditFormProps) => {
   return (
     <>
       {isSubmitting && <TransitionLoader />}
-      {/* Username */}
-      <div className="flex flex-col md:gap-2">
-        <InputController
-          htmlFor="username"
-          control={control}
-          name="username"
-          label="Employee Name"
-          classNameLabel="form-label"
-          required
-          classNameInput="input-profile"
-        />
-      </div>
 
-      {/* Department */}
-      <div className="flex flex-col md:gap-2">
-        <InputController
-          htmlFor="department"
-          control={control}
-          type="text"
-          name="department"
-          label="Department"
-          classNameLabel="form-label"
-          required
-          classNameInput="input-profile"
-        />
-      </div>
-
-      {/* Job title & category */}
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
-        <div className="flex-1 flex flex-col md:gap-2">
-          <InputController
-            htmlFor="jobTitle"
-            control={control}
-            type="text"
-            name="jobTitle"
-            label="Job Title"
-            classNameLabel="form-label"
-            required
-            classNameInput="input-profile"
-          />
-        </div>
-
-        <div className="flex-1 flex flex-col md:gap-2">
-          <InputController
-            htmlFor="jobCategory"
-            control={control}
-            type="text"
-            name="jobCategory"
-            label="Job Category"
-            classNameLabel="form-label"
-            required
-            classNameInput="input-profile"
-          />
-        </div>
+      {/* Dynamic fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        {fields.map((field) => (
+          <div key={field.name} className={`col-span-${field.colSpan ?? 1}`}>
+            <ValidatedInputField
+              control={control}
+              name={field.name}
+              label={field.label}
+              required={field.required}
+              type={field.type}
+              readOnly={field.readOnly}
+            />
+          </div>
+        ))}
       </div>
 
       {/* Save button */}

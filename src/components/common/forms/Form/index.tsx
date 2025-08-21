@@ -21,7 +21,7 @@ import { FieldConfig } from '@/types/field';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
-  fields: FieldConfig[];
+  fields: FieldConfig<LeaveApplicationInput>[];
   onReset: () => void;
   defaultDocument?: { name: string; url?: string };
   isLoading?: boolean;
