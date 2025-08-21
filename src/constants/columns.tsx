@@ -118,6 +118,11 @@ export const COLUMNS = ({
     ),
   },
   {
+    title: 'Reason(s)',
+    render: (row: LeaveItem) => row.reason,
+    className: ' truncate max-w-40',
+  },
+  {
     title: 'Actions',
     render: (row: LeaveItem) => (
       <div className="flex items-center justify-center h-full">
