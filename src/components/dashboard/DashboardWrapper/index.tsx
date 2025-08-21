@@ -1,6 +1,9 @@
+import { Suspense } from 'react';
+
 // Components
 import {
   BirthdaySection,
+  LeaveSectionSkeleton,
   Heading,
   LeaveSection,
   PaySlipSection,
@@ -16,9 +19,6 @@ import { fetchSummaryLeaves } from '@/actions/leaveApplications';
 
 const DashboardWrapper = async () => {
   const user = await getCurrentUser();
-  const summaryData = await fetchSummaryLeaves();
-
-  // Show user detail
   const { username, jobTitle } = user;
 
   return (
@@ -29,15 +29,19 @@ const DashboardWrapper = async () => {
       {/* Profile Section */}
       <ProfileSection name={username} jobTitle={jobTitle} />
 
-      {/* Quickly Action */}
+      {/* Quick Actions */}
       <div>
         <h2 className="mb-4 md:mb-6 text-2xl md:text-3xl">Quick Actions</h2>
         <QuickActions />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LeaveSection data={summaryData.data} />
+        <Suspense fallback={<LeaveSectionSkeleton />}>
+          <LeaveSectionAsync />
+        </Suspense>
+
         <BirthdaySection />
+
         <PaySlipSection />
       </div>
     </div>
@@ -45,3 +49,11 @@ const DashboardWrapper = async () => {
 };
 
 export default DashboardWrapper;
+
+/**
+ * Async Server Components for sections needing data
+ */
+const LeaveSectionAsync = async () => {
+  const summaryData = await fetchSummaryLeaves();
+  return <LeaveSection data={summaryData.data} />;
+};

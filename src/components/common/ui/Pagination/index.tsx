@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { useMemo } from 'react';
+import Button from '../Button/button';
 
 interface PaginationProps {
   currentPage: number;
@@ -17,7 +18,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const getPages = useMemo(() => {
     if (totalPages <= 1) return [];
 
-    const pages = [];
+    const pages: (number | string)[] = [];
     const delta = 2;
     const left = Math.max(2, currentPage - delta);
     const right = Math.min(totalPages - 1, currentPage + delta);
@@ -45,65 +46,63 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <nav className="flex justify-center mt-6">
-      <ul className="inline-flex -space-x-px text-base">
+      <ul className="inline-flex items-center space-x-2">
         {/* Previous button */}
         <li>
-          <button
+          <Button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={clsx(
-              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border bg-white text-gray-500 hover:bg-gray-100',
-              'dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700',
-              'rounded-l-lg',
-              currentPage === 1
-                ? 'opacity-50 cursor-not-allowed'
-                : 'cursor-pointer',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition',
+              'bg-white text-gray-600 hover:bg-gray-100 shadow-sm',
+              'dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700',
+              currentPage === 1 && 'opacity-50 cursor-not-allowed',
             )}
           >
             Previous
-          </button>
+          </Button>
         </li>
 
-        {/* Page numbers */}
-        {getPages.map((page, index) => (
-          <li key={index}>
-            {typeof page === 'number' ? (
-              <button
-                onClick={() => handleClick(page)}
-                className={clsx(
-                  'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border',
-                  'dark:border-gray-700',
-                  page === currentPage
-                    ? 'bg-blue-500 text-white dark:bg-blue-600 dark:text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
-                  page !== currentPage && 'cursor-pointer',
-                )}
-              >
-                {page}
-              </button>
-            ) : (
-              <span className="flex items-center px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-400 border border-gray-300 bg-white select-none">
-                ...
-              </span>
-            )}
-          </li>
-        ))}
+        {/* Page numbers (hidden on mobile) */}
+        <div className="hidden sm:flex">
+          {getPages.map((page, index) => (
+            <li key={index}>
+              {typeof page === 'number' ? (
+                <Button
+                  onClick={() => handleClick(page)}
+                  className={clsx(
+                    'px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition',
+                    page === currentPage
+                      ? 'bg-blue-500 text-white dark:bg-blue-600'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
+                    page !== currentPage && 'cursor-pointer',
+                  )}
+                >
+                  {page}
+                </Button>
+              ) : (
+                <span className="flex items-center px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-400 dark:text-gray-500 select-none">
+                  ...
+                </span>
+              )}
+            </li>
+          ))}
+        </div>
 
         {/* Next button */}
         <li>
-          <button
+          <Button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={clsx(
-              'px-3 sm:px-4 py-2 text-sm sm:text-base transition-colors duration-200 border border-gray-300 bg-white text-gray-500 hover:bg-gray-100  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
-              'rounded-r-lg',
-              currentPage === totalPages
-                ? 'opacity-50 cursor-not-allowed'
-                : 'cursor-pointer',
+              'px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition',
+              'bg-white text-gray-600 hover:bg-gray-100 shadow-sm',
+              'dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700',
+              currentPage === totalPages && 'opacity-50 cursor-not-allowed',
             )}
           >
             Next
-          </button>
+          </Button>
         </li>
       </ul>
     </nav>
