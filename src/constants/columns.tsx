@@ -102,14 +102,14 @@ export const COLUMNS = ({
     render: (row: LeaveItem) =>
       row.document ? (
         <FallbackImage
-          src={`${process.env.NEXT_PUBLIC_API_URL}${row.document?.url}`}
-          alt={row.document?.name || 'Document'}
-          width={30}
-          height={40}
-          className="rounded shadow object-cover"
+          src={`${process.env.NEXT_PUBLIC_API_URL}${row.document.url}`}
+          alt={row.document.name || 'Document'}
+          size={40}
         />
       ) : (
-        <span>-</span>
+        <div className="w-[40px] h-[40px] flex items-center justify-center text-gray-400 text-sm">
+          –
+        </div>
       ),
     className: 'flex items-center justify-center',
   },
