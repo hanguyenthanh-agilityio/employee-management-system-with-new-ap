@@ -2,19 +2,19 @@ import { Label } from '@/components';
 
 interface RequiredLabelProps {
   htmlFor: string;
-  children: React.ReactNode;
+  label: string;
   required?: boolean;
   className?: string;
 }
 
 const RequiredLabel = ({
   htmlFor,
-  children,
+  label,
   required = true,
-  className = '',
+  className,
 }: RequiredLabelProps) => (
   <Label htmlFor={htmlFor} className={className}>
-    {children}
+    {label}
     {required && <span className="text-red">*</span>}
   </Label>
 );

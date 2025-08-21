@@ -14,6 +14,8 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 // Styles
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
+import ValidatedInputField from '../ValidatedInputField';
+import ValidatedTextareaField from '../ValidatedTextareaField';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
@@ -50,7 +52,7 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <InputController
+        {/* <InputController
           htmlFor="startDate"
           control={control}
           name="startDate"
@@ -59,17 +61,22 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
           classNameLabel="form-label"
           classNameInput="input-profile"
           required
+        /> */}
+
+        <ValidatedInputField
+          control={control}
+          name="startDate"
+          label="Start Date"
+          required
+          type="date"
         />
 
-        <InputController
-          htmlFor="endDate"
+        <ValidatedInputField
           control={control}
           name="endDate"
-          type="date"
           label="End Date"
-          classNameLabel="form-label"
-          classNameInput="input-profile"
           required
+          type="date"
         />
       </div>
 
@@ -97,14 +104,12 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
       </div>
 
       <div className="pt-4">
-        <InputController
-          htmlFor="reason"
+        <ValidatedTextareaField
           control={control}
           name="reason"
           label="Reason for Leave"
-          classNameLabel="form-label"
-          as="textarea"
           required
+          rows={3}
         />
       </div>
 
