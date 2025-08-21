@@ -8,7 +8,7 @@ import { ERROR_MESSAGE } from '@/constants';
 import { loginAction, logoutAction, registerAction } from '../auth-action';
 
 // Services
-import { login, register } from '@/services/auth/authService';
+import { loginUser, registerUser } from '@/services/auth/authService';
 import { getCurrentUser } from '@/services/user/userService';
 
 jest.mock('@/services/auth/authService');
@@ -30,11 +30,11 @@ describe('authActions', () => {
         success: false,
         message: expect.stringContaining('Email'),
       });
-      expect(login).not.toHaveBeenCalled();
+      expect(loginUser).not.toHaveBeenCalled();
     });
 
     test('Should return error if login failed (missing jwt)', async () => {
-      (login as jest.Mock).mockResolvedValueOnce({});
+      (loginUser as jest.Mock).mockResolvedValueOnce({});
 
       const result = await loginAction(
         {},
@@ -48,7 +48,7 @@ describe('authActions', () => {
     });
 
     test('Should login successfully and set cookies', async () => {
-      (login as jest.Mock).mockResolvedValueOnce({ jwt: 'token123' });
+      (loginUser as jest.Mock).mockResolvedValueOnce({ jwt: 'token123' });
       (getCurrentUser as jest.Mock).mockResolvedValueOnce({
         id: 1,
         email: 'hanguyen@mail.com',
@@ -71,7 +71,7 @@ describe('authActions', () => {
     });
 
     test('Should return error if exception is thrown', async () => {
-      (login as jest.Mock).mockRejectedValueOnce(new Error('Login failed'));
+      (loginUser as jest.Mock).mockRejectedValueOnce(new Error('Login failed'));
 
       const result = await loginAction(
         {},
@@ -107,11 +107,13 @@ describe('authActions', () => {
     };
 
     test('Should register successfully with full name', async () => {
-      (register as jest.Mock).mockResolvedValueOnce({ message: 'Welcome!' });
+      (registerUser as jest.Mock).mockResolvedValueOnce({
+        message: 'Welcome!',
+      });
 
       const result = await registerAction(mock);
 
-      expect(register).toHaveBeenCalledWith({
+      expect(registerUser).toHaveBeenCalledWith({
         username: 'JohnDoe',
         email: 'hanguyen@example.com',
         password: '123456',
@@ -124,7 +126,7 @@ describe('authActions', () => {
     });
 
     test('Should return error if registration fails', async () => {
-      (register as jest.Mock).mockRejectedValueOnce(
+      (registerUser as jest.Mock).mockRejectedValueOnce(
         new Error('Register failed'),
       );
       const result = await registerAction(mock);
@@ -136,7 +138,9 @@ describe('authActions', () => {
     });
 
     test('Should fallback to email if full name is empty', async () => {
-      (register as jest.Mock).mockResolvedValueOnce({ message: 'Registered' });
+      (registerUser as jest.Mock).mockResolvedValueOnce({
+        message: 'Registered',
+      });
 
       const result = await registerAction({
         firstName: '',
@@ -148,7 +152,7 @@ describe('authActions', () => {
         terms: true,
       });
 
-      expect(register).toHaveBeenCalledWith({
+      expect(registerUser).toHaveBeenCalledWith({
         username: 'hanguyen@gmail.com',
         email: 'hanguyen@gmail.com',
         password: '123456',
@@ -161,7 +165,7 @@ describe('authActions', () => {
     });
 
     test('Should return default error if unknown error is thrown', async () => {
-      (register as jest.Mock).mockRejectedValueOnce('Some unknown error');
+      (registerUser as jest.Mock).mockRejectedValueOnce('Some unknown error');
 
       const result = await registerAction(mock);
 

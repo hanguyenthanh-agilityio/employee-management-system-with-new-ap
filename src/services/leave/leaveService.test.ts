@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   deleteLeave,
-  getLeaveApplicationById,
-  getLeaveApplications,
+  fetchLeaveApplicationById,
+  fetchLeaveApplications,
   getSummaryLeaves,
   patchLeaveApplication,
   postLeaveApplication,
@@ -17,79 +18,84 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+// Helper mock fetch success
+const mockFetchSuccess = (data: any) => {
+  (fetch as jest.Mock).mockResolvedValueOnce({
+    ok: true,
+    json: async () => data,
+    headers: { get: jest.fn(() => 'application/json') },
+  });
+};
+
+// Helper mock fetch failure
+const mockFetchFailure = (status = 400, text = 'Error') => {
+  (fetch as jest.Mock).mockResolvedValueOnce({
+    ok: false,
+    status,
+    text: async () => text,
+    headers: { get: jest.fn(() => 'text/plain') },
+  });
+};
+
 describe('leaveService', () => {
-  describe('getLeaveApplications', () => {
-    test('Should return leave applications when fetch success', async () => {
+  describe('fetchLeaveApplications', () => {
+    test('returns leave applications on success', async () => {
       const mockData = { data: ['application1', 'application2'] };
+      mockFetchSuccess(mockData);
 
-      (fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockData,
-      });
-
-      const result = await getLeaveApplications(1);
+      const result = await fetchLeaveApplications(1);
 
       expect(result).toEqual(mockData);
     });
 
-    test('Throws error when fetch fails', async () => {
-      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+    test('throws error on fetch failure', async () => {
+      mockFetchFailure();
 
-      await expect(getLeaveApplications(1)).rejects.toThrow(
-        'Failed to fetch leave history',
+      await expect(fetchLeaveApplications(1)).rejects.toThrow(
+        'API Error 400: Error',
       );
     });
   });
 
-  describe('getLeaveApplicationById', () => {
-    test('Fetches a single leave application successfully', async () => {
+  describe('fetchLeaveApplicationById', () => {
+    test('fetches single leave application successfully', async () => {
       const mockData = { data: { id: '123' } };
+      mockFetchSuccess(mockData);
 
-      (fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockData,
-      });
-
-      const result = await getLeaveApplicationById('123');
+      const result = await fetchLeaveApplicationById('123');
 
       expect(result).toEqual(mockData);
     });
 
-    test('Throws error when fetch fails', async () => {
-      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+    test('throws error on fetch failure', async () => {
+      mockFetchFailure(404, 'Not Found');
 
-      await expect(getLeaveApplicationById('invalid-id')).rejects.toThrow(
-        'Failed to fetch leave application with documentId invalid-id',
+      await expect(fetchLeaveApplicationById('invalid-id')).rejects.toThrow(
+        'API Error 404: Not Found',
       );
     });
   });
 
-  describe('getSummaryLeave', () => {
-    test('Fetch summary leave successfully', async () => {
+  describe('fetchSummaryLeaves', () => {
+    test('fetches summary leaves successfully', async () => {
       const mockData = { data: { annual: 10, sick: 5 } };
-
-      (fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockData,
-      });
+      mockFetchSuccess(mockData);
 
       const result = await getSummaryLeaves(1);
 
       expect(result).toEqual(mockData);
     });
 
-    test('Throws error when fetch fails', async () => {
-      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+    test('throws error on fetch failure', async () => {
+      mockFetchFailure();
 
-      await expect(getSummaryLeaves(1)).rejects.toThrow(
-        'Failed to fetch summary leaves',
-      );
+      await expect(getSummaryLeaves(1)).rejects.toThrow('API Error 400: Error');
     });
   });
 
-  describe('postLeaveApplication', () => {
-    test('Creates leave application successfully', async () => {
-      const body = {
+  describe('createLeaveApplication', () => {
+    test('creates leave application successfully', async () => {
+      const payload = {
         data: {
           type: 'Annual Leave',
           startDate: '2025-07-27',
@@ -99,23 +105,27 @@ describe('leaveService', () => {
           reason: 'Vacation',
         },
       };
-
       const mockResponse = { data: { id: 1 } };
+      mockFetchSuccess(mockResponse);
 
-      (fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      });
-
-      const result = await postLeaveApplication(body);
+      const result = await postLeaveApplication(payload);
 
       expect(result).toEqual(mockResponse);
     });
+
+    test('throws error on failure', async () => {
+      mockFetchFailure();
+
+      const payload = { data: { type: 'Annual Leave' } };
+      await expect(postLeaveApplication(payload)).rejects.toThrow(
+        'API Error 400: Error',
+      );
+    });
   });
 
-  describe('patchLeaveApplication', () => {
-    test('updates application successfully', async () => {
-      const data = {
+  describe('updateLeaveApplication', () => {
+    test('updates leave application successfully', async () => {
+      const payload = {
         type: 'Sick Leave',
         startDate: '2025-07-27',
         endDate: '2025-07-28',
@@ -123,50 +133,56 @@ describe('leaveService', () => {
         resumptionDate: '2025-07-29',
         reason: 'Illness',
       };
-
       const mockResponse = { data: { id: '123' } };
+      mockFetchSuccess(mockResponse);
 
-      (fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-        headers: { get: () => 'application/json' },
-      });
-
-      const result = await patchLeaveApplication('123', data);
+      const result = await patchLeaveApplication('123', payload);
 
       expect(result).toEqual(mockResponse);
     });
+
+    test('throws error on failure', async () => {
+      mockFetchFailure();
+
+      const payload = { type: 'Sick Leave' };
+      await expect(patchLeaveApplication('123', payload)).rejects.toThrow(
+        'API Error 400: Error',
+      );
+    });
   });
 
-  describe('deleteLeave', () => {
-    test('Deletes application successfully', async () => {
+  describe('deleteLeaveApplication', () => {
+    test('deletes leave application successfully', async () => {
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         text: async () => '',
+        headers: { get: jest.fn(() => 'text/plain') },
       });
 
-      const res = await deleteLeave('123');
+      const result = await deleteLeave('123');
 
-      expect(res.ok).toBe(true);
+      expect(result).toBe('123');
     });
 
-    test('Throws error when delete fails with message', async () => {
+    test('throws error when delete fails with message', async () => {
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
         text: async () => 'Delete failed',
+        headers: { get: jest.fn(() => 'text/plain') },
       });
 
       await expect(deleteLeave('123')).rejects.toThrow('Delete failed');
     });
 
-    test('Throws generic error when delete fails with empty message', async () => {
+    test('throws generic error when delete fails with empty message', async () => {
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
         text: async () => '',
+        headers: { get: jest.fn(() => 'text/plain') },
       });
 
       await expect(deleteLeave('123')).rejects.toThrow(
-        'Failed to delete leave application',
+        'API Error undefined: Unknown error',
       );
     });
   });

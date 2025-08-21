@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
-import { getTokenFromCookies, removeCookie, setCookie } from './auth';
+
 import { ERROR_MESSAGE } from '@/constants';
+import { getTokenFromCookies, removeCookie, setCookie } from '../auth';
 
 jest.mock('next/headers', () => ({
   cookies: jest.fn(),

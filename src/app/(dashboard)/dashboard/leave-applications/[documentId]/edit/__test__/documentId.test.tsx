@@ -1,11 +1,11 @@
-import { getLeaveApplicationById } from '@/services/leave/leaveService';
+import { fetchLeaveApplicationById } from '@/services/leave/leaveService';
 import { render, screen, waitFor } from '@testing-library/react';
 import UpdateLeavePage, { generateMetadata } from '../page';
 import { LeaveItem } from '@/types/components';
 
 // Mocks
 jest.mock('@/services/leave/leaveService', () => ({
-  getLeaveApplicationById: jest.fn(),
+  fetchLeaveApplicationById: jest.fn(),
 }));
 
 jest.mock('@/components', () => ({
@@ -18,7 +18,7 @@ jest.mock('@/components', () => ({
 
 describe('generateMetadata', () => {
   test('Should return metadata with leave type and dates', async () => {
-    (getLeaveApplicationById as jest.Mock).mockResolvedValue({
+    (fetchLeaveApplicationById as jest.Mock).mockResolvedValue({
       data: {
         type: 'Sick Leave',
         startDate: '2025-07-20',
@@ -49,7 +49,7 @@ describe('UpdateLeavePage', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    (getLeaveApplicationById as jest.Mock).mockResolvedValue(
+    (fetchLeaveApplicationById as jest.Mock).mockResolvedValue(
       mockLeaveApplication,
     );
   });
@@ -71,7 +71,7 @@ describe('UpdateLeavePage', () => {
   });
 
   test('Renders not found if application does not exist', async () => {
-    (getLeaveApplicationById as jest.Mock).mockResolvedValueOnce(null);
+    (fetchLeaveApplicationById as jest.Mock).mockResolvedValueOnce(null);
 
     render(
       await UpdateLeavePage({ params: Promise.resolve({ documentId: '123' }) }),

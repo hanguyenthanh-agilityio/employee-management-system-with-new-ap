@@ -1,4 +1,4 @@
-import { generateBreadcrumbUrl } from './breadcrumbs';
+import { generateBreadcrumbUrl } from '../breadcrumbs';
 
 describe('generateBreadcrumbUrl', () => {
   test('Generates correct URL for a single path', () => {

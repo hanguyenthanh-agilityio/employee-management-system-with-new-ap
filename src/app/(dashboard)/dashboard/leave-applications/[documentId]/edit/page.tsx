@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import { BookOpenIcon } from '@heroicons/react/16/solid';
 
 // Services
-import { getLeaveApplicationById } from '@/services/leave/leaveService';
+import { fetchLeaveApplicationById } from '@/services/leave/leaveService';
 
 // Components
 import { Breadcrumbs, EditForm, LoadingFormLeave } from '@/components';
@@ -20,7 +20,7 @@ type Props = {
 
 // generateMetadata: dynamic metadata from API
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const leaveApplication = await getLeaveApplicationById(params.documentId);
+  const leaveApplication = await fetchLeaveApplicationById(params.documentId);
 
   return {
     title: `Update Leave - ${leaveApplication.data.type}`,
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const UpdateLeaveContent = async ({ documentId }: { documentId: string }) => {
-  const leaveApplication = await getLeaveApplicationById(documentId);
+  const leaveApplication = await fetchLeaveApplicationById(documentId);
   console.log('leaveApplication', leaveApplication);
 
   if (!leaveApplication) return <div>Leave application not found!</div>;

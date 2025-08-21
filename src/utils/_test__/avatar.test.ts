@@ -1,5 +1,5 @@
 import { NEXT_PUBLIC_API_URL } from '@/constants';
-import { getAvatarUrl } from './avatar';
+import { getAvatarUrl } from '../avatar';
 
 describe('getAvatarUrl', () => {
   beforeAll(() => {

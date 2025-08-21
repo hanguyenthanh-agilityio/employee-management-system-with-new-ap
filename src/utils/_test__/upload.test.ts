@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '@/constants';
-import { uploadFileToStrapi } from './upload';
+import { uploadFileToStrapi } from '../upload';
 
 jest.mock('@/utils/auth', () => ({
   getTokenFromCookies: jest.fn(() => Promise.resolve('test-token')),
