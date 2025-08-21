@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 
 // Components
 import { Pagination } from '@/components';
+import clsx from 'clsx';
 
 interface Column<T> {
   title: string | ReactNode;
@@ -58,12 +59,17 @@ const GenericTable = <T,>({
             data.map((item, rowIndex) => (
               <tr
                 key={rowIndex}
-                className="odd:bg-white even:bg-[#e3edf9] dark:odd:bg-[#0a0a0a] dark:even:bg-[#969696] transition-colors"
+                className="odd:bg-white even:bg-[#e3edf9] dark:odd:bg-[#0a0a0a] dark:even:bg-[#969696] transition-colors h-[60px]"
               >
                 {columns.map((col, colIndex) => (
                   <td
                     key={colIndex}
-                    className={`px-4 py-2 whitespace-nowrap text-center ${col.className ?? ''}`}
+                    className={clsx(
+                      'px-4 py-2 whitespace-nowrap text-center',
+                      'h-[60px]',
+                      'align-middle',
+                      col.className ?? '',
+                    )}
                   >
                     {col.render(item)}
                   </td>

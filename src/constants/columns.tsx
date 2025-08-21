@@ -99,33 +99,33 @@ export const COLUMNS = ({
   },
   {
     title: 'Document',
-    render: (row: LeaveItem) =>
-      row.document ? (
-        <FallbackImage
-          src={`${process.env.NEXT_PUBLIC_API_URL}${row.document.url}`}
-          alt={row.document.name || 'Document'}
-          size={40}
-        />
-      ) : (
-        <div className="w-[40px] h-[40px] flex items-center justify-center text-gray-400 text-sm">
-          –
-        </div>
-      ),
-    className: 'flex items-center justify-center',
-  },
-  {
-    title: 'Reason(s)',
-    render: (row: LeaveItem) => row.reason,
-    className: ' truncate max-w-40',
+    render: (row: LeaveItem) => (
+      <div className="flex justify-center">
+        {row.document ? (
+          <div className="w-[40px] h-[40px] flex items-center justify-center">
+            <FallbackImage
+              src={`${process.env.NEXT_PUBLIC_API_URL}${row.document.url}`}
+              alt={row.document.name || 'Document'}
+              size={40}
+            />
+          </div>
+        ) : (
+          <div className="w-[40px] h-[40px] flex items-center justify-center text-gray-400 text-sm">
+            –
+          </div>
+        )}
+      </div>
+    ),
   },
   {
     title: 'Actions',
     render: (row: LeaveItem) => (
-      <ActionsDropdown
-        onEdit={onEdit(row.documentId)}
-        onDelete={onDelete(row.documentId)}
-      />
+      <div className="flex items-center justify-center h-full">
+        <ActionsDropdown
+          onEdit={onEdit(row.documentId)}
+          onDelete={onDelete(row.documentId)}
+        />
+      </div>
     ),
-    className: 'flex justify-center',
   },
 ];
