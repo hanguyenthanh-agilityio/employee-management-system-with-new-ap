@@ -6,8 +6,8 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid';
 import '@/styles/formStyle.css';
 
 // Components
-import Button from '@/components/common/Button/button';
-import Input from '@/components/common/Input/input';
+import Button from '@/components/common/ui/Button/button';
+import Input from '@/components/common/inputs/Input/input';
 
 interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

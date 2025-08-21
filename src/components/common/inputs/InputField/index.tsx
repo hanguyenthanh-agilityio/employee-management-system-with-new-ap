@@ -2,14 +2,13 @@
 
 import { ChangeEvent } from 'react';
 import { cn } from '@/lib/utils';
-import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
+import Textarea from '../Textarea/textarea';
 import PasswordInput from '@/components/auth/PasswordInput';
-
-import Input from '../../Input/input';
-import MaskedInput from '../../MaskedInput';
-import Textarea from '../../Textarea/textarea';
-import FileInput from '../../FileInput';
+import MaskedInput from '../MaskedInput';
+import FileInput from '../FileInput';
+import Input from '../Input/input';
+import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
 type InputAs = 'input' | 'textarea' | 'password' | 'masked' | 'file';
 
