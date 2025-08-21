@@ -15,7 +15,7 @@ const RequiredLabel = ({
 }: RequiredLabelProps) => (
   <Label htmlFor={htmlFor} className={className}>
     {label}
-    {required && <span className="text-red">*</span>}
+    {required && <span className="text-red">{' *'}</span>}
   </Label>
 );
 

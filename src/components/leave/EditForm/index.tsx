@@ -15,7 +15,11 @@ import { Form } from '@/components';
 
 // Constants
 import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
-import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
+import {
+  ALLOWED_LEAVE_TYPES,
+  leaveFormFields,
+  LeaveType,
+} from '@/constants/inputField';
 
 // Types
 import { LeaveItem } from '@/types/components';
@@ -124,6 +128,7 @@ const EditForm = ({ leave }: EditFormProps) => {
         className="pt-5"
       >
         <Form
+          fields={leaveFormFields}
           form={form}
           onReset={handleReset}
           defaultDocument={getDefaultDocument(leave?.document)}

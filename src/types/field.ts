@@ -1,4 +1,5 @@
 import { NEXT_PUBLIC_API_URL } from '@/constants';
+import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 
 export type SortField = 'employeeName' | 'startDate' | 'endDate' | 'type' | '';
 
@@ -21,3 +22,14 @@ export const getDefaultDocument = (
     url,
   };
 };
+
+export type FieldName = keyof LeaveApplicationInput;
+
+export interface FieldConfig {
+  name: FieldName;
+  label: string;
+  type?: string;
+  required?: boolean;
+  readOnly?: boolean;
+  colSpan?: number;
+}

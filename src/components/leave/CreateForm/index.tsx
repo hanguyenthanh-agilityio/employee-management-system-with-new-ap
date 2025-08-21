@@ -25,7 +25,11 @@ import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
 import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
-import { ALLOWED_LEAVE_TYPES, LeaveType } from '@/constants/inputField';
+import {
+  ALLOWED_LEAVE_TYPES,
+  leaveFormFields,
+  LeaveType,
+} from '@/constants/inputField';
 
 const isValidLeaveType = (type: string | null): type is LeaveType =>
   ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
@@ -124,7 +128,12 @@ const CreateLeaveForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <Form form={form} onReset={handleReset} isLoading={isLoading} />
+        <Form
+          fields={leaveFormFields}
+          form={form}
+          onReset={handleReset}
+          isLoading={isLoading}
+        />
       </form>
       {errorMessage && (
         <p className="text-sm text-red font-medium">{errorMessage}</p>

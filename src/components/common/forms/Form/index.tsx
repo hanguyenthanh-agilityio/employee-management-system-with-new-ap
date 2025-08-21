@@ -6,7 +6,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 // Components
-import { Label, Button, TransitionLoader, InputController } from '@/components';
+import { Label, Button, TransitionLoader } from '@/components';
+import ValidatedInputField from '../ValidatedInputField';
+import ValidatedTextareaField from '../ValidatedTextareaField';
+import ValidatedFileInputField from '../ValidatedFileInputField';
 
 // Types
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
@@ -14,17 +17,23 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 // Styles
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
-import ValidatedInputField from '../ValidatedInputField';
-import ValidatedTextareaField from '../ValidatedTextareaField';
+import { FieldConfig } from '@/types/field';
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
+  fields: FieldConfig[];
   onReset: () => void;
   defaultDocument?: { name: string; url?: string };
   isLoading?: boolean;
 }
 
-const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
+const Form = ({
+  form,
+  onReset,
+  fields,
+  defaultDocument,
+  isLoading,
+}: FormProps) => {
   const {
     control,
     formState: { isSubmitting, isDirty },
@@ -51,86 +60,45 @@ const Form = ({ form, onReset, defaultDocument, isLoading }: FormProps) => {
         )}
       </div>
 
+      {/* Dynamic fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        {/* <InputController
-          htmlFor="startDate"
-          control={control}
-          name="startDate"
-          type="date"
-          label="Start Date"
-          classNameLabel="form-label"
-          classNameInput="input-profile"
-          required
-        /> */}
-
-        <ValidatedInputField
-          control={control}
-          name="startDate"
-          label="Start Date"
-          required
-          type="date"
-        />
-
-        <ValidatedInputField
-          control={control}
-          name="endDate"
-          label="End Date"
-          required
-          type="date"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <InputController
-          htmlFor="durations"
-          control={control}
-          name="durations"
-          type="number"
-          label="Duration (days)"
-          classNameLabel="form-label"
-          classNameInput="input-profile"
-          inputProps={{ readOnly: true }}
-        />
-        <InputController
-          htmlFor="resumptionDate"
-          control={control}
-          name="resumptionDate"
-          type="date"
-          label="Resumption Date"
-          classNameLabel="form-label"
-          classNameInput="input-profile"
-          inputProps={{ readOnly: true }}
-        />
-      </div>
-
-      <div className="pt-4">
-        <ValidatedTextareaField
-          control={control}
-          name="reason"
-          label="Reason for Leave"
-          required
-          rows={3}
-        />
+        {fields.map((field) =>
+          field.type === 'textarea' ? (
+            <div key={field.name} className={`col-span-${field.colSpan ?? 2}`}>
+              <ValidatedTextareaField
+                control={control}
+                name={field.name}
+                label={field.label}
+                required={field.required}
+                rows={3}
+              />
+            </div>
+          ) : (
+            <div key={field.name} className={`col-span-${field.colSpan ?? 1}`}>
+              <ValidatedInputField
+                control={control}
+                name={field.name}
+                label={field.label}
+                required={field.required}
+                type={field.type}
+                readOnly={field.readOnly}
+              />
+            </div>
+          ),
+        )}
       </div>
 
       <div className="py-5">
-        <InputController
+        <ValidatedFileInputField
           control={control}
           name="document"
-          htmlFor="document"
-          type="file"
+          required={false}
           label="Attach handover document (pdf, jpg, docx or any other format)"
-          classNameLabel="form-label"
-          className="input-file cursor-interactive"
-          onChange={(e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (file) {
-              if (file.type.startsWith('image/')) {
-                const objectUrl = URL.createObjectURL(file);
-                setPreviewUrl(objectUrl);
-              } else {
-                setPreviewUrl(null);
-              }
+          accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+          onFileChange={(file) => {
+            if (file && file.type.startsWith('image/')) {
+              const objectUrl = URL.createObjectURL(file);
+              setPreviewUrl(objectUrl);
             } else {
               setPreviewUrl(null);
             }
