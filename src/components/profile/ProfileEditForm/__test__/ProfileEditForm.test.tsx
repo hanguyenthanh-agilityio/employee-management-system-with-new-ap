@@ -12,8 +12,14 @@ import {
 
 // Mocks
 import { zodResolver } from '@hookform/resolvers/zod';
+import { profileFormFields } from '@/constants/inputField';
 
-const Form = ({ disable = false }: { disable?: boolean }) => {
+// Form wrapper
+const Form = ({
+  fields = profileFormFields,
+}: {
+  fields?: typeof profileFormFields;
+}) => {
   const form = useForm<PersonalDetailsInput>({
     resolver: zodResolver(personalDetails),
     defaultValues: {
@@ -31,11 +37,10 @@ const Form = ({ disable = false }: { disable?: boolean }) => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <ProfileEditForm form={form} disable={disable} />
+      <ProfileEditForm form={form} fields={fields} />
     </form>
   );
 };
-
 describe('ProfileEditForm component', () => {
   test('Renders form with all fields', () => {
     render(<Form />);
@@ -68,5 +73,51 @@ describe('ProfileEditForm component', () => {
     render(<Form />);
     const usernameInput = screen.getByLabelText(/employee name/i);
     expect(usernameInput).toHaveClass('input-profile');
+  });
+
+  test('Shows loading state when submitting', async () => {
+    render(<Form />);
+    const usernameInput = screen.getByLabelText(/employee name/i);
+    fireEvent.change(usernameInput, { target: { value: 'Ha Nguyen' } });
+
+    const button = screen.getByRole('button', { name: /save/i });
+
+    // Wait for Button enable
+    await waitFor(() => expect(button).toBeEnabled());
+
+    fireEvent.click(button);
+
+    // Wait for Saving status appear
+    await waitFor(() => {
+      expect(screen.getByText(/saving/i)).toBeInTheDocument();
+    });
+  });
+
+  test('Displays TransitionLoader when submitting', async () => {
+    render(<Form />);
+    const usernameInput = screen.getByLabelText(/employee name/i);
+    fireEvent.change(usernameInput, { target: { value: 'Ha Nguyen' } });
+
+    const button = screen.getByRole('button', { name: /save/i });
+
+    // Wait for Button enable
+    await waitFor(() => expect(button).toBeEnabled());
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('transition-loader')).toBeInTheDocument();
+    });
+  });
+
+  test('uses col-span-1 when field.colSpan is undefined', () => {
+    render(
+      <Form
+        fields={[{ name: 'username', label: 'Employee Name', required: false }]}
+      />,
+    );
+
+    const wrapper = screen.getByText('Employee Name').closest('div');
+    expect(wrapper).toHaveClass('w-full flex flex-col gap-1');
   });
 });
