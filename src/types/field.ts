@@ -31,4 +31,5 @@ export interface FieldConfig<T> {
   required?: boolean;
   readOnly?: boolean;
   colSpan?: number;
+  mask?: string;
 }

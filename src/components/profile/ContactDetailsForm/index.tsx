@@ -4,93 +4,92 @@ import '@/styles/formStyle.css';
 import { UseFormReturn } from 'react-hook-form';
 
 // Components
-import { Button, InputController } from '@/components';
+import { Button } from '@/components';
 
 // Utils
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
+import { FieldConfig } from '@/types/field';
+import ValidatedTextareaField from '@/components/common/forms/ValidatedTextareaField';
+import ValidatedMaskedInputField from '@/components/common/forms/ValidatedMaskedInputField';
+import ValidatedInputField from '@/components/common/forms/ValidatedInputField';
 
 interface ContactDetailsFormProps {
   form: UseFormReturn<ContactDetailsInput>;
+  fields: FieldConfig<ContactDetailsInput>[];
+
   disable: boolean;
 }
 
-const ContactDetailsForm = ({ form }: ContactDetailsFormProps) => {
+const ContactDetailsForm = ({
+  form,
+  fields,
+  disable,
+}: ContactDetailsFormProps) => {
   const {
     control,
-    formState: { isDirty, isSubmitting },
+    formState: { isSubmitting, isDirty },
   } = form;
 
   return (
     <>
-      {/* Phone Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-        <InputController
-          htmlFor="mainPhoneNumber"
-          control={control}
-          name="mainPhoneNumber"
-          label="Phone Number 1"
-          classNameLabel="form-label"
-          as="masked"
-          mask="099 999 9999"
-          required
-          classNameInput="input-profile"
-        />
+        {fields.map((field) => {
+          if (field.type === 'textarea') {
+            return (
+              <div
+                key={field.name as string}
+                className={`col-span-${field.colSpan ?? 2}`}
+              >
+                <ValidatedTextareaField
+                  control={control}
+                  name={field.name}
+                  label={field.label}
+                  required={field.required}
+                  disabled={disable}
+                  rows={4}
+                />
+              </div>
+            );
+          }
 
-        <InputController
-          htmlFor="subPhoneNumber"
-          control={control}
-          name="subPhoneNumber"
-          label="Phone Number 2"
-          classNameLabel="form-label"
-          as="masked"
-          required
-          mask="099 999 9999"
-          classNameInput="input-profile"
-        />
-      </div>
+          if (field.type === 'masked') {
+            return (
+              <div
+                key={field.name as string}
+                className={`col-span-${field.colSpan ?? 1}`}
+              >
+                <ValidatedMaskedInputField
+                  control={control}
+                  name={field.name}
+                  label={field.label}
+                  required={field.required}
+                  disabled={disable}
+                  mask={field.mask!}
+                />
+              </div>
+            );
+          }
 
-      {/* Email */}
-      <InputController
-        htmlFor="email"
-        control={control}
-        name="email"
-        label="Email Address"
-        classNameLabel="form-label"
-        required
-        classNameInput="input-profile"
-      />
-
-      {/* City */}
-      <div className="w-full md:w-[50%]">
-        <InputController
-          htmlFor="city"
-          control={control}
-          name="city"
-          label="City of Residence"
-          classNameLabel="form-label"
-          required
-          classNameInput="input-profile"
-        />
-      </div>
-
-      {/* Address */}
-      <div className="w-full">
-        <InputController
-          htmlFor="residential"
-          control={control}
-          name="residential"
-          as="textarea"
-          rows={4}
-          label="Residential Address"
-          classNameLabel="form-label"
-          required
-          classNameInput="input-profile"
-        />
+          return (
+            <div
+              key={field.name as string}
+              className={`col-span-${field.colSpan ?? 1}`}
+            >
+              <ValidatedInputField
+                control={control}
+                name={field.name}
+                label={field.label}
+                required={field.required}
+                disabled={disable}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Submit */}
       <Button
-        className="btn-primary btn-submit disabled:opacity-50 transition text-xl"
+        className="btn-primary btn-submit disabled:opacity-50 transition text-xl mt-6"
         disabled={isSubmitting || !isDirty}
       >
         {isSubmitting ? 'Updating...' : 'Update'}

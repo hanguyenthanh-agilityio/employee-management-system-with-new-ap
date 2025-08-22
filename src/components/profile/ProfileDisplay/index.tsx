@@ -31,7 +31,7 @@ import { PersonalDetailsType } from '@/types/profile';
 
 // Constants
 import { ERROR_MESSAGE } from '@/constants';
-import { ProfileFormFields } from '@/constants/inputField';
+import { profileFormFields } from '@/constants/inputField';
 
 interface ProfileDisplayProps {
   avatarUrl?: string;
@@ -146,7 +146,7 @@ const ProfileDisplay = ({ avatarUrl, profile }: ProfileDisplayProps) => {
           disabled={isPending}
           className="space-y-4 md:space-y-8 opacity-100 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
-          <ProfileEditForm fields={ProfileFormFields} form={form} />
+          <ProfileEditForm fields={profileFormFields} form={form} />
         </fieldset>
 
         {(isPending || isLoading) && <TransitionLoader />}

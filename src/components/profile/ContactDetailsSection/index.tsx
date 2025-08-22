@@ -22,6 +22,7 @@ import { ContactsDetailsType } from '@/types/profile';
 
 // Constants
 import { ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
+import { contactDetailFormFields } from '@/constants/inputField';
 
 interface ContactDetailsSectionProps {
   contact: ContactsDetailsType;
@@ -96,7 +97,11 @@ const ContactDetailsSection = ({ contact }: ContactDetailsSectionProps) => {
         className="flex flex-col gap-4 md:gap-6"
         disabled={isLoadingSubmit}
       >
-        <ContactDetailsForm form={form} disable={isLoadingSubmit} />
+        <ContactDetailsForm
+          fields={contactDetailFormFields}
+          form={form}
+          disable={isLoadingSubmit}
+        />
       </fieldset>
     </form>
   );

@@ -1,6 +1,9 @@
 import { FieldConfig } from '@/types/field';
 import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
-import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
+import {
+  ContactDetailsInput,
+  PersonalDetailsInput,
+} from '@/utils/schemas/updateProfile';
 
 export const inputFields = [
   { label: 'First Name', name: 'firstName' },
@@ -60,7 +63,7 @@ export const leaveFormFields: FieldConfig<LeaveApplicationInput>[] = [
   },
 ];
 
-export const ProfileFormFields: FieldConfig<PersonalDetailsInput>[] = [
+export const profileFormFields: FieldConfig<PersonalDetailsInput>[] = [
   {
     name: 'username',
     label: 'Employee Name',
@@ -88,5 +91,45 @@ export const ProfileFormFields: FieldConfig<PersonalDetailsInput>[] = [
     type: 'text',
     required: true,
     colSpan: 1,
+  },
+];
+
+export const contactDetailFormFields: FieldConfig<ContactDetailsInput>[] = [
+  {
+    name: 'mainPhoneNumber',
+    label: 'Phone Number 1',
+    type: 'masked',
+    required: true,
+    mask: '999 999 9999',
+    colSpan: 1,
+  },
+  {
+    name: 'subPhoneNumber',
+    label: 'Phone Number 2',
+    type: 'masked',
+    required: true,
+    mask: '999 999 9999',
+    colSpan: 1,
+  },
+  {
+    name: 'email',
+    label: 'Email Address',
+    type: 'text',
+    required: true,
+    colSpan: 2,
+  },
+  {
+    name: 'city',
+    label: 'City of Residence',
+    type: 'text',
+    required: true,
+    colSpan: 1,
+  },
+  {
+    name: 'residential',
+    label: 'Residential Address',
+    type: 'textarea',
+    required: true,
+    colSpan: 2,
   },
 ];
