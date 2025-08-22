@@ -28,6 +28,7 @@ export interface FieldConfig<T> {
   name: FieldName<T>;
   label: string;
   type?: string;
+  placeholder?: string;
   required?: boolean;
   readOnly?: boolean;
   colSpan?: number;

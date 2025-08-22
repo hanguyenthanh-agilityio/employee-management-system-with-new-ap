@@ -14,4 +14,3 @@ export { default as ProgressBar } from './ui/ProgressBar';
 export { default as Checkbox } from './ui/Checkbox/checkbox';
 export { default as Textarea } from './inputs/Textarea/textarea';
 export { default as RequiredLabel } from './forms/RequiredLabel';
-export { default as InputController } from './inputs/InputController';

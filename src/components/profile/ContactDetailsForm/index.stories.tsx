@@ -28,7 +28,7 @@ const Form = () => {
     defaultValues: mockContact,
   });
 
-  return <ContactDetailsForm form={form} disable={false} />;
+  return <ContactDetailsForm form={form} disable={false} fields={[]} />;
 };
 
 export const Default: Story = { render: () => <Form /> };

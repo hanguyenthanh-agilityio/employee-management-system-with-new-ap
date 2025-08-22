@@ -22,13 +22,38 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ROUTER, ERROR_MESSAGE, CHECKBOXES, INPUT_FIELDS } from '@/constants';
 
 // Components
+import { Button, Checkbox, Label, TransitionLoader } from '@/components';
+import { withValidation } from '@/utils/withValidation';
 import {
-  Button,
-  Checkbox,
-  Label,
-  TransitionLoader,
-  InputController,
-} from '@/components';
+  PasswordField,
+  PasswordFieldProps,
+} from '@/components/common/forms/PasswordField';
+import {
+  MaskedInputField,
+  MaskedInputFieldProps,
+} from '@/components/common/forms/MaskInputField';
+import {
+  InputField,
+  InputFieldProps,
+} from '@/components/common/forms/InputField';
+
+const ValidatedInputField = withValidation<
+  RegisterInput,
+  HTMLInputElement,
+  InputFieldProps
+>(InputField);
+
+const ValidatedPasswordField = withValidation<
+  RegisterInput,
+  HTMLInputElement,
+  PasswordFieldProps
+>(PasswordField);
+
+const ValidatedMaskedInputField = withValidation<
+  RegisterInput,
+  HTMLInputElement,
+  MaskedInputFieldProps
+>(MaskedInputField);
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -93,31 +118,52 @@ const RegisterForm = () => {
         className="relative grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pointer-events-auto"
       >
         {/* INPUT FIELDS */}
-        {INPUT_FIELDS.map((field) => (
-          <InputController
-            key={field.name}
-            control={control}
-            name={field.name as keyof RegisterInput}
-            htmlFor={field.name}
-            type={field.type}
-            label={field.label}
-            required
-            as={
-              field.name === 'phone'
-                ? 'masked'
-                : field.name === 'password' || field.name === 'confirmPassword'
-                  ? 'password'
-                  : 'input'
-            }
-            mask={field.name === 'phone' ? '099 999 9999' : undefined}
-            className="mb-4"
-            inputProps={{
-              placeholder: field.placeholder,
-            }}
-            classNameInput="py-3 h-auto border-[2px] border-mediumLightGray"
-            classNameLabel="block text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary"
-          />
-        ))}
+        {INPUT_FIELDS.map((field) => {
+          if (field.name === 'masked') {
+            return (
+              <ValidatedMaskedInputField
+                key={field.name}
+                name={field.name}
+                control={control}
+                componentProps={{
+                  label: field.label,
+                  mask: field.mask!,
+                  placeholder: field.placeholder,
+                }}
+              />
+            );
+          }
+
+          if (field.name === 'password' || field.name === 'confirmPassword') {
+            return (
+              <ValidatedPasswordField
+                key={field.name}
+                name={field.name}
+                control={control}
+                componentProps={{
+                  label: field.label,
+                  containerClassName: 'col-span-1',
+                  className: 'input-base',
+                  placeholder: field.placeholder,
+                }}
+              />
+            );
+          }
+
+          return (
+            <ValidatedInputField
+              key={field.name}
+              name={field.name}
+              control={control}
+              componentProps={{
+                label: field.label,
+                placeholder: field.placeholder,
+                type: field.type,
+                containerClassName: 'mb-4',
+              }}
+            />
+          );
+        })}
 
         {/* CHECKBOXES */}
         <div className="col-span-1 md:col-span-2 space-y-2 pt-4">

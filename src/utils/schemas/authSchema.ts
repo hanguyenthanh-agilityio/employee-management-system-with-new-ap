@@ -57,6 +57,7 @@ export const registerSchema = z
     phone: phoneSchema,
     password: passwordField,
     confirmPassword: z.string(),
+    masked: z.string().optional(),
     terms: z.boolean().refine((val) => val === true, {
       message: 'You must agree to terms and privacy',
     }),

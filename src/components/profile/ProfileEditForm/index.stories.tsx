@@ -44,7 +44,7 @@ const Form = () => {
     defaultValues,
   });
 
-  return <ProfileEditForm form={form} />;
+  return <ProfileEditForm form={form} fields={[]} />;
 };
 
 export const Default: Story = {

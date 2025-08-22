@@ -1,4 +1,7 @@
-export const INPUT_FIELDS = [
+import { FieldConfig } from '@/types/field';
+import { RegisterInput } from '@/utils/schemas/authSchema';
+
+export const INPUT_FIELDS: FieldConfig<RegisterInput>[] = [
   {
     label: 'First Name',
     name: 'firstName',
@@ -19,6 +22,7 @@ export const INPUT_FIELDS = [
     label: 'Phone Number',
     name: 'phone',
     placeholder: '000 000 0000',
+    mask: '999 999 9999',
   },
   {
     label: 'Password',

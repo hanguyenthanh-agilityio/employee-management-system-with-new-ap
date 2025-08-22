@@ -45,7 +45,7 @@ const Wrapper = (args: Partial<LeaveApplicationInput>) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Form form={form} onReset={() => form.reset()} />
+      <Form form={form} onReset={() => form.reset()} fields={[]} />
     </form>
   );
 };
