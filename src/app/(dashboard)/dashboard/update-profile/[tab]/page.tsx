@@ -58,13 +58,13 @@ export default async function TabPage({ params }: Props) {
   return (
     <>
       {tab === TAB_ITEM.PERSONAL_DETAILS && (
-        <Suspense fallback={<LoadingFormLeave />}>
+        <Suspense fallback={<LoadingFormLeave data-testid="loading" />}>
           <PersonalDetailsContent />
         </Suspense>
       )}
 
       {tab === TAB_ITEM.CONTACT_DETAILS && (
-        <Suspense fallback={<LoadingFormLeave />}>
+        <Suspense fallback={<LoadingFormLeave data-testid="loading" />}>
           <ContactDetailsContent />
         </Suspense>
       )}
