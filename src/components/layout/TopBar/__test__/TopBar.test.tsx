@@ -73,21 +73,16 @@ describe('TopBar component', () => {
     render(<TopBar />);
     const hamburger = screen.getByRole('button', { name: /hamburger/i });
 
-    // Mở menu
     fireEvent.click(hamburger);
 
-    // Lấy nav trong mobile menu
     const navs = screen.getAllByTestId('topbar-nav');
     const mobileNav = navs[navs.length - 1];
 
-    // Menu container
     const menuContainer = mobileNav.closest('div')?.parentElement;
     if (!menuContainer) throw new Error('Menu not found');
 
-    // Click nav item
     fireEvent.click(mobileNav);
 
-    // Menu phải đóng
     expect(menuContainer).toHaveClass(
       'opacity-0 -translate-y-4 pointer-events-none',
     );
