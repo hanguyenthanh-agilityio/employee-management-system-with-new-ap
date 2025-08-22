@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
 import { mockContact } from '@/mocks/profile';
 import ContactDetailsSection from '..';
 import { useUpdateProfile } from '@/hooks/useProfile';
@@ -25,17 +24,19 @@ jest.mock('react-toastify', () => ({
 
 describe('ContactDetailsSection component', () => {
   const mockUpdate = jest.fn();
+  const mockSetErrorMessage = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
+
     (useUpdateProfile as jest.Mock).mockReturnValue({
       update: mockUpdate,
       errorMessage: '',
-      setErrorMessage: jest.fn(),
+      setErrorMessage: mockSetErrorMessage,
     });
   });
 
-  it('renders the form with initial data', () => {
+  test('renders the form with initial data', () => {
     render(<ContactDetailsSection contact={mockContact} />);
     expect(screen.getByTestId('mock-contact-form')).toBeInTheDocument();
   });
@@ -56,7 +57,7 @@ describe('ContactDetailsSection component', () => {
     });
   });
 
-  it('shows error toast when update fails', async () => {
+  test('shows error toast when update fails', async () => {
     mockUpdate.mockResolvedValue({
       success: false,
       message: 'Update failed',
@@ -73,9 +74,14 @@ describe('ContactDetailsSection component', () => {
         expect.any(Object),
       );
     });
+
+    // Test onClose của error toast
+    const onClose = (toast.error as jest.Mock).mock.calls[0][1].onClose;
+    expect(onClose).toBeDefined();
+    onClose?.();
   });
 
-  it('shows loader when submitting', async () => {
+  test('shows loader when submitting', async () => {
     mockUpdate.mockImplementation(
       () =>
         new Promise((resolve) =>
@@ -87,6 +93,24 @@ describe('ContactDetailsSection component', () => {
 
     fireEvent.submit(screen.getByTestId('contact-details-form'));
 
+    // Loader xuất hiện ngay khi submitting
     expect(screen.getByTestId('mock-loader')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(mockUpdate).toHaveBeenCalled();
+    });
+  });
+
+  test('shows toast error when errorMessage from hook exists', () => {
+    (useUpdateProfile as jest.Mock).mockReturnValueOnce({
+      update: mockUpdate,
+      errorMessage: 'Hook error',
+      setErrorMessage: mockSetErrorMessage,
+    });
+
+    render(<ContactDetailsSection contact={mockContact} />);
+
+    expect(toast.error).toHaveBeenCalledWith('Hook error');
+    expect(mockSetErrorMessage).toHaveBeenCalledWith('');
   });
 });
