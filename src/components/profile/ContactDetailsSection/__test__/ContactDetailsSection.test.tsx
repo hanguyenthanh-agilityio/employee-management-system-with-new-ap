@@ -75,7 +75,6 @@ describe('ContactDetailsSection component', () => {
       );
     });
 
-    // Test onClose của error toast
     const onClose = (toast.error as jest.Mock).mock.calls[0][1].onClose;
     expect(onClose).toBeDefined();
     onClose?.();
@@ -93,7 +92,6 @@ describe('ContactDetailsSection component', () => {
 
     fireEvent.submit(screen.getByTestId('contact-details-form'));
 
-    // Loader xuất hiện ngay khi submitting
     expect(screen.getByTestId('mock-loader')).toBeInTheDocument();
 
     await waitFor(() => {
