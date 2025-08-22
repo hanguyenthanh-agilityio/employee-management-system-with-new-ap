@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 // Components
-import { Label, Button, TransitionLoader } from '@/components';
+import { Button, TransitionLoader } from '@/components';
 
 import ValidatedFileInputField from '../ValidatedFileInputField';
 
@@ -50,7 +50,7 @@ const Form = ({
 }: FormProps) => {
   const {
     control,
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, isValid },
   } = form;
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -65,19 +65,22 @@ const Form = ({
   return (
     <>
       <div>
-        <Label className="form-label">Leave Type</Label>
-        <p className="form-paragraph">{form.getValues('type') || 'N/A'}</p>
-        {form.formState.errors.type?.message && (
-          <p className="text-sm text-red font-medium">
-            {form.formState.errors.type.message}
-          </p>
-        )}
+        <ValidatedInputField
+          control={control}
+          name="type"
+          componentProps={{
+            label: 'Leave Type',
+            type: 'text',
+            readOnly: true,
+            className: 'cursor-not-allowed',
+          }}
+        />
       </div>
 
       {/* Dynamic fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 md:pt-4 px-2 sm:px-0">
         {fields.map((field) => {
-          const colSpan = `col-span-${field.colSpan ?? (field.type === 'textarea' ? 2 : 1)}`;
+          const colSpan = `col-span-1 md:col-span-${field.colSpan ?? (field.type === 'textarea' ? 2 : 1)}`;
 
           return field.type === 'textarea' ? (
             <div key={field.name} className={colSpan}>
@@ -108,7 +111,7 @@ const Form = ({
         })}
       </div>
 
-      <div className="py-5">
+      <div className="md:py-5">
         <ValidatedFileInputField
           control={control}
           name="document"
@@ -156,7 +159,7 @@ const Form = ({
         <Button
           type="submit"
           className="btn-primary btn-submit"
-          disabled={isSubmitting || !isDirty}
+          disabled={isSubmitting || !isDirty || !isValid}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>

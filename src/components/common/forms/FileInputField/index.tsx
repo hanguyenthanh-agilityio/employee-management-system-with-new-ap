@@ -50,14 +50,14 @@ export const FileInputField = React.forwardRef<
           type="file"
           className={cn(
             'input-file cursor-interactive',
-            hasError ? 'input-error' : 'input-profile',
+            hasError ? 'input-error' : 'input-profile !py-2',
             className,
           )}
           aria-invalid={hasError}
           {...props}
         />
 
-        {hasError && <p className="text-sm text-red-500 mt-1">{error}</p>}
+        {hasError && <p className="text-sm text-red mt-1">{error}</p>}
       </div>
     );
   },

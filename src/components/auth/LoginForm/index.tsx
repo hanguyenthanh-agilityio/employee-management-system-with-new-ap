@@ -125,11 +125,13 @@ const LoginForm = () => {
         />
 
         <ValidatedPasswordField
-          control={control}
+          key="password"
           name="password"
+          control={control}
           componentProps={{
-            label: 'password',
-            type: 'password',
+            label: 'Password',
+            containerClassName: 'col-span-1',
+            className: 'input-base',
             placeholder: 'Enter your password',
             labelClassName: 'label-base !mb-0',
             inputClassName: 'input-normal',

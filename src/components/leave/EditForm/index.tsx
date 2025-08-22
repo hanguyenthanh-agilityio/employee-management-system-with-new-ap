@@ -57,6 +57,7 @@ const EditForm = ({ leave }: EditFormProps) => {
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
+    mode: 'onChange',
     defaultValues,
   });
 

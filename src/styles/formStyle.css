@@ -7,7 +7,7 @@
   }
 
   .input-error {
-    @apply my-2 md:mt-5 mb-2 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px];
+    @apply my-2 md:mt-5 mb-2 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px] bg-[#E3EDF9] !border-red;
   }
 
   .input-normal {

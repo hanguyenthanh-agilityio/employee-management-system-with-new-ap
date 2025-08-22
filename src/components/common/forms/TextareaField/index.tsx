@@ -54,7 +54,7 @@ export const TextareaField = React.forwardRef<
           aria-invalid={hasError}
           {...props}
         />
-        {hasError && <p className="text-sm text-red-500 mt-1">{error}</p>}
+        {hasError && <p className="text-sm text-red mt-1">{error}</p>}
       </div>
     );
   },

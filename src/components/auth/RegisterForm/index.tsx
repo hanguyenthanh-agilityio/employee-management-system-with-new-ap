@@ -145,6 +145,8 @@ const RegisterForm = () => {
                   containerClassName: 'col-span-1',
                   className: 'input-base',
                   placeholder: field.placeholder,
+                  labelClassName: 'label-base !mb-0',
+                  inputClassName: 'input-normal',
                 }}
               />
             );
@@ -160,6 +162,8 @@ const RegisterForm = () => {
                 placeholder: field.placeholder,
                 type: field.type,
                 containerClassName: 'mb-4',
+                labelClassName: 'label-base !mb-0',
+                inputClassName: 'input-normal',
               }}
             />
           );

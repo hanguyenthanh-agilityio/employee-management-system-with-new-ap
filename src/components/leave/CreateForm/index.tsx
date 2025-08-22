@@ -56,6 +56,7 @@ const CreateLeaveForm = () => {
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
+    mode: 'onChange',
     defaultValues,
   });
 
