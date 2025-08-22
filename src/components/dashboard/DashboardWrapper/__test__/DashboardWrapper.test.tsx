@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import DashboardWrapper from '..';
 import { getCurrentUser } from '@/services/user/userService';
 import { fetchSummaryLeaves } from '@/actions/leaveApplications';
-import DashboardWrapper from '..';
 
+// Mock all components used in DashboardWrapper
 jest.mock('@/components', () => ({
-  Header: ({ title }: { title: string }) => <div>{title}</div>,
+  Heading: ({ title }: { title: string }) => <div>{title}</div>,
   ProfileSection: ({ name, jobTitle }: { name: string; jobTitle: string }) => (
     <div>
       Profile: {name} - {jobTitle}
@@ -15,6 +16,7 @@ jest.mock('@/components', () => ({
   LeaveSection: ({ data }: { data: unknown }) => (
     <div>Leave Section: {JSON.stringify(data)}</div>
   ),
+  LeaveSectionSkeleton: () => <div>LeaveSectionSkeleton</div>,
   BirthdaySection: () => <div>Birthday Section</div>,
   PaySlipSection: () => <div>Pay Slip Section</div>,
 }));
@@ -33,28 +35,43 @@ describe('DashboardWrapper', () => {
     jest.clearAllMocks();
   });
 
-  test.skip('renders dashboard with user and summary data', async () => {
+  test('renders dashboard with user and summary data', async () => {
+    // Mock user service
     (getCurrentUser as jest.Mock).mockResolvedValue({
       username: 'John Doe',
       jobTitle: 'Software Engineer',
     });
 
+    // Mock leave summary service
     (fetchSummaryLeaves as jest.Mock).mockResolvedValue({
       data: { annual: 5, sick: 2 },
     });
 
-    render(await DashboardWrapper());
+    // Render async Server Component
+    await act(async () => {
+      render(await DashboardWrapper());
+    });
 
+    // Assert main sections
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
     expect(
       screen.getByText('Profile: John Doe - Software Engineer'),
     ).toBeInTheDocument();
+
+    // QuickActions appears twice: in "Quick Actions" header and component
     expect(screen.getAllByText('Quick Actions')).toHaveLength(2);
-    expect(screen.getByText(/Leave Section/)).toBeInTheDocument();
+
+    // LeaveSection with mocked data
+    expect(
+      screen.getByText(/Leave Section: .*annual.*sick/),
+    ).toBeInTheDocument();
+
+    // Other sections
     expect(screen.getByText('Birthday Section')).toBeInTheDocument();
     expect(screen.getByText('Pay Slip Section')).toBeInTheDocument();
 
-    expect(getCurrentUser).toHaveBeenCalled();
-    expect(fetchSummaryLeaves).toHaveBeenCalled();
+    // Services called
+    expect(getCurrentUser).toHaveBeenCalledTimes(1);
+    expect(fetchSummaryLeaves).toHaveBeenCalledTimes(3);
   });
 });
