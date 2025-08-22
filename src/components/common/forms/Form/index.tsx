@@ -7,8 +7,7 @@ import Image from 'next/image';
 
 // Components
 import { Label, Button, TransitionLoader } from '@/components';
-import ValidatedInputField from '../ValidatedInputField';
-import ValidatedTextareaField from '../ValidatedTextareaField';
+
 import ValidatedFileInputField from '../ValidatedFileInputField';
 
 // Types
@@ -18,6 +17,21 @@ import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
 import { FieldConfig } from '@/types/field';
+import { withValidation } from '@/utils/withValidation';
+import { InputField, InputFieldProps } from '../InputField';
+import { TextareaField, TextareaFieldProps } from '../TextareaField';
+
+export const ValidatedInputField = withValidation<
+  LeaveApplicationInput,
+  HTMLInputElement,
+  InputFieldProps
+>(InputField);
+
+export const ValidatedTextareaField = withValidation<
+  LeaveApplicationInput,
+  HTMLTextAreaElement,
+  TextareaFieldProps
+>(TextareaField);
 
 interface FormProps {
   form: UseFormReturn<LeaveApplicationInput>;
@@ -62,30 +76,36 @@ const Form = ({
 
       {/* Dynamic fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        {fields.map((field) =>
-          field.type === 'textarea' ? (
-            <div key={field.name} className={`col-span-${field.colSpan ?? 2}`}>
+        {fields.map((field) => {
+          const colSpan = `col-span-${field.colSpan ?? (field.type === 'textarea' ? 2 : 1)}`;
+
+          return field.type === 'textarea' ? (
+            <div key={field.name} className={colSpan}>
               <ValidatedTextareaField
                 control={control}
                 name={field.name}
-                label={field.label}
-                required={field.required}
-                rows={3}
+                componentProps={{
+                  label: field.label,
+                  required: field.required,
+                  rows: 3,
+                }}
               />
             </div>
           ) : (
-            <div key={field.name} className={`col-span-${field.colSpan ?? 1}`}>
+            <div key={field.name} className={colSpan}>
               <ValidatedInputField
                 control={control}
                 name={field.name}
-                label={field.label}
-                required={field.required}
-                type={field.type}
-                readOnly={field.readOnly}
+                componentProps={{
+                  label: field.label,
+                  required: field.required,
+                  type: field.type,
+                  readOnly: field.readOnly,
+                }}
               />
             </div>
-          ),
-        )}
+          );
+        })}
       </div>
 
       <div className="py-5">
