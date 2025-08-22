@@ -20,19 +20,34 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAction } from '@/actions/auth-action';
 
 // Components
-import {
-  Button,
-  Checkbox,
-  InputController,
-  Label,
-  TransitionLoader,
-} from '@/components';
+import { Button, Checkbox, Label, TransitionLoader } from '@/components';
 
 // Utils
 import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 
 // Constants
 import { ROUTER, ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
+import { withValidation } from '@/utils/withValidation';
+import {
+  InputField,
+  InputFieldProps,
+} from '@/components/common/forms/InputField';
+import {
+  PasswordField,
+  PasswordFieldProps,
+} from '@/components/common/forms/PasswordField';
+
+const ValidatedInputField = withValidation<
+  LoginInput,
+  HTMLInputElement,
+  InputFieldProps
+>(InputField);
+
+const ValidatedPasswordField = withValidation<
+  LoginInput,
+  HTMLInputElement,
+  PasswordFieldProps
+>(PasswordField);
 
 const LoginForm = () => {
   const router = useRouter();
@@ -42,7 +57,7 @@ const LoginForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     mode: 'onTouched',
@@ -97,37 +112,28 @@ const LoginForm = () => {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <InputController
-          htmlFor="email"
+        <ValidatedInputField
           control={control}
           name="email"
-          type="email"
-          label="E-mail Address"
-          classNameLabel="label-base"
-          required
-          inputProps={{
+          componentProps={{
+            label: 'E-mail Address',
+            type: 'text',
             placeholder: 'Enter your email',
-            'aria-describedby': errors.email ? 'email-error' : undefined,
-            disabled: isSubmitting,
+            labelClassName: 'label-base !mb-0',
+            inputClassName: 'input-normal',
           }}
-          className="h-auto py-3 border-[2px] border-mediumLightGray"
-          classNameInput="input-normal"
         />
 
-        <InputController
-          htmlFor="password"
+        <ValidatedPasswordField
           control={control}
           name="password"
-          label="Password"
-          classNameLabel="label-base"
-          as="password"
-          required
-          inputProps={{
+          componentProps={{
+            label: 'password',
+            type: 'password',
             placeholder: 'Enter your password',
-            'aria-describedby': errors.password ? 'password-error' : undefined,
-            disabled: isSubmitting,
+            labelClassName: 'label-base !mb-0',
+            inputClassName: 'input-normal',
           }}
-          classNameInput="input-normal"
         />
 
         <div className="flex justify-between items-center text-sm">

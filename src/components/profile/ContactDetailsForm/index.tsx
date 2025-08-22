@@ -9,9 +9,20 @@ import { Button } from '@/components';
 // Utils
 import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 import { FieldConfig } from '@/types/field';
-import ValidatedTextareaField from '@/components/common/forms/ValidatedTextareaField';
-import ValidatedMaskedInputField from '@/components/common/forms/ValidatedMaskedInputField';
-import ValidatedInputField from '@/components/common/forms/ValidatedInputField';
+
+import { withValidation } from '@/utils/withValidation';
+import {
+  InputField,
+  InputFieldProps,
+} from '@/components/common/forms/InputField';
+import {
+  TextareaField,
+  TextareaFieldProps,
+} from '@/components/common/forms/TextareaField';
+import {
+  MaskedInputField,
+  MaskedInputFieldProps,
+} from '@/components/common/forms/MaskInputField';
 
 interface ContactDetailsFormProps {
   form: UseFormReturn<ContactDetailsInput>;
@@ -19,6 +30,25 @@ interface ContactDetailsFormProps {
 
   disable: boolean;
 }
+
+// Validated fields
+const ValidatedInputField = withValidation<
+  ContactDetailsInput,
+  HTMLInputElement,
+  InputFieldProps
+>(InputField);
+
+const ValidatedTextareaField = withValidation<
+  ContactDetailsInput,
+  HTMLTextAreaElement,
+  TextareaFieldProps
+>(TextareaField);
+
+const ValidatedMaskedInputField = withValidation<
+  ContactDetailsInput,
+  HTMLInputElement,
+  MaskedInputFieldProps
+>(MaskedInputField);
 
 const ContactDetailsForm = ({
   form,
@@ -43,10 +73,12 @@ const ContactDetailsForm = ({
                 <ValidatedTextareaField
                   control={control}
                   name={field.name}
-                  label={field.label}
-                  required={field.required}
-                  disabled={disable}
-                  rows={4}
+                  componentProps={{
+                    label: field.label,
+                    required: field.required,
+                    rows: 4,
+                    disabled: disable,
+                  }}
                 />
               </div>
             );
@@ -61,10 +93,12 @@ const ContactDetailsForm = ({
                 <ValidatedMaskedInputField
                   control={control}
                   name={field.name}
-                  label={field.label}
-                  required={field.required}
-                  disabled={disable}
-                  mask={field.mask!}
+                  componentProps={{
+                    label: field.label,
+                    required: field.required,
+                    mask: field.mask!,
+                    disabled: disable,
+                  }}
                 />
               </div>
             );
@@ -78,9 +112,13 @@ const ContactDetailsForm = ({
               <ValidatedInputField
                 control={control}
                 name={field.name}
-                label={field.label}
-                required={field.required}
-                disabled={disable}
+                componentProps={{
+                  label: field.label,
+                  required: field.required,
+                  type: field.type,
+                  readOnly: field.readOnly,
+                  disabled: disable,
+                }}
               />
             </div>
           );

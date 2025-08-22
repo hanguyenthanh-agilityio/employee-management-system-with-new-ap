@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Input, RequiredLabel } from '@/components';
+import { RequiredLabel } from '@/components';
 import { cn } from '@/lib/utils';
+import PasswordInput from '@/components/auth/PasswordInput';
 
-export interface InputFieldProps extends React.ComponentProps<typeof Input> {
+export interface PasswordFieldProps
+  extends React.ComponentProps<typeof PasswordInput> {
   name: string;
   label: string;
   errorMessage?: string | string[];
@@ -14,7 +16,10 @@ export interface InputFieldProps extends React.ComponentProps<typeof Input> {
   inputClassName?: string;
 }
 
-export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
+export const PasswordField = React.forwardRef<
+  HTMLInputElement,
+  PasswordFieldProps
+>(
   (
     {
       name,
@@ -43,7 +48,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           required={required}
         />
 
-        <Input
+        <PasswordInput
           ref={ref}
           id={name}
           name={name}
@@ -61,4 +66,4 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
   },
 );
 
-InputField.displayName = 'InputField';
+PasswordField.displayName = 'PasswordField';

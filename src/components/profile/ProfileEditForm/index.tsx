@@ -8,12 +8,22 @@ import { Button, TransitionLoader } from '@/components';
 // Types
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
 import { FieldConfig } from '@/types/field';
-import ValidatedInputField from '@/components/common/forms/ValidatedInputField';
+import { withValidation } from '@/utils/withValidation';
+import {
+  InputField,
+  InputFieldProps,
+} from '@/components/common/forms/InputField';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
   fields: FieldConfig<PersonalDetailsInput>[];
 }
+
+const ValidatedInputField = withValidation<
+  PersonalDetailsInput,
+  HTMLInputElement,
+  InputFieldProps
+>(InputField);
 
 const ProfileEditForm = ({ form, fields }: ProfileEditFormProps) => {
   const {
@@ -32,10 +42,12 @@ const ProfileEditForm = ({ form, fields }: ProfileEditFormProps) => {
             <ValidatedInputField
               control={control}
               name={field.name}
-              label={field.label}
-              required={field.required}
-              type={field.type}
-              readOnly={field.readOnly}
+              componentProps={{
+                label: field.label,
+                required: field.required,
+                type: field.type,
+                readOnly: field.readOnly,
+              }}
             />
           </div>
         ))}

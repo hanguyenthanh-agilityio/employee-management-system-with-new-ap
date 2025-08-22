@@ -21,13 +21,13 @@ import { withValidation } from '@/utils/withValidation';
 import { InputField, InputFieldProps } from '../InputField';
 import { TextareaField, TextareaFieldProps } from '../TextareaField';
 
-export const ValidatedInputField = withValidation<
+const ValidatedInputField = withValidation<
   LeaveApplicationInput,
   HTMLInputElement,
   InputFieldProps
 >(InputField);
 
-export const ValidatedTextareaField = withValidation<
+const ValidatedTextareaField = withValidation<
   LeaveApplicationInput,
   HTMLTextAreaElement,
   TextareaFieldProps
