@@ -48,6 +48,7 @@ const config: Config = {
     '/src/app/\\(auth\\)/loading.tsx',
     '/src/app/\\(auth\\)/not-found.tsx',
     '/src/components/theme/theme-provider.tsx',
+    '/src/utils/schemas',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 

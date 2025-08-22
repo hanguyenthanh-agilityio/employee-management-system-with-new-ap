@@ -44,4 +44,11 @@ describe('LeaveSection', () => {
       screen.queryByText(/No leave data available/i),
     ).not.toBeInTheDocument();
   });
+
+  test('renders NotFoundMessage when data is not an array', () => {
+    // @ts-expect-error - intentionally passing invalid type
+    render(<LeaveSection data={null} />);
+
+    expect(screen.getByText(/No leave data available/i)).toBeInTheDocument();
+  });
 });
