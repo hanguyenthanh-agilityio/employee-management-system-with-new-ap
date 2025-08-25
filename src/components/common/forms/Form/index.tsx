@@ -18,13 +18,14 @@ import '@/styles/formStyle.css';
 import '@/styles/buttonStyle.css';
 import { FieldConfig } from '@/types/field';
 import { withValidation } from '@/utils/withValidation';
-import { InputField, InputFieldProps } from '../InputField';
+import { InputField } from '../InputField';
 import { TextareaField, TextareaFieldProps } from '../TextareaField';
+import { InputFieldType } from '@/types/form';
 
 const ValidatedInputField = withValidation<
   LeaveApplicationInput,
   HTMLInputElement,
-  InputFieldProps
+  InputFieldType
 >(InputField);
 
 const ValidatedTextareaField = withValidation<
