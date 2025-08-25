@@ -1,20 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Input, RequiredLabel } from '@/components';
+
 import { cn } from '@/lib/utils';
+import RequiredLabel from '../RequiredLabel';
+import Input from '../../inputs/Input/input';
+import { InputFieldType } from '@/types/form';
 
-export interface InputFieldProps extends React.ComponentProps<typeof Input> {
-  name: string;
-  label: string;
-  errorMessage?: string | string[];
-  required?: boolean;
-  containerClassName?: string;
-  labelClassName?: string;
-  inputClassName?: string;
-}
-
-export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
+export const InputField = React.forwardRef<HTMLInputElement, InputFieldType>(
   (
     {
       name,

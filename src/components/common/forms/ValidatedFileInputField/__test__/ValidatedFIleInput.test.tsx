@@ -35,7 +35,7 @@ describe('ValidatedFileInputField', () => {
     return render(<Wrapper />);
   };
 
-  it('renders label and input', () => {
+  test('renders label and input', () => {
     setup();
     expect(screen.getByLabelText(/Upload File/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Upload File/i)).toHaveAttribute(
@@ -44,7 +44,7 @@ describe('ValidatedFileInputField', () => {
     );
   });
 
-  it('calls onFileChange when file is selected', () => {
+  test('calls onFileChange when file is selected', () => {
     const handleFileChange = jest.fn();
     setup({ onFileChange: handleFileChange });
 
@@ -56,7 +56,7 @@ describe('ValidatedFileInputField', () => {
     expect(handleFileChange).toHaveBeenCalledWith(file);
   });
 
-  it('calls onFileChange with null if no file selected', () => {
+  test('calls onFileChange with null if no file selected', () => {
     const handleFileChange = jest.fn();
     setup({ onFileChange: handleFileChange });
 
@@ -66,7 +66,7 @@ describe('ValidatedFileInputField', () => {
     expect(handleFileChange).toHaveBeenCalledWith(null);
   });
 
-  it('shows validation error when required and not provided', async () => {
+  test('shows validation error when required and not provided', async () => {
     const Wrapper = () => {
       const { control, handleSubmit } = useForm<FormValues>({
         defaultValues: { file: null },
