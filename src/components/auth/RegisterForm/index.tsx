@@ -32,15 +32,13 @@ import {
   MaskedInputField,
   MaskedInputFieldProps,
 } from '@/components/common/forms/MaskInputField';
-import {
-  InputField,
-  InputFieldProps,
-} from '@/components/common/forms/InputField';
+import { InputField } from '@/components/common/forms/InputField';
+import { InputFieldType } from '@/types/form';
 
 const ValidatedInputField = withValidation<
   RegisterInput,
   HTMLInputElement,
-  InputFieldProps
+  InputFieldType
 >(InputField);
 
 const ValidatedPasswordField = withValidation<

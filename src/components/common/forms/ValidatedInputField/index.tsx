@@ -41,4 +41,6 @@ const ValidatedInputField = <T extends FieldValues>({
   );
 };
 
+ValidatedInputField.displayName = 'ValidatedInputField';
+
 export default ValidatedInputField;
