@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/60</span>
+                <span class='fraction'>70/70</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/60</span>
+                <span class='fraction'>70/70</span>
             </div>
         
             
@@ -123,7 +123,17 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -134,6 +144,16 @@
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -205,9 +225,11 @@ export const emailField = z
     message: 'Please enter a valid email address',
   });
 &nbsp;
-const passwordField = z.string().min(6).max(100, {
-  message: 'Password must be between 6 and 100 characters',
-});
+const passwordField = z
+  .string()
+  .nonempty({ message: 'Password is required' })
+  .min(6, { message: 'Password must be at least 6 characters' })
+  .max(100, { message: 'Password must be at most 100 characters' });
 &nbsp;
 // Validate for Login form
 export const loginSchema = z.object({
@@ -218,21 +240,29 @@ export const loginSchema = z.object({
 export type LoginInput = z.infer&lt;typeof loginSchema&gt;;
 &nbsp;
 // Validate for Register form
+&nbsp;
+const phoneSchema = z
+  .string()
+  .transform((val) =&gt; val.replace(/\D+/g, ''))
+  .refine(<span class="fstat-no" title="function not covered" >(val) =&gt; /^\d+$/.test(val), {</span>
+    message: 'Phone must contain only digits',
+  })
+  .refine(<span class="fstat-no" title="function not covered" >(val) =&gt; val.length &gt;= 8, {</span>
+    message: 'Phone must be at least 8 digits',
+  })
+  .refine(<span class="fstat-no" title="function not covered" >(val) =&gt; val.length &lt;= 10, {</span>
+    message: 'Phone must be at most 10 digits',
+  });
+&nbsp;
 export const registerSchema = z
   .object({
     firstName: nameField('First name'),
     lastName: nameField('Last name'),
     email: emailField,
-    phone: z
-      .string()
-      .min(8, 'Phone must be at least 8 digits')
-      .max(11, 'Phone must be at most 11 digits')
-      .regex(/^\d+$/, 'Phone must contain only digits'),
+    phone: phoneSchema,
     password: passwordField,
     confirmPassword: z.string(),
-    newsletter: z.boolean().refine(<span class="fstat-no" title="function not covered" >(val) =&gt; val === true, {</span>
-      message: 'You must agree to receive newsletter',
-    }),
+    masked: z.string().optional(),
     terms: z.boolean().refine(<span class="fstat-no" title="function not covered" >(val) =&gt; val === true, {</span>
       message: 'You must agree to terms and privacy',
     }),
@@ -250,7 +280,7 @@ export type RegisterInput = z.infer&lt;typeof registerSchema&gt;;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-30T02:06:38.129Z
+                at 2025-08-22T09:11:02.907Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

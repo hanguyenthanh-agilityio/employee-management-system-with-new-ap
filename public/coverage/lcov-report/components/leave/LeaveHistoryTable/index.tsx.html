@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.28% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/84</span>
+                <span class='fraction'>98/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.28% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/84</span>
+                <span class='fraction'>98/98</span>
             </div>
         
             
@@ -147,7 +147,21 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -185,6 +199,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -192,20 +208,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -237,6 +265,7 @@ import { ReactNode } from 'react';
 &nbsp;
 // Components
 import { Pagination } from '@/components';
+import clsx from 'clsx';
 &nbsp;
 interface Column&lt;T&gt; {
   title: string | ReactNode;
@@ -261,45 +290,58 @@ const GenericTable = &lt;T,&gt;({
   columns,
   pagination,
 }: GenericTableProps&lt;T&gt;) =&gt; (
-  &lt;div className="overflow-x-auto w-full pb-24"&gt;
-    &lt;div className="min-h-[400px] flex flex-col justify-between"&gt;
-      &lt;table className="min-w-full bg-white rounded-lg shadow-sm text-sm md:text-base"&gt;
-        &lt;thead className="bg-[#E3EDF9] text-black font-bold"&gt;
-          &lt;tr&gt;
-            {columns.map((col, index) =&gt; (
-              &lt;th key={index} className="px-4 py-5 whitespace-nowrap text-lg"&gt;
-                {col.title}
-              &lt;/th&gt;
-            ))}
-          &lt;/tr&gt;
-        &lt;/thead&gt;
+  &lt;&gt;
+    &lt;div className="overflow-x-auto w-full pb-10"&gt;
+      &lt;div className="min-h-[350px] flex flex-col justify-between"&gt;
+        &lt;table className="min-w-full bg-card rounded-lg shadow-sm text-sm md:text-base text-foreground transition-colors duration-300"&gt;
+          &lt;thead className="bg-[#e3edf9] dark:bg-[#969696] text-foreground font-bold"&gt;
+            &lt;tr&gt;
+              {columns.map((col, index) =&gt; (
+                &lt;th
+                  key={index}
+                  className="px-4 py-3 md:py-5 whitespace-nowrap text-lg"
+                &gt;
+                  {col.title}
+                &lt;/th&gt;
+              ))}
+            &lt;/tr&gt;
+          &lt;/thead&gt;
 &nbsp;
-        &lt;tbody&gt;
-          {data.length === <span class="branch-0 cbranch-no" title="branch not covered" >0 ? (</span>
-<span class="cstat-no" title="statement not covered" >            &lt;tr&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;td</span>
-<span class="cstat-no" title="statement not covered" >                colSpan={columns.length}</span>
-<span class="cstat-no" title="statement not covered" >                className="text-center py-10 text-gray-500"</span>
-<span class="cstat-no" title="statement not covered" >              &gt;</span>
-<span class="cstat-no" title="statement not covered" >                No data available.</span>
-<span class="cstat-no" title="statement not covered" >              &lt;/td&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/tr&gt;</span>
-<span class="cstat-no" title="statement not covered" >          ) : (</span>
-            data.map((item, rowIndex) =&gt; (
-              &lt;tr key={rowIndex} className="odd:bg-white even:bg-[#E3EDF9]"&gt;
-                {columns.map((col, colIndex) =&gt; (
-                  &lt;td
-                    key={colIndex}
-                    className={`px-4 py-2 whitespace-nowrap text-center ${col.className ?? ''}`}
-                  &gt;
-                    {col.render(item)}
-                  &lt;/td&gt;
-                ))}
+          &lt;tbody&gt;
+            {data.length === 0 ? (
+              &lt;tr&gt;
+                &lt;td
+                  colSpan={columns.length}
+                  className="text-center py-10 text-muted-foreground"
+                &gt;
+                  No data available.
+                &lt;/td&gt;
               &lt;/tr&gt;
-            ))
-          )}
-        &lt;/tbody&gt;
-      &lt;/table&gt;
+            ) : (
+              data.map((item, rowIndex) =&gt; (
+                &lt;tr
+                  key={rowIndex}
+                  className="odd:bg-white even:bg-[#e3edf9] dark:odd:bg-[#0a0a0a] dark:even:bg-[#969696] transition-colors h-[60px]"
+                &gt;
+                  {columns.map((col, colIndex) =&gt; (
+                    &lt;td
+                      key={colIndex}
+                      className={clsx(
+                        'px-4 py-2 whitespace-nowrap text-center',
+                        'h-[60px]',
+                        'align-middle',
+                        col.className ?? '',
+                      )}
+                    &gt;
+                      {col.render(item)}
+                    &lt;/td&gt;
+                  ))}
+                &lt;/tr&gt;
+              ))
+            )}
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
 &nbsp;
     {pagination &amp;&amp; (
@@ -311,7 +353,7 @@ const GenericTable = &lt;T,&gt;({
         /&gt;
       &lt;/div&gt;
     )}
-  &lt;/div&gt;
+  &lt;/&gt;
 );
 &nbsp;
 export default GenericTable;
@@ -322,7 +364,7 @@ export default GenericTable;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-30T02:06:38.129Z
+                at 2025-08-25T08:01:25.036Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
