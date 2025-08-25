@@ -7,6 +7,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string;
 };
 
+// Mock RequiredLabel
 jest.mock('@/components/common/forms/RequiredLabel', () => {
   const RequiredLabel = ({
     label,
@@ -23,6 +24,7 @@ jest.mock('@/components/common/forms/RequiredLabel', () => {
   return { __esModule: true, default: RequiredLabel };
 });
 
+// Mock Input
 jest.mock('@/components/common/inputs/Input/input', () => {
   const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
     <input ref={ref} data-testid="input-field" {...props} />
