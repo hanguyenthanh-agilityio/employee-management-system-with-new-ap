@@ -28,19 +28,17 @@ import { LoginInput, loginSchema } from '@/utils/schemas/authSchema';
 // Constants
 import { ROUTER, ERROR_MESSAGE, SUCCESS_MESSAGES } from '@/constants';
 import { withValidation } from '@/utils/withValidation';
-import {
-  InputField,
-  InputFieldProps,
-} from '@/components/common/forms/InputField';
+import { InputField } from '@/components/common/forms/InputField';
 import {
   PasswordField,
   PasswordFieldProps,
 } from '@/components/common/forms/PasswordField';
+import { InputFieldType } from '@/types/form';
 
 const ValidatedInputField = withValidation<
   LoginInput,
   HTMLInputElement,
-  InputFieldProps
+  InputFieldType
 >(InputField);
 
 const ValidatedPasswordField = withValidation<
