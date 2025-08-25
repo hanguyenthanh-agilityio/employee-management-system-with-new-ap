@@ -9,10 +9,8 @@ import { Button, TransitionLoader } from '@/components';
 import { PersonalDetailsInput } from '@/utils/schemas/updateProfile';
 import { FieldConfig } from '@/types/field';
 import { withValidation } from '@/utils/withValidation';
-import {
-  InputField,
-  InputFieldProps,
-} from '@/components/common/forms/InputField';
+import { InputField } from '@/components/common/forms/InputField';
+import { InputFieldType } from '@/types/form';
 
 interface ProfileEditFormProps {
   form: UseFormReturn<PersonalDetailsInput>;
@@ -22,7 +20,7 @@ interface ProfileEditFormProps {
 const ValidatedInputField = withValidation<
   PersonalDetailsInput,
   HTMLInputElement,
-  InputFieldProps
+  InputFieldType
 >(InputField);
 
 const ProfileEditForm = ({ form, fields }: ProfileEditFormProps) => {
