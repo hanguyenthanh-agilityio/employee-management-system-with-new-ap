@@ -11,10 +11,7 @@ import { ContactDetailsInput } from '@/utils/schemas/updateProfile';
 import { FieldConfig } from '@/types/field';
 
 import { withValidation } from '@/utils/withValidation';
-import {
-  InputField,
-  InputFieldProps,
-} from '@/components/common/forms/InputField';
+import { InputField } from '@/components/common/forms/InputField';
 import {
   TextareaField,
   TextareaFieldProps,
@@ -23,6 +20,7 @@ import {
   MaskedInputField,
   MaskedInputFieldProps,
 } from '@/components/common/forms/MaskInputField';
+import { InputFieldType } from '@/types/form';
 
 interface ContactDetailsFormProps {
   form: UseFormReturn<ContactDetailsInput>;
@@ -35,7 +33,7 @@ interface ContactDetailsFormProps {
 const ValidatedInputField = withValidation<
   ContactDetailsInput,
   HTMLInputElement,
-  InputFieldProps
+  InputFieldType
 >(InputField);
 
 const ValidatedTextareaField = withValidation<
