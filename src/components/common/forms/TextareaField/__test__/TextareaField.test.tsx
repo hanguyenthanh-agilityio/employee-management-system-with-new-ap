@@ -1,13 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TextareaField } from '..';
-
-type RequiredLabelProps = {
-  label: string;
-  htmlFor: string;
-  required?: boolean;
-  className?: string;
-};
+import { RequiredLabelProps } from '@/types/field';
 
 jest.mock('@/components', () => {
   const RequiredLabel = ({

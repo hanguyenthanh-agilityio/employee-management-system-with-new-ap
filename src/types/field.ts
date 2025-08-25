@@ -34,3 +34,14 @@ export interface FieldConfig<T> {
   colSpan?: number;
   mask?: string;
 }
+
+export type RequiredLabelProps = {
+  label: string;
+  htmlFor: string;
+  required?: boolean;
+  className?: string;
+};
+
+export type PasswordInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  name: string;
+};
