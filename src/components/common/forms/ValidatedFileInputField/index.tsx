@@ -1,6 +1,12 @@
 'use client';
 
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  FieldValues,
+  Path,
+  UseControllerProps,
+} from 'react-hook-form';
 import { FileInputField, FileInputFieldProps } from '../FileInputField';
 
 interface ValidatedFileInputFieldProps<T extends FieldValues>
@@ -8,11 +14,13 @@ interface ValidatedFileInputFieldProps<T extends FieldValues>
   control: Control<T>;
   name: Path<T>;
   onFileChange?: (file: File | null) => void;
+  rules?: UseControllerProps<T, Path<T>>['rules'];
 }
 
 const ValidatedFileInputField = <T extends FieldValues>({
   control,
   name,
+  rules,
   onFileChange,
   ...props
 }: ValidatedFileInputFieldProps<T>) => {
@@ -20,6 +28,7 @@ const ValidatedFileInputField = <T extends FieldValues>({
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field, fieldState }) => (
         <FileInputField
           {...props}
