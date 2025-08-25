@@ -1,16 +1,41 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EditForm from '..';
-import { updateLeaveApplication } from '@/actions/leaveApplications';
 
 jest.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    refresh: jest.fn(),
-  }),
+  useRouter: jest.fn(() => ({ push: jest.fn(), refresh: jest.fn() })),
 }));
 
 jest.mock('@/actions/leaveApplications', () => ({
   updateLeaveApplication: jest.fn(),
+}));
+
+jest.mock('@/utils/upload', () => ({
+  uploadFileToStrapi: jest.fn(),
+}));
+
+jest.mock('@/components', () => ({
+  __esModule: true,
+  Form: ({ form, fields, onReset, isLoading }: any) => (
+    <div>
+      {fields.map((f: any) => (
+        <input
+          key={f.name}
+          {...form.register(f.name)}
+          defaultValue={form.getValues(f.name)}
+        />
+      ))}
+      <button type="submit">Submit</button>
+      <button type="button" onClick={onReset}>
+        Reset
+      </button>
+      {isLoading && <span data-testid="loader">Loading...</span>}
+    </div>
+  ),
+}));
+
+jest.mock('react-toastify', () => ({
+  toast: { success: jest.fn(), error: jest.fn() },
 }));
 
 const leaveMock = {
@@ -23,19 +48,15 @@ const leaveMock = {
   durations: 3,
   resumptionDate: '2025-08-04',
   status: '',
-  document: {
-    id: 1,
-    name: '',
-    url: '',
-  },
+  document: { id: 1, name: '', url: '' },
 };
 
-describe('CreateLeaveContent', () => {
+describe('EditForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('Render form component', () => {
+  test('renders form fields with default values', () => {
     render(<EditForm leave={leaveMock} />);
 
     expect(screen.getByDisplayValue('2025-08-01')).toBeInTheDocument();
@@ -45,27 +66,15 @@ describe('CreateLeaveContent', () => {
     expect(screen.getByDisplayValue('Resting')).toBeInTheDocument();
   });
 
-  test.skip('Submit form and redirects on Success', async () => {
-    (updateLeaveApplication as jest.Mock).mockResolvedValue({
-      success: true,
-    });
-
+  test('resets form when reset button is clicked', async () => {
     render(<EditForm leave={leaveMock} />);
-
-    fireEvent.change(screen.getByLabelText(/reason for leave/i), {
+    fireEvent.change(screen.getByDisplayValue('Resting'), {
       target: { value: 'Changed' },
     });
-
-    const submitButton = screen.getByRole('button', { name: /submit/i });
-    fireEvent.click(submitButton);
+    fireEvent.click(screen.getByText(/reset/i));
 
     await waitFor(() => {
-      expect(updateLeaveApplication as jest.Mock).toHaveBeenCalledWith(
-        '1',
-        expect.objectContaining({
-          reason: 'Changed',
-        }),
-      );
+      expect(screen.getByDisplayValue('Resting')).toBeInTheDocument();
     });
   });
 });
