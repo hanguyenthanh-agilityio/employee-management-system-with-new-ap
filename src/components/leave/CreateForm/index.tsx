@@ -30,6 +30,7 @@ import {
   leaveFormFields,
   LeaveType,
 } from '@/constants/inputField';
+import { ServerError, UserError } from '@/utils/error';
 
 const isValidLeaveType = (type: string | null): type is LeaveType =>
   ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
@@ -41,7 +42,7 @@ const CreateLeaveForm = () => {
   const typeFromQuery: LeaveType | undefined = isValidLeaveType(queryType)
     ? queryType
     : undefined;
-  const [errorMessage, setErrorMessage] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
 
   const defaultValues = {
@@ -80,7 +81,6 @@ const CreateLeaveForm = () => {
 
   const onSubmit = async (data: LeaveApplicationInput) => {
     try {
-      setErrorMessage('');
       setIsLoading(true);
 
       let uploadedFileId: number | undefined;
@@ -97,23 +97,27 @@ const CreateLeaveForm = () => {
         document: uploadedFileId ?? undefined,
       };
 
-      const result = await createLeaveApplication(payload);
+      await createLeaveApplication(payload);
 
-      if (result.success) {
-        toast.success(SUCCESS_MESSAGES.CREATE_SUCCESS, {
-          autoClose: 2000,
-          onClose: () => {
-            router.push(ROUTER.LEAVE_APPLICATION);
-            router.refresh();
-          },
-        });
-        reset(payload);
-      } else {
-        setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
-        setIsLoading(false);
-      }
+      toast.success(SUCCESS_MESSAGES.CREATE_SUCCESS, {
+        autoClose: 2000,
+        onClose: () => {
+          router.push(ROUTER.LEAVE_APPLICATION);
+          router.refresh();
+        },
+      });
+      reset(payload);
     } catch (err) {
-      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+      // Distinguish between user and server errors
+      if (err instanceof UserError) {
+        // display toast right on the form
+        toast.error(err.message);
+      } else if (err instanceof ServerError) {
+        // display ErrorPage
+        throw err;
+      } else {
+        throw new ServerError(ERROR_MESSAGE.UNEXPECTED, 500);
+      }
       setIsLoading(false);
     }
   };
@@ -136,9 +140,6 @@ const CreateLeaveForm = () => {
           isLoading={isLoading}
         />
       </form>
-      {errorMessage && (
-        <p className="text-sm text-red font-medium">{errorMessage}</p>
-      )}
     </>
   );
 };

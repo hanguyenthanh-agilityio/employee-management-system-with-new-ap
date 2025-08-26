@@ -12,9 +12,9 @@ describe('ErrorFallback', () => {
   test('renders error message and button', () => {
     render(<ErrorFallback error={mockError} reset={mockReset} />);
 
-    expect(
-      screen.getByRole('heading', { name: /something went wrong!/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'Something went wrong. Please try again later.',
+    );
 
     expect(
       screen.getByText(/we’re sorry, something went wrong/i),

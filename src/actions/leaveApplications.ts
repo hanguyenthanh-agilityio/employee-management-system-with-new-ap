@@ -17,14 +17,19 @@ import { validateLeaveApplication } from '@/utils/validate';
 
 // Constants
 import { ERROR_MESSAGE } from '@/constants';
+import { ServerError, UserError } from '@/utils/error';
 
-// Create Leave Application
+/**
+ * Server action: create leave application
+ * Throw UserError if validation fails or user is missing
+ * Throw ServerError if server has problem
+ */
 export const createLeaveApplication = async (data: LeaveApplicationInput) => {
   try {
     const user = await getCurrentUser();
 
     if (!user || !user.id) {
-      throw new Error(ERROR_MESSAGE.MISSING_USER);
+      throw new UserError(ERROR_MESSAGE.MISSING_USER, 401);
     }
 
     const fullData: LeaveApplicationInput = {
@@ -35,21 +40,19 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
 
     const validateData = validateLeaveApplication(fullData);
 
-    if (!validateData) throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
+    if (!validateData) throw new UserError(ERROR_MESSAGE.VALIDATION_FAILED);
 
     await postLeaveApplication({ data: validateData });
 
+    // Revalidate tag to update cache server
     revalidateTag('leave-apps');
 
     return { success: true };
   } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : ERROR_MESSAGE.CREATE_LEAVE_FAILED,
-    };
+    if (error instanceof UserError || error instanceof ServerError) {
+      throw error;
+    }
+    throw new ServerError('Unexpected error from server', 500);
   }
 };
 
