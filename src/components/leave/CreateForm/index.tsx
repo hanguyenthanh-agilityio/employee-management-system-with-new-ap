@@ -24,13 +24,12 @@ import {
 import { uploadFileToStrapi } from '@/utils/upload';
 
 // Constants
-import { ERROR_MESSAGE, ROUTER, SUCCESS_MESSAGES } from '@/constants';
+import { ROUTER } from '@/constants';
 import {
   ALLOWED_LEAVE_TYPES,
   leaveFormFields,
   LeaveType,
 } from '@/constants/inputField';
-import { ServerError, UserError } from '@/utils/error';
 
 const isValidLeaveType = (type: string | null): type is LeaveType =>
   ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
@@ -84,40 +83,45 @@ const CreateLeaveForm = () => {
       setIsLoading(true);
 
       let uploadedFileId: number | undefined;
-
       const file = data.document as File;
-
       if (file) {
         const fileId = await uploadFileToStrapi(file);
         uploadedFileId = fileId ? Number(fileId) : undefined;
       }
 
-      const payload = {
-        ...data,
-        document: uploadedFileId ?? undefined,
-      };
+      const payload = { ...data, document: uploadedFileId ?? undefined };
+      const res = await createLeaveApplication(payload);
 
-      await createLeaveApplication(payload);
+      if (!res.success) {
+        if (res.isUserError) {
+          toast.error(res.message || 'Please login again', { autoClose: 2000 });
 
-      toast.success(SUCCESS_MESSAGES.CREATE_SUCCESS, {
+          if (res.status === 401) {
+            setTimeout(() => {
+              router.push('/login');
+            }, 2000);
+          }
+          return;
+        }
+
+        // Server error
+        toast.error(res.message ?? 'Unexpected server error');
+        return;
+      }
+
+      // Success
+      toast.success('Leave application created successfully', {
         autoClose: 2000,
         onClose: () => {
-          router.push(ROUTER.LEAVE_APPLICATION);
-          router.refresh();
+          setTimeout(() => {
+            router.push(ROUTER.LEAVE_APPLICATION);
+            router.refresh();
+          }, 2000);
         },
       });
+
       reset(payload);
-    } catch (err) {
-      // Distinguish between user and server errors
-      if (err instanceof UserError) {
-        // display toast right on the form
-        toast.error(err.message);
-      } else if (err instanceof ServerError) {
-        // display ErrorPage
-        throw err;
-      } else {
-        throw new ServerError(ERROR_MESSAGE.UNEXPECTED, 500);
-      }
+    } finally {
       setIsLoading(false);
     }
   };

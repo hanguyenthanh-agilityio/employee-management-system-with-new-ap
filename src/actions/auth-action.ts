@@ -5,7 +5,6 @@ import { revalidateTag } from 'next/cache';
 // Services
 import { removeCookie, setCookie } from '@/utils/auth';
 import { loginUser, registerUser } from '@/services/auth/authService';
-import { getCurrentUser } from '@/services/user/userService';
 
 // Utils
 import {
@@ -50,15 +49,7 @@ export const loginAction = async (_: unknown, formData: LoginInput) => {
 
     revalidateTag('current-user');
 
-    // Get user info after login
-    const user = await getCurrentUser();
-
-    //  Set user to cookie
-    await setCookie('user', JSON.stringify(user), {
-      maxAge: 60 * 60 * 12,
-    });
-
-    return { success: true, data: user };
+    return { success: true };
   } catch (err) {
     return {
       success: false,

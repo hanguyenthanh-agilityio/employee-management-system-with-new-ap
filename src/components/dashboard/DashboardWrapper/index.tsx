@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 
 // Components
 import {
@@ -19,6 +20,11 @@ import { fetchSummaryLeaves } from '@/actions/leaveApplications';
 
 const DashboardWrapper = async () => {
   const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/login');
+  }
+
   const { username, jobTitle } = user;
 
   return (
@@ -26,10 +32,8 @@ const DashboardWrapper = async () => {
       <h1 className="sr-only">Dashboard page</h1>
       <Heading title="Dashboard" />
 
-      {/* Profile Section */}
       <ProfileSection name={username} jobTitle={jobTitle} />
 
-      {/* Quick Actions */}
       <div>
         <h2 className="mb-4 md:mb-6 text-2xl md:text-3xl">Quick Actions</h2>
         <QuickActions />
@@ -41,7 +45,6 @@ const DashboardWrapper = async () => {
         </Suspense>
 
         <BirthdaySection />
-
         <PaySlipSection />
       </div>
     </div>
@@ -50,9 +53,6 @@ const DashboardWrapper = async () => {
 
 export default DashboardWrapper;
 
-/**
- * Async Server Components for sections needing data
- */
 const LeaveSectionAsync = async () => {
   const summaryData = await fetchSummaryLeaves();
   return <LeaveSection data={summaryData.data} />;

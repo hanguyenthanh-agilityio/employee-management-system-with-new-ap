@@ -24,12 +24,24 @@ import { ServerError, UserError } from '@/utils/error';
  * Throw UserError if validation fails or user is missing
  * Throw ServerError if server has problem
  */
-export const createLeaveApplication = async (data: LeaveApplicationInput) => {
+export const createLeaveApplication = async (
+  data: LeaveApplicationInput,
+): Promise<{
+  success: boolean;
+  message?: string;
+  isUserError?: boolean;
+  status?: number;
+}> => {
   try {
     const user = await getCurrentUser();
 
-    if (!user || !user.id) {
-      throw new UserError(ERROR_MESSAGE.MISSING_USER, 401);
+    if (!user?.id) {
+      return {
+        success: false,
+        message: 'You must login to continue.',
+        isUserError: true,
+        status: 401,
+      };
     }
 
     const fullData: LeaveApplicationInput = {
@@ -39,20 +51,26 @@ export const createLeaveApplication = async (data: LeaveApplicationInput) => {
     };
 
     const validateData = validateLeaveApplication(fullData);
-
-    if (!validateData) throw new UserError(ERROR_MESSAGE.VALIDATION_FAILED);
+    if (!validateData) {
+      return {
+        success: false,
+        message: 'Validation failed. Please check your input.',
+        isUserError: true,
+        status: 400,
+      };
+    }
 
     await postLeaveApplication({ data: validateData });
-
-    // Revalidate tag to update cache server
     revalidateTag('leave-apps');
 
     return { success: true };
-  } catch (error) {
-    if (error instanceof UserError || error instanceof ServerError) {
-      throw error;
-    }
-    throw new ServerError('Unexpected error from server', 500);
+  } catch (err) {
+    return {
+      success: false,
+      message: 'Unexpected error occurred while creating leave.',
+      isUserError: false,
+      status: 500,
+    };
   }
 };
 
