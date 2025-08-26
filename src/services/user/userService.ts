@@ -1,7 +1,5 @@
 'use server';
 
-import { cookies } from 'next/headers';
-
 // Constants
 import { API_URL } from '@/constants/api_url';
 import { ERROR_MESSAGE } from '@/constants/error';
@@ -30,21 +28,6 @@ export const getCurrentUser = async () => {
   }
 
   return res.json();
-};
-
-// Get user to reuse
-export const getCachedUser = async () => {
-  const getUserCookie = cookies().get('user')?.value;
-
-  if (!getUserCookie) {
-    throw new Error(ERROR_MESSAGE.USER_CACHE_NOT_FOUND);
-  }
-
-  try {
-    return JSON.parse(getUserCookie);
-  } catch (error) {
-    throw new Error(ERROR_MESSAGE.INVALID_CACHE);
-  }
 };
 
 // Update Profile
