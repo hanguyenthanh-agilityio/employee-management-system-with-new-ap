@@ -31,6 +31,7 @@ import {
   leaveApplicationSchema,
 } from '@/utils/schemas/leaveApplicationSchema';
 import { uploadFileToStrapi } from '@/utils/upload';
+import { ServerError, UserError } from '@/utils/error';
 
 interface EditFormProps {
   leave: LeaveItem;
@@ -40,7 +41,6 @@ const isValidLeaveType = (type: string | null): type is LeaveType =>
   ALLOWED_LEAVE_TYPES.includes(type as LeaveType);
 
 const EditForm = ({ leave }: EditFormProps) => {
-  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -57,7 +57,6 @@ const EditForm = ({ leave }: EditFormProps) => {
 
   const form = useForm<LeaveApplicationInput>({
     resolver: zodResolver(leaveApplicationSchema),
-    mode: 'onChange',
     defaultValues,
   });
 
@@ -96,23 +95,24 @@ const EditForm = ({ leave }: EditFormProps) => {
         document: uploadedFileId,
       };
 
-      const result = await updateLeaveApplication(leave.documentId, payload);
+      await updateLeaveApplication(leave.documentId, payload);
 
-      if (result.success) {
-        toast.success(SUCCESS_MESSAGES.UPDATE_SUCCESS, {
-          autoClose: 2000,
-          onClose: () => {
-            router.push(ROUTER.LEAVE_APPLICATION);
-            router.refresh();
-          },
-        });
-        reset(payload);
-      } else {
-        setErrorMessage(result.message || ERROR_MESSAGE.SUBMIT_LEAVE_FAILED);
-        setIsLoading(false);
-      }
+      toast.success(SUCCESS_MESSAGES.UPDATE_SUCCESS, {
+        autoClose: 2000,
+        onClose: () => {
+          router.push(ROUTER.LEAVE_APPLICATION);
+          router.refresh();
+        },
+      });
+      reset(payload);
     } catch (err) {
-      setErrorMessage(ERROR_MESSAGE.UNEXPECTED);
+      if (err instanceof UserError) {
+        toast.error(err.message);
+      } else if (err instanceof ServerError) {
+        throw err;
+      } else {
+        throw new Error(ERROR_MESSAGE.UNEXPECTED);
+      }
       setIsLoading(false);
     }
   };
@@ -136,9 +136,6 @@ const EditForm = ({ leave }: EditFormProps) => {
           isLoading={isLoading}
         />
       </form>
-      {errorMessage && (
-        <p className="text-sm text-red font-medium">{errorMessage}</p>
-      )}
     </>
   );
 };

@@ -51,7 +51,7 @@ const Form = ({
 }: FormProps) => {
   const {
     control,
-    formState: { isSubmitting, isDirty, isValid },
+    formState: { isSubmitting, isDirty },
   } = form;
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -160,7 +160,7 @@ const Form = ({
         <Button
           type="submit"
           className="btn-primary btn-submit"
-          disabled={isSubmitting || !isDirty || !isValid}
+          disabled={isSubmitting || !isDirty}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>

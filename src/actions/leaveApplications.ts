@@ -71,18 +71,16 @@ export const updateLeaveApplication = async (
   try {
     const validateData = validateLeaveApplication(data);
 
-    if (!validateData) throw new Error(ERROR_MESSAGE.VALIDATION_FAILED);
+    if (!validateData) throw new UserError(ERROR_MESSAGE.VALIDATION_FAILED);
 
     await patchLeaveApplication(documentId, validateData);
-    // Apply revalidateTag
+    // Apply revalidateTag - refresh cache
     revalidateTag('leave-apps');
 
     return { success: true };
   } catch (error) {
-    return {
-      success: false,
-      message: ERROR_MESSAGE.UPDATE_LEAVE_FAILED,
-    };
+    if (error instanceof UserError) throw error;
+    throw new ServerError(ERROR_MESSAGE.UPDATE_LEAVE_FAILED, 500);
   }
 };
 
