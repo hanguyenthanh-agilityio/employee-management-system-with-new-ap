@@ -57,4 +57,20 @@ describe('InputField', () => {
     );
     expect(screen.getByText(/too short, invalid/i)).toBeInTheDocument();
   });
+
+  test('applies input-error class when errorMessage exists', () => {
+    render(
+      <InputField name="username" label="Username" errorMessage="Required" />,
+    );
+    const input = screen.getByTestId('input-field');
+    expect(input).toHaveClass('input-error');
+    expect(input).not.toHaveClass('input-profile');
+  });
+
+  test('applies input-profile class when there is no errorMessage', () => {
+    render(<InputField name="username" label="Username" />);
+    const input = screen.getByTestId('input-field');
+    expect(input).toHaveClass('input-profile');
+    expect(input).not.toHaveClass('input-error');
+  });
 });

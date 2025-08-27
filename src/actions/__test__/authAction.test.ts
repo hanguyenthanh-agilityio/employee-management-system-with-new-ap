@@ -9,7 +9,6 @@ import { loginAction, logoutAction, registerAction } from '../auth-action';
 
 // Services
 import { loginUser, registerUser } from '@/services/auth/authService';
-import { getCurrentUser } from '@/services/user/userService';
 
 jest.mock('@/services/auth/authService');
 jest.mock('@/services/user/userService');
@@ -49,10 +48,6 @@ describe('authActions', () => {
 
     test('Should login successfully and set cookies', async () => {
       (loginUser as jest.Mock).mockResolvedValueOnce({ jwt: 'token123' });
-      (getCurrentUser as jest.Mock).mockResolvedValueOnce({
-        id: 1,
-        email: 'hanguyen@mail.com',
-      });
 
       const result = await loginAction(
         {},
@@ -66,7 +61,6 @@ describe('authActions', () => {
       );
       expect(result).toEqual({
         success: true,
-        data: { id: 1, email: 'hanguyen@mail.com' },
       });
     });
 

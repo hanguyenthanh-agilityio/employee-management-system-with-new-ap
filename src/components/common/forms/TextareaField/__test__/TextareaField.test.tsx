@@ -26,7 +26,7 @@ jest.mock('@/components', () => {
   return { RequiredLabel, Textarea };
 });
 describe('TextareaField', () => {
-  it('renders label and textarea', () => {
+  test('renders label and textarea', () => {
     render(<TextareaField name="desc" label="Description" />);
     expect(screen.getByTestId('required-label')).toHaveTextContent(
       'Description',
@@ -54,5 +54,30 @@ describe('TextareaField', () => {
       />,
     );
     expect(screen.getByText(/too short, invalid/i)).toBeInTheDocument();
+  });
+
+  test('does not render error message when errorMessage is undefined', () => {
+    render(<TextareaField name="desc" label="Description" />);
+    expect(screen.queryByText(/invalid/i)).not.toBeInTheDocument();
+    expect(screen.getByTestId('textarea')).toHaveAttribute(
+      'aria-invalid',
+      'false',
+    );
+  });
+
+  it('applies input-error class when errorMessage exists', () => {
+    render(
+      <TextareaField name="desc" label="Description" errorMessage="Required" />,
+    );
+    const textarea = screen.getByTestId('textarea');
+    expect(textarea).toHaveClass('input-error');
+    expect(textarea).not.toHaveClass('input-profile');
+  });
+
+  it('applies input-profile class when there is no errorMessage', () => {
+    render(<TextareaField name="desc" label="Description" />);
+    const textarea = screen.getByTestId('textarea');
+    expect(textarea).toHaveClass('input-profile');
+    expect(textarea).not.toHaveClass('input-error');
   });
 });

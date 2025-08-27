@@ -17,6 +17,8 @@ import {
 
 // Constants
 import { ERROR_MESSAGE } from '@/constants';
+import { ServerError } from '@/utils/error';
+import { LeaveApplicationInput } from '@/utils/schemas/leaveApplicationSchema';
 
 jest.mock('@/services/leave/leaveService');
 jest.mock('@/services/user/userService');
@@ -36,7 +38,7 @@ describe('leaveActions', () => {
     jest.clearAllMocks();
   });
 
-  const formData = {
+  const formData: LeaveApplicationInput = {
     type: 'Annual Leave',
     startDate: '2025-09-27',
     endDate: '2025-09-29',
@@ -68,17 +70,23 @@ describe('leaveActions', () => {
       const result = await createLeaveApplication(formData);
 
       expect(result.success).toBe(false);
-      expect(result.message).toMatch(/User information is missing/);
+      expect(result.isUserError).toBe(true);
+      expect(result.status).toBe(401);
+      expect(result.message).toBe('You must login to continue.');
     });
 
-    test('Should return error if post fails', async () => {
+    test('Should return server error if post fails', async () => {
       mockedGetUser.mockResolvedValue({ id: 1, username: 'john' });
       mockedPost.mockRejectedValue(new Error('Failed to post'));
 
       const result = await createLeaveApplication(formData);
 
       expect(result.success).toBe(false);
-      expect(result.message).toBe('Failed to post');
+      expect(result.isUserError).toBe(false);
+      expect(result.status).toBe(500);
+      expect(result.message).toBe(
+        'Unexpected error occurred while creating leave.',
+      );
     });
   });
 
@@ -88,19 +96,19 @@ describe('leaveActions', () => {
 
       const result = await updateLeaveApplication('123', formData);
 
-      expect(mockedPatch).toHaveBeenCalledWith('123', formData);
+      expect(mockedPatch).toHaveBeenCalledWith(
+        '123',
+        expect.objectContaining(formData),
+      );
       expect(result).toEqual({ success: true });
     });
 
-    test('Should return error if patch fails', async () => {
-      mockedPatch.mockRejectedValue(new Error('Failed'));
+    test('Should throw ServerError if patch fails', async () => {
+      mockedPatch.mockRejectedValue(new Error('DB down'));
 
-      const result = await updateLeaveApplication('123', formData);
-
-      expect(result).toEqual({
-        success: false,
-        message: ERROR_MESSAGE.UPDATE_LEAVE_FAILED,
-      });
+      await expect(updateLeaveApplication('123', formData)).rejects.toThrow(
+        new ServerError(ERROR_MESSAGE.UPDATE_LEAVE_FAILED, 500),
+      );
     });
   });
 
@@ -108,9 +116,21 @@ describe('leaveActions', () => {
     test('Should delete application successfully', async () => {
       mockedDelete.mockResolvedValue({});
 
-      await deleteLeaveApplication('456');
+      const result = await deleteLeaveApplication('456');
 
       expect(mockedDelete).toHaveBeenCalledWith('456');
+      expect(result).toEqual({ success: true });
+    });
+
+    test('Should return error if delete fails', async () => {
+      mockedDelete.mockRejectedValue(new Error('DB error'));
+
+      const result = await deleteLeaveApplication('456');
+
+      expect(result).toEqual({
+        success: false,
+        message: ERROR_MESSAGE.DELETE_LEAVE_FAILED,
+      });
     });
   });
 
@@ -123,6 +143,17 @@ describe('leaveActions', () => {
 
       expect(mockedGetSummary).toHaveBeenCalledWith(1);
       expect(result).toEqual({ success: true, data: { total: 10 } });
+    });
+
+    test('Should return error if user missing', async () => {
+      mockedGetUser.mockResolvedValue(null);
+
+      const result = await fetchSummaryLeaves();
+
+      expect(result).toEqual({
+        success: false,
+        message: ERROR_MESSAGE.SUMMARY_LEAVE_FAILED,
+      });
     });
 
     test('Should return error if fetching summary fails', async () => {

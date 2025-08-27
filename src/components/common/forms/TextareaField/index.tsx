@@ -31,7 +31,7 @@ export const TextareaField = React.forwardRef<
   ) => {
     const error = Array.isArray(errorMessage)
       ? errorMessage.join(', ')
-      : errorMessage;
+      : errorMessage ?? '';
     const hasError = Boolean(error);
 
     return (

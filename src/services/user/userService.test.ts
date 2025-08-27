@@ -1,5 +1,5 @@
 import { API_URL, ERROR_MESSAGE } from '@/constants';
-import { getCachedUser, getCurrentUser, updateProfile } from './userService';
+import { getCurrentUser, updateProfile } from './userService';
 
 jest.mock('@/utils/auth', () => ({
   getTokenFromCookies: jest.fn(() => Promise.resolve('test-token')),
@@ -43,24 +43,6 @@ describe('userService', () => {
 
       await expect(getCurrentUser()).rejects.toThrow(
         ERROR_MESSAGE.FAILED_TO_FETCH_USER,
-      );
-    });
-  });
-
-  describe('getCachedUser', () => {
-    test('Returns parsed user from cookie', async () => {
-      const mockUser = { id: 1, username: 'my' };
-      mockCookieStore.get.mockReturnValue({ value: JSON.stringify(mockUser) });
-
-      const result = await getCachedUser();
-      expect(result).toEqual(mockUser);
-    });
-
-    test('Throws error if no cookie found', async () => {
-      mockCookieStore.get.mockReturnValue(undefined);
-
-      await expect(getCachedUser()).rejects.toThrow(
-        ERROR_MESSAGE.USER_CACHE_NOT_FOUND,
       );
     });
   });
