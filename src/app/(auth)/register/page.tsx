@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 const RegisterPage = () => (
   <>
     {/* Header */}
-    <h1 className="text-5xl sm:text-7xl font-semibold text-primary mb-2 leading-[normal]">
+    <h1 className="text-5xl sm:text-7xl font-semibold text-primary mb-2 leading-[normal] dark:text-white">
       Welcome to XCELTECH
     </h1>
-    <p className="text-xl sm:text-3xl text-gray-600 my-4 sm:my-6">
+    <p className="text-xl sm:text-3xl text-gray-600 my-4 sm:my-6 dark:text-gray-300">
       Register your account
     </p>
 

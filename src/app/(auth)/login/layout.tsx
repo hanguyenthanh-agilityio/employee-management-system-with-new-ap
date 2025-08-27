@@ -49,7 +49,8 @@ const LoginLayout = ({ children }: AuthLayoutProps) => (
 
     {/* Form Second on Mobile, First on Desktop */}
     <section
-      className="flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 md:py-16 order-2 md:order-1 bg-white"
+      className="flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 md:py-16 order-2 md:order-1
+             bg-white dark:bg-gray-900 transition-colors duration-300"
       aria-label="Login form"
     >
       {children}

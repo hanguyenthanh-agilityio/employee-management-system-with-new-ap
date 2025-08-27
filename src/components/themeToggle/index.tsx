@@ -35,15 +35,15 @@ export function ThemeToggle() {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 rounded-full border hover:bg-gray-100 dark:hover:bg-gray-800"
+        className="p-1.5 md:p-2 rounded-full border hover:bg-gray-100 dark:hover:bg-gray-800"
         aria-haspopup="true"
       >
         {theme === 'light' ? (
-          <SunIcon width={18} height={18} />
+          <SunIcon className="w-5 h-5 md:w-6 md:h-6" />
         ) : theme === 'dark' ? (
-          <MoonIcon width={18} height={18} />
+          <MoonIcon className="w-5 h-5 md:w-6 md:h-6" />
         ) : (
-          <ComputerDesktopIcon width={18} height={18} />
+          <ComputerDesktopIcon className="w-5 h-5 md:w-6 md:h-6" />
         )}
       </button>
 

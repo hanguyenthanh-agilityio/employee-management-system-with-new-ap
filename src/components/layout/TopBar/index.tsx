@@ -79,10 +79,10 @@ const TopBar = () => {
           <ThemeToggle />
 
           <div className="relative">
-            <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 md:w-9 md:h-9 bg-primary rounded-full flex items-center justify-center shadow-lg">
               <BellIcon
                 data-testid="bell-icon"
-                className="w-6 h-6 text-white"
+                className="w-5 h-5 md:w-6 md:h-6 text-white"
               />
             </div>
             <span className="absolute -top-1 -right-1 text-xs bg-red text-white w-4 h-4 flex items-center justify-center rounded-full">
@@ -91,10 +91,10 @@ const TopBar = () => {
           </div>
 
           <div className="relative">
-            <div className="w-9 h-9 bg-green-700 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 md:w-9 md:h-9 bg-green-700 rounded-full flex items-center justify-center shadow-lg">
               <EnvelopeIcon
                 data-testid="envelope-icon"
-                className="w-5 h-5 text-white"
+                className="w-5 h-5 md:w-6 md:h-6 text-white"
               />
             </div>
             <span className="absolute -top-1 -right-1 text-xs bg-red text-white w-4 h-4 flex items-center justify-center rounded-full">

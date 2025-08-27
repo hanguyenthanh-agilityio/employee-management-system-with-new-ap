@@ -34,6 +34,7 @@ import {
   PasswordFieldProps,
 } from '@/components/common/forms/PasswordField';
 import { InputFieldType } from '@/types/form';
+import { cn } from '@/lib/utils';
 
 const ValidatedInputField = withValidation<
   LoginInput,
@@ -102,10 +103,11 @@ const LoginForm = () => {
     <>
       {isFormDisabled && <TransitionLoader />}
 
-      <h1 className="text-6xl md:text-7xl font-semibold text-primary mb-2">
+      <h1 className="text-5xl md:text-6xl font-bold text-primary dark:text-white mb-2">
         Login
       </h1>
-      <p className="text-xl md:text-3xl text-gray-700 my-6">
+
+      <p className="text-lg md:text-2xl text-gray-700 dark:text-gray-300 my-6">
         Login to your account
       </p>
 
@@ -117,8 +119,13 @@ const LoginForm = () => {
             label: 'E-mail Address',
             type: 'text',
             placeholder: 'Enter your email',
-            labelClassName: 'label-base !mb-0',
-            inputClassName: 'input-normal',
+            inputClassName: cn(
+              'input-normal',
+              'dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
+              'focus:border-primary',
+              'aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:border-red-500',
+            ),
+            labelClassName: 'label-base !mb-1 dark:text-gray-300',
           }}
         />
 
@@ -131,8 +138,13 @@ const LoginForm = () => {
             containerClassName: 'col-span-1',
             className: 'input-base',
             placeholder: 'Enter your password',
-            labelClassName: 'label-base !mb-0',
-            inputClassName: 'input-normal',
+            inputClassName: cn(
+              'input-normal',
+              'dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 !my-2',
+              'focus:border-primary',
+              'aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:border-red-500',
+            ),
+            labelClassName: 'label-base !mb-1 dark:text-gray-300',
           }}
         />
 
@@ -171,19 +183,20 @@ const LoginForm = () => {
 
         <Button
           type="submit"
-          className="h-auto w-full justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
+          className="h-auto w-full justify-center py-3 text-lg sm:text-xl my-2
+             text-white bg-primary hover:bg-primary/90
+             dark:bg-primary dark:hover:bg-primary/80 rounded-xl shadow-lg transition-all"
           disabled={isFormDisabled}
           aria-label="Submit login form"
         >
           {isFormDisabled ? 'Signing In...' : 'Sign In'}
         </Button>
 
-        <p className="text-center text-lg md:text-xl text-Gray56 mt-6">
+        <p className="text-center text-lg md:text-xl text-gray-600 dark:text-gray-400 mt-6">
           Don’t have an account yet?{' '}
           <Link
             href="/register"
             className="text-primary font-bold hover:underline"
-            aria-label="Register a new account"
           >
             Join KRIS today
           </Link>

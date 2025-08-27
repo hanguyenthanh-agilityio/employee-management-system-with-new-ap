@@ -31,12 +31,12 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
   return (
     <div className="relative" ref={ref}>
       <button
-        className="w-9 h-9 rounded-full bg-yellow flex items-center justify-center shadow-lg"
+        className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-yellow flex items-center justify-center shadow-lg"
         onClick={handleClick}
         aria-label="profile"
         data-testid="profile-button"
       >
-        <UserCircleIcon className="w-6 h-6 text-white" />
+        <UserCircleIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
       </button>
 
       {open && (
@@ -50,7 +50,7 @@ const ProfileDropdown = ({ isLoading, onClick }: ProfileDropdownProps) => {
                 href={ROUTER.EDIT_PERSONAL_DETAILS}
                 className="flex items-center block px-4 py-2 hover:bg-gray-100"
               >
-                <UserIcon className="w-6 h-6 mr-2" />
+                <UserIcon className="w-5 h-5 md:w-6 md:h-6 mr-2" />
                 Account
               </Link>
             </li>

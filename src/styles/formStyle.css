@@ -7,11 +7,11 @@
   }
 
   .input-error {
-    @apply my-2 md:mt-5 mb-2 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px] bg-[#E3EDF9] !border-red;
+    @apply my-2 md:mt-2 mb-2 border-red focus:ring-red p-3 py-2 md:py-4 rounded-[15px] bg-[#E3EDF9] !border-red;
   }
 
   .input-normal {
-    @apply my-2 md:my-5 border-mediumLightGray focus:ring-secondary/30 p-3 py-2 md:py-4 rounded-[15px];
+    @apply my-2 md:my-5 border-mediumLightGray focus:ring-secondary/30 p-3 py-2 md:py-4 rounded-[15px] dark:bg-darkPrimary;
   }
 
   .input-profile {
@@ -57,7 +57,7 @@
   }
 
   .password-input-field {
-    @apply h-auto w-full border-2 px-4 py-2 md:py-4 rounded-[15px] pr-12 !text-lg text-primary shadow-sm focus:outline-none focus:ring-2 my-3 md:my-5;
+    @apply h-auto w-full border-2 px-4 py-2 md:py-4 rounded-[15px] pr-12 !text-lg text-primary shadow-sm focus:outline-none focus:ring-2 my-2;
   }
 
   .password-input-error {

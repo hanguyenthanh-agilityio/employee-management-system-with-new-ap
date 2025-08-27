@@ -34,6 +34,7 @@ import {
 } from '@/components/common/forms/MaskInputField';
 import { InputField } from '@/components/common/forms/InputField';
 import { InputFieldType } from '@/types/form';
+import { cn } from '@/lib/utils';
 
 const ValidatedInputField = withValidation<
   RegisterInput,
@@ -143,8 +144,13 @@ const RegisterForm = () => {
                   containerClassName: 'col-span-1',
                   className: 'input-base',
                   placeholder: field.placeholder,
-                  labelClassName: 'label-base !mb-0',
-                  inputClassName: 'input-normal',
+                  inputClassName: cn(
+                    'input-normal',
+                    'dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
+                    'focus:border-primary',
+                    'aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:border-red-500',
+                  ),
+                  labelClassName: 'label-base !mb-1 dark:text-gray-300',
                 }}
               />
             );
@@ -160,8 +166,13 @@ const RegisterForm = () => {
                 placeholder: field.placeholder,
                 type: field.type,
                 containerClassName: 'mb-4',
-                labelClassName: 'label-base !mb-0',
-                inputClassName: 'input-normal',
+                inputClassName: cn(
+                  'input-normal',
+                  'dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
+                  'focus:border-primary',
+                  'aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:border-red-500',
+                ),
+                labelClassName: 'label-base !mb-1 dark:text-gray-300',
               }}
             />
           );
@@ -212,7 +223,9 @@ const RegisterForm = () => {
         <div className="col-span-1 md:col-span-2">
           <Button
             type="submit"
-            className="h-auto w-full sm:max-w-[300px] justify-center py-2 md:py-3 text-lg sm:text-xl my-2 text-white"
+            className="h-auto w-full justify-center py-3 text-lg sm:text-xl my-2
+             text-white bg-primary hover:bg-primary/90
+             dark:bg-primary dark:hover:bg-primary/80 rounded-xl shadow-lg transition-all"
             disabled={isFormDisabled || !watchedTerms}
           >
             {isFormDisabled ? 'Creating Account...' : 'Create Account'}
